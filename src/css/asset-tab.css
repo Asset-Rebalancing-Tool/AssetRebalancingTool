@@ -85,13 +85,128 @@
 #asset-tab .button .icon.arrow-down.active { background-image: var(--icon-arrow-down-active);    }
 
 /****************************************************************************/
-/* ---------------------------- Asset Container --------------------------- */
+/* --------------------------- Asset Row Information----------------------- */
 /****************************************************************************/
 
 .asset-container {
     width: 100%;
-    height: 58px;
+    height: var(--asset-row-height);
     background-color: var(--secondary-background-color);
     border: 1px solid var(--passive-border-color);
     border-radius: var(--primary-border-radius);
+    margin-bottom: 15px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
+    display: grid;
+    grid-template-columns: 58px calc(30% - 58px) 8% 20%;
+    grid-template-rows: 38px;
+}
+
+.asset-image {
+    height: 38px;
+    width: 38px;
+    margin: 10px;
+    background-color: var(--tertiary-background-color);
+    border-radius: var(--secondary-border-radius);
+}
+
+.asset-image.selected {
+    background-image: var(--icon-selected-asset);
+}
+
+.asset-info {
+    height: var(--asset-row-height);
+    grid-column: 2 / 3;
+    grid-row: 1 / 1;
+}
+
+.asset-name {
+    color: var(--primary-text-color);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.asset-info-row {
+    display: flex;
+    column-gap: 8px;
+}
+
+.asset-type {
+    height: 22px;
+    background-color: var(--main-color);
+    border-radius: var(--secondary-border-radius);
+    color: var(--primary-text-color);
+    font-weight: 600;
+    padding: 0 8px;
+    line-height: 1.4;
+}
+
+.isin {
+    color: var(--secondary-text-color);
+}
+
+.isin.label {
+    color: var(--tertiary-text-color);
+}
+
+/****************************************************************************/
+/* -------------------------- Asset Row Price ----------------------------- */
+/****************************************************************************/
+
+.asset-price-wrapper {
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--asset-row-height) - 8px);
+    display: flex;
+}
+
+.primary-asset-price {
+    color: var(--primary-text-color);
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.secondary-asset-price {
+    height: 14px;
+    color: var(--secondary-text-color);
+    font-size: 13px;
+    margin-left: 3px;
+}
+
+.decimal-wrapper {
+    display: flex;
+}
+
+.tertiary-asset-price {
+    height: 10px;
+    color: var(--tertiary-text-color);
+    font-size: 13px;
+}
+
+.asset-price-currency {
+    height: 12px;
+    color: var(--primary-text-color);
+    font-size: 14px;
+    margin-left: 3px;
+}
+
+.asset-container {
+    height: var(--asset-row-height);
+    grid-column: 3 / 4;
+    grid-row: 1 / 1;
+}
+.shares-wrapper {
+    height: var(--asset-row-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.shares-wrapper input {
+    width: 80px;
+}
+
+.shares-wrapper label {
+    font-weight: 600;
 }
