@@ -6,7 +6,11 @@
       <ActionButtons />
     </header>
 
-    <AssetContainer />
+    <AssetContainer
+        v-for="asset in assetList"
+        :key="asset.tickerSymbol"
+        :asset="asset" />
+
   </section>
 </template>
 
@@ -21,7 +25,10 @@ export default {
     AssetSearchbar,
     ActionButtons,
     AssetContainer
-  }
+  },
+  props: [
+      'assetList'
+  ]
 }
 </script>
 
