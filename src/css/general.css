@@ -43,7 +43,7 @@ textarea:focus {
     border: 1px solid var(--active-border-color);
 }
 
-.row input {
+.asset-container input {
     height: 34px;
     padding-left: 0;
     text-align: center;
