@@ -24,6 +24,7 @@
   --secondary-infill-color: #1A1E21;
 
   --primary-border-radius: 5px;
+  --secondary-border-radius: 3px;
 }
 
 /****************************************************************************/
@@ -39,4 +40,14 @@
   /* All text colors */
   --passive-text-color: var(--tertiary-background-color);
   --active-text-color: var(--primary-text-color);
+}
+
+/****************************************************************************/
+/* ------------------- All Asset Related variables ------------------------ */
+/****************************************************************************/
+
+:root {
+
+  /* Asset Row */
+  --asset-row-height: 58px
 }
