@@ -20,6 +20,11 @@
          <span class="asset-price-currency">{{asset.currency}}</span>
       </span>
     </div>
+
+    <div class="shares-wrapper">
+      <input type="number" v-model="asset.shares" @change="formatAssetShares($event.target.value)"/>
+      <label>{{asset.sharesType}}</label>
+    </div>
   </div>
 </template>
 
