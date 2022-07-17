@@ -22,5 +22,6 @@
     --icon-arrow-up-active:   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.864' height='5.287' viewBox='0 0 8.864 5.287'%3E%3Cpath id='arrow-up-active' d='M-4451.137,982l-3.932,4.287Zm-7.863,0,3.932,4.287Z' transform='translate(-4450.636 986.788) rotate(180)' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1'/%3E%3C/svg%3E%0A");
     --icon-arrow-down-active: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.864' height='5.287' viewBox='0 0 8.864 5.287'%3E%3Cpath id='arrow-down-active' d='M-4451.137,982l-3.932,4.287Zm-7.863,0,3.932,4.287Z' transform='translate(4459.5 -981.5)' fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1'/%3E%3C/svg%3E%0A");
 
-
+    /* Asset Container Icons */
+    --icon-selected-asset: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='38' height='38' viewBox='0 0 38 38'%3E%3Cg id='Gruppe_600' data-name='Gruppe 600' transform='translate(-3466 1090)'%3E%3Crect id='Gruppe_373' data-name='Gruppe 373' width='38' height='38' transform='translate(3466 -1090)' fill='%2319b399'/%3E%3Cg id='noun-check-4845835' transform='translate(3369.486 -1144.47)'%3E%3Cpath id='Pfad_373' data-name='Pfad 373' d='M110.524,75.031a1.126,1.126,0,0,1,1.593-1.593l2.16,2.16,5.137-6.645a1.123,1.123,0,1,1,1.778,1.373l-5.867,7.588a1.161,1.161,0,0,1-.146.179,1.127,1.127,0,0,1-1.593,0l-3.063-3.063Z' transform='translate(0)' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E%0A");
 }
