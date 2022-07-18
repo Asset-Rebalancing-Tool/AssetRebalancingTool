@@ -2,8 +2,8 @@
   <SidebarSection :activeTab="activeTabComponent"/>
   <component
       :is="activeTabComponent"
-      :assetList="assetList"
-      @nextComponent="changeTabComponent"></component>
+      @nextComponent="changeTabComponent"
+  ></component>
 </template>
 
 <script>
