@@ -21,7 +21,7 @@
     display: flex;
 }
 
-#asset-tab .button {
+#asset-tab .button-wrapper .button {
     width: 52px;
     height: 52px;
     display: flex;
@@ -29,7 +29,8 @@
     align-items: center;
     border: 1px solid var(--passive-border-color);
     background-color: var(--secondary-infill-color);
-    cursor: pointer;
+    cursor: default;
+    pointer-events: none;
 }
 
 #asset-tab .button.group {
@@ -56,6 +57,7 @@
     background-position: center;
     background-repeat: no-repeat;
     z-index: 10;
+    opacity: 0.6;
 }
 
 #asset-tab .icon.searchbar {
@@ -72,17 +74,24 @@
     height: 10px;
 }
 
-#asset-tab .button .icon.edit       { background-image: var(--icon-edit-action);   }
-#asset-tab .button .icon.group      { background-image: var(--icon-group-action);  }
-#asset-tab .button .icon.delete     { background-image: var(--icon-delete-action); }
-#asset-tab .button .icon.arrow-up   { background-image: var(--icon-arrow-up);      }
-#asset-tab .button .icon.arrow-down { background-image: var(--icon-arrow-down);    }
+#asset-tab .button .icon.edit       { background-image: var(--icon-edit-action-active);   }
+#asset-tab .button .icon.group      { background-image: var(--icon-group-action-active);  }
+#asset-tab .button .icon.delete     { background-image: var(--icon-delete-action-active); }
+#asset-tab .button .icon.arrow-up   { background-image: var(--icon-arrow-up-active);      }
+#asset-tab .button .icon.arrow-down { background-image: var(--icon-arrow-down-active);    }
 
-#asset-tab .button .icon.edit.active       { background-image: var(--icon-edit-action-active);   }
-#asset-tab .button .icon.group.active      { background-image: var(--icon-group-action-active);  }
-#asset-tab .button .icon.delete.active     { background-image: var(--icon-delete-action-active); }
-#asset-tab .button .icon.arrow-up.active   { background-image: var(--icon-arrow-up-active);      }
-#asset-tab .button .icon.arrow-down.active { background-image: var(--icon-arrow-down-active);    }
+.button-wrapper.active {
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.button-wrapper.active .button:hover {
+    background-color: var(--primary-background-color);
+}
+
+#asset-tab .button-wrapper.active .button .icon {
+    opacity: 1;
+}
 
 /****************************************************************************/
 /* --------------------------- Asset Row Information----------------------- */
