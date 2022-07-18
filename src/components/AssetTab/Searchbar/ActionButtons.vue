@@ -1,5 +1,5 @@
 <template>
-  <div class="button-wrapper">
+  <div class="button-wrapper" :class="(assetStore.actionButtonsAreActive) ? 'active' : ''">
     <div class="button">
       <div class="icon edit"></div>
     </div>
@@ -14,12 +14,21 @@
 </template>
 
 <script>
+
+import { useAssetStore } from '@/stores/AssetStore'
+
 export default {
   name: 'ActionButtons',
   data() {
     return {
       isActive: true
     }
-  }
+  },
+  setup() {
+    const assetStore = useAssetStore()
+    return {
+      assetStore
+    }
+  },
 }
 </script>
