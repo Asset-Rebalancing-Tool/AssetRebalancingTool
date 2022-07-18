@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import AssetSearchbar from '@/components/AssetTab/AssetSearchbar'
-import ActionButtons  from '@/components/AssetTab/ActionButtons'
-import AssetContainer from '@/components/AssetTab/AssetContainer'
+import AssetSearchbar from '@/components/AssetTab/Searchbar/AssetSearchbar'
+import ActionButtons  from '@/components/AssetTab/Searchbar/ActionButtons'
+import AssetContainer from '@/components/AssetTab/AssetRow/AssetContainer'
 
 export default {
   name: 'AssetTab',
