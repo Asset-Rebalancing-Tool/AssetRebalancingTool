@@ -10,13 +10,23 @@ export const useAssetStore = defineStore('AssetStore', {
     },
 
     actions: {
-        // Select an asset after deselect all other assets
-        selectedAsset(thisAsset) {
+
+        // Toggle the is selected flag of an asset
+        // This flag indicates if an asset can be edited, moved, or deleted by the ActionButtons
+        // It also causes a visual highlighting of the asset
+        toggleIsSelectedFlag(thisAsset) {
+            thisAsset.isSelected = (!thisAsset.isSelected);
+        },
+
+        // Set the is selected flag of all assets to false
+        // This will also lead to a deactivation of the Actionbuttons
+        deselectAllAssets() {
             const keys = Object.keys(this.assets);
             keys.forEach((key) => {
                 this.assets[key].isSelected = false
             });
-            thisAsset.isSelected = true
         }
+
+
     }
 })
