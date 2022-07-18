@@ -7,7 +7,8 @@
     </header>
 
     <AssetContainer
-        v-for="asset in assetList"
+        @click="selectAsset(asset)"
+        v-for="asset in assetStore.assets"
         :key="asset.tickerSymbol"
         :asset="asset" />
 
@@ -18,6 +19,7 @@
 import AssetSearchbar from '@/components/AssetTab/Searchbar/AssetSearchbar'
 import ActionButtons  from '@/components/AssetTab/Searchbar/ActionButtons'
 import AssetContainer from '@/components/AssetTab/AssetRow/AssetContainer'
+import { useAssetStore } from '@/stores/AssetStore'
 
 export default {
   name: 'AssetTab',
@@ -26,9 +28,17 @@ export default {
     ActionButtons,
     AssetContainer
   },
-  props: [
-      'assetList'
-  ]
+  setup() {
+    const assetStore = useAssetStore()
+    return {
+      assetStore
+    }
+  },
+  methods: {
+    selectAsset(thisAsset) {
+      this.assetStore.selectedAsset(thisAsset);
+    }
+  }
 }
 </script>
 
