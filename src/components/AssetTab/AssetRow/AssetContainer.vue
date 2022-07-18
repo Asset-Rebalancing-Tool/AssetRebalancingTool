@@ -1,12 +1,11 @@
 <template>
-  <div class="asset-container">
+  <div class="asset-container" :class="(asset.isSelected) ? 'selected' : ''">
     <AssetInfoColumn             :asset="asset" />
     <AssetPriceColumn            :asset="asset" />
     <AssetSharesColumn           :asset="asset" />
     <AssetActualValueColumn      :asset="asset" />
     <AssetTargetPercentageColumn :asset="asset" />
     <AssetDeviationColumn        :asset="asset" />
-
   </div>
 </template>
 
