@@ -40,7 +40,8 @@ export default {
           'actualValue': 2940.30,
           'actualPercentage': 12.90,
           'targetPercentage': 5.00,
-          'deviation': 7.09
+          'deviation': 7.09,
+          'formattedDeviation': [7,9,0]
         },
         'SPDR': {
           'name': 'SPDR MSCI World UCITS ETF',
@@ -56,7 +57,8 @@ export default {
           'actualValue': 10642.59,
           'actualPercentage': 66.84,
           'targetPercentage': 70,
-          'deviation': 3.16
+          'deviation': 3.16,
+          'formattedDeviation': [3,16,0]
         },
         'EM': {
           'name': 'iShares Core MSCI EM IMI',
@@ -72,7 +74,8 @@ export default {
           'actualValue': 4561.11,
           'actualPercentage': 34.87,
           'targetPercentage': 30,
-          'deviation': 4.23
+          'deviation': 4.23,
+          'formattedDeviation': [4,23,0]
         },
         'APPL': {
           'name': 'Apple Inc',
@@ -88,7 +91,8 @@ export default {
           'actualValue': 2569.32,
           'actualPercentage': 11.31,
           'targetPercentage': 5,
-          'deviation': 6.31
+          'deviation': 6.31,
+          'formattedDeviation': [6,31,0]
         },
         'BCKS': {
           'name': 'Starbucks Corp',
@@ -104,7 +108,8 @@ export default {
           'actualValue': 1993.94,
           'actualPercentage': 8.78,
           'targetPercentage': 5,
-          'deviation': 3.78
+          'deviation': 3.78,
+          'formattedDeviation': [3,78,0]
         },
       }
     }
