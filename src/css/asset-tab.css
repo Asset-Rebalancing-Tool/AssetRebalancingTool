@@ -101,6 +101,11 @@
     justify-content: space-between;
 }
 
+.asset-container.selected {
+    border: 1px solid var(--main-color);
+    box-shadow: var(--box-shaddow-main-color);
+}
+
 .asset-info-wrapper {
     width: 258px;
     height: var(--asset-row-height);
