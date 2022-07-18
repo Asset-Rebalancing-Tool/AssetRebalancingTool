@@ -7,7 +7,7 @@
     </header>
 
     <AssetContainer
-        @click="selectAsset(asset)"
+        @click="toggleIsSelectedFlag(asset)"
         v-for="asset in assetStore.assets"
         :key="asset.tickerSymbol"
         :asset="asset" />
@@ -35,8 +35,8 @@ export default {
     }
   },
   methods: {
-    selectAsset(thisAsset) {
-      this.assetStore.selectedAsset(thisAsset);
+    toggleIsSelectedFlag(thisAsset) {
+      this.assetStore.toggleIsSelectedFlag(thisAsset);
     }
   }
 }
