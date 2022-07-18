@@ -2,7 +2,7 @@
   "MSF": {
     "name": "Microsoft Corp",
     "type": "Aktie",
-    "isSelected": true,
+    "isSelected": false,
     "isin": "US5949181045",
     "tickerSymbol": "MSF",
     "stockPrice": 250.92,
