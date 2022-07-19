@@ -1,5 +1,5 @@
 <template>
-  <div class="button" :class="(isActive) ? 'active' : ''">
+  <div class="button" :class="activeButton">
     <div class="icon" :class="iconClass"></div>
     <label>{{title}}</label>
   </div>
@@ -12,6 +12,11 @@ export default {
       'iconClass',
       'title',
       'isActive'
-  ]
+  ],
+  computed: {
+    activeButton() {
+      return (this.isActive) ? 'active' : '';
+    }
+  }
 }
 </script>
