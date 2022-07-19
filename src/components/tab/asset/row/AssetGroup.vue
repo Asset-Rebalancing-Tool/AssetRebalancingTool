@@ -4,7 +4,7 @@
     <AssetContainer
           v-for="asset in thisGroup.assets"
           :key="asset.tickerSymbol"
-          :asset="asset"
+          :thisAsset="asset"
           :renderContainer="renderGroupContainer"
           @click="toggleIsSelectedFlag(asset)"
     />
@@ -22,7 +22,7 @@
   <AssetContainer
       v-for="asset in thisGroup.assets"
       :key="asset.tickerSymbol"
-      :asset="asset"
+      :thisAsset="asset"
       :renderContainer="renderSingleAsset"
       @click="toggleIsSelectedFlag(asset)"
   />

@@ -2,34 +2,34 @@
   <div v-if="renderContainer" class="asset-container" :class="activeContainer">
 
     <InfoColumn
-        :isSelected="asset.isSelected"
-        :name="asset.name"
-        :type="asset.type"
-        :isin="asset.isin"
+        :isSelected="thisAsset.isSelected"
+        :name="thisAsset.name"
+        :type="thisAsset.type"
+        :isin="thisAsset.isin"
     />
 
     <PriceColumn
-        :formattedStockPrice="asset.formattedStockPrice"
-        :currency="asset.currency"
+        :formattedStockPrice="thisAsset.formattedStockPrice"
+        :currency="thisAsset.currency"
     />
 
     <SharesColumn
-        :shares="asset.shares"
-        :sharesType="asset.sharesType"
+        :shares="thisAsset.shares"
+        :sharesType="thisAsset.sharesType"
     />
 
     <ActualValueColumn
-        :actualValue="asset.actualValue"
-        :actualPercentage="asset.actualPercentage"
-        :currency="asset.currency"
+        :actualValue="thisAsset.actualValue"
+        :actualPercentage="thisAsset.actualPercentage"
+        :currency="thisAsset.currency"
     />
 
     <TargetPercentageColumn
-        :targetPercentage="asset.targetPercentage"
+        :targetPercentage="thisAsset.targetPercentage"
     />
 
     <DeviationColumn
-        :formattedDeviation="asset.formattedDeviation"
+        :formattedDeviation="thisAsset.formattedDeviation"
     />
 
   </div>
@@ -57,11 +57,11 @@ export default {
   },
   computed: {
     activeContainer() {
-      return (this.asset.isSelected) ? 'selected' : ''
+      return (this.thisAsset.isSelected) ? 'selected' : ''
     }
   },
   props: [
-    'asset',
+    'thisAsset',
     'renderContainer'
   ],
 }
