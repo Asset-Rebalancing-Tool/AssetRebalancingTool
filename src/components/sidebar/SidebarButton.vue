@@ -1,8 +1,8 @@
 <template>
-  <div class="button" :class="activeButton">
-    <div class="icon" :class="iconClass"></div>
-    <label>{{title}}</label>
-  </div>
+  <button class="button" :class="activeButton">
+    <span class="icon" :class="iconClass"></span>
+    <span>{{title}}</span>
+  </button>
 </template>
 
 <script>

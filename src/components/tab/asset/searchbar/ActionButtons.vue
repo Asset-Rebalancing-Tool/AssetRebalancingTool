@@ -1,15 +1,15 @@
 <template>
   <div class="button-wrapper" :class="activeActionButtons">
-    <div class="button">
-      <div class="icon edit"></div>
-    </div>
-    <div class="button group">
-      <div class="icon group"></div>
-      <div class="icon arrow-down"></div>
-    </div>
-    <div class="button">
-      <div class="icon delete"></div>
-    </div>
+    <button class="button">
+      <span class="icon edit"></span>
+    </button>
+    <button class="button group">
+      <span class="icon group"></span>
+      <span class="icon arrow-down"></span>
+    </button>
+    <button class="button">
+      <span class="icon delete"></span>
+    </button>
   </div>
 </template>
 

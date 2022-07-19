@@ -1,7 +1,7 @@
 <template>
   <div class="actual-value-wrapper">
-    <label>{{actualValue}} {{currency}}</label>
-    <label>{{actualPercentage}} {{currency}}</label>
+    <span>{{actualValue}} {{currency}}</span>
+    <span>{{actualPercentage}} {{currency}}</span>
   </div>
 </template>
 

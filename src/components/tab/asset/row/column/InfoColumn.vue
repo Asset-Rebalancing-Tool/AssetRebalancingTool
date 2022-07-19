@@ -2,7 +2,7 @@
   <div class="asset-info-wrapper">
     <div class="asset-image" :class="activeAsset"></div>
     <div class="asset-name-wrapper">
-      <span class="asset-name">{{name}}</span>
+      <p class="asset-name">{{name}}</p>
       <div class="asset-info-row">
         <div class="asset-type">{{type}}</div>
         <span class="isin label">ISIN</span>
