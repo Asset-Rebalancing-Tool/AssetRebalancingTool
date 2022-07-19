@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import AssetSearchbar from '@/components/tab/asset/Searchbar/AssetSearchbar'
-import ActionButtons  from '@/components/tab/asset/Searchbar/ActionButtons'
+import AssetSearchbar from '@/components/tab/asset/searchbar/AssetSearchbar'
+import ActionButtons  from '@/components/tab/asset/searchbar/ActionButtons'
 import AssetGroup     from '@/components/tab/asset/row/AssetGroup'
 
 import { useAssetStore } from '@/stores/AssetStore'
