@@ -2,20 +2,20 @@
 
   <div v-if="renderGroupContainer">
     <AssetContainer
-          v-if="renderGroupContainer"
           v-for="asset in thisGroup.assets"
           :key="asset.tickerSymbol"
           :asset="asset"
+          :render="renderGroupContainer"
           @click="toggleIsSelectedFlag(asset)"
     />
     <p>{{thisGroup.name}}</p>
   </div>
 
   <AssetContainer
-      v-if="renderSingleAsset"
       v-for="asset in thisGroup.assets"
       :key="asset.tickerSymbol"
       :asset="asset"
+      :render="renderSingleAsset"
       @click="toggleIsSelectedFlag(asset)"
   />
 

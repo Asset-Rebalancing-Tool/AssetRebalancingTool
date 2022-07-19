@@ -1,5 +1,9 @@
 <template>
-  <div class="asset-container" :class="(asset.isSelected) ? 'selected' : ''">
+  <div
+      v-if="render"
+      class="asset-container"
+      :class="(asset.isSelected) ? 'selected' : ''"
+  >
     <AssetInfoColumn             :asset="asset" />
     <AssetPriceColumn            :asset="asset" />
     <AssetSharesColumn           :asset="asset" />
@@ -30,7 +34,8 @@ export default {
     AssetDeviationColumn,
   },
   props: [
-      'asset'
+    'asset',
+    'render'
   ],
 }
 </script>
