@@ -6,6 +6,7 @@
     "totalPercentage": 66.95,
     "totalTargetPercentage": 75,
     "totalDeviation": 8.05,
+    "currency": "€",
     "assets": {
       "SPDR": {
         "name": "SPDR MSCI World UCITS ETF",
@@ -52,6 +53,7 @@
     "totalPercentage": 0,
     "totalTargetPercentage": 0,
     "totalDeviation": 0,
+    "currency": "€",
     "assets": {
       "MSF": {
         "name": "Microsoft Corp",
