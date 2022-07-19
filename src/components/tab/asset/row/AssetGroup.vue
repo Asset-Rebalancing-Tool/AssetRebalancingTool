@@ -1,6 +1,9 @@
 <template>
 
   <div v-if="renderGroupContainer" class="asset-group-container">
+
+    <button v-if="isEmptyGroup" class="empty-group-button">+</button>
+
     <AssetContainer
           v-for="asset in thisGroup.assets"
           :key="asset.tickerSymbol"
@@ -8,6 +11,7 @@
           :renderContainer="renderGroupContainer"
           @click="toggleIsSelectedFlag(asset)"
     />
+
     <div class="asset-group-footer">
       <p>{{thisGroup.name}}</p>
       <ActualValueColumn
@@ -56,6 +60,11 @@ export default {
     // Returns a bool that indicates if only the single assets should be rendered
     renderSingleAsset() {
       return (this.thisGroup.groupKey === 'NONE')
+    },
+
+    // Returns a bool that indicates if the assets object is empty or not
+    isEmptyGroup() {
+      return (Object.keys(this.thisGroup.assets).length === 0)
     }
   },
   setup() {
