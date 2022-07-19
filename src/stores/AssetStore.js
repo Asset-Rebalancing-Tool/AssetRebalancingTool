@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { assetGroups } from '@/data/assetGroups.json'
+import assetGroups from '@/data/assetGroups.json'
 
 // Register and export the store
 export const useAssetStore = defineStore('AssetStore', {
