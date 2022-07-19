@@ -1,11 +1,11 @@
 <template>
-  <div class="button-wrapper" :class="(assetStore.actionButtonsAreActive) ? 'active' : ''">
+  <div class="button-wrapper" :class="activeActionButtons">
     <div class="button">
       <div class="icon edit"></div>
     </div>
     <div class="button group">
       <div class="icon group"></div>
-      <div class="icon" :class="(isActive) ? 'arrow-down' : 'arrow-up'"></div>
+      <div class="icon arrow-down"></div>
     </div>
     <div class="button">
       <div class="icon delete"></div>
@@ -22,6 +22,12 @@ export default {
   data() {
     return {
       isActive: true
+    }
+  },
+  computed: {
+    // Returns a class that is used to highlight the button wrapper, if at least one asset is selected
+    activeActionButtons() {
+      return (this.assetStore.actionButtonsAreActive) ? 'active' : ''
     }
   },
   setup() {
