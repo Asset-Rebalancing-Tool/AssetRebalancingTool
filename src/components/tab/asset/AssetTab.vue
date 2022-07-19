@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import AssetSearchbar from '@/components/AssetTab/Searchbar/AssetSearchbar'
-import ActionButtons  from '@/components/AssetTab/Searchbar/ActionButtons'
-import AssetGroup     from '@/components/AssetTab/AssetRow/AssetGroup'
+import AssetSearchbar from '@/components/tab/asset/Searchbar/AssetSearchbar'
+import ActionButtons  from '@/components/tab/asset/Searchbar/ActionButtons'
+import AssetGroup     from '@/components/tab/asset/row/AssetGroup'
 
 import { useAssetStore } from '@/stores/AssetStore'
 
@@ -39,5 +39,5 @@ export default {
 </script>
 
 <style>
-  @import "../../css/AssetTab/asset-tab.css";
+  @import "../../css/asset/asset-tab.css";
 </style>

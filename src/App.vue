@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import SidebarSection from '@/components/Sidebar/SidebarSection'
-import OverviewTab    from '@/components/OverviewTab/OverviewTab'
-import AssetTab       from '@/components/AssetTab/AssetTab'
-import BrokerTab      from '@/components/BrokerTab/BrokerTab'
-import HistoryTab     from '@/components/HistoryTab/HistoryTab'
+import SidebarSection from '@/components/sidebar/SidebarSection'
+import OverviewTab    from '@/components/tab/overview/OverviewTab'
+import AssetTab       from '@/components/tab/asset/AssetTab'
+import BrokerTab      from '@/components/tab/broker/BrokerTab'
+import HistoryTab     from '@/components/tab/history/HistoryTab'
 
 export default {
   name: 'App',

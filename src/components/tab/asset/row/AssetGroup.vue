@@ -1,34 +1,48 @@
 <template>
 
-  <div v-if="renderGroupContainer">
+  <div v-if="renderGroupContainer" class="asset-group-container">
     <AssetContainer
           v-for="asset in thisGroup.assets"
           :key="asset.tickerSymbol"
           :asset="asset"
-          :render="renderGroupContainer"
+          :renderContainer="renderGroupContainer"
           @click="toggleIsSelectedFlag(asset)"
     />
-    <p>{{thisGroup.name}}</p>
+    <div class="asset-group-footer">
+      <p>{{thisGroup.name}}</p>
+      <ActualValueColumn
+          :actual-value="thisGroup.totalValue"
+          :actual-percentage="thisGroup.totalPercentage"
+          :currency="thisGroup.currency"
+      />
+      <DeviationColumn :formattedDeviation="thisGroup.formattedTotalDeviation"/>
+    </div>
   </div>
 
   <AssetContainer
       v-for="asset in thisGroup.assets"
       :key="asset.tickerSymbol"
       :asset="asset"
-      :render="renderSingleAsset"
+      :renderContainer="renderSingleAsset"
       @click="toggleIsSelectedFlag(asset)"
   />
 
 </template>
 
 <script>
-import AssetContainer  from '@/components/AssetTab/AssetRow/AssetContainer'
+import AssetContainer     from '@/components/tab/asset/row/AssetContainer'
+import ActualValueColumn  from '@/components/tab/asset/row/column/ActualValueColumn'
+import DeviationColumn    from '@/components/tab/asset/row/column/DeviationColumn';
+
 import {useAssetStore} from '@/stores/AssetStore';
+
 
 export default {
   name: 'AssetGroup',
   components: {
-    AssetContainer
+    AssetContainer,
+    ActualValueColumn,
+    DeviationColumn,
   },
   props: [
     'thisGroup',

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import SidebarButton from '@/components/Sidebar/SidebarButton';
+import SidebarButton from '@/components/sidebar/SidebarButton';
 
 export default {
   name: 'SidebarSection',
