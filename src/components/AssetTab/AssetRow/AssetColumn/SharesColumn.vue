@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'AssetSharesColumn',
+  name: 'SharesColumn',
   props: [
       'asset'
   ]

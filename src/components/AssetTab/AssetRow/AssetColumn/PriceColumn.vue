@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'AssetPriceColumn',
+  name: 'PriceColumn',
   props: [
       'asset'
   ]

@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'AssetTargetPercentageColumn',
+  name: 'TargetPercentageColumn',
   props: [
       'asset'
   ]

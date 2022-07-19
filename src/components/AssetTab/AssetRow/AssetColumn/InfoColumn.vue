@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'AssetInfoColumn',
+  name: 'InfoColumn',
   props: [
       'asset'
   ]
