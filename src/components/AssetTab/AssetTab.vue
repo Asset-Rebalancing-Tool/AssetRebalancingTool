@@ -28,7 +28,6 @@ export default {
     AssetSearchbar,
     ActionButtons,
     AssetGroup,
-    AssetContainer
   },
   setup() {
     const assetStore = useAssetStore()
