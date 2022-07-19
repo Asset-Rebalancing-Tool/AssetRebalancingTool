@@ -6,6 +6,7 @@
     "totalPercentage": 66.95,
     "totalTargetPercentage": 75,
     "totalDeviation": 8.05,
+    "formattedTotalDeviation": [8, 0, 5],
     "currency": "€",
     "assets": {
       "SPDR": {
@@ -53,6 +54,7 @@
     "totalPercentage": 0,
     "totalTargetPercentage": 0,
     "totalDeviation": 0,
+    "formattedTotalDeviation": [0, 0, 0],
     "currency": "€",
     "assets": {
       "MSF": {
@@ -71,7 +73,7 @@
         "actualPercentage": 12.9,
         "targetPercentage": 5,
         "deviation": 7.09,
-        "formattedDeviation": [7, 9, 0]
+        "formattedDeviation": [7, 0, 9]
       },
       "APPL": {
         "name": "Apple Inc",
