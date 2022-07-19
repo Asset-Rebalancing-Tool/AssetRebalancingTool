@@ -2,11 +2,11 @@
   <div class="asset-info-wrapper">
     <div class="asset-image" :class="activeAsset"></div>
     <div class="asset-name-wrapper">
-      <span class="asset-name">{{asset.name}}</span>
+      <span class="asset-name">{{name}}</span>
       <div class="asset-info-row">
-        <div class="asset-type">{{asset.type}}</div>
+        <div class="asset-type">{{type}}</div>
         <span class="isin label">ISIN</span>
-        <span class="isin">{{asset.isin}}</span>
+        <span class="isin">{{isin}}</span>
       </div>
     </div>
   </div>
