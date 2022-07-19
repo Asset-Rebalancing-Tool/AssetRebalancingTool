@@ -1,12 +1,12 @@
 <template>
   <div class="asset-price-wrapper">
-    <span class="primary-asset-price">{{asset.formattedStockPrice[0]}}</span>
+    <span class="primary-asset-price">{{beforeDecimal}}</span>
     <span class="secondary-price-wrapper">
          <span class="decimal-wrapper">
-           <span class="secondary-asset-price">{{asset.formattedStockPrice[1]}}</span>
-           <span class="tertiary-asset-price">{{asset.formattedStockPrice[2]}}</span>
+           <span class="secondary-asset-price">{{firstDecimal}}</span>
+           <span class="tertiary-asset-price">{{secondDecimal}}</span>
          </span>
-         <span class="asset-price-currency">{{asset.currency}}</span>
+         <span class="asset-price-currency">{{currency}}</span>
       </span>
   </div>
 </template>
@@ -15,7 +15,19 @@
 export default {
   name: 'PriceColumn',
   props: [
-      'asset'
-  ]
+      'formattedStockPrice',
+      'currency'
+  ],
+  computed: {
+    beforeDecimal() {
+      return this.formattedStockPrice[0];
+    },
+    firstDecimal() {
+      return this.formattedStockPrice[1];
+    },
+    secondDecimal() {
+      return this.formattedStockPrice[2];
+    }
+  }
 }
 </script>

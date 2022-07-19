@@ -1,7 +1,7 @@
 <template>
   <div class="shares-wrapper">
-    <input type="text" :value="asset.shares"/>
-    <label>{{asset.sharesType}}</label>
+    <input type="text" :value="shares"/>
+    <label>{{sharesType}}</label>
   </div>
 </template>
 
@@ -9,7 +9,8 @@
 export default {
   name: 'SharesColumn',
   props: [
-      'asset'
+      'shares',
+      'sharesType'
   ]
 }
 </script>

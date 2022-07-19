@@ -1,6 +1,6 @@
 <template>
   <div class="target-percentage-wrapper">
-    <input type="text" :value="asset.targetPercentage"/>
+    <input type="text" :value="targetPercentage"/>
     <label>%</label>
   </div>
 </template>
@@ -9,7 +9,7 @@
 export default {
   name: 'TargetPercentageColumn',
   props: [
-      'asset'
+      'targetPercentage'
   ]
 }
 </script>

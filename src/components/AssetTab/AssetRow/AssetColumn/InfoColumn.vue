@@ -1,6 +1,6 @@
 <template>
   <div class="asset-info-wrapper">
-    <div class="asset-image" :class="(asset.isSelected) ? 'selected' : ''"></div>
+    <div class="asset-image" :class="activeAsset"></div>
     <div class="asset-name-wrapper">
       <span class="asset-name">{{asset.name}}</span>
       <div class="asset-info-row">
@@ -16,7 +16,15 @@
 export default {
   name: 'InfoColumn',
   props: [
-      'asset'
-  ]
+      'isSelected',
+      'name',
+      'type',
+      'isin',
+  ],
+  computed: {
+    activeAsset() {
+      return (this.isSelected) ? 'selected' : ''
+    }
+  }
 }
 </script>
