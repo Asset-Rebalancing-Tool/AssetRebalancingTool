@@ -36,12 +36,12 @@ export default {
   computed: {
     // Returns a bool that indicates if the whole group container should be rendered
     renderGroupContainer() {
-      return (thisGroup.groupKey !== 'NONE')
+      return (this.thisGroup.groupKey !== 'NONE')
     },
 
     // Returns a bool that indicates if only the single assets should be rendered
     renderSingleAsset() {
-      return (thisGroup.groupKey === 'NONE')
+      return (this.thisGroup.groupKey === 'NONE')
     }
   },
   setup() {
