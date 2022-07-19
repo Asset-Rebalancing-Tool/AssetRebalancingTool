@@ -208,7 +208,7 @@
 }
 
 .asset-price-currency,
-.asset-deviation-currency {
+.asset-deviation-unit {
     height: 12px;
     color: var(--primary-text-color);
     font-size: 14px;
