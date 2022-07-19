@@ -6,11 +6,11 @@
       <ActionButtons />
     </header>
 
-    <AssetContainer
-        @click="toggleIsSelectedFlag(asset)"
-        v-for="asset in assetStore.assets"
-        :key="asset.tickerSymbol"
-        :asset="asset" />
+    <AssetGroup
+        v-for="group in assetStore.assetGroups"
+        :key="group.groupKey"
+        :thisGroup="group"
+    />
 
   </section>
 </template>
@@ -18,7 +18,8 @@
 <script>
 import AssetSearchbar from '@/components/AssetTab/Searchbar/AssetSearchbar'
 import ActionButtons  from '@/components/AssetTab/Searchbar/ActionButtons'
-import AssetContainer from '@/components/AssetTab/AssetRow/AssetContainer'
+import AssetGroup     from '@/components/AssetTab/AssetRow/AssetGroup'
+
 import { useAssetStore } from '@/stores/AssetStore'
 
 export default {
@@ -26,17 +27,13 @@ export default {
   components: {
     AssetSearchbar,
     ActionButtons,
+    AssetGroup,
     AssetContainer
   },
   setup() {
     const assetStore = useAssetStore()
     return {
       assetStore
-    }
-  },
-  methods: {
-    toggleIsSelectedFlag(thisAsset) {
-      this.assetStore.toggleIsSelectedFlag(thisAsset);
     }
   }
 }
