@@ -1,41 +1,42 @@
 <template>
-  <div
-      v-if="render"
-      class="asset-container"
-      :class="(asset.isSelected) ? 'selected' : ''"
-  >
-    <AssetInfoColumn             :asset="asset" />
-    <AssetPriceColumn            :asset="asset" />
-    <AssetSharesColumn           :asset="asset" />
-    <AssetActualValueColumn      :asset="asset" />
-    <AssetTargetPercentageColumn :asset="asset" />
-    <AssetDeviationColumn        :asset="asset" />
+  <div v-if="renderContainer" class="asset-container" :class="activeContainer">
+    <InfoColumn             :asset="asset" />
+    <PriceColumn            :asset="asset" />
+    <SharesColumn           :asset="asset" />
+    <ActualValueColumn      :asset="asset" />
+    <TargetPercentageColumn :asset="asset" />
+    <DeviationColumn        :asset="asset" />
   </div>
 </template>
 
 <script>
 
-import AssetInfoColumn             from '@/components/AssetTab/AssetRow/AssetColumn/AssetInfoColumn';
-import AssetPriceColumn            from '@/components/AssetTab/AssetRow/AssetColumn/AssetPriceColumn';
-import AssetSharesColumn           from '@/components/AssetTab/AssetRow/AssetColumn/AssetSharesColumn';
-import AssetActualValueColumn      from '@/components/AssetTab/AssetRow/AssetColumn/AssetActualValueColumn';
-import AssetTargetPercentageColumn from '@/components/AssetTab/AssetRow/AssetColumn/AssetTargetPercentageColumn';
-import AssetDeviationColumn        from '@/components/AssetTab/AssetRow/AssetColumn/AssetDeviationColumn';
+import InfoColumn             from '@/components/AssetTab/AssetRow/AssetColumn/InfoColumn';
+import PriceColumn            from '@/components/AssetTab/AssetRow/AssetColumn/PriceColumn';
+import SharesColumn           from '@/components/AssetTab/AssetRow/AssetColumn/SharesColumn';
+import ActualValueColumn      from '@/components/AssetTab/AssetRow/AssetColumn/ActualValueColumn';
+import TargetPercentageColumn from '@/components/AssetTab/AssetRow/AssetColumn/TargetPercentageColumn';
+import DeviationColumn        from '@/components/AssetTab/AssetRow/AssetColumn/DeviationColumn';
 
 
 export default {
   name: 'AssetContainer',
   components: {
-    AssetInfoColumn,
-    AssetPriceColumn,
-    AssetSharesColumn,
-    AssetActualValueColumn,
-    AssetTargetPercentageColumn,
-    AssetDeviationColumn,
+    InfoColumn,
+    PriceColumn,
+    SharesColumn,
+    ActualValueColumn,
+    TargetPercentageColumn,
+    DeviationColumn,
+  },
+  computed: {
+    activeContainer() {
+      return (this.asset.isSelected) ? 'selected' : ''
+    }
   },
   props: [
     'asset',
-    'render'
+    'renderContainer'
   ],
 }
 </script>
