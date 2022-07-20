@@ -81,3 +81,7 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/row/asset-group.css";
+</style>
