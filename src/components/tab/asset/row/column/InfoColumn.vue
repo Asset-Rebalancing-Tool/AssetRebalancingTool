@@ -28,3 +28,7 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/row/column/info-column.css";
+</style>
