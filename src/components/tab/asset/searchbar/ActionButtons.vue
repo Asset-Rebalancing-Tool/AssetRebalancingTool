@@ -38,3 +38,7 @@ export default {
   },
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/action-buttons.css";
+</style>
