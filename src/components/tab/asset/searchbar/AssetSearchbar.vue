@@ -10,3 +10,7 @@ export default {
   name: 'AssetSearchbar',
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/searchbar.css";
+</style>
