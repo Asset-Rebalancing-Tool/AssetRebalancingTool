@@ -45,5 +45,5 @@ export default {
 </script>
 
 <style>
-  @import "../../css/sidebar.css";
+  @import "src/assets/css/sidebar/sidebar.css";
 </style>
