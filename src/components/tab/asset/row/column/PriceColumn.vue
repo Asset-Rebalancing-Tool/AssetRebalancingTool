@@ -1,12 +1,12 @@
 <template>
-  <div class="asset-price-wrapper">
-    <span class="primary-asset-price">{{beforeDecimal}}</span>
-    <span class="secondary-price-wrapper">
+  <div class="price-wrapper">
+    <span class="primary-price">{{beforeDecimal}}</span>
+    <span class="secondary-wrapper">
          <span class="decimal-wrapper">
-           <span class="secondary-asset-price">{{firstDecimal}}</span>
-           <span class="tertiary-asset-price">{{secondDecimal}}</span>
+           <span class="secondary-price">{{firstDecimal}}</span>
+           <span class="tertiary-price">{{secondDecimal}}</span>
          </span>
-         <span class="asset-price-currency">{{currency}}</span>
+         <span class="currency">{{currency}}</span>
       </span>
   </div>
 </template>
@@ -32,6 +32,44 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../../../assets/css/tab/asset/row/column/price-column.css";
+<style scoped>
+.price-wrapper {
+  width: 52px;
+  height: var(--asset-row-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -5px;
+}
+
+.primary-price {
+  color: var(--primary-text-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+.secondary-price {
+  height: 14px;
+  color: var(--secondary-text-color);
+  font-size: 13px;
+  margin-left: 3px;
+}
+
+.decimal-wrapper {
+  display: flex;
+}
+
+.tertiary-price {
+  height: 10px;
+  color: var(--tertiary-text-color);
+  font-size: 13px;
+}
+
+.currency {
+  height: 12px;
+  color: var(--primary-text-color);
+  font-size: 14px;
+  margin-left: 3px;
+}
 </style>

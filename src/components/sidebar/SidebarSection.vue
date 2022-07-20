@@ -1,6 +1,10 @@
 <template>
   <section id="sidebar">
-    <img class="logo" src="../../assets/images/app-logo.png" alt="FinQuel App Logo">
+
+    <header>
+      <img src="../../assets/images/app-logo.png" alt="FinQuel App Logo" class="app-logo" />
+    </header>
+
     <SidebarButton
         v-for="sidebarButton in sidebarButtons"
         :key="sidebarButton.key"
@@ -9,6 +13,7 @@
         :isActive="capitalizeFirstLetter(sidebarButton.key) === activeTab"
         @click.prevent="changeParentComponent($event, sidebarButton.key)"
     />
+
   </section>
 </template>
 
@@ -44,6 +49,26 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../assets/css/sidebar/sidebar.css";
+<style scoped>
+  #sidebar {
+    min-width: 210px;
+    height: 100vh;
+    background-color: var(--secondary-background-color);
+    border-right: 1px solid var(--passive-border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0;
+  }
+
+  .app-logo {
+    width: 120px;
+  }
 </style>

@@ -1,12 +1,13 @@
 <template>
-  <div class="asset-info-wrapper">
+  <div class="info-wrapper">
     <div class="asset-image" :class="activeAsset"></div>
-    <div class="asset-name-wrapper">
-      <p class="asset-name">{{name}}</p>
-      <div class="asset-info-row">
-        <div class="asset-type">{{type}}</div>
+    <div class="name-wrapper">
+      <p>{{name}}</p>
+      <div class="info-row">
+        <div class="type">{{type}}</div>
         <span class="isin label">ISIN</span>
         <span class="isin">{{isin}}</span>
+        <span class="icon"></span>
       </div>
     </div>
   </div>
@@ -29,6 +30,64 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../../../assets/css/tab/asset/row/column/info-column.css";
+<style scoped>
+  .info-wrapper {
+    width: 258px;
+    height: var(--asset-row-height);
+    display: flex;
+  }
+
+  .asset-image {
+    height: 38px;
+    width: 38px;
+    margin: 10px;
+    background-color: var(--tertiary-background-color);
+    border-radius: var(--secondary-border-radius);
+  }
+
+  .asset-image.selected {
+    background-image: var(--icon-selected-asset);
+  }
+
+  .name-wrapper {
+    height: var(--asset-row-height);
+  }
+
+  p {
+    color: var(--primary-text-color);
+    font-weight: 600;
+    margin-top: 3px;
+  }
+
+  .info-row {
+    display: flex;
+    column-gap: 8px;
+  }
+
+  .type {
+    height: 20px;
+    background-color: var(--main-color);
+    border-radius: var(--secondary-border-radius);
+    color: var(--primary-text-color);
+    font-weight: 600;
+    padding: 0 5px;
+    line-height: 1.4;
+    margin-top: 2px;
+    font-size: 14px;
+  }
+
+  .isin {
+    color: var(--secondary-text-color);
+  }
+
+  .isin.label {
+    color: var(--tertiary-text-color);
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+    background-image: var(--icon-copy-clipboard);
+  }
+
 </style>

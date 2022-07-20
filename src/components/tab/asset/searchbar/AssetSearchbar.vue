@@ -1,7 +1,7 @@
 <template>
   <label>
-    <input class="searchbar" type="text" placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)">
-    <span class="icon searchbar"></span>
+    <input type="text" placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)">
+    <span class="icon"></span>
   </label>
 </template>
 
@@ -11,6 +11,18 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../../assets/css/tab/asset/searchbar.css";
+<style scoped>
+  .icon {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    background-image: var(--icon-searchbar);
+    opacity: 0.6;
+  }
 </style>

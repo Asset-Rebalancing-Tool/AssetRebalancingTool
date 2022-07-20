@@ -1,5 +1,5 @@
 <template>
-  <div class="shares-wrapper">
+  <div class="wrapper">
     <input type="text" :value="shares"/>
     <label>{{sharesType}}</label>
   </div>
@@ -15,6 +15,21 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../../../assets/css/tab/asset/row/column/shares-column.css";
+<style scoped>
+  .wrapper {
+    width: 115px;
+    height: var(--asset-row-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  .wrapper input {
+    width: 80px;
+  }
+
+  .wrapper label {
+    font-weight: 600;
+  }
 </style>

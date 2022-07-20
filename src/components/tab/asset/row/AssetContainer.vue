@@ -67,6 +67,22 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../../../src/assets/css/tab/asset/row/asset-container.css";
+<style scoped>
+  .asset-container {
+    width: 100%;
+    height: var(--asset-row-height);
+    background-color: var(--secondary-background-color);
+    border: 1px solid var(--passive-border-color);
+    border-radius: var(--primary-border-radius);
+    margin-bottom: 15px;
+    padding-right: 10px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .asset-container.selected {
+    border: 1px solid var(--main-color);
+    box-shadow: var(--box-shaddow-main-color);
+  }
 </style>

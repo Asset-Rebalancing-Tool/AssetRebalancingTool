@@ -1,5 +1,5 @@
 <template>
-  <div class="actual-value-wrapper">
+  <div class="wrapper">
     <span>{{actualValue}} {{currency}}</span>
     <span>{{actualPercentage}} {{currency}}</span>
   </div>
@@ -16,6 +16,17 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../../../assets/css/tab/asset/row/column/actual-value.css";
+<style scoped>
+  .wrapper {
+    width: 80px;
+    height: var(--asset-row-height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .wrapper span {
+    text-align: right!important;
+  }
 </style>

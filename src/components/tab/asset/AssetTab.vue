@@ -38,6 +38,15 @@ export default {
 }
 </script>
 
-<style>
-  @import "../../../assets/css/tab/asset/asset-tab.css";
+<style scoped>
+  #asset-tab {
+    width: 100%;
+    padding: 25px;
+  }
+
+  header {
+    display: flex;
+    column-gap: 25px;
+    margin-bottom: 25px;
+  }
 </style>
