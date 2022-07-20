@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style>
-  @import "css/theme.css";
-  @import "css/general.css";
-  @import "css/icons.css";
+  @import "src/assets/css/theme.css";
+  @import "src/assets/css/general.css";
+  @import "src/assets/css/icons.css";
 </style>
