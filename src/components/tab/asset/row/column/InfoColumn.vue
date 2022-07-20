@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
   .info-wrapper {
-    width: 258px;
+    flex: 1;
     height: var(--asset-row-height);
     display: flex;
   }
