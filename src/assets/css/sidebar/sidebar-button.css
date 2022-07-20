@@ -1,0 +1,72 @@
+#sidebar {
+    min-width: 210px;
+    height: 100vh;
+    background-color: var(--secondary-background-color);
+    border-right: 1px solid var(--passive-border-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 120px;
+    height: 35px;
+    margin: 35px 0 80px;
+}
+
+#sidebar .button {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    margin-bottom: 10px;
+    border-right: 5px solid var(--secondary-background-color);
+    cursor: pointer;
+}
+
+#sidebar .button.active {
+    border-color: var(--main-color);
+}
+
+#sidebar .button.active:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 80%;
+    content: "";
+    background-image: linear-gradient(90deg, rgba(25, 179, 153, 0), rgba(25, 179, 153, 0.24));
+    z-index: 0;
+}
+
+#sidebar .button .icon {
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+    z-index: 10;
+}
+
+#sidebar .button.active .icon {
+    opacity: 1;
+}
+
+#sidebar .button .icon.overview { background-image: var(--icon-overview-tab); }
+#sidebar .button .icon.asset    { background-image: var(--icon-asset-tab);    }
+#sidebar .button .icon.broker   { background-image: var(--icon-broker-tab);   }
+#sidebar .button .icon.history  { background-image: var(--icon-history-tab);  }
+
+#sidebar .button label {
+    z-index: 10;
+    color: var(--secondary-text-color);
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+#sidebar .button.active label {
+    color: var(--primary-text-color);
+}
