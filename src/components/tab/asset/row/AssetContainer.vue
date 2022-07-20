@@ -10,7 +10,7 @@
 
     <PriceColumn
         :formattedStockPrice="thisAsset.formattedStockPrice"
-        :currency="thisAsset.currency"
+        :unit="thisAsset.currency"
     />
 
     <SharesColumn
@@ -19,8 +19,8 @@
     />
 
     <ActualValueColumn
-        :actualValue="thisAsset.actualValue"
-        :actualPercentage="thisAsset.actualPercentage"
+        :value="thisAsset.actualValue"
+        :percentage="thisAsset.actualPercentage"
         :currency="thisAsset.currency"
     />
 
@@ -30,6 +30,7 @@
 
     <DeviationColumn
         :formattedDeviation="thisAsset.formattedDeviation"
+        :unit="this.unit"
     />
 
   </div>
@@ -60,10 +61,15 @@ export default {
       return (this.thisAsset.isSelected) ? 'selected' : ''
     }
   },
+  data() {
+    return {
+      unit: '%'
+    }
+  },
   props: [
     'thisAsset',
     'renderContainer'
-  ],
+  ]
 }
 </script>
 
@@ -78,11 +84,11 @@ export default {
     padding-right: 10px;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
     display: flex;
-    justify-content: space-between;
+    column-gap: 50px;
   }
 
   .asset-container.selected {
-    border: 1px solid var(--main-color);
+    outline: 1px solid var(--main-color);
     box-shadow: var(--box-shaddow-main-color);
   }
 </style>
