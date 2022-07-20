@@ -29,7 +29,4 @@ export default {
     width: 80px;
   }
 
-  .wrapper label {
-    font-weight: 600;
-  }
 </style>
