@@ -6,7 +6,7 @@
            <span class="secondary-price">{{firstDecimal}}</span>
            <span class="tertiary-price">{{secondDecimal}}</span>
          </span>
-         <span class="currency">{{currency}}</span>
+         <span class="unit">{{unit}}</span>
       </span>
   </div>
 </template>
@@ -16,7 +16,7 @@ export default {
   name: 'PriceColumn',
   props: [
       'formattedStockPrice',
-      'currency'
+      'unit'
   ],
   computed: {
     beforeDecimal() {
@@ -35,11 +35,9 @@ export default {
 <style scoped>
 .price-wrapper {
   width: 52px;
-  height: var(--asset-row-height);
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: -5px;
+  margin-top: 11px;
 }
 
 .primary-price {
@@ -66,7 +64,7 @@ export default {
   font-size: 13px;
 }
 
-.currency {
+.unit {
   height: 12px;
   color: var(--primary-text-color);
   font-size: 14px;

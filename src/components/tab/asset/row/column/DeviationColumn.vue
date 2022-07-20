@@ -6,7 +6,7 @@
            <span class="secondary-deviation">{{firstDecimal}}</span>
            <span class="tertiary-deviation">{{secondDecimal}}</span>
          </span>
-         <span class="unit">%</span>
+         <span class="unit">{{unit}}</span>
       </span>
   </div>
 </template>
@@ -15,7 +15,8 @@
 export default {
   name: 'DeviationColumn',
   props: [
-      'formattedDeviation'
+      'formattedDeviation',
+      'unit'
   ],
   computed: {
     beforeDecimal() {
@@ -34,11 +35,9 @@ export default {
 <style scoped>
 .deviation-wrapper {
   width: 52px;
-  height: var(--asset-row-height);
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: -5px;
+  margin-top: 10px;
 }
 
 .primary-deviation {

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <span>{{actualValue}} {{currency}}</span>
-    <span>{{actualPercentage}} {{currency}}</span>
+    <span>{{value}} €</span>
+    <span>{{percentage}} %</span>
   </div>
 </template>
 
@@ -9,9 +9,8 @@
 export default {
   name: 'ActualValueColumn',
   props: [
-      'actualValue',
-      'actualPercentage',
-      'currency'
+      'value',
+      'percentage',
   ],
 }
 </script>
@@ -19,14 +18,17 @@ export default {
 <style scoped>
   .wrapper {
     width: 80px;
-    height: var(--asset-row-height);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     flex-direction: column;
+    row-gap: 2px;
   }
 
   .wrapper span {
-    text-align: right!important;
+    height: 18px;
+    line-height: 18px;
+    font-size: 14px;
+    color: var(--primary-text-color);
   }
 </style>
