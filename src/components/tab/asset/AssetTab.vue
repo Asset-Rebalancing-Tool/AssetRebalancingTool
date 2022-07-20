@@ -39,5 +39,5 @@ export default {
 </script>
 
 <style>
-  @import "../../../css/asset/asset-tab.css";
+  @import "src/assets/css/tab/asset/asset-tab.css";
 </style>
