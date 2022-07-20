@@ -30,3 +30,7 @@ export default {
   }
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/row/column/deviation-column.css";
+</style>
