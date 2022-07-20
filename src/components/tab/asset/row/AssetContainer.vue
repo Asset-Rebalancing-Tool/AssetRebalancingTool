@@ -66,3 +66,7 @@ export default {
   ],
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/row/asset-container.css";
+</style>
