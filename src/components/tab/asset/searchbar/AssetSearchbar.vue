@@ -12,5 +12,5 @@ export default {
 </script>
 
 <style>
-  @import "src/assets/css/tab/asset/searchbar.css";
+  @import "../../../../assets/css/tab/asset/searchbar.css";
 </style>

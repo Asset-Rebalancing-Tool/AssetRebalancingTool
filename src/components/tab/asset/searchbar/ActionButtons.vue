@@ -40,5 +40,5 @@ export default {
 </script>
 
 <style>
-  @import "src/assets/css/tab/asset/action-buttons.css";
+  @import "../../../../assets/css/tab/asset/action-buttons.css";
 </style>

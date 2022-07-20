@@ -16,5 +16,5 @@ export default {
 </script>
 
 <style>
-  @import "src/assets/css/tab/asset/row/column/shares-column.css";
+  @import "../../../../../assets/css/tab/asset/row/column/shares-column.css";
 </style>

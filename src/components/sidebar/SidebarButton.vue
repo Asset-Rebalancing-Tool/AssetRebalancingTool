@@ -22,5 +22,5 @@ export default {
 </script>
 
 <style>
-  @import "src/assets/css/sidebar/sidebar-button.css";
+  @import "../../assets/css/sidebar/sidebar-button.css";
 </style>
