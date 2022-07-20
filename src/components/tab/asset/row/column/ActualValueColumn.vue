@@ -15,3 +15,7 @@ export default {
   ],
 }
 </script>
+
+<style>
+  @import "src/assets/css/tab/asset/row/column/actual-value.css";
+</style>
