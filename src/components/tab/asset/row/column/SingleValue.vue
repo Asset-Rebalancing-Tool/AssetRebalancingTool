@@ -12,21 +12,23 @@
 </template>
 
 <script>
+
 export default {
   name: 'valueColumn',
   props: [
-      'formattedValueArray',
+      'valueArray',
       'unit'
   ],
   computed: {
     firstDigit() {
-      return this.formattedValueArray[0];
+      console.log(this.valueArray)
+      return this.valueArray[0];
     },
     firstDecimal() {
-      return this.formattedValueArray[1];
+      return this.valueArray[1];
     },
     secondDecimal() {
-      return this.formattedValueArray[2];
+      return this.valueArray[2];
     }
   }
 }
