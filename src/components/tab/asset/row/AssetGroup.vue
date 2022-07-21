@@ -156,7 +156,7 @@ export default {
   }
 
   .asset-group-footer .actual-value-wrapper {
-    margin-right: 165px;
+    margin-right: 160px;
   }
 
 
