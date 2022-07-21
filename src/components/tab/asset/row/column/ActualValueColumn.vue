@@ -17,18 +17,18 @@ export default {
 
 <style scoped>
   .actual-value-wrapper {
-    width: 80px;
+    width: 200px;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: column;
-    row-gap: 2px;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 40px;
   }
 
   .actual-value-wrapper span {
     height: 18px;
     line-height: 18px;
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 600;
     color: var(--primary-text-color);
   }
 </style>
