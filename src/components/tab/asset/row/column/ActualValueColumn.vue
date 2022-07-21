@@ -1,7 +1,7 @@
 <template>
   <div class="actual-value-wrapper">
-    <span>{{value}} €</span>
-    <span>{{percentage}} %</span>
+    <span class="currency">{{value}} €</span>
+    <span class="percentage">{{percentage}} %</span>
   </div>
 </template>
 
@@ -21,14 +21,24 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    column-gap: 40px;
+    column-gap: 50px;
   }
 
-  .actual-value-wrapper span {
+  .actual-value-wrapper .currency,
+  .actual-value-wrapper .percentage {
     height: 18px;
     line-height: 18px;
     font-size: 15px;
     font-weight: 600;
+    text-align: right;
     color: var(--primary-text-color);
+  }
+
+  .actual-value-wrapper .currency {
+    width: 90px;
+  }
+
+  .actual-value-wrapper .percentage {
+    width: 65px;
   }
 </style>
