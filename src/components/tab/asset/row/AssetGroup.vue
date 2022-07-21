@@ -1,9 +1,7 @@
 <template>
 
   <div v-if="renderGroupContainer" class="asset-group-container">
-
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
-
     <div class="asset-wrapper">
       <AssetContainer
             v-for="asset in thisGroup.assets"
@@ -13,7 +11,6 @@
             @click="toggleIsSelectedFlag(asset)"
       />
     </div>
-
     <div class="asset-group-footer">
       <p>{{thisGroup.name}}</p>
       <ActualValueColumn
@@ -29,7 +26,6 @@
           :unit="'%'"
       />
     </div>
-
   </div>
 
   <AssetContainer
@@ -89,7 +85,8 @@ export default {
 
     // The total target percentage of this group
     totalTargetPercentage() {
-      return ['00','00','0']
+      //console.log(this.thisGroup.totalTargetPercentage)
+      return this.assetStore.getValueArray(this.thisGroup.totalTargetPercentage)
     },
 
     // The total deviation of this group
