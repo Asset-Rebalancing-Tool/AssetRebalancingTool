@@ -155,6 +155,11 @@ export default {
     margin-top: -8px;
   }
 
+  .asset-group-footer .actual-value-wrapper {
+    margin-right: 165px;
+  }
+
+
   .group-value {
     color: var(--primary-text-color);
   }
