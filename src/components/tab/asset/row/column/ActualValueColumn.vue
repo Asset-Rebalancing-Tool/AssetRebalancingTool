@@ -1,7 +1,7 @@
 <template>
   <div class="actual-value-wrapper">
-    <span class="currency">{{value}} €</span>
-    <span class="percentage">{{percentage}} %</span>
+    <span class="currency">{{formatValue}} €</span>
+    <span class="percentage">{{formatPercentage}} %</span>
   </div>
 </template>
 
@@ -12,6 +12,36 @@ export default {
       'value',
       'percentage',
   ],
+  computed: {
+    // Format the currency value
+    formatValue() {
+      let value        = this.value.toString()
+      let valueArray   = value.split('.')
+      let stringLength = valueArray[0].length
+
+      // Set the dots based on the length of the string
+      if (stringLength === 6) {
+        valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5)
+      } else if (stringLength === 5) {
+        valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5)
+      } else if (stringLength === 4) {
+        valueArray[0] = value.slice(0,1) + '.' + value.slice(1,4);
+      }
+
+      // Ensure, that the decimal value is two digits long
+      if (valueArray[1].length === 1){
+        valueArray[1] = valueArray[1] + '0'
+      }
+
+      // Return the value and the decimal digit added as one string
+      return valueArray[0] + ',' + valueArray[1]
+    },
+    formatPercentage() {
+      console.log(this.percentage)
+      //return ''
+      return this.percentage.toString().replace(".", ",");
+    }
+  }
 }
 </script>
 
