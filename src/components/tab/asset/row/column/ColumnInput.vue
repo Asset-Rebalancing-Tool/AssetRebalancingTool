@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <input type="text" :value="targetPercentage"/>
-    <label>%</label>
+    <input :type="inputType" :value="inputValue"/>
+    <label>{{unit}}</label>
   </div>
 </template>
 
@@ -9,7 +9,9 @@
 export default {
   name: 'TargetPercentageColumn',
   props: [
-      'targetPercentage'
+      'inputType',
+      'inputValue',
+      'unit'
   ]
 }
 </script>
