@@ -21,7 +21,7 @@
           :percentage="totalPercentage"
       />
       <SingleValue
-          :formattedValueArray="thisGroup.formattedTotalDeviation"
+          :valueArray="totalDeviation"
           :unit="'%'"
       />
     </div>
@@ -81,6 +81,11 @@ export default {
     // The total percentage of this group
     totalPercentage() {
       return this.thisGroup.totalPercentage
+    },
+
+    // The total deviation of this group
+    totalDeviation() {
+      return this.assetStore.getValueArray(this.thisGroup.totalDeviation)
     }
   },
   setup() {
@@ -145,8 +150,9 @@ export default {
     color: var(--primary-text-color);
   }
 
-  .asset-group-footer .deviation-wrapper {
-    margin-top: -2px;
+  /* Because the footer has a smaller height than the assets */
+  .asset-group-footer .single-value-wrapper {
+    margin-top: -8px;
   }
 
   .group-value {
