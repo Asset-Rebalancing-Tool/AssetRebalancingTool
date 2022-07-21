@@ -11,7 +11,30 @@ export const useAssetStore = defineStore('AssetStore', {
         }
     },
 
+
+
     actions: {
+
+        getValueArray(assetValue) {
+            // Parse the value of the asset to string
+            let valueString = assetValue.toString()
+            // create the value array by splitting the float
+            let valueArray = valueString.split('.')
+
+            // If the first value is smaller than two digit add a zero as first character (visual purpose)
+            valueArray[0] = (valueArray[0].length < 2)
+                ? '0' + valueArray[0]
+                : valueArray[0]
+
+            // If the first value is smaller than two digit add a zero as first character (visual purpose)
+            valueArray[2] = (valueArray[1].length > 2)
+                ? valueArray[1].substring(2)
+                : '0'
+
+            valueArray[1] = (valueArray[1].substring(0,2)).toString()
+
+            return valueArray
+        },
 
         // Toggle the is selected flag of an asset
         // This flag indicates if an asset can be edited, moved, or deleted by the ActionButtons
