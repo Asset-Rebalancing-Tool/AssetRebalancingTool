@@ -1,53 +1,53 @@
 <template>
-  <div class="price-wrapper">
-    <span class="primary-price">{{beforeDecimal}}</span>
-    <span class="secondary-wrapper">
-         <span class="decimal-wrapper">
-           <span class="secondary-price">{{firstDecimal}}</span>
-           <span class="tertiary-price">{{secondDecimal}}</span>
-         </span>
-         <span class="unit">{{unit}}</span>
-      </span>
+  <div class="wrapper">
+    <span class="first-digit">{{firstDigit}}</span>
+    <span>
+       <span class="decimal-wrapper">
+         <span class="first-decimal">{{firstDecimal}}</span>
+         <span class="second-decimal">{{secondDecimal}}</span>
+       </span>
+       <span class="unit">{{unit}}</span>
+    </span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'PriceColumn',
+  name: 'valueColumn',
   props: [
-      'formattedStockPrice',
+      'formattedValueArray',
       'unit'
   ],
   computed: {
-    beforeDecimal() {
-      return this.formattedStockPrice[0];
+    firstDigit() {
+      return this.formattedValueArray[0];
     },
     firstDecimal() {
-      return this.formattedStockPrice[1];
+      return this.formattedValueArray[1];
     },
     secondDecimal() {
-      return this.formattedStockPrice[2];
+      return this.formattedValueArray[2];
     }
   }
 }
 </script>
 
 <style scoped>
-.price-wrapper {
+.wrapper {
   width: 52px;
   display: flex;
   justify-content: center;
   margin-top: 11px;
 }
 
-.primary-price {
+.first-digit {
   color: var(--primary-text-color);
   font-size: 16px;
   font-weight: 600;
   margin-top: 5px;
 }
 
-.secondary-price {
+.first-decimal {
   height: 14px;
   color: var(--secondary-text-color);
   font-size: 13px;
@@ -58,7 +58,7 @@ export default {
   display: flex;
 }
 
-.tertiary-price {
+.second-decimal {
   height: 10px;
   color: var(--tertiary-text-color);
   font-size: 13px;
