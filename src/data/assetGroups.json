@@ -4,7 +4,7 @@
     "groupKey": "MG1",
     "totalValue": 15203.7,
     "totalPercentage": 66.95,
-    "totalTargetPercentage": 75,
+    "totalTargetPercentage": 75.00,
     "totalDeviation": 8.05,
     "currency": "€",
     "assets": {
@@ -48,7 +48,7 @@
     "groupKey": "NONE",
     "totalValue": 0,
     "totalPercentage": 0,
-    "totalTargetPercentage": 0,
+    "totalTargetPercentage": 0.00,
     "totalDeviation": 0,
     "currency": "€",
     "assets": {
