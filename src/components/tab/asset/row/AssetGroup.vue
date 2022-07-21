@@ -16,9 +16,16 @@
 
     <div class="asset-group-footer">
       <p>{{thisGroup.name}}</p>
-      <ActualValueColumn :value="totalValue" :percentage="totalPercentage" />
-      <DeviationColumn :formattedDeviation="thisGroup.formattedTotalDeviation" :unit="'%'"/>
+      <ActualValueColumn
+          :value="totalValue"
+          :percentage="totalPercentage"
+      />
+      <SingleValue
+          :formattedValueArray="thisGroup.formattedTotalDeviation"
+          :unit="'%'"
+      />
     </div>
+
   </div>
 
   <AssetContainer
@@ -34,7 +41,7 @@
 
 <script>
 import AssetContainer     from '@/components/tab/asset/row/AssetContainer'
-import DeviationColumn    from '@/components/tab/asset/row/column/DeviationColumn';
+import SingleValue        from '@/components/tab/asset/row/column/SingleValue';
 import ActualValueColumn  from '@/components/tab/asset/row/column/ActualValueColumn';
 
 import {useAssetStore} from '@/stores/AssetStore';
@@ -44,7 +51,7 @@ export default {
   name: 'AssetGroup',
   components: {
     AssetContainer,
-    DeviationColumn,
+    SingleValue,
     ActualValueColumn
   },
   props: [
@@ -136,11 +143,6 @@ export default {
   .asset-group-footer p {
     flex: 1;
     color: var(--primary-text-color);
-  }
-
-  .asset-group-footer .wrapper {
-    width: 80px;
-    margin-right: 161px;
   }
 
   .asset-group-footer .deviation-wrapper {

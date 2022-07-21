@@ -8,14 +8,14 @@
         :isin="thisAsset.isin"
     />
 
-    <PriceColumn
-        :formattedStockPrice="thisAsset.formattedStockPrice"
+    <SingleValue
+        :formattedValueArray="thisAsset.formattedStockPrice"
         :unit="thisAsset.currency"
     />
 
-    <SharesColumn
-        :shares="thisAsset.shares"
-        :sharesType="thisAsset.sharesType"
+    <ColumnInput
+        :inputValue="thisAsset.shares"
+        :unit="'Stk.'"
     />
 
     <ActualValueColumn
@@ -24,12 +24,13 @@
         :currency="thisAsset.currency"
     />
 
-    <TargetPercentageColumn
-        :targetPercentage="thisAsset.targetPercentage"
+    <ColumnInput
+        :inputValue="thisAsset.targetPercentage"
+        :unit="'%'"
     />
 
-    <DeviationColumn
-        :formattedDeviation="thisAsset.formattedDeviation"
+    <SingleValue
+        :formattedValueArray="thisAsset.formattedDeviation"
         :unit="this.unit"
     />
 
@@ -39,22 +40,18 @@
 <script>
 
 import InfoColumn             from '@/components/tab/asset/row/column/InfoColumn';
-import PriceColumn            from '@/components/tab/asset/row/column/PriceColumn';
-import SharesColumn           from '@/components/tab/asset/row/column/SharesColumn';
+import SingleValue            from '@/components/tab/asset/row/column/SingleValue';
 import ActualValueColumn      from '@/components/tab/asset/row/column/ActualValueColumn';
-import TargetPercentageColumn from '@/components/tab/asset/row/column/TargetPercentageColumn';
-import DeviationColumn        from '@/components/tab/asset/row/column/DeviationColumn';
+import ColumnInput            from '@/components/tab/asset/row/column/ColumnInput';
 
 
 export default {
   name: 'AssetContainer',
   components: {
     InfoColumn,
-    PriceColumn,
-    SharesColumn,
+    SingleValue,
+    ColumnInput,
     ActualValueColumn,
-    TargetPercentageColumn,
-    DeviationColumn,
   },
   computed: {
     activeContainer() {
@@ -63,7 +60,8 @@ export default {
   },
   data() {
     return {
-      unit: '%'
+      currency: '€',
+      percent: '%',
     }
   },
   props: [
