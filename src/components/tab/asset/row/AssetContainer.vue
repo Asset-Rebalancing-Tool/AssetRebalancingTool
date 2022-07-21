@@ -31,7 +31,7 @@
 
     <SingleValue
         :valueArray="deviationArray"
-        :unit="this.unit"
+        :unit="'%'"
     />
 
   </div>
@@ -71,14 +71,7 @@ export default {
     deviationArray() {
       return this.assetStore.getValueArray(this.thisAsset.deviation)
     }
-  },
-  data() {
-    return {
-      currency: '€',
-      percent: '%',
-    }
   }
-
 }
 </script>
 
