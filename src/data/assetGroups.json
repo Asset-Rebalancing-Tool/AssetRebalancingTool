@@ -4,9 +4,10 @@
     "groupKey": "MG1",
     "totalValue": 15203.7,
     "totalPercentage": 66.95,
-    "totalTargetPercentage": 75.00,
+    "totalTargetPercentage": 85.00,
     "totalDeviation": 8.05,
     "currency": "€",
+    "isSelected": false,
     "assets": {
       "SPDR": {
         "name": "SPDR MSCI World UCITS ETF",
@@ -16,7 +17,6 @@
         "isin": "IE00BFY0GT14",
         "tickerSymbol": "SPDR",
         "stockPrice": 26.292,
-        "formattedStockPrice": [26, 29, 2],
         "currency": "€",
         "shares": 407.32,
         "sharesType": "Stk.",
@@ -51,6 +51,7 @@
     "totalTargetPercentage": 0.00,
     "totalDeviation": 0,
     "currency": "€",
+    "isSelected": false,
     "assets": {
       "MSF": {
         "name": "Microsoft Corp",
