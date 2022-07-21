@@ -2,7 +2,7 @@
   <section id="sidebar">
 
     <header>
-      <img src="../../assets/images/app-logo.png" alt="FinQuel App Logo" class="app-logo" />
+      <div class="app-logo" />
     </header>
 
     <SidebarButton
@@ -65,10 +65,15 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 60px 0;
+    padding: 30px 0;
   }
 
   .app-logo {
-    width: 120px;
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: var(--app-logo);
   }
 </style>
