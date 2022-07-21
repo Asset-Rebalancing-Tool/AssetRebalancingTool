@@ -6,6 +6,8 @@
       <ActionButtons />
     </header>
 
+    <TableFilters />
+
     <AssetGroup
         v-for="group in assetStore.assetGroups"
         :key="group.groupKey"
@@ -18,6 +20,7 @@
 <script>
 import AssetSearchbar from '@/components/tab/asset/searchbar/AssetSearchbar'
 import ActionButtons  from '@/components/tab/asset/searchbar/ActionButtons'
+import TableFilters    from '@/components/tab/asset/searchbar/TableFilters'
 import AssetGroup     from '@/components/tab/asset/row/AssetGroup'
 
 import { useAssetStore } from '@/stores/AssetStore'
@@ -27,7 +30,8 @@ export default {
   components: {
     AssetSearchbar,
     ActionButtons,
-    AssetGroup,
+    TableFilters,
+    AssetGroup
   },
   setup() {
     const assetStore = useAssetStore()
