@@ -31,9 +31,7 @@ export default {
   },
   setup() {
     const assetStore = useAssetStore()
-    return {
-      assetStore
-    }
+    return { assetStore }
   }
 }
 </script>
