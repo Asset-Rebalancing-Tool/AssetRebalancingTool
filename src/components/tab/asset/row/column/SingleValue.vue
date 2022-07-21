@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="single-value-wrapper">
     <span class="first-digit">{{firstDigit}}</span>
     <span>
        <span class="decimal-wrapper">
@@ -35,7 +35,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
+.single-value-wrapper {
   width: 52px;
   display: flex;
   justify-content: center;
