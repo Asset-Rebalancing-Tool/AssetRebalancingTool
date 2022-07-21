@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="actual-value-wrapper">
     <span>{{value}} €</span>
     <span>{{percentage}} %</span>
   </div>
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped>
-  .wrapper {
+  .actual-value-wrapper {
     width: 80px;
     display: flex;
     justify-content: center;
@@ -25,7 +25,7 @@ export default {
     row-gap: 2px;
   }
 
-  .wrapper span {
+  .actual-value-wrapper span {
     height: 18px;
     line-height: 18px;
     font-size: 14px;
