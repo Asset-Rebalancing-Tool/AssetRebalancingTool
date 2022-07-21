@@ -17,9 +17,18 @@ export const useAssetStore = defineStore('AssetStore', {
 
         getValueArray(assetValue) {
             // Parse the value of the asset to string
-            let valueString = assetValue.toString()
+            let valueString = parseFloat(assetValue).toString()
+
             // create the value array by splitting the float
             let valueArray = valueString.split('.')
+
+            // Add zeros to the value string, if it is only one digit long
+            if (valueArray.length === 1) {
+                valueArray[1] = '0'
+                valueArray[2] = '0'
+            } else if (valueArray.length === 2) {
+                valueArray[2] = '0'
+            }
 
             // If the first value is smaller than two digit add a zero as first character (visual purpose)
             valueArray[0] = (valueArray[0].length < 2)
