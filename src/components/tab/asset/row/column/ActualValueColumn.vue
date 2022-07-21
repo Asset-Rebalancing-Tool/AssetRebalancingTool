@@ -20,13 +20,9 @@ export default {
       let stringLength = valueArray[0].length
 
       // Set the dots based on the length of the string
-      if (stringLength === 6) {
-        valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5)
-      } else if (stringLength === 5) {
-        valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5)
-      } else if (stringLength === 4) {
-        valueArray[0] = value.slice(0,1) + '.' + value.slice(1,4);
-      }
+      if      (stringLength === 6) { valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5) }
+      else if (stringLength === 5) { valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5) }
+      else if (stringLength === 4) { valueArray[0] = value.slice(0,1) + '.' + value.slice(1,4) }
 
       // Ensure, that the decimal value is two digits long
       if (valueArray[1].length === 1){
