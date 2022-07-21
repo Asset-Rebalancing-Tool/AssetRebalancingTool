@@ -20,6 +20,10 @@
           :value="totalValue"
           :percentage="totalPercentage"
       />
+      <SingleValue class="total-target-percentage"
+          :valueArray="totalTargetPercentage"
+          :unit="'%'"
+      />
       <SingleValue
           :valueArray="totalDeviation"
           :unit="'%'"
@@ -83,6 +87,11 @@ export default {
       return this.thisGroup.totalPercentage
     },
 
+    // The total target percentage of this group
+    totalTargetPercentage() {
+      return ['00','00','0']
+    },
+
     // The total deviation of this group
     totalDeviation() {
       return this.assetStore.getValueArray(this.thisGroup.totalDeviation)
@@ -142,12 +151,16 @@ export default {
     display: flex;
     align-items: center;
     column-gap: 50px;
-    padding: 0 14px;
+    padding-left: 10px;
+    padding-right: 27px;
   }
 
   .asset-group-footer p {
     flex: 1;
     color: var(--primary-text-color);
+  }
+
+  .asset-group-footer span {
   }
 
   /* Because the footer has a smaller height than the assets */
@@ -156,12 +169,16 @@ export default {
   }
 
   .asset-group-footer .actual-value-wrapper {
-    margin-right: 160px;
+    margin-right: 12px;
   }
-
 
   .group-value {
     color: var(--primary-text-color);
+  }
+
+  .total-target-percentage {
+    margin-right: 42px;
+    margin-left: 10px;
   }
 
 </style>
