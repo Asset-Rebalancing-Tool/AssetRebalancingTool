@@ -9,7 +9,7 @@
     />
 
     <SingleValue
-        :formattedValueArray="thisAsset.formattedStockPrice"
+        :valueArray="priceArray"
         :unit="thisAsset.currency"
     />
 
@@ -30,7 +30,7 @@
     />
 
     <SingleValue
-        :formattedValueArray="thisAsset.formattedDeviation"
+        :valueArray="deviationArray"
         :unit="this.unit"
     />
 
@@ -38,12 +38,12 @@
 </template>
 
 <script>
-
 import InfoColumn             from '@/components/tab/asset/row/column/InfoColumn';
 import SingleValue            from '@/components/tab/asset/row/column/SingleValue';
 import ActualValueColumn      from '@/components/tab/asset/row/column/ActualValueColumn';
 import ColumnInput            from '@/components/tab/asset/row/column/ColumnInput';
 
+import { useAssetStore } from '@/stores/AssetStore';
 
 export default {
   name: 'AssetContainer',
@@ -53,9 +53,23 @@ export default {
     ColumnInput,
     ActualValueColumn,
   },
+  props: [
+    'thisAsset',
+    'renderContainer'
+  ],
+  setup() {
+    const assetStore = useAssetStore()
+    return { assetStore }
+  },
   computed: {
     activeContainer() {
       return (this.thisAsset.isSelected) ? 'selected' : ''
+    },
+    priceArray() {
+      return this.assetStore.getValueArray(this.thisAsset.stockPrice)
+    },
+    deviationArray() {
+      return this.assetStore.getValueArray(this.thisAsset.deviation)
     }
   },
   data() {
@@ -63,11 +77,8 @@ export default {
       currency: '€',
       percent: '%',
     }
-  },
-  props: [
-    'thisAsset',
-    'renderContainer'
-  ]
+  }
+
 }
 </script>
 
