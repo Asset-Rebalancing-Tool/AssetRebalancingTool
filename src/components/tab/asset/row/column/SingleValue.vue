@@ -21,7 +21,6 @@ export default {
   ],
   computed: {
     firstDigit() {
-      console.log(this.valueArray)
       return this.valueArray[0];
     },
     firstDecimal() {
