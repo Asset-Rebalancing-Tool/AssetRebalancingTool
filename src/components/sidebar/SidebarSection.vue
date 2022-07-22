@@ -11,7 +11,7 @@
         :title="sidebarButton.title"
         :iconClass="sidebarButton.iconClass"
         :isActive="capitalizeFirstLetter(sidebarButton.key) === activeTab"
-        @click.prevent="changeParentComponent($event, sidebarButton.key)"
+        @click="changeParentComponent($event, sidebarButton.key)"
     />
 
   </section>
