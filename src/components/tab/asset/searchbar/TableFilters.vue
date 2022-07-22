@@ -44,7 +44,7 @@ export default {
     color: var(--secondary-text-color);
   }
 
-  label {
+  .label {
     cursor: pointer;
   }
 
