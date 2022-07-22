@@ -6,8 +6,10 @@
       <div class="info-row">
         <div class="type">{{type}}</div>
         <span class="isin label">ISIN</span>
-        <span class="isin">{{isin}}</span>
-        <span class="icon"></span>
+        <span class="isin-wrapper">
+          <span class="isin">{{isin}}</span>
+          <span class="icon"></span>
+        </span>
       </div>
     </div>
   </div>
@@ -61,7 +63,7 @@ export default {
 
   .info-row {
     display: flex;
-    column-gap: 8px;
+    column-gap: 6px;
   }
 
   .type {
@@ -76,18 +78,37 @@ export default {
     font-size: 14px;
   }
 
+  .isin-wrapper {
+    cursor: pointer;
+    display: flex;
+    column-gap: 8px;
+    padding: 0 4px;
+    border-radius: var(--secondary-border-radius);
+  }
+
+  .isin-wrapper:hover {
+    background-color: var(--tertiary-background-color);
+  }
+
   .isin {
     color: var(--secondary-text-color);
   }
 
   .isin.label {
     color: var(--tertiary-text-color);
+    margin-left: 4px;
+
   }
 
   .icon {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
+    margin-top: 4px;
     background-image: var(--icon-copy-clipboard);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
   }
 
 </style>
