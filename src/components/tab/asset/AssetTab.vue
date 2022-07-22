@@ -20,7 +20,7 @@
 <script>
 import AssetSearchbar from '@/components/tab/asset/searchbar/AssetSearchbar'
 import ActionButtons  from '@/components/tab/asset/searchbar/ActionButtons'
-import TableFilters    from '@/components/tab/asset/searchbar/TableFilters'
+import TableFilters   from '@/components/tab/asset/searchbar/TableFilters'
 import AssetGroup     from '@/components/tab/asset/row/AssetGroup'
 
 import { useAssetStore } from '@/stores/AssetStore'
