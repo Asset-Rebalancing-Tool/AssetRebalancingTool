@@ -149,7 +149,7 @@ export default {
     align-items: center;
     column-gap: 50px;
     padding-left: 10px;
-    padding-right: 27px;
+    padding-right: 11px;
   }
 
   .asset-group-footer p {
