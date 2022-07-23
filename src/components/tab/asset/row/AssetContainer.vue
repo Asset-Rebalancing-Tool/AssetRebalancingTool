@@ -83,7 +83,7 @@ export default {
     border: 1px solid var(--passive-border-color);
     border-radius: var(--primary-border-radius);
     margin-bottom: 15px;
-    padding-right: 25px;
+    padding-right: 10px;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
     display: flex;
     column-gap: 50px;
