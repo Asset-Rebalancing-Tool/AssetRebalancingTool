@@ -5,47 +5,31 @@
       <div class="app-logo" />
     </header>
 
-    <SidebarButton
-        v-for="sidebarButton in sidebarButtons"
-        :key="sidebarButton.key"
-        :title="sidebarButton.title"
-        :iconClass="sidebarButton.iconClass"
-        :isActive="capitalizeFirstLetter(sidebarButton.key) === activeTab"
-        @click="changeParentComponent($event, sidebarButton.key)"
-    />
+    <nav>
+      <router-link class="overview" :to="{name: 'OverviewTab'}">
+        <span class="icon overview"></span>
+        <span>Übersicht</span>
+      </router-link>
+      <router-link class="asset" :to="{name: 'AssetTab'}">
+        <span class="icon asset"></span>
+        <span>Assets verwalten</span>
+      </router-link>
+      <router-link class="broker" :to="{name: 'BrokerTab'}">
+        <span class="icon broker"></span>
+        <span>Broker Anbindung</span>
+      </router-link>
+      <router-link class="history" :to="{name: 'HistoryTab' }">
+        <span class="icon history"></span>
+        <span>Transaktionshistorie</span>
+      </router-link>
+    </nav>
 
   </section>
 </template>
 
 <script>
-import SidebarButton from '@/components/sidebar/SidebarButton';
-
 export default {
   name: 'SidebarSection',
-  components: {
-    SidebarButton
-  },
-  props: [
-    'activeTab'
-  ],
-  data() {
-    return {
-      'sidebarButtons': [
-          { key: 'overviewTab', title: 'Übersicht',            iconClass: 'overview' },
-          { key: 'assetTab',    title: 'Assets verwalten',     iconClass: 'asset'    },
-          { key: 'brokerTab',   title: 'Broker Anbindung',     iconClass: 'broker'   },
-          { key: 'historyTab',  title: 'Transaktionshistorie', iconClass: 'history'  },
-      ]
-    };
-  },
-  methods: {
-    changeParentComponent (event, targetTab) {
-      this.$parent.changeTabComponent(this.capitalizeFirstLetter(targetTab))
-    },
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-  }
 }
 </script>
 
@@ -76,4 +60,65 @@ export default {
     background-position: center;
     background-image: var(--app-logo);
   }
+
+  nav {
+    width: 100%;
+  }
+
+  a {
+    position: relative;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    border: none;
+    text-decoration: none;
+    border-right: 5px solid var(--secondary-background-color);
+    background-color: transparent;
+  }
+
+  a.router-link-exact-active {
+    border-color: var(--main-color);
+  }
+
+  a.router-link-exact-active:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 80%;
+    content: "";
+    background-image: linear-gradient(90deg, rgba(25, 179, 153, 0), rgba(25, 179, 153, 0.24));
+  }
+
+  .icon {
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.6;
+    z-index: 10;
+  }
+
+  a.router-link-exact-active .icon {
+    opacity: 1;
+  }
+
+  .icon.overview { background-image: var(--icon-overview-tab); }
+  .icon.asset    { background-image: var(--icon-asset-tab);    }
+  .icon.broker   { background-image: var(--icon-broker-tab);   }
+  .icon.history  { background-image: var(--icon-history-tab);  }
+
+  span {
+    color: var(--secondary-text-color);
+    margin-left: 20px;
+    cursor: pointer;
+  }
+
+  a.router-link-exact-active span {
+    color: var(--primary-text-color);
+  }
+
 </style>
