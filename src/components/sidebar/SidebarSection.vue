@@ -5,47 +5,17 @@
       <div class="app-logo" />
     </header>
 
-    <SidebarButton
-        v-for="sidebarButton in sidebarButtons"
-        :key="sidebarButton.key"
-        :title="sidebarButton.title"
-        :iconClass="sidebarButton.iconClass"
-        :isActive="capitalizeFirstLetter(sidebarButton.key) === activeTab"
-        @click="changeParentComponent($event, sidebarButton.key)"
-    />
+    <router-link class="overview" :to="{ name: 'OverviewTab' }">Übersicht</router-link> |
+    <router-link class="asset"    :to="{ name: 'AssetTab'    }">Assets verwalten</router-link>
+    <router-link class="broker"   :to="{ name: 'BrokerTab'   }">Broker Anbindung</router-link>
+    <router-link class="history"  :to="{ name: 'HistoryTab'  }">Transaktionshistorie</router-link>
 
   </section>
 </template>
 
 <script>
-import SidebarButton from '@/components/sidebar/SidebarButton';
-
 export default {
   name: 'SidebarSection',
-  components: {
-    SidebarButton
-  },
-  props: [
-    'activeTab'
-  ],
-  data() {
-    return {
-      'sidebarButtons': [
-          { key: 'overviewTab', title: 'Übersicht',            iconClass: 'overview' },
-          { key: 'assetTab',    title: 'Assets verwalten',     iconClass: 'asset'    },
-          { key: 'brokerTab',   title: 'Broker Anbindung',     iconClass: 'broker'   },
-          { key: 'historyTab',  title: 'Transaktionshistorie', iconClass: 'history'  },
-      ]
-    };
-  },
-  methods: {
-    changeParentComponent (event, targetTab) {
-      this.$parent.changeTabComponent(this.capitalizeFirstLetter(targetTab))
-    },
-    capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-  }
 }
 </script>
 
