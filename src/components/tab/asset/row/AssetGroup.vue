@@ -54,9 +54,12 @@ export default {
     SingleValue,
     ActualValueColumn
   },
-  props: [
-    'thisGroup',
-  ],
+  props: {
+    thisGroup: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     // Returns a bool that indicates if the whole group container should be rendered
     renderGroupContainer() {

@@ -8,10 +8,16 @@
 <script>
 export default {
   name: 'ActualValueColumn',
-  props: [
-      'value',
-      'percentage',
-  ],
+  props: {
+    value: {
+      type: String,
+      required: true
+    },
+    percentage: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     // Format the currency value
     formatValue() {
@@ -33,8 +39,6 @@ export default {
       return valueArray[0] + ',' + valueArray[1]
     },
     formatPercentage() {
-      console.log(this.percentage)
-      //return ''
       return this.percentage.toString().replace(".", ",");
     }
   }

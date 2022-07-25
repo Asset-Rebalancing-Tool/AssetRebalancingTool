@@ -8,11 +8,20 @@
 <script>
 export default {
   name: 'TargetPercentageColumn',
-  props: [
-      'inputType',
-      'inputValue',
-      'unit'
-  ]
+  props: {
+    inputType: {
+      type: Array,
+      required: true
+    },
+    inputValue: {
+      type: String,
+      required: true
+    },
+    unit: {
+      type: String,
+      required: true
+    }
+  },
 }
 </script>
 

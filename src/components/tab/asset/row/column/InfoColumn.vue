@@ -18,12 +18,24 @@
 <script>
 export default {
   name: 'InfoColumn',
-  props: [
-      'isSelected',
-      'name',
-      'type',
-      'isin',
-  ],
+  props: {
+    isSelected: {
+      type: Object,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      required: false
+    },
+    isin: {
+      type: String,
+      required: false
+    },
+  },
   computed: {
     activeAsset() {
       return (this.isSelected) ? 'selected' : ''

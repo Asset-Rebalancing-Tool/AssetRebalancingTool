@@ -15,10 +15,16 @@
 
 export default {
   name: 'valueColumn',
-  props: [
-      'valueArray',
-      'unit'
-  ],
+  props: {
+    valueArray: {
+      type: Array,
+      required: true
+    },
+    unit: {
+      type: String,
+      required: true
+    }
+  },
   computed: {
     firstDigit() {
       return this.valueArray[0];

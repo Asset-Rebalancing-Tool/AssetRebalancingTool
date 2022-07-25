@@ -53,10 +53,16 @@ export default {
     ColumnInput,
     ActualValueColumn,
   },
-  props: [
-    'thisAsset',
-    'renderContainer'
-  ],
+  props: {
+    thisAsset: {
+      type: Object,
+      required: true
+    },
+    renderContainer: {
+      type: Boolean,
+      default: false
+    },
+  },
   setup() {
     const assetStore = useAssetStore()
     return { assetStore }
