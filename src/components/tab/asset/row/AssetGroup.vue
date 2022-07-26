@@ -185,4 +185,22 @@ export default {
     margin-left: 10px;
   }
 
+  .asset-group-container.empty-group {
+    outline: 1px solid var(--passive-border-color);
+    border-radius: var(--primary-border-radius);
+    background-color: var(--secondary-background-color);
+  }
+
+  .empty-group-button {
+    width: calc(100% - 5px);
+    height: calc(var(--asset-row-height) - 5px);
+    margin: 2.5px;
+    background-color: var(--primary-infill-color);
+    border-radius: var(--primary-border-radius);
+    border-style: dotted;
+    border-color: var(--passive-border-color);
+    font-size: 18px;
+    color: var(--secondary-text-color);
+    cursor: pointer;
+  }
 </style>
