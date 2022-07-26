@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import OverviewView from '@/views/OverviewView'
-import AssetView    from '@/views/AssetView'
-import EditView     from '@/views/EditView'
-import BrokerView   from '@/views/BrokerView'
-import HistoryView  from '@/views/HistoryView'
+import OverviewView        from '@/views/OverviewView'
+import AssetView           from '@/views/AssetView'
+import EditView            from '@/views/EditView'
+import BrokerView          from '@/views/BrokerView'
+import TransactionHistory  from '@/views/TransactionHistory'
 
 const routes = [
   {
@@ -29,9 +29,9 @@ const routes = [
     component: BrokerView
   },
   {
-    path: '/history',
-    name: 'HistoryView',
-    component: HistoryView
+    path: '/transaction-history',
+    name: 'TransactionHistory',
+    component: TransactionHistory
   }
 ]
 

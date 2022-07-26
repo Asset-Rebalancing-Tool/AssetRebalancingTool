@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'HistoryView',
+  name: 'TransactionHistory',
 }
 </script>

@@ -18,7 +18,7 @@
         <span class="icon broker"></span>
         <span>Broker Anbindung</span>
       </router-link>
-      <router-link class="history" :to="{name: 'HistoryView' }">
+      <router-link class="history" :to="{name: 'TransactionHistory' }">
         <span class="icon history"></span>
         <span>Transaktionshistorie</span>
       </router-link>
