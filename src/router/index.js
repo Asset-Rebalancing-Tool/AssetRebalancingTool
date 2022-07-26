@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import OverviewView        from '@/views/OverviewView'
 import AssetView           from '@/views/AssetView'
 import EditAsset           from '@/views/EditAsset'
+import EditAssetGroup      from '@/views/EditAssetGroup'
 import BrokerView          from '@/views/BrokerView'
 import TransactionHistory  from '@/views/TransactionHistory'
 
@@ -18,10 +19,16 @@ const routes = [
     component: AssetView
   },
   {
-    path: '/asset/edit/:id',
+    path: '/edit-asset/:assetId',
     name: 'EditAsset',
     props: true,
     component: EditAsset
+  },
+  {
+    path: '/edit-asset-group/:groupId',
+    name: 'EditAssetGroup',
+    props: true,
+    component: EditAssetGroup
   },
   {
     path: '/broker',

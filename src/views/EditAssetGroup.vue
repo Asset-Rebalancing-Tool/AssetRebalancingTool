@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{asset}}
+    {{assetGroup}}
   </div>
 </template>
 
@@ -8,21 +8,21 @@
 import AssetService from '@/services/AssetService.js'
 
 export default {
-  name: 'EditAsset',
+  name: 'EditAssetGroup',
   props: {
-    assetId: {
+    groupId: {
       type: Number,
       required: true
     }
   },
   data() {
     return {
-      asset: null
+      assetGroup: null
     }
   },
   created() {
-    AssetService.getAsset(this.assetId).then(response => {
-        this.asset = response.data
+    AssetService.getAssetGroup(this.groupId).then(response => {
+        this.assetGroup = response.data
     }).catch(error => {
         console.log(error)
     })
