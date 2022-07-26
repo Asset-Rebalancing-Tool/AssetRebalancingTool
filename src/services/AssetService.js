@@ -11,15 +11,15 @@ const apiClient = axios.create({
 })
 
 export default {
-  getAssetGroups() {
+  fetchAssetGroups() {
     // return apiClient.get('/asset-groups')
     // TODO: remove along with import after the api is finished (if it needs to be async have a look at commit cc178fc6cffe8eec8c9fbd3ea81c7c240a7ee8db)
     return assetGroups
   },
-  getAssetGroup(groupId) {
+  fetchAssetGroup(groupId) {
     return apiClient.get('/asset-groups/' + groupId)
   },
-  getAsset(assetId) {
+  fetchAsset(assetId) {
     return apiClient.get('/assets/' + assetId)
   }
 }
