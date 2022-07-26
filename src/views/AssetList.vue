@@ -25,7 +25,6 @@ import ActionButtons  from '@/components/asset/searchbar/ActionButtons'
 import TableFilters   from '@/components/asset/searchbar/TableFilters'
 import AssetGroup     from '@/components/asset/row/AssetGroup'
 import AssetFooter    from '@/components/asset/row/AssetFooter'
-import AssetService   from '@/services/AssetService.js'
 
 import { useAssetStore } from '@/stores/AssetStore'
 
@@ -46,13 +45,6 @@ export default {
   setup() {
     const assetStore = useAssetStore()
     return { assetStore }
-  },
-  created() {
-    AssetService.getAssets().then(response => {
-      this.assets = response.data
-    }).catch(error => {
-      console.log(error)
-    })
   }
 }
 </script>
