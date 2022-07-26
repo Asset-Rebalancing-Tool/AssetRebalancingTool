@@ -11,6 +11,15 @@ export const useAssetStore = defineStore('AssetStore', {
         }
     },
 
+    getters: {
+
+        // Ensure that the asset groups have been fetched already and return them
+        checkIfFetched: (state) => {
+            if (state.assetGroups === null) this.fetchAllAssetGroups()
+        },
+    },
+
+
     actions: {
 
         fetchAllAssetGroups() {
