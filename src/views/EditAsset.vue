@@ -5,27 +5,13 @@
 </template>
 
 <script>
-import AssetService from '@/services/AssetService.js'
 
 export default {
   name: 'EditAsset',
-  props: {
-    assetId: {
-      type: Number,
-      required: true
-    }
-  },
   data() {
     return {
       asset: null
     }
-  },
-  created() {
-    AssetService.getAsset(this.assetId).then(response => {
-        this.asset = response.data
-    }).catch(error => {
-        console.log(error)
-    })
   }
 }
 </script>
