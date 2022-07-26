@@ -43,6 +43,17 @@
       }
     }
   },
+  "MG2" : {
+    "name": "Meine Gruppe 2",
+    "groupKey": "MG2",
+    "totalValue": 0.00,
+    "totalPercentage": 0.00,
+    "totalTargetPercentage": 0.00,
+    "totalDeviation": 0.00,
+    "currency": "€",
+    "isSelected": false,
+    "assets": {}
+  },
   "NONE": {
     "name": "Keine Gruppe",
     "groupKey": "NONE",
