@@ -1,4 +1,5 @@
 import axios from 'axios'
+import assetGroups from '@/data/assetGroups.json'
 
 const apiClient = axios.create({
   baseURL: 'https://my-json-server.typicode.com/',
@@ -11,13 +12,13 @@ const apiClient = axios.create({
 
 export default {
   getAssetGroups() {
-    return apiClient.get('/asset-groups')
+    //return apiClient.get('/asset-groups')
+
+    // TODO: remove along with import after the api is finished
+    return assetGroups
   },
   getAssetGroup(groupId) {
     return apiClient.get('/asset-groups/' + groupId)
-  },
-  getAssets() {
-    return apiClient.get('/assets')
   },
   getAsset(assetId) {
     return apiClient.get('/assets/' + assetId)
