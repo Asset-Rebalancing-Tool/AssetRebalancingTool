@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <label>History View</label>
+    <label>Transaction History</label>
   </section>
 </template>
 
