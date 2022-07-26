@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import AssetContainer     from '@/components/tab/asset/row/AssetContainer'
-import SingleValue        from '@/components/tab/asset/row/column/SingleValue';
-import ActualValueColumn  from '@/components/tab/asset/row/column/ActualValueColumn';
+import AssetContainer     from '@/components/asset/row/AssetContainer'
+import SingleValue        from '@/components/asset/row/column/SingleValue';
+import ActualValueColumn  from '@/components/asset/row/column/ActualValueColumn';
 
 import {useAssetStore} from '@/stores/AssetStore';
 
