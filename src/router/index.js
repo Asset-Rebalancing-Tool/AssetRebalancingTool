@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import PortfolioOverview        from '@/views/PortfolioOverview'
+import PortfolioOverview   from '@/views/PortfolioOverview'
 import AssetList           from '@/views/AssetList'
 import EditAsset           from '@/views/EditAsset'
 import EditAssetGroup      from '@/views/EditAssetGroup'
-import ConnectBroker          from '@/views/ConnectBroker'
+import ConnectBroker       from '@/views/ConnectBroker'
 import TransactionHistory  from '@/views/TransactionHistory'
 
 const routes = [
