@@ -38,12 +38,12 @@
 </template>
 
 <script>
-import InfoColumn             from '@/components/asset/row/column/InfoColumn';
-import SingleValue            from '@/components/asset/row/column/SingleValue';
-import ActualValueColumn      from '@/components/asset/row/column/ActualValueColumn';
-import ColumnInput            from '@/components/asset/row/column/ColumnInput';
+import InfoColumn             from '@/components/asset/row/column/InfoColumn'
+import SingleValue            from '@/components/asset/row/column/SingleValue'
+import ActualValueColumn      from '@/components/asset/row/column/ActualValueColumn'
+import ColumnInput            from '@/components/asset/row/column/ColumnInput'
 
-import { useAssetStore } from '@/stores/AssetStore';
+import { useAssetStore } from '@/stores/AssetStore'
 
 export default {
   name: 'AssetContainer',

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import   AssetService  from '@/services/AssetService';
+import   AssetService  from '@/services/AssetService'
 
 // Register and export the store
 export const useAssetStore = defineStore('AssetStore', {
@@ -56,7 +56,7 @@ export const useAssetStore = defineStore('AssetStore', {
          */
         toggleIsSelectedFlag(thisAsset) {
             // Toggle the isSelected flag of thisAsset
-            thisAsset.isSelected = (!thisAsset.isSelected);
+            thisAsset.isSelected = (!thisAsset.isSelected)
             this.checkActionButtonsFlag()
         },
 
@@ -65,12 +65,12 @@ export const useAssetStore = defineStore('AssetStore', {
          */
         checkActionButtonsFlag() {
             // Always reset the actionButtonsAreActive flag
-            this.actionButtonsAreActive = false;
+            this.actionButtonsAreActive = false
             // Iterate over each asset and set the actionButtonsAreActive flag to true if at least on asset is selected
-            const keys = Object.keys(this.assets);
+            const keys = Object.keys(this.assets)
             keys.forEach((key) => {
                 if (this.assets[key].isSelected) this.actionButtonsAreActive = true
-            });
+            })
         },
 
         /**
@@ -78,10 +78,10 @@ export const useAssetStore = defineStore('AssetStore', {
          * This will also lead to a deactivation of the Actionbuttons
          */
         deselectAllAssets() {
-            const keys = Object.keys(this.assets);
+            const keys = Object.keys(this.assets)
             keys.forEach((key) => {
                 this.assets[key].isSelected = false
-            });
+            })
             this.actionButtonsAreActive = false
         },
 

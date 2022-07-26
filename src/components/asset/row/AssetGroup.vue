@@ -41,10 +41,10 @@
 
 <script>
 import AssetContainer     from '@/components/asset/row/AssetContainer'
-import SingleValue        from '@/components/asset/row/column/SingleValue';
-import ActualValueColumn  from '@/components/asset/row/column/ActualValueColumn';
+import SingleValue        from '@/components/asset/row/column/SingleValue'
+import ActualValueColumn  from '@/components/asset/row/column/ActualValueColumn'
 
-import {useAssetStore} from '@/stores/AssetStore';
+import {useAssetStore} from '@/stores/AssetStore'
 
 
 export default {
@@ -110,7 +110,7 @@ export default {
   methods: {
     // Mutate the is selected flag of an asset from the asset store
     toggleIsSelectedFlag(thisAsset) {
-      this.assetStore.toggleIsSelectedFlag(thisAsset);
+      this.assetStore.toggleIsSelectedFlag(thisAsset)
     }
   }
 }

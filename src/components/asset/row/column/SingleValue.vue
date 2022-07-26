@@ -27,13 +27,13 @@ export default {
   },
   computed: {
     firstDigit() {
-      return this.valueArray[0];
+      return this.valueArray[0]
     },
     firstDecimal() {
-      return this.valueArray[1];
+      return this.valueArray[1]
     },
     secondDecimal() {
-      return this.valueArray[2];
+      return this.valueArray[2]
     }
   }
 }
