@@ -8,7 +8,7 @@
 import AssetService from '@/services/AssetService.js'
 
 export default {
-  name: 'EditView',
+  name: 'EditAsset',
   props: {
     assetId: {
       type: Number,

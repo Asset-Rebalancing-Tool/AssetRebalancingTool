@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import OverviewView        from '@/views/OverviewView'
 import AssetView           from '@/views/AssetView'
-import EditView            from '@/views/EditView'
+import EditAsset           from '@/views/EditAsset'
 import BrokerView          from '@/views/BrokerView'
 import TransactionHistory  from '@/views/TransactionHistory'
 
@@ -19,9 +19,9 @@ const routes = [
   },
   {
     path: '/asset/edit/:id',
-    name: 'EditView',
+    name: 'EditAsset',
     props: true,
-    component: EditView
+    component: EditAsset
   },
   {
     path: '/broker',
