@@ -1,6 +1,6 @@
 <template>
 
-  <div v-if="renderGroupContainer" class="asset-group-container">
+  <div v-if="renderGroupContainer" class="asset-group-container" :class="emptyGroupClass">
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
     <div class="asset-wrapper">
       <AssetContainer
@@ -74,6 +74,10 @@ export default {
     // Returns a bool that indicates if the assets object is empty or not
     isEmptyGroup() {
       return (Object.keys(this.thisGroup.assets).length === 0)
+    },
+
+    emptyGroupClass() {
+      return (this.isEmptyGroup) ? 'empty-group' : ''
     },
 
     // The total value of this group
