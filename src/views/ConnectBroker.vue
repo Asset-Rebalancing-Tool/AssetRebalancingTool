@@ -1,11 +1,11 @@
 <template>
   <section class="content">
-    <label>Broker View</label>
+    <label>Connect Broker</label>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'BrokerView',
+  name: 'ConnectBroker',
 }
 </script>

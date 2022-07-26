@@ -14,7 +14,7 @@
         <span class="icon asset"></span>
         <span>Assets verwalten</span>
       </router-link>
-      <router-link class="broker" :to="{name: 'BrokerView'}">
+      <router-link class="broker" :to="{name: 'ConnectBroker'}">
         <span class="icon broker"></span>
         <span>Broker Anbindung</span>
       </router-link>

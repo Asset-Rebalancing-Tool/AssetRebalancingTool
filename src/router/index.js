@@ -4,7 +4,7 @@ import PortfolioOverview        from '@/views/PortfolioOverview'
 import AssetView           from '@/views/AssetView'
 import EditAsset           from '@/views/EditAsset'
 import EditAssetGroup      from '@/views/EditAssetGroup'
-import BrokerView          from '@/views/BrokerView'
+import ConnectBroker          from '@/views/ConnectBroker'
 import TransactionHistory  from '@/views/TransactionHistory'
 
 const routes = [
@@ -31,9 +31,9 @@ const routes = [
     component: EditAssetGroup
   },
   {
-    path: '/broker',
-    name: 'BrokerView',
-    component: BrokerView
+    path: '/connect-broker',
+    name: 'ConnectBroker',
+    component: ConnectBroker
   },
   {
     path: '/transaction-history',
