@@ -1,49 +1,29 @@
 import { defineStore } from 'pinia'
-import   AssetService  from '@/services/AssetService'
+import AssetService from '@/services/AssetService'
+import { toRaw } from 'vue'
 
 // Register and export the store
 export const useAssetStore = defineStore('AssetStore', {
 
-    state: () => {
-        return {
-            assetGroups: null,
-            actionButtonsAreActive: false
-        }
-    },
+    state: () => ({
+        assetGroups: AssetService.getAssetGroups(),
+        actionButtonsAreActive: false
+    }),
 
     getters: {
 
-        // Ensure that the asset groups have been fetched already and return them
-        checkIfFetched: (state) => {
-            if (state.assetGroups === null) this.fetchAllAssetGroups()
-        },
-
-        getAllAssetGroups: (state) => {
-            this.checkIfFetched()
-            return state.assetGroups
-        },
-
+        // Get a single group based on the passed groupKey
         getAssetGroup: (state) => {
-            this.checkIfFetched()
-            return (groupId) => state.assetGroups[groupId]
+            return (groupKey) => toRaw(state.assetGroups)[groupKey]
         },
 
+        // Get a single asset based on the passed group- and assetKey
         getAsset: (state) => {
-            this.checkIfFetched()
-            return (groupId, assetId) => state.assetGroups[groupId][assetId]
-        }
+            return (groupKey, assetKey) => toRaw(state.assetGroups)[groupKey][assetKey]
+        },
     },
 
-
     actions: {
-
-        fetchAllAssetGroups() {
-            AssetService.getAssetGroups().then(response => {
-                this.assetGroups = response.data
-            }).catch(error => {
-                console.log(error)
-            })
-        },
 
         /**
          * Toggle the is selected flag of an asset
