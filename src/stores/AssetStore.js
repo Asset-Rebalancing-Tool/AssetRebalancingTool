@@ -6,7 +6,7 @@ import { toRaw } from 'vue'
 export const useAssetStore = defineStore('AssetStore', {
 
     state: () => ({
-        assetGroups: AssetService.getAssetGroups(),
+        assetGroups: AssetService.fetchAssetGroups(),
         actionButtonsAreActive: false
     }),
 
