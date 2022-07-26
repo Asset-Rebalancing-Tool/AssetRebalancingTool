@@ -6,19 +6,19 @@
     </header>
 
     <nav>
-      <router-link class="overview" :to="{name: 'OverviewTab'}">
+      <router-link class="overview" :to="{name: 'OverviewView'}">
         <span class="icon overview"></span>
         <span>Übersicht</span>
       </router-link>
-      <router-link class="asset" :to="{name: 'AssetTab'}">
+      <router-link class="asset" :to="{name: 'AssetView'}">
         <span class="icon asset"></span>
         <span>Assets verwalten</span>
       </router-link>
-      <router-link class="broker" :to="{name: 'BrokerTab'}">
+      <router-link class="broker" :to="{name: 'BrokerView'}">
         <span class="icon broker"></span>
         <span>Broker Anbindung</span>
       </router-link>
-      <router-link class="history" :to="{name: 'HistoryTab' }">
+      <router-link class="history" :to="{name: 'HistoryView' }">
         <span class="icon history"></span>
         <span>Transaktionshistorie</span>
       </router-link>
