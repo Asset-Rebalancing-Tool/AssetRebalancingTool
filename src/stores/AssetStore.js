@@ -13,6 +13,14 @@ export const useAssetStore = defineStore('AssetStore', {
 
     actions: {
 
+        fetchAllAssetGroups() {
+            AssetService.getAssetGroups().then(response => {
+                this.assetGroups = response.data
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+
         /**
          * Toggle the is selected flag of an asset
          *
