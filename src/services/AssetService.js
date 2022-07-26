@@ -10,10 +10,16 @@ const apiClient = axios.create({
 })
 
 export default {
+  getAssetGroups() {
+    return apiClient.get('/asset-groups')
+  },
+  getAssetGroup(groupId) {
+    return apiClient.get('/asset-groups/' + groupId)
+  },
   getAssets() {
     return apiClient.get('/assets')
   },
-  getAsset(id) {
-    return apiClient.get('/assets/' + id)
+  getAsset(assetId) {
+    return apiClient.get('/assets/' + assetId)
   }
 }
