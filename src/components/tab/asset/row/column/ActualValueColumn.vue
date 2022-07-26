@@ -21,6 +21,10 @@ export default {
   computed: {
     // Format the currency value
     formatValue() {
+
+      // Ensure that the value is not 0
+      if (this.value === 0) return "0,00"
+
       let value        = this.value.toString()
       let valueArray   = value.split('.')
       let stringLength = valueArray[0].length
@@ -37,6 +41,7 @@ export default {
 
       // Return the value and the decimal digit added as one string
       return valueArray[0] + ',' + valueArray[1]
+
     },
     formatPercentage() {
       return this.percentage.toString().replace(".", ",");
