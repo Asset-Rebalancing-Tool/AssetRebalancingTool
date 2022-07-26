@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import PortfolioOverview        from '@/views/PortfolioOverview'
-import AssetView           from '@/views/AssetView'
+import AssetList           from '@/views/AssetList'
 import EditAsset           from '@/views/EditAsset'
 import EditAssetGroup      from '@/views/EditAssetGroup'
 import ConnectBroker          from '@/views/ConnectBroker'
@@ -14,9 +14,9 @@ const routes = [
     component: PortfolioOverview
   },
   {
-    path: '/assets',
-    name: 'AssetView',
-    component: AssetView
+    path: '/asset-list',
+    name: 'AssetList',
+    component: AssetList
   },
   {
     path: '/edit-asset/:assetId',

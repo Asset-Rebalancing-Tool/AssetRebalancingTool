@@ -10,7 +10,7 @@
         <span class="icon overview"></span>
         <span>Übersicht</span>
       </router-link>
-      <router-link class="asset" :to="{name: 'AssetView'}">
+      <router-link class="asset" :to="{name: 'AssetList'}">
         <span class="icon asset"></span>
         <span>Assets verwalten</span>
       </router-link>
@@ -107,7 +107,7 @@ export default {
   }
 
   .icon.overview { background-image: var(--icon-overview-tab); }
-  .icon.asset    { background-image: var(--icon-asset-tab);    }
+  .icon.asset    { background-image: var(--icon-asset-list);    }
   .icon.broker   { background-image: var(--icon-broker-tab);   }
   .icon.history  { background-image: var(--icon-history-tab);  }
 

@@ -1,5 +1,5 @@
 <template>
-  <section id="asset-tab">
+  <section id="asset-list">
 
     <header>
       <AssetSearchbar />
@@ -30,7 +30,7 @@ import AssetService   from '@/services/AssetService.js'
 import { useAssetStore } from '@/stores/AssetStore'
 
 export default {
-  name: 'AssetView',
+  name: 'AssetList',
   components: {
     AssetSearchbar,
     ActionButtons,
@@ -58,7 +58,7 @@ export default {
 </script>
 
 <style scoped>
-  #asset-tab {
+  #asset-list {
     position: relative;
     width: 100%;
     padding: 25px;
