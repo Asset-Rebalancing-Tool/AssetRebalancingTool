@@ -1,11 +1,11 @@
 <template>
   <section class="content">
-    <label>Overview View</label>
+    <label>Portfolio Overview</label>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'OverviewView',
+  name: 'PortfolioOverview',
 }
 </script>

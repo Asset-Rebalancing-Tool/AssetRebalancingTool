@@ -6,7 +6,7 @@
     </header>
 
     <nav>
-      <router-link class="overview" :to="{name: 'OverviewView'}">
+      <router-link class="overview" :to="{name: 'PortfolioOverview'}">
         <span class="icon overview"></span>
         <span>Übersicht</span>
       </router-link>
