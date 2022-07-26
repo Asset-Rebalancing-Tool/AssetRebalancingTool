@@ -37,11 +37,6 @@ export default {
     AssetGroup,
     AssetFooter
   },
-  data() {
-    return {
-      assets: null
-    }
-  },
   setup() {
     const assetStore = useAssetStore()
     return { assetStore }
