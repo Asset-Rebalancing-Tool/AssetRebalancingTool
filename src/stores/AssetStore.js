@@ -27,6 +27,11 @@ export const useAssetStore = defineStore('AssetStore', {
             this.checkIfFetched()
             return (groupId) => state.assetGroups[groupId]
         },
+
+        getAsset: (state) => {
+            this.checkIfFetched()
+            return (groupId, assetId) => state.assetGroups[groupId][assetId]
+        }
     },
 
 
