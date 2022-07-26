@@ -106,10 +106,10 @@ export default {
     opacity: 1;
   }
 
-  .icon.overview { background-image: var(--icon-overview-tab); }
-  .icon.asset    { background-image: var(--icon-asset-list);    }
-  .icon.broker   { background-image: var(--icon-broker-tab);   }
-  .icon.history  { background-image: var(--icon-history-tab);  }
+  .icon.overview { background-image: var(--icon-portfolio-overview);  }
+  .icon.asset    { background-image: var(--icon-asset-list);          }
+  .icon.broker   { background-image: var(--icon-connect-broker);      }
+  .icon.history  { background-image: var(--icon-transaction-history); }
 
   span {
     color: var(--secondary-text-color);
