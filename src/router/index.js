@@ -1,30 +1,37 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import OverviewTab from '@/components/tab/overview/OverviewTab'
-import AssetTab    from '@/components/tab/asset/AssetTab'
-import BrokerTab   from '@/components/tab/broker/BrokerTab'
-import HistoryTab  from '@/components/tab/history/HistoryTab'
+import OverviewView from '@/views/OverviewView'
+import AssetView    from '@/views/AssetView'
+import EditView     from '@/views/EditView'
+import BrokerView   from '@/views/BrokerView'
+import HistoryView  from '@/views/HistoryView'
 
 const routes = [
   {
     path: '/',
-    name: 'OverviewTab',
-    component: OverviewTab
+    name: 'OverviewView',
+    component: OverviewView
   },
   {
     path: '/assets',
-    name: 'AssetTab',
-    component: AssetTab
+    name: 'AssetView',
+    component: AssetView
+  },
+  {
+    path: '/asset/edit/:id',
+    name: 'EditView',
+    props: true,
+    component: EditView
   },
   {
     path: '/broker',
-    name: 'BrokerTab',
-    component: BrokerTab
+    name: 'BrokerView',
+    component: BrokerView
   },
   {
     path: '/history',
-    name: 'HistoryTab',
-    component: HistoryTab
+    name: 'HistoryView',
+    component: HistoryView
   }
 ]
 
