@@ -1,11 +1,11 @@
 <template>
   <section class="content">
-    <label>Broker Tab</label>
+    <label>History View</label>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'BrokerTab',
+  name: 'HistoryView',
 }
 </script>
