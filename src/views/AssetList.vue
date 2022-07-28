@@ -9,9 +9,15 @@
     <TableFilters />
 
     <AssetGroup
-        v-for="group in assetStore.assetGroups"
-        :key="group.groupKey"
+        v-for="group in assetStore.groupListObject"
+        :key="group.id"
         :thisGroup="group"
+    />
+
+    <AssetContainer
+        v-for="asset in singleAssets"
+        :key="asset.id"
+        :thisAsset="asset"
     />
 
     <AssetFooter />
@@ -24,6 +30,7 @@ import AssetSearchbar from '@/components/asset/searchbar/AssetSearchbar'
 import ActionButtons  from '@/components/asset/searchbar/ActionButtons'
 import TableFilters   from '@/components/asset/searchbar/TableFilters'
 import AssetGroup     from '@/components/asset/row/AssetGroup'
+import AssetContainer from '@/components/asset/row/AssetContainer'
 import AssetFooter    from '@/components/asset/row/AssetFooter'
 
 import { useAssetStore } from '@/stores/AssetStore'
@@ -35,11 +42,17 @@ export default {
     ActionButtons,
     TableFilters,
     AssetGroup,
+    AssetContainer,
     AssetFooter
   },
   setup() {
     const assetStore = useAssetStore()
     return { assetStore }
+  },
+  computed: {
+    singleAssets() {
+      return this.assetStore.getAssetsWithoutGroup()
+    }
   }
 }
 </script>
