@@ -1,0 +1,24 @@
+{
+  "1100" : {
+    "id": 1100,
+    "name": "Meine Gruppe 1",
+    "totalValue": 15203.7,
+    "totalPercentage": 66.95,
+    "totalTargetPercentage": 85.00,
+    "totalDeviation": 8.05,
+    "currency": "€",
+    "isSelected": false,
+    "relatedAssetsUidArray": [1101, 1102]
+  },
+  "1200" : {
+    "id": 1200,
+    "name": "Meine Gruppe 2",
+    "totalValue": 0.00,
+    "totalPercentage": 0.00,
+    "totalTargetPercentage": 0.00,
+    "totalDeviation": 0.00,
+    "currency": "€",
+    "isSelected": false,
+    "relatedAssetsUidArray": []
+  }
+}
