@@ -1,5 +1,5 @@
 <template>
-  <div v-if="renderContainer" class="asset-container" :class="activeContainer">
+  <div class="asset-container" :class="activeContainer">
 
     <InfoColumn
         :isSelected="thisAsset.isSelected"
@@ -57,11 +57,7 @@ export default {
     thisAsset: {
       type: Object,
       required: true
-    },
-    renderContainer: {
-      type: Boolean,
-      default: false
-    },
+    }
   },
   setup() {
     const assetStore = useAssetStore()
