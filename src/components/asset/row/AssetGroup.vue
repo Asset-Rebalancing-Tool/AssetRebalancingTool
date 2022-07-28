@@ -1,14 +1,12 @@
 <template>
 
-  <div v-if="renderGroupContainer" class="asset-group-container" :class="emptyGroupClass">
+  <div class="asset-group-container" :class="emptyGroupClass">
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
     <div class="asset-wrapper">
       <AssetContainer
-            v-for="asset in thisGroup.assets"
-            :key="asset.tickerSymbol"
+            v-for="asset in relatedAssets"
+            :key="asset.id"
             :thisAsset="asset"
-            :renderContainer="renderGroupContainer"
-            @click="toggleIsSelectedFlag(asset)"
       />
     </div>
     <div class="asset-group-footer">
@@ -27,14 +25,6 @@
       />
     </div>
   </div>
-
-  <AssetContainer
-      v-for="asset in thisGroup.assets"
-      :key="asset.tickerSymbol"
-      :thisAsset="asset"
-      :renderContainer="renderSingleAsset"
-      @click="toggleIsSelectedFlag(asset)"
-  />
 
 
 </template>
@@ -61,19 +51,14 @@ export default {
     }
   },
   computed: {
-    // Returns a bool that indicates if the whole group container should be rendered
-    renderGroupContainer() {
-      return (this.thisGroup.groupKey !== 'NONE')
-    },
-
-    // Returns a bool that indicates if only the single assets should be rendered
-    renderSingleAsset() {
-      return (this.thisGroup.groupKey === 'NONE')
-    },
 
     // Returns a bool that indicates if the assets object is empty or not
     isEmptyGroup() {
-      return (Object.keys(this.thisGroup.assets).length === 0)
+      return (this.thisGroup.relatedAssetsUidArray.length === 0)
+    },
+
+    relatedAssets() {
+      return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
     },
 
     emptyGroupClass() {
@@ -109,9 +94,9 @@ export default {
   },
   methods: {
     // Mutate the is selected flag of an asset from the asset store
-    toggleIsSelectedFlag(thisAsset) {
+    /*toggleIsSelectedFlag(thisAsset) {
       this.assetStore.toggleIsSelectedFlag(thisAsset)
-    }
+    }*/
   }
 }
 </script>
