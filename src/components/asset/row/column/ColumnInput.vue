@@ -10,8 +10,8 @@ export default {
   name: 'TargetPercentageColumn',
   props: {
     inputType: {
-      type: Array,
-      required: true
+      type: String,
+      default: "text"
     },
     inputValue: {
       type: String,
