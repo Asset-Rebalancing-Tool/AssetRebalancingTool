@@ -7,7 +7,7 @@
             v-for="asset in relatedAssets"
             :key="asset.id"
             :thisAsset="asset"
-            @click="assetStore.toggleIsSelectedFlag(asset.id, 'assetList')"
+            @click="assetStore.toggleIsSelectedFlag(asset.id, asset.relatedGroupId)"
       />
     </div>
     <div class="asset-group-footer" @click="assetStore.toggleWholeGroupSelectedFlag(thisGroup)">
@@ -98,12 +98,6 @@ export default {
     return {
       assetStore
     }
-  },
-  methods: {
-    // Mutate the is selected flag of an asset from the asset store
-    /*toggleIsSelectedFlag(thisAsset) {
-      this.assetStore.toggleIsSelectedFlag(thisAsset)
-    }*/
   }
 }
 </script>

@@ -18,7 +18,7 @@
         v-for="asset in singleAssets"
         :key="asset.id"
         :thisAsset="asset"
-        @click="assetStore.toggleIsSelectedFlag(asset.id, 'assetList')"
+        @click="assetStore.toggleIsSelectedFlag(asset.id, asset.relatedGroupId)"
     />
 
     <AssetFooter />
