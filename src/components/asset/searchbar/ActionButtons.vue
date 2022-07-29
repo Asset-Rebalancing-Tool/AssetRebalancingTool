@@ -7,7 +7,7 @@
       <span class="icon group"></span>
       <span class="icon arrow-down"></span>
     </button>
-    <button  :class="activeDeleteButton">
+    <button :class="activeDeleteButton" @click="assetStore.removeAllSelectedAssets">
       <span class="icon delete"></span>
     </button>
   </div>
@@ -41,6 +41,7 @@ export default {
 
 <style scoped>
   .button-wrapper {
+    position: relative;
     display: flex;
   }
 

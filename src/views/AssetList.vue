@@ -12,7 +12,6 @@
         v-for="group in assetStore.groupListObject"
         :key="group.id"
         :thisGroup="group"
-        @click="assetStore.toggleIsSelectedFlag(group.id, 'groupList')"
     />
 
     <AssetContainer
