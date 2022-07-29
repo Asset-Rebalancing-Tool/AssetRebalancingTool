@@ -105,7 +105,6 @@ export const useAssetStore = defineStore('assetStore', {
          * @returns {number} Integer
          */
         getSelectedAssetCount() {
-            console.log(Object.keys(this.getAllSelectedAssets()).length)
             this.selectedAssetCount = Object.keys(this.getAllSelectedAssets()).length
         },
 
@@ -116,7 +115,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param object         Object
          * @param listObjectName String
          */
-        addAction(object, listObjectName = 'asset') {
+        addToListObject(object, listObjectName = 'asset') {
             const newId = this.generateRandomId(listObjectName)
             const listObject = this.getListObject(listObjectName)
             object.id = newId
@@ -130,13 +129,23 @@ export const useAssetStore = defineStore('assetStore', {
          * @param id             Integer
          * @param listObjectName String
          */
-        removeAction(id, listObjectName) {
+        removeById(id, listObjectName) {
             const listObject = this.getListObject(listObjectName)
             for (const [key, asset] of Object.entries(listObject)) {
                 if (asset.id === id) {
                     delete listObject[key]
                     break
                 }
+            }
+        },
+
+        /**
+         * Remove all selected assets from the asset list object
+         */
+        removeAllSelectedAssets() {
+            const assetListObject = this.getListObject('assetList')
+            for (const asset of Object.entries(this.getAllSelectedAssets())) {
+                delete assetListObject[asset[1].id]
             }
         },
 
