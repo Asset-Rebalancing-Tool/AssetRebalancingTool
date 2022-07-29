@@ -21,7 +21,7 @@
         @click="assetStore.toggleIsSelectedFlag(asset.id, asset.relatedGroupId)"
     />
 
-    <AssetFooter />
+    <AssetListFooter />
 
   </section>
 </template>
@@ -32,7 +32,7 @@ import ActionButtons  from '@/components/asset/searchbar/ActionButtons'
 import TableFilters   from '@/components/asset/searchbar/TableFilters'
 import AssetGroup     from '@/components/asset/row/AssetGroup'
 import AssetContainer from '@/components/asset/row/AssetContainer'
-import AssetFooter    from '@/components/asset/row/AssetFooter'
+import AssetListFooter    from '@/components/asset/row/AssetListFooter'
 
 import { useAssetStore } from '@/stores/AssetStore'
 
@@ -44,7 +44,7 @@ export default {
     TableFilters,
     AssetGroup,
     AssetContainer,
-    AssetFooter
+    AssetListFooter
   },
   setup() {
     const assetStore = useAssetStore()
