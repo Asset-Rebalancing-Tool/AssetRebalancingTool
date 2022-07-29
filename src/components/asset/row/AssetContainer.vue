@@ -16,6 +16,7 @@
     <ColumnInput
         :inputValue="thisAsset.shares"
         :unit="'Stk.'"
+        @click="$event.stopPropagation()"
     />
 
     <ActualValueColumn
@@ -27,6 +28,7 @@
     <ColumnInput
         :inputValue="thisAsset.targetPercentage"
         :unit="'%'"
+        @click="$event.stopPropagation()"
     />
 
     <SingleValue
