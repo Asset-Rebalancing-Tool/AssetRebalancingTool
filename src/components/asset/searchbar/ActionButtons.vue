@@ -54,6 +54,10 @@ export default {
     background-color: var(--secondary-infill-color);
   }
 
+  button {
+    cursor: not-allowed;
+  }
+
   button.active {
     cursor: pointer;
   }
