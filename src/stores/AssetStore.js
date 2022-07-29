@@ -83,6 +83,57 @@ export const useAssetStore = defineStore('assetStore', {
         },
 
         /**
+         * Toggle the isSelect flags of each asset along with their related group
+         * If not all assets are selected, set them all to true
+         * If all assets are already selected, set them all to false
+         *
+         * @param thisGroup Object
+         */
+        toggleWholeGroupSelectedFlag(thisGroup) {
+            const assetListObject = this.getListObject('assetList')
+            // If all assets of this group are selected, set all to false, if not set all to true
+            let allSelected = this.checkIfWholeGroupIsSelected(thisGroup, assetListObject)
+            if (allSelected) {
+                this.setGroupsSelectedFlag(thisGroup, assetListObject, false)
+            } else {
+                this.setGroupsSelectedFlag(thisGroup, assetListObject, true)
+            }
+        },
+
+        /**
+         * Check if all assets of a group are selected and return a Boolean based oin that
+         *
+         * @param thisGroup       Object
+         * @param assetListObject Object
+         *
+         * @returns {boolean} Boolean
+         */
+        checkIfWholeGroupIsSelected(thisGroup, assetListObject) {
+            let allSelected = true
+            for (const assetId of thisGroup.relatedAssetsIdArray) {
+                if (!assetListObject[assetId].isSelected) {
+                    allSelected = false
+                }
+            }
+            return allSelected
+        },
+
+        /**
+         * Set all group assets isSelect flags along with the groups isSelected flag itself,
+         * by specifying to what Boolean the flag should be set
+         *
+         * @param thisGroup       Object
+         * @param assetListObject Object
+         * @param setTo           Boolean
+         */
+        setGroupsSelectedFlag(thisGroup, assetListObject, setTo) {
+            for (const assetId of thisGroup.relatedAssetsIdArray) {
+                assetListObject[assetId].isSelected = setTo
+            }
+            thisGroup.isSelected = setTo
+        },
+
+        /**
          * Return an object of all assets that are selected
          *
          * @returns {{}}
