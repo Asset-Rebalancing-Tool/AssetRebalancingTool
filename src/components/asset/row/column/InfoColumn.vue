@@ -6,7 +6,7 @@
       <div class="info-row">
         <div class="type">{{type}}</div>
         <span class="isin label">ISIN</span>
-        <span class="isin-wrapper">
+        <span class="isin-wrapper" @click="copyISIN($event)">
           <span class="isin">{{isin}}</span>
           <span class="icon"></span>
         </span>
@@ -39,6 +39,19 @@ export default {
   computed: {
     activeAsset() {
       return (this.isSelected) ? 'selected' : ''
+    }
+  },
+  methods: {
+    // copy the isin into the clipboard
+    copyISIN(event) {
+      let tempTextInput = document.createElement("input");
+      tempTextInput.value = this.isin;
+      document.body.appendChild(tempTextInput);
+      tempTextInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempTextInput);
+      event.stopPropagation()
+      alert("Copied the text: " + tempTextInput.value);
     }
   }
 }
