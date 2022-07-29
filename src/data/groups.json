@@ -8,6 +8,6 @@
     "totalDeviation": 8.05,
     "currency": "€",
     "isSelected": false,
-    "relatedAssetsUidArray": [1101, 1102]
+    "relatedAssetsIdArray": [1101, 1102]
   }
 }
