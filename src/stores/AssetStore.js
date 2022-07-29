@@ -187,23 +187,6 @@ export const useAssetStore = defineStore('assetStore', {
         },
 
         /**
-         * Remove an object by passing its id
-         * and specifying the name of the list the object is nested in
-         *
-         * @param id             Integer
-         * @param listObjectName String
-         */
-        removeById(id, listObjectName) {
-            const listObject = this.getListObject(listObjectName)
-            for (const [key, asset] of Object.entries(listObject)) {
-                if (asset.id === id) {
-                    delete listObject[key]
-                    break
-                }
-            }
-        },
-
-        /**
          * Remove all selected assets from the asset list object
          * and remove the id's of those assets from each groups relatedAssetsIdArray
          */
