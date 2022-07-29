@@ -5,14 +5,14 @@
     </button>
     <button
         class="group"
-        :class="{'active': atLeastOneSelected, 'highlighted': showGroupWrapper}"
+        :class="{'active': atLeastOneSelected, 'highlighted': assetStore.showGroupWrapper}"
         @click="toggleGroupWrapper">
       <span class="icon group"></span>
       <span class="icon arrow-down"></span>
     </button>
 
     <!-- Context menu should not be the last element in the button-wrapper, to ensure the :last-child selector is working on the button -->
-    <GroupContextMenu :showWrapper="showGroupWrapper"/>
+    <GroupContextMenu :showWrapper="assetStore.showGroupWrapper"/>
 
     <button :class="atLeastOneSelected" @click="assetStore.removeAllSelectedAssets">
       <span class="icon delete"></span>
@@ -51,10 +51,9 @@ export default {
   },
   methods: {
     toggleGroupWrapper() {
-      this.showGroupWrapper = (!this.showGroupWrapper)
-    }
-  },
-
+      this.assetStore.showGroupWrapper = (!this.assetStore.showGroupWrapper)
+    },
+  }
 }
 </script>
 
