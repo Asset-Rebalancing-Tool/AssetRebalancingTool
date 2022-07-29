@@ -1,13 +1,13 @@
 <template>
-  <div class="button-wrapper" :class="activeActionButtons">
-    <button>
+  <div class="button-wrapper">
+    <button :class="activeEditButton">
       <span class="icon edit"></span>
     </button>
-    <button class="group">
+    <button :class="activeMoveButton" class="group">
       <span class="icon group"></span>
       <span class="icon arrow-down"></span>
     </button>
-    <button>
+    <button  :class="activeDeleteButton">
       <span class="icon delete"></span>
     </button>
   </div>
@@ -19,16 +19,16 @@ import { useAssetStore } from '@/stores/AssetStore'
 
 export default {
   name: 'ActionButtons',
-  data() {
-    return {
-      isActive: true
-    }
-  },
   computed: {
-    // Returns a class that is used to highlight the button wrapper, if at least one asset is selected
-    activeActionButtons() {
-      return (this.assetStore.actionButtonsAreActive) ? 'active' : ''
-    }
+    activeEditButton() {
+      return (this.assetStore.selectedAssetCount === 1) ? 'active' : ''
+    },
+    activeMoveButton() {
+      return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
+    },
+    activeDeleteButton() {
+      return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
+    },
   },
   setup() {
     const assetStore = useAssetStore()
@@ -42,8 +42,6 @@ export default {
 <style scoped>
   .button-wrapper {
     display: flex;
-    cursor: default;
-    pointer-events: none;
   }
 
   .button-wrapper button {
@@ -56,12 +54,11 @@ export default {
     background-color: var(--secondary-infill-color);
   }
 
-  .button-wrapper.active {
+  button.active {
     cursor: pointer;
-    pointer-events: all;
   }
 
-  .button-wrapper.active button:hover {
+  button.active:hover {
     background-color: var(--primary-background-color);
   }
 
@@ -104,7 +101,7 @@ export default {
   .icon.arrow-up   { background-image: var(--icon-arrow-up);      }
   .icon.arrow-down { background-image: var(--icon-arrow-down);    }
 
-  .button-wrapper.active .icon {
+  button.active .icon {
     opacity: 1;
   }
 
