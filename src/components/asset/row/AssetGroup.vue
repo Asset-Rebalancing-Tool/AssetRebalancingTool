@@ -143,6 +143,7 @@ export default {
     column-gap: 50px;
     padding-left: 10px;
     padding-right: 11px;
+    cursor: pointer;
   }
 
   .asset-group-footer p {
