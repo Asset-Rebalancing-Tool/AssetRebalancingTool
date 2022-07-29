@@ -76,10 +76,12 @@ export default {
 
   button {
     cursor: not-allowed;
+    pointer-events: none;
   }
 
   button.active {
     cursor: pointer;
+    pointer-events: all;
   }
 
   button.active:hover {
