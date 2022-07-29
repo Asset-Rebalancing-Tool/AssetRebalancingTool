@@ -185,7 +185,7 @@ export default {
     border-radius: var(--primary-border-radius);
     border-style: dotted;
     border-color: var(--passive-border-color);
-    font-size: 18px;
+    font-size: 20px;
     color: var(--secondary-text-color);
     cursor: pointer;
   }
