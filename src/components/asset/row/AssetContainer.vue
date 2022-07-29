@@ -89,6 +89,7 @@ export default {
     box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
     display: flex;
     column-gap: 50px;
+    cursor: pointer;
   }
 
   .asset-container.selected {
