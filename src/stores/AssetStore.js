@@ -14,7 +14,8 @@ export const useAssetStore = defineStore('assetStore', {
             groupListObject: reactive(AssetService.fetchGroupList()),
             assetListObject: reactive(AssetService.fetchAssetList()),
             /** Count that is used, to determine what action buttons should be active */
-            selectedAssetCount: 0
+            selectedAssetCount: 0,
+            showGroupWrapper: false
         }
     },
 
@@ -170,6 +171,7 @@ export const useAssetStore = defineStore('assetStore', {
          */
         setSelectedAssetCount() {
             this.selectedAssetCount = Object.keys(this.getAllSelectedAssets()).length
+            if (this.selectedAssetCount === 0) this.showGroupWrapper = false
         },
 
         /**
