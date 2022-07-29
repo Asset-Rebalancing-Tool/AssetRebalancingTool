@@ -189,6 +189,7 @@ export const useAssetStore = defineStore('assetStore', {
         /**
          * Remove all selected assets from the asset list object
          * and remove the id's of those assets from each groups relatedAssetsIdArray
+         * TODO: popup message for safety reasons along with selection if group should be also deleted if there is a whole group selected
          */
         removeAllSelectedAssets() {
             const groupListObject = this.getListObject('groupList')
