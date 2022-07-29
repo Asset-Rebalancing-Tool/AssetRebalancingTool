@@ -12,12 +12,14 @@
         v-for="group in assetStore.groupListObject"
         :key="group.id"
         :thisGroup="group"
+        @click="assetStore.toggleIsSelectedFlag(group.id, 'groupList')"
     />
 
     <AssetContainer
         v-for="asset in singleAssets"
         :key="asset.id"
         :thisAsset="asset"
+        @click="assetStore.toggleIsSelectedFlag(asset.id, 'assetList')"
     />
 
     <AssetFooter />
