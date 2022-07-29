@@ -1,5 +1,4 @@
 <template>
-
   <div class="asset-group-container" :class="{'empty-group': emptyGroupClass, 'selected': isSelectedGroup }">
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
     <div class="asset-wrapper">
@@ -10,40 +9,21 @@
             @click="assetStore.toggleIsSelectedFlag(asset.id, asset.relatedGroupId)"
       />
     </div>
-    <div class="asset-group-footer" @click="assetStore.toggleWholeGroupSelectedFlag(thisGroup)">
-      <p>{{thisGroup.name}}</p>
-      <ActualValueColumn
-          :value="totalValue"
-          :percentage="totalPercentage"
-      />
-      <SingleValue class="total-target-percentage"
-          :valueArray="totalTargetPercentage"
-          :unit="'%'"
-      />
-      <SingleValue
-          :valueArray="totalDeviation"
-          :unit="'%'"
-      />
-    </div>
+    <AssetGroupFooter :thisGroup="thisGroup" />
   </div>
-
-
 </template>
 
 <script>
 import AssetContainer     from '@/components/asset/row/AssetContainer'
-import SingleValue        from '@/components/asset/row/column/SingleValue'
-import ActualValueColumn  from '@/components/asset/row/column/ActualValueColumn'
-
 import {useAssetStore} from '@/stores/AssetStore'
+import AssetGroupFooter from '@/components/asset/row/AssetGroupFooter';
 
 
 export default {
   name: 'AssetGroup',
   components: {
+    AssetGroupFooter,
     AssetContainer,
-    SingleValue,
-    ActualValueColumn
   },
   props: {
     thisGroup: {
@@ -71,26 +51,6 @@ export default {
     // Get an object of all assets, that are nested in that group
     relatedAssets() {
       return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
-    },
-
-    // The total value of this group
-    totalValue() {
-      return this.thisGroup.totalValue
-    },
-
-    // The total percentage of this group
-    totalPercentage() {
-      return this.thisGroup.totalPercentage
-    },
-
-    // The total target percentage of this group
-    totalTargetPercentage() {
-      return this.assetStore.getValueArray(this.thisGroup.totalTargetPercentage)
-    },
-
-    // The total deviation of this group
-    totalDeviation() {
-      return this.assetStore.getValueArray(this.thisGroup.totalDeviation)
     }
   },
   setup() {
@@ -131,45 +91,6 @@ export default {
 
   .asset-wrapper .asset-container:last-child {
     border-radius: 0;
-  }
-
-  .asset-group-footer {
-    width: 100%;
-    height: 45px;
-    background-color: var(--tertiary-background-color);
-    border-radius: 0 0 var(--primary-border-radius) var(--primary-border-radius);
-    display: flex;
-    align-items: center;
-    column-gap: 50px;
-    padding-left: 10px;
-    padding-right: 11px;
-    cursor: pointer;
-  }
-
-  .asset-group-footer p {
-    flex: 1;
-    color: var(--primary-text-color);
-  }
-
-  .asset-group-footer span {
-  }
-
-  /* Because the footer has a smaller height than the assets */
-  .asset-group-footer .single-value-wrapper {
-    margin-top: -8px;
-  }
-
-  .asset-group-footer .actual-value-wrapper {
-    margin-right: 12px;
-  }
-
-  .group-value {
-    color: var(--primary-text-color);
-  }
-
-  .total-target-percentage {
-    margin-right: 42px;
-    margin-left: 10px;
   }
 
   .asset-group-container.empty-group {
