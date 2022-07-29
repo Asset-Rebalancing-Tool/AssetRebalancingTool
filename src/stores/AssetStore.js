@@ -205,11 +205,20 @@ export const useAssetStore = defineStore('assetStore', {
 
         /**
          * Remove all selected assets from the asset list object
+         * and remove the id's of those assets from each groups relatedAssetsIdArray
          */
         removeAllSelectedAssets() {
+            const groupListObject = this.getListObject('groupList')
             const assetListObject = this.getListObject('assetList')
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
                 delete assetListObject[asset[1].id]
+                for (const group of Object.entries(groupListObject)) {
+                    let assetIdArray = group[1].relatedAssetsIdArray
+                    let index = assetIdArray.indexOf(asset[1].id);
+                    if (index !== -1) {
+                        assetIdArray.splice(index, 1);
+                    }
+                }
             }
         },
 
