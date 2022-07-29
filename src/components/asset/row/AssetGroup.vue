@@ -7,6 +7,7 @@
             v-for="asset in relatedAssets"
             :key="asset.id"
             :thisAsset="asset"
+            @click="assetStore.toggleIsSelectedFlag(asset.id, 'assetList')"
       />
     </div>
     <div class="asset-group-footer">
