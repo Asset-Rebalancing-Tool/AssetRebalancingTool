@@ -1,6 +1,6 @@
 <template>
 
-  <div class="asset-group-container" :class="emptyGroupClass">
+  <div class="asset-group-container" :class="{'empty-group': emptyGroupClass, 'selected': isSelectedGroup }">
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
     <div class="asset-wrapper">
       <AssetContainer
@@ -10,7 +10,7 @@
             @click="assetStore.toggleIsSelectedFlag(asset.id, 'assetList')"
       />
     </div>
-    <div class="asset-group-footer">
+    <div class="asset-group-footer" @click="assetStore.toggleWholeGroupSelectedFlag(thisGroup)">
       <p>{{thisGroup.name}}</p>
       <ActualValueColumn
           :value="totalValue"
@@ -55,15 +55,22 @@ export default {
 
     // Returns a bool that indicates if the assets object is empty or not
     isEmptyGroup() {
-      return (this.thisGroup.relatedAssetsUidArray.length === 0)
+      return (this.thisGroup.relatedAssetsIdArray.length === 0)
     },
 
-    relatedAssets() {
-      return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
+    // Render the selected class based in the groups isSelected flag
+    isSelectedGroup() {
+      return (this.thisGroup.isSelected) ? 'selected' : ''
     },
 
+    // Render the empty-group class based on the isEmptyGroup bool
     emptyGroupClass() {
       return (this.isEmptyGroup) ? 'empty-group' : ''
+    },
+
+    // Get an object of all assets, that are nested in that group
+    relatedAssets() {
+      return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
     },
 
     // The total value of this group
@@ -78,7 +85,6 @@ export default {
 
     // The total target percentage of this group
     totalTargetPercentage() {
-      //console.log(this.thisGroup.totalTargetPercentage)
       return this.assetStore.getValueArray(this.thisGroup.totalTargetPercentage)
     },
 
