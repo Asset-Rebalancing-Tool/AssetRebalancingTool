@@ -70,15 +70,26 @@ export const useAssetStore = defineStore('assetStore', {
         },
 
         /**
-         * Toggle the isSelected flag by passing the id of the clicked object
-         * and by specifying the name of the list the object is nested in
+         * Toggle the isSelected flag of an asset by passing the id of the clicked object
+         * Also pass the related group id in order to check if the whole group is selected after the click
+         * and therefore should be selected also
          *
          * @param id             Integer
-         * @param listObjectName String
+         * @param relatedGroupId Integer
          */
-        toggleIsSelectedFlag(id, listObjectName) {
-            const listObject = this.getListObject(listObjectName)
-            listObject[id]['isSelected'] = (!listObject[id]['isSelected'])
+        toggleIsSelectedFlag(id, relatedGroupId) {
+            const groupListObject = this.getListObject('groupList')
+            const assetListObject = this.getListObject('assetList')
+            assetListObject[id]['isSelected'] = (!assetListObject[id]['isSelected'])
+            if (relatedGroupId !== null) {
+                const thisGroup = groupListObject[relatedGroupId]
+                let allSelected = this.checkIfWholeGroupIsSelected(thisGroup, assetListObject)
+                if (allSelected) {
+                    this.setGroupsSelectedFlag(thisGroup, assetListObject, true)
+                } else {
+                    thisGroup.isSelected = false
+                }
+            }
             this.setSelectedAssetCount()
         },
 
