@@ -79,7 +79,7 @@ export const useAssetStore = defineStore('assetStore', {
         toggleIsSelectedFlag(id, listObjectName) {
             const listObject = this.getListObject(listObjectName)
             listObject[id]['isSelected'] = (!listObject[id]['isSelected'])
-            this.getSelectedAssetCount()
+            this.setSelectedAssetCount()
         },
 
         /**
@@ -98,6 +98,8 @@ export const useAssetStore = defineStore('assetStore', {
             } else {
                 this.setGroupsSelectedFlag(thisGroup, assetListObject, true)
             }
+            // Always set the selected asset count after isSelected flags have been mutated
+            this.setSelectedAssetCount();
         },
 
         /**
@@ -155,7 +157,7 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {number} Integer
          */
-        getSelectedAssetCount() {
+        setSelectedAssetCount() {
             this.selectedAssetCount = Object.keys(this.getAllSelectedAssets()).length
         },
 
