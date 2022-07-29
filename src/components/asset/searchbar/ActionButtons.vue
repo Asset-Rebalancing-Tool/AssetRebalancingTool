@@ -1,13 +1,20 @@
 <template>
   <div class="button-wrapper">
-    <button :class="activeEditButton">
+    <button :class="oneSelected">
       <span class="icon edit"></span>
     </button>
-    <button :class="activeMoveButton" class="group">
+    <button
+        class="group"
+        :class="{'active': atLeastOneSelected, 'highlighted': showGroupWrapper}"
+        @click="toggleGroupWrapper">
       <span class="icon group"></span>
       <span class="icon arrow-down"></span>
     </button>
-    <button :class="activeDeleteButton" @click="assetStore.removeAllSelectedAssets">
+
+    <!-- Context menu should not be the last element in the button-wrapper, to ensure the :last-child selector is working on the button -->
+    <GroupContextMenu :showWrapper="showGroupWrapper"/>
+
+    <button :class="atLeastOneSelected" @click="assetStore.removeAllSelectedAssets">
       <span class="icon delete"></span>
     </button>
   </div>
@@ -16,19 +23,12 @@
 <script>
 
 import { useAssetStore } from '@/stores/AssetStore'
+import GroupContextMenu from '@/components/asset/searchbar/GroupContextMenu';
 
 export default {
   name: 'ActionButtons',
-  computed: {
-    activeEditButton() {
-      return (this.assetStore.selectedAssetCount === 1) ? 'active' : ''
-    },
-    activeMoveButton() {
-      return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
-    },
-    activeDeleteButton() {
-      return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
-    },
+  components: {
+    GroupContextMenu
   },
   setup() {
     const assetStore = useAssetStore()
@@ -36,6 +36,25 @@ export default {
       assetStore
     }
   },
+  data() {
+    return {
+      showGroupWrapper: false
+    }
+  },
+  computed: {
+    oneSelected() {
+      return (this.assetStore.selectedAssetCount === 1) ? 'active' : ''
+    },
+    atLeastOneSelected() {
+      return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
+    }
+  },
+  methods: {
+    toggleGroupWrapper() {
+      this.showGroupWrapper = (!this.showGroupWrapper)
+    }
+  },
+
 }
 </script>
 
@@ -64,6 +83,10 @@ export default {
   }
 
   button.active:hover {
+    background-color: var(--primary-background-color);
+  }
+
+  button.highlighted {
     background-color: var(--primary-background-color);
   }
 
