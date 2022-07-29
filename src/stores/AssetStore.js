@@ -62,6 +62,22 @@ export const useAssetStore = defineStore('assetStore', () => {
     }
 
     /**
+     * Return an object of all assets that are selected
+     *
+     * @returns {{}}
+     */
+    const getAllSelectedAssets = () => {
+        const assetListObject = getListObject('assetList')
+        let tempObject = {}
+        for (const [key, asset] of Object.entries(assetListObject)) {
+            if (asset.isSelected) {
+                tempObject[key] = asset
+            }
+        }
+        return tempObject
+    }
+
+    /**
      * Add an object to its list, by passing the object itself
      * and by specifying the name of the list, the object should be added to
      *
@@ -76,8 +92,8 @@ export const useAssetStore = defineStore('assetStore', () => {
     }
 
     /**
-     * Remove and object by passing its id
-     * and specifying the name of the list the object is nested
+     * Remove an object by passing its id
+     * and specifying the name of the list the object is nested in
      *
      * @param id             Integer
      * @param listObjectName String
@@ -90,6 +106,31 @@ export const useAssetStore = defineStore('assetStore', () => {
                 break
             }
         }
+    }
+
+    /**
+     * Move all selected assets into a group by passing the target group id
+     * Deselect all assets after moving
+     *
+     * @param targetGroupId Integer
+     */
+    const moveAction = (targetGroupId) => {
+        for (const asset of Object.entries(getAllSelectedAssets())) {
+            asset[1].relatedGroupId = targetGroupId
+            asset[1].isSelected = false
+        }
+    }
+
+    /**
+     * Toggle the isSelected flag by passing the id of the clicked object
+     * and by specifying the name of the list the object is nested in
+     *
+     * @param id             Integer
+     * @param listObjectName String
+     */
+    const toggleIsSelectedFlag = (id, listObjectName) => {
+        const listObject = getListObject(listObjectName)
+        listObject[id]['isSelected'] = (!listObject[id]['isSelected'])
     }
 
     /**
@@ -124,33 +165,14 @@ export const useAssetStore = defineStore('assetStore', () => {
         return Math.floor(Math.random() * (max - min)) + min;
     }
 
-    // Toggle the is selected flag of an asset
-    /*const toggleIsSelectedFlag = (thisAsset) => {
-        thisAsset.isSelected = (!thisAsset.isSelected)
-        this.checkActionButtonsFlag()
-    }
 
-    // Check if at least one asset has the isSelected flag
-    const checkActionButtonsFlag = () => {
-        // Always reset the actionButtonsAreActive flag
-        this.actionButtonsAreActive = false
-        // Iterate over each asset and set the actionButtonsAreActive flag to true if at least on asset is selected
-        const keys = Object.keys(toRaw(this.assetGroups))
-        keys.forEach((key) => {
-            if (toRaw(this.assetGroups)[key].isSelected) this.actionButtonsAreActive = true
-        })
-    }
-
-    // Set the is selected flag of all assets to false. This will also lead to a deactivation of the Actionbuttons
-    const deselectAllAssets = () => {
-        const keys = Object.keys(toRaw(this.assetGroups))
-        keys.forEach((key) => {
-            toRaw(this.assetGroups)[key].isSelected = false
-        })
-        this.actionButtonsAreActive = false
-    }*/
-
-    // Take a value and explode it into an array that can be used to access the single values
+    /**
+     * Take a value and explode it into an array that can be used to access the single values
+     *
+     * @param assetValue
+     *
+     * @returns {string[]}
+     */
     const getValueArray = (assetValue) => {
         // Parse the value of the asset to string
         let valueString = parseFloat(assetValue).toString()
@@ -190,8 +212,11 @@ export const useAssetStore = defineStore('assetStore', () => {
         //selectedAsset,
         getAssetsByGroupId,
         getAssetsWithoutGroup,
+        getAllSelectedAssets,
         addAction,
         removeAction,
+        moveAction,
+        toggleIsSelectedFlag,
         getValueArray
     }
 })
