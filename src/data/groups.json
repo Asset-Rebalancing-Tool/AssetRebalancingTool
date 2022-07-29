@@ -9,16 +9,5 @@
     "currency": "€",
     "isSelected": false,
     "relatedAssetsUidArray": [1101, 1102]
-  },
-  "1200" : {
-    "id": 1200,
-    "name": "Meine Gruppe 2",
-    "totalValue": 0.00,
-    "totalPercentage": 0.00,
-    "totalTargetPercentage": 0.00,
-    "totalDeviation": 0.00,
-    "currency": "€",
-    "isSelected": false,
-    "relatedAssetsUidArray": []
   }
 }
