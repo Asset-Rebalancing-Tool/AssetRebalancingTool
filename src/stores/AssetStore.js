@@ -78,6 +78,16 @@ export const useAssetStore = defineStore('assetStore', () => {
     }
 
     /**
+     * Returns the length of the selected asset object
+     * This is needed to decide what action buttons should be rendered
+     *
+     * @returns {number} Integer
+     */
+    const getSelectedAssetCount = () => {
+        return Object.keys(getAllSelectedAssets()).length
+    }
+
+    /**
      * Add an object to its list, by passing the object itself
      * and by specifying the name of the list, the object should be added to
      *
@@ -209,10 +219,10 @@ export const useAssetStore = defineStore('assetStore', () => {
     return {
         groupListObject,
         assetListObject,
-        //selectedAsset,
         getAssetsByGroupId,
         getAssetsWithoutGroup,
         getAllSelectedAssets,
+        getSelectedAssetCount,
         addAction,
         removeAction,
         moveAction,
