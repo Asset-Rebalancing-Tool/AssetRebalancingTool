@@ -57,4 +57,42 @@ export default {
     align-items: center;
     column-gap: 8px;
   }
+
+  p {
+    color: var(--primary-text-color);
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 2px;
+  }
+
+  .icon {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .icon.group {
+    width: 18px;
+    height: 18px;
+    background-image: var(--icon-group-action);
+  }
+
+  ul {
+    padding-left: 24px;
+    margin: 5px 0 10px;
+  }
+
+  li {
+    height: 26px;
+    line-height: 26px;
+    color: var(--primary-text-color);
+  }
+
+  li::marker {
+    font-size: 22px;
+  }
+
+  li.selected {
+    color: var(--main-color);
+  }
 </style>
