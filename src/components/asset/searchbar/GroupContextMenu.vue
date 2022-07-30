@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .move-action-wrapper {
     position: absolute;
     right: 0;
@@ -128,6 +128,8 @@ export default {
     transform: translateY(-50%);
     background-image: var(--icon-searchbar);
   }
+
+  /* duplicated, since I need to scope the style tag */
 
   ul {
     padding-left: 24px;
