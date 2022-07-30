@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import AssetContainer     from '@/components/asset/row/AssetContainer'
-import {useAssetStore} from '@/stores/AssetStore'
+import AssetContainer   from '@/components/asset/row/AssetContainer'
+import {useAssetStore}  from '@/stores/AssetStore'
 import AssetGroupFooter from '@/components/asset/row/AssetGroupFooter';
 
 
