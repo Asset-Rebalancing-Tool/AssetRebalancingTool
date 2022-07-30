@@ -181,7 +181,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param object         Object
          * @param listObjectName String
          */
-        addToListObject(object, listObjectName = 'asset') {
+        addToListObject(object, listObjectName = 'assetList') {
             const newId = this.generateRandomId(listObjectName)
             const listObject = this.getListObject(listObjectName)
             object.id = newId
