@@ -3,7 +3,7 @@
 
     <header>
       <p>Neue Gruppe erstellen</p>
-      <button>
+      <button @click="assetStore.addToListObject(emptyGroupObject, 'groupList')">
         <span class="icon group"></span>
         <span class="icon plus"></span>
       </button>
@@ -41,6 +41,20 @@ export default {
     showWrapper: {
       type: Boolean,
       default: false
+    }
+  },
+  data() {
+    return {
+      emptyGroupObject: {
+        "name": "Meine Gruppe 1",
+        "totalValue": 0.00,
+        "totalPercentage": 0.00,
+        "totalTargetPercentage": 0.00,
+        "totalDeviation": 0.00,
+        "currency": "€",
+        "isSelected": false,
+        "relatedAssetsIdArray": []
+      }
     }
   },
   setup() {
@@ -94,6 +108,10 @@ export default {
     background-color: var(--secondary-infill-color);
     border-radius: var(--primary-border-radius);
     cursor: pointer;
+  }
+
+  button:hover {
+    background-color: var(--primary-background-color);
   }
 
   input {
