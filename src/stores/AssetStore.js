@@ -216,7 +216,7 @@ export const useAssetStore = defineStore('assetStore', {
          */
         moveAction(targetGroupId) {
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
-                asset[1].relatedGroupId = targetGroupId
+                asset[1].relatedGroupId = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
                 asset[1].isSelected = false
             }
         },
