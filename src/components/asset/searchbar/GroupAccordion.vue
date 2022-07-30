@@ -1,5 +1,5 @@
 <template>
-  <div class="group-wrapper">
+  <div class="group-wrapper" @click="assetStore.moveAction(thisGroup.id)">
     <div class="group-header">
       <div class="icon group"></div>
       <p>{{thisGroup.name}}</p>
