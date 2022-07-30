@@ -198,13 +198,8 @@ export const useAssetStore = defineStore('assetStore', {
             const assetListObject = this.getListObject('assetList')
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
                 delete assetListObject[asset[1].id]
-                for (const group of Object.entries(groupListObject)) {
-                    let assetIdArray = group[1].relatedAssetsIdArray
-                    let index = assetIdArray.indexOf(asset[1].id);
-                    if (index !== -1) {
-                        assetIdArray.splice(index, 1);
-                    }
-                }
+                // Check for each group if this asset is listed in that group
+                this.removeAssetsFromGroup(groupListObject, asset)
             }
         },
 
@@ -215,9 +210,29 @@ export const useAssetStore = defineStore('assetStore', {
          * @param targetGroupId Integer
          */
         moveAction(targetGroupId) {
+            const groupListObject = this.getListObject('groupList')
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
                 asset[1].relatedGroupId = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
                 asset[1].isSelected = false
+                // Check for each group if this asset is listed in that group
+                this.removeAssetsFromGroup(groupListObject, asset)
+            }
+        },
+
+        /**
+         * Iterate over each group from the group list object and check,
+         * if the passed asset is in the groups relatedAssetsIdArray, if so remove it
+         *
+         * @param groupListObject Object
+         * @param asset           Object
+         */
+        removeAssetsFromGroup(groupListObject, asset) {
+            for (const group of Object.entries(groupListObject)) {
+                let assetIdArray = group[1].relatedAssetsIdArray
+                let index = assetIdArray.indexOf(asset[1].id);
+                if (index !== -1) {
+                    assetIdArray.splice(index, 1);
+                }
             }
         },
 
