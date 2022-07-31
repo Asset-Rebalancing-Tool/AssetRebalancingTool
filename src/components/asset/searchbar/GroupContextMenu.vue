@@ -15,7 +15,7 @@
     </label>
 
     <GroupAccordion
-        v-for="group in assetStore.groupListObject"
+        v-for="group in assetStore.listOfGroups"
         :key="group.id"
         :thisGroup="group"
     />
@@ -70,7 +70,7 @@ export default {
   .move-action-wrapper {
     position: absolute;
     right: 0;
-    bottom: -410px;
+    bottom: -415px; /* Input height 52px + Row gap 10px + Modal height Xpx */
     width: 280px;
     background-color: var(--primary-background-color);
     border: 1px solid var(--passive-border-color);

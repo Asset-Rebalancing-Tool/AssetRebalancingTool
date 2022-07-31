@@ -9,7 +9,7 @@
     <TableFilters />
 
     <AssetGroup
-        v-for="group in assetStore.groupListObject"
+        v-for="group in assetStore.listOfGroups"
         :key="group.id"
         :thisGroup="group"
     />

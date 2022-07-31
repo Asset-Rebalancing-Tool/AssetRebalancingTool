@@ -7,14 +7,19 @@
         @focusout="hideModalUnderlay"
     >
     <span class="icon"></span>
+    <SearchbarWrapper />
   </label>
 </template>
 
 <script>
 import {useAssetStore} from '@/stores/AssetStore';
+import SearchbarWrapper from '@/components/asset/searchbar/SearchbarWrapper';
 
 export default {
   name: 'AssetSearchbar',
+  components: {
+    SearchbarWrapper
+  },
   methods: {
     showModalUnderlay() {
       this.assetStore.activeModalUnderlay = true
@@ -40,14 +45,14 @@ export default {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    top: 50%;
+    top: 18px;
     right: 25px;
-    transform: translateY(-50%);
     background-image: var(--icon-searchbar);
     opacity: 0.6;
   }
 
   label {
+    position: relative;
     z-index: 20;
   }
 </style>
