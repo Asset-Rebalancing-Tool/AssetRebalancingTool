@@ -2,10 +2,11 @@
   <div class="modal-underlay" :class="{'active': assetStore.activeModalUnderlay}"></div>
 </template>
 
-<script>
-import {useAssetStore} from '@/stores/AssetStore';
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
 
-export default {
+export default defineComponent({
   name: 'ModalUnderlay',
   setup() {
     const assetStore = useAssetStore()
@@ -13,7 +14,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

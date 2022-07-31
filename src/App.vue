@@ -8,6 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
 import SidebarSection from './components/sidebar/SidebarSection.vue'
 import ModalUnderlay  from './components/asset/searchbar/ModalUnderlay.vue'
 
@@ -17,7 +18,7 @@ export default defineComponent({
     SidebarSection,
     ModalUnderlay
   }
-});
+})
 </script>
 
 <style>

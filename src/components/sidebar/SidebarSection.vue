@@ -1,10 +1,8 @@
 <template>
   <section id="sidebar">
-
     <header>
       <div class="app-logo" />
     </header>
-
     <nav>
       <router-link class="overview" :to="{name: 'PortfolioOverview'}">
         <span class="icon overview"></span>
@@ -23,14 +21,15 @@
         <span>Transaktionshistorie</span>
       </router-link>
     </nav>
-
   </section>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
   name: 'SidebarSection',
-}
+})
 </script>
 
 <style scoped>

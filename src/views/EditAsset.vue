@@ -4,14 +4,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'EditAsset',
   data() {
     return {
       asset: null
     }
   }
-}
+})
 </script>

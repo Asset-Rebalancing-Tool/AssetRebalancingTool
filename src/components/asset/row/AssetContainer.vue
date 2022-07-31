@@ -39,15 +39,16 @@
   </div>
 </template>
 
-<script>
-import InfoColumn             from '@/components/asset/row/column/InfoColumn'
-import SingleValue            from '@/components/asset/row/column/SingleValue'
-import ActualValueColumn      from '@/components/asset/row/column/ActualValueColumn'
-import ColumnInput            from '@/components/asset/row/column/ColumnInput'
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore'
 
-import { useAssetStore } from '@/stores/AssetStore'
+import InfoColumn             from './column/InfoColumn.vue'
+import SingleValue            from './column/SingleValue.vue'
+import ActualValueColumn      from './column/ActualValueColumn.vue'
+import ColumnInput            from './column/ColumnInput.vue'
 
-export default {
+export default defineComponent({
   name: 'AssetContainer',
   components: {
     InfoColumn,
@@ -76,7 +77,7 @@ export default {
       return this.assetStore.getValueArray(this.thisAsset.deviation)
     }
   }
-}
+})
 </script>
 
 <style scoped>

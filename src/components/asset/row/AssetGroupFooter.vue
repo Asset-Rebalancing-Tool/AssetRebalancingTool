@@ -16,12 +16,14 @@
   </div>
 </template>
 
-<script>
-import SingleValue        from '@/components/asset/row/column/SingleValue'
-import ActualValueColumn  from '@/components/asset/row/column/ActualValueColumn'
-import {useAssetStore} from '@/stores/AssetStore';
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
 
-export default {
+import SingleValue        from './column/SingleValue.vue'
+import ActualValueColumn  from './column/ActualValueColumn.vue'
+
+export default defineComponent({
   name: 'AssetGroupFooter',
   components: {
     SingleValue,
@@ -61,7 +63,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

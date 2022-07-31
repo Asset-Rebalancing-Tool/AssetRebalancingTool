@@ -5,8 +5,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: 'ActualValueColumn',
   props: {
     value: {
@@ -47,7 +49,7 @@ export default {
       return this.percentage.toString().replace(".", ",");
     }
   }
-}
+})
 </script>
 
 <style scoped>

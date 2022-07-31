@@ -15,10 +15,11 @@
   </div>
 </template>
 
-<script>
-import {useAssetStore} from '@/stores/AssetStore';
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
 
-export default {
+export default defineComponent({
   name: 'GroupAccordion',
   props: {
     thisGroup: {
@@ -38,7 +39,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -11,9 +11,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: 'valueColumn',
   props: {
     valueArray: {
@@ -36,7 +37,7 @@ export default {
       return this.valueArray[2]
     }
   }
-}
+})
 </script>
 
 <style scoped>

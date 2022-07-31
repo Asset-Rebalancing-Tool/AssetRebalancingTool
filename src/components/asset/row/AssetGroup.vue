@@ -13,13 +13,14 @@
   </div>
 </template>
 
-<script>
-import AssetContainer   from '@/components/asset/row/AssetContainer'
-import {useAssetStore}  from '@/stores/AssetStore'
-import AssetGroupFooter from '@/components/asset/row/AssetGroupFooter';
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore'
 
+import AssetContainer   from './AssetContainer.vue'
+import AssetGroupFooter from './AssetGroupFooter.vue';
 
-export default {
+export default defineComponent({
   name: 'AssetGroup',
   components: {
     AssetGroupFooter,
@@ -59,7 +60,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <!-- not scoped -->

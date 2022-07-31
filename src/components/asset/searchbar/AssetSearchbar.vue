@@ -11,11 +11,13 @@
   </label>
 </template>
 
-<script>
-import {useAssetStore} from '@/stores/AssetStore';
-import SearchbarWrapper from '@/components/asset/searchbar/SearchbarWrapper';
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
+import SearchbarWrapper    from '@./SearchbarWrapper.vue';
 
-export default {
+
+export default defineComponent({
   name: 'AssetSearchbar',
   components: {
     SearchbarWrapper
@@ -34,7 +36,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

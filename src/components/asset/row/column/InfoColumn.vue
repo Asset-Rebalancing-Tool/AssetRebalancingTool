@@ -15,8 +15,10 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: 'InfoColumn',
   props: {
     isSelected: {
@@ -54,7 +56,7 @@ export default {
       alert("Copied the text: " + tempTextInput.value);
     }
   }
-}
+})
 </script>
 
 <style scoped>

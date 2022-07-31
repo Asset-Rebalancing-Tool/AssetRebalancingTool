@@ -29,10 +29,13 @@
   </div>
 </template>
 
-<script>
-import GroupAccordion from '@/components/asset/searchbar/GroupAccordion';
-import {useAssetStore} from '@/stores/AssetStore';
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
+
+import GroupAccordion from './GroupAccordion.vue';
+
+export default defineComponent({
   name: 'GroupContextMenu',
   components: {
     GroupAccordion
@@ -63,7 +66,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

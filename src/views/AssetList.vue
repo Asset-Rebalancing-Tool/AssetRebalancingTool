@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetStore }   from '@/stores/AssetStore'
 
 import AssetSearchbar  from '../components/asset/searchbar/AssetSearchbar.vue'
 import ActionButtons   from '../components/asset/searchbar/ActionButtons.vue'
@@ -56,7 +56,7 @@ export defineComponent({
       return this.assetStore.getAssetsWithoutGroup()
     }
   }
-});
+})
 </script>
 
 <style scoped>
