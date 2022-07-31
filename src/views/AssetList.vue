@@ -26,17 +26,18 @@
   </section>
 </template>
 
-<script>
-import AssetSearchbar from '@/components/asset/searchbar/AssetSearchbar'
-import ActionButtons  from '@/components/asset/searchbar/ActionButtons'
-import TableFilters   from '@/components/asset/searchbar/TableFilters'
-import AssetGroup     from '@/components/asset/row/AssetGroup'
-import AssetContainer from '@/components/asset/row/AssetContainer'
-import AssetListFooter    from '@/components/asset/row/AssetListFooter'
-
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { useAssetStore } from '@/stores/AssetStore'
 
-export default {
+import AssetSearchbar  from '../components/asset/searchbar/AssetSearchbar.vue'
+import ActionButtons   from '../components/asset/searchbar/ActionButtons.vue'
+import TableFilters    from '../components/asset/searchbar/TableFilters.vue'
+import AssetGroup      from '../components/asset/row/AssetGroup.vue'
+import AssetContainer  from '../components/asset/row/AssetContainer.vue'
+import AssetListFooter from '../components/asset/row/AssetListFooter.vue'
+
+export defineComponent({
   name: 'AssetList',
   components: {
     AssetSearchbar,
@@ -55,7 +56,7 @@ export default {
       return this.assetStore.getAssetsWithoutGroup()
     }
   }
-}
+});
 </script>
 
 <style scoped>
