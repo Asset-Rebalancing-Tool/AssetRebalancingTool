@@ -15,7 +15,8 @@ export const useAssetStore = defineStore('assetStore', {
             assetListObject: reactive(AssetService.fetchAssetList()),
             /** Count that is used, to determine what action buttons should be active */
             selectedAssetCount: 0,
-            showGroupWrapper: false
+            showGroupWrapper: false,
+            activeModalUnderlay: false
         }
     },
 
