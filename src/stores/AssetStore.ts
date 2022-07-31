@@ -1,14 +1,19 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
-import { OwnedAsset } from "@/models/ownedAsset";
-import AssetService from '@/services/AssetService'
+import { reactive }    from 'vue'
+import { OwnedGroup }  from "@/models/ownedGroup";
+import { OwnedAsset }  from "@/models/ownedAsset";
+import AssetService    from '@/services/AssetService'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
 /***********************************************************************************/
 
 export type RootState = {
-    ownedAsset: OwnedAsset[];
+    ownedGroups:         OwnedGroup[];
+    ownedAssets:         OwnedAsset[];
+    selectedAssetCount:  number;
+    showGroupWrapper:    boolean;
+    activeModalUnderlay: boolean;
 };
 
 export const useAssetStore = defineStore('assetStore', {
@@ -16,8 +21,8 @@ export const useAssetStore = defineStore('assetStore', {
     state: () => ({
 
             /** Reactive list objects */
-            listOfGroups: reactive(AssetService.fetchGroupList()),
-            ownedAsset: reactive(AssetService.fetchAssetList()),
+            ownedGroups: reactive(AssetService.fetchGroupList()),
+            ownedAssets: reactive(AssetService.fetchAssetList()),
             /** Count that is used, to determine what action buttons should be active */
             selectedAssetCount: 0,
             showGroupWrapper: false,
@@ -28,33 +33,15 @@ export const useAssetStore = defineStore('assetStore', {
     actions: {
 
         /**
-         * Determine what list object should be returned
-         * and therefore be used in the context of an asset store action
-         *
-         * @param listObjectName String
-         *
-         * @returns {*}
-         * TODO: don't use in future, since strongly typed models can be used right away
-         */
-        getListObject(listObjectName: string): object {
-            switch (listObjectName) {
-                case 'groupList': return this.listOfGroups
-                case 'assetList': return this.listOfAssets
-                default: return {}
-            }
-        },
-
-        /**
          * Return an object of all assets that are related to a specific group
          *
          * @param id Integer
          *
          * @returns {{}}
          */
-        getAssetsByGroupId(id: number): object {
-            const listOfAssets: object = this.getListObject('assetList')
-            const tempObject: object = {}
-            for (const [key, asset] of Object.entries(listOfAssets)) {
+        getAssetsByGroupId(id: number): OwnedAsset[] {
+            let tempObject = {} as OwnedAsset[]
+            for (const [key, asset] of Object.entries(this.ownedAssets)) {
                 if (asset.relatedGroupId === id) {
                     tempObject[key] = asset
                 }
@@ -68,9 +55,8 @@ export const useAssetStore = defineStore('assetStore', {
          * @returns {{}}
          */
         getAssetsWithoutGroup(): object {
-            const listOfAssets: object = this.getListObject('assetList')
-            const tempObject: object = {}
-            for (const [key, asset] of Object.entries(listOfAssets)) {
+            const tempObject = {} as OwnedAsset[]
+            for (const [key, asset] of Object.entries(this.ownedAssets)) {
                 if (asset.relatedGroupId === null) {
                     tempObject[key] = asset
                 }
@@ -87,14 +73,14 @@ export const useAssetStore = defineStore('assetStore', {
          * @param relatedGroupId Integer
          */
         toggleIsSelectedFlag(id: number, relatedGroupId: number): void {
-            const listOfGroups: object = this.getListObject('groupList')
-            const listOfAssets: object = this.getListObject('assetList')
-            listOfAssets[id]['isSelected'] = (!listOfAssets[id]['isSelected'])
+            const ownedGroups: OwnedGroup[] = this.ownedGroups
+            const ownedAssets: OwnedAsset[] = this.ownedAssets
+            ownedAssets[id]['isSelected'] = (!ownedAssets[id]['isSelected'])
             if (relatedGroupId !== null) {
-                const thisGroup = listOfGroups[relatedGroupId]
-                const allSelected = this.checkIfWholeGroupIsSelected(thisGroup, listOfAssets)
+                const thisGroup = ownedGroups[relatedGroupId]
+                const allSelected = this.checkIfWholeGroupIsSelected(thisGroup, ownedAssets)
                 if (allSelected) {
-                    this.setGroupsSelectedFlag(thisGroup, listOfAssets, true)
+                    this.setGroupsSelectedFlag(thisGroup, ownedAssets, true)
                 } else {
                     thisGroup.isSelected = false
                 }
@@ -109,14 +95,14 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @param thisGroup Object
          */
-        toggleWholeGroupSelectedFlag(thisGroup: object): void {
-            const listOfAssets: object = this.getListObject('assetList')
+        toggleWholeGroupSelectedFlag(thisGroup: OwnedGroup): void {
+            const ownedAssets: OwnedAsset[] = this.ownedAssets
             // If all assets of this group are selected, set all to false, if not set all to true
-            const allSelected: boolean = this.checkIfWholeGroupIsSelected(thisGroup, listOfAssets)
+            const allSelected: boolean = this.checkIfWholeGroupIsSelected(thisGroup, ownedAssets)
             if (allSelected) {
-                this.setGroupsSelectedFlag(thisGroup, listOfAssets, false)
+                this.setGroupsSelectedFlag(thisGroup, ownedAssets, false)
             } else {
-                this.setGroupsSelectedFlag(thisGroup, listOfAssets, true)
+                this.setGroupsSelectedFlag(thisGroup, ownedAssets, true)
             }
             // Always set the selected asset count after isSelected flags have been mutated
             this.setSelectedAssetCount();
@@ -125,15 +111,15 @@ export const useAssetStore = defineStore('assetStore', {
         /**
          * Check if all assets of a group are selected and return a Boolean based oin that
          *
-         * @param thisGroup       Object
-         * @param listOfAssets Object
+         * @param thisGroup   OwnedGroup
+         * @param ownedAssets OwnedAsset[]
          *
          * @returns {boolean} Boolean
          */
-        checkIfWholeGroupIsSelected(thisGroup: object, listOfAssets: object): boolean {
+        checkIfWholeGroupIsSelected(thisGroup: OwnedGroup, ownedAssets: OwnedAsset[]): boolean {
             let allSelected: boolean = true
             for (const assetId of thisGroup.relatedAssetsIdArray) {
-                if (!listOfAssets[assetId].isSelected) {
+                if (!ownedAssets[assetId].isSelected) {
                     allSelected = false
                 }
             }
@@ -144,13 +130,13 @@ export const useAssetStore = defineStore('assetStore', {
          * Set all group assets isSelect flags along with the groups isSelected flag itself,
          * by specifying to what Boolean the flag should be set
          *
-         * @param thisGroup       Object
-         * @param listOfAssets Object
-         * @param setTo           Boolean
+         * @param thisGroup   OwnedGroup
+         * @param ownedAssets OwnedAsset[]
+         * @param setTo       Boolean
          */
-        setGroupsSelectedFlag(thisGroup: object, listOfAssets: object, setTo: boolean): void {
-            for (const assetId of thisGroup.relatedAssetsIdArray) {
-                listOfAssets[assetId].isSelected = setTo
+        setGroupsSelectedFlag(thisGroup: OwnedGroup, ownedAssets: OwnedAsset[], setTo: boolean): void {
+            for (let assetId of thisGroup.relatedAssetsIdArray) {
+                ownedAssets[assetId].isSelected = setTo
             }
             thisGroup.isSelected = setTo
         },
@@ -160,10 +146,10 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {{}}
          */
-        getAllSelectedAssets(): object {
-            const listOfAssets: object = this.getListObject('assetList')
-            const tempObject: object = {}
-            for (const [key, asset] of Object.entries(listOfAssets)) {
+        getAllSelectedAssets(): OwnedAsset[] {
+            const ownedAssets: OwnedAsset[] = this.ownedAssets
+            let tempObject = {} as OwnedAsset[]
+            for (const [key, asset] of Object.entries(ownedAssets)) {
                 if (asset.isSelected) {
                     tempObject[key] = asset
                 }
@@ -181,17 +167,25 @@ export const useAssetStore = defineStore('assetStore', {
         },
 
         /**
-         * Add an object to its list, by passing the object itself
-         * and by specifying the name of the list, the object should be added to
+         * Add a group to the owned groups, by passing the group object
          *
-         * @param object         Object
-         * @param listObjectName String
+         * @param thisGroup OwnedGroup
          */
-        addToListObject(object: object, listObjectName: string = 'assetList'): void {
-            const newId: number | undefined = this.generateRandomId(listObjectName)
-            const listObject: object = this.getListObject(listObjectName)
-            object.id = newId
-            listObject[newId] = object
+        addToOwnedGroups(thisGroup: OwnedGroup): void {
+            const newId: number | undefined = this.generateRandomId()
+            thisGroup.id = newId
+            this.ownedGroups[newId] = thisGroup
+        },
+
+        /**
+         * Add an asset to the owned assets, by passing the asset object
+         *
+         * @param thisAsset OwnedAsset
+         */
+        addToOwnedAssets(thisAsset: OwnedAsset): void {
+            const newId: number | undefined = this.generateRandomId()
+            thisAsset.id = newId
+            this.ownedAssets[newId] = thisAsset
         },
 
         /**
@@ -200,12 +194,12 @@ export const useAssetStore = defineStore('assetStore', {
          * TODO: popup message for safety reasons along with selection if group should be also deleted if there is a whole group selected
          */
         removeAllSelectedAssets(): void {
-            const listOfGroups: object = this.getListObject('groupList')
-            const listOfAssets: object = this.getListObject('assetList')
+            const ownedGroups: OwnedGroup[] = this.ownedGroups
+            const ownedAssets: OwnedAsset[] = this.ownedAssets
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
-                delete listOfAssets[asset[1].id]
+                delete ownedAssets[asset[1].id]
                 // Check for each group if this asset is listed in that group
-                this.removeAssetsFromGroup(listOfGroups, asset)
+                this.removeAssetsFromGroup(ownedGroups, asset)
             }
         },
 
@@ -216,12 +210,11 @@ export const useAssetStore = defineStore('assetStore', {
          * @param targetGroupId Integer
          */
         moveAction(targetGroupId: number): void {
-            const listOfGroups: object = this.getListObject('groupList')
-            for (const asset of Object.entries(this.getAllSelectedAssets())) {
-                asset[1].relatedGroupId = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
-                asset[1].isSelected = false
+            for (const thisAsset of Object.entries(this.getAllSelectedAssets())) {
+                thisAsset[1].relatedGroupId = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
+                thisAsset[1].isSelected = false
                 // Check for each group if this asset is listed in that group
-                this.removeAssetsFromGroup(listOfGroups, asset)
+                this.removeAssetsFromGroup(thisAsset)
             }
         },
 
@@ -229,13 +222,13 @@ export const useAssetStore = defineStore('assetStore', {
          * Iterate over each group from the group list object and check,
          * if the passed asset is in the groups relatedAssetsIdArray, if so remove it
          *
-         * @param listOfGroups Object
-         * @param asset        Object
+         * @param thisAsset OwnedAsset
          */
-        removeAssetsFromGroup(listOfGroups: object, asset: object): void {
-            for (const group of Object.entries(listOfGroups)) {
+        removeAssetsFromGroup(thisAsset: OwnedAsset): void {
+            const ownedGroups: OwnedGroup[] = this.ownedGroups
+            for (const group of Object.entries(ownedGroups)) {
                 const assetIdArray: number[] = group[1].relatedAssetsIdArray
-                const index: number = assetIdArray.indexOf(asset[1].id);
+                const index: number = assetIdArray.indexOf(thisAsset[1].id);
                 if (index !== -1) {
                     assetIdArray.splice(index, 1);
                 }
@@ -245,16 +238,15 @@ export const useAssetStore = defineStore('assetStore', {
         /**
          * Generate a random id that is not already in use
          *
-         * @param listObjectName
-         *
          * @returns {*} Integer
          */
-        generateRandomId(listObjectName: string): number | undefined {
-            const listObject: object = this.getListObject(listObjectName)
+        generateRandomId(): number | undefined {
+            const ownedGroup: OwnedGroup[] = this.ownedGroups
+            const ownedAsset: OwnedAsset[] = this.ownedAssets
             const isTrue: boolean = true
             while (isTrue) {
                 const randomId: number = this.getRandomInt(1000, 9999)
-                if (listObject[randomId] === undefined) {
+                if (ownedGroup[randomId] === undefined && ownedAsset[randomId] === undefined) {
                     return randomId
                 }
             }
