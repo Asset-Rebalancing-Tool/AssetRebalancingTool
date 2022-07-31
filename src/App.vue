@@ -1,27 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <template>
+    <SidebarSection />
+    <router-view />
+    <ModalUnderlay />
+  </template>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import SidebarSection from './components/sidebar/SidebarSection.vue'
+import ModalUnderlay  from './components/asset/searchbar/ModalUnderlay.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    SidebarSection,
+    ModalUnderlay
   }
 });
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import "assets/css/theme.css";
+  @import "assets/css/general.css";
+  @import "assets/css/icons.css";
 </style>
