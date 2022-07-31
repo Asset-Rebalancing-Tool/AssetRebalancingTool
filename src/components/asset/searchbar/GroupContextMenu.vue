@@ -3,7 +3,7 @@
 
     <header>
       <p>Neue Gruppe erstellen</p>
-      <button @click="assetStore.addToListObject(emptyGroupObject, 'groupList')">
+      <button @click="assetStore.addToOwnedGroups(emptyGroupObject)">
         <span class="icon group"></span>
         <span class="icon plus"></span>
       </button>
