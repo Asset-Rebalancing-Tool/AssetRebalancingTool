@@ -27,9 +27,9 @@ export default defineComponent({
       // Ensure that the value is not 0
       if (this.value === 0) return "0,00"
 
-      let value        = this.value.toString()
-      let valueArray   = value.split('.')
-      let stringLength = valueArray[0].length
+      let value:        string   = this.value.toString()
+      let valueArray:   string[] = value.split('.')
+      let stringLength: number   = valueArray[0].length
 
       // Set the dots based on the length of the string
       if      (stringLength === 6) { valueArray[0] = value.slice(0,2) + '.' + value.slice(2,5) }

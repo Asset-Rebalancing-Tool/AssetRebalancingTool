@@ -1,24 +1,29 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
+import { OwnedAsset } from "@/models/ownedAsset";
 import AssetService from '@/services/AssetService'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
 /***********************************************************************************/
 
+export type RootState = {
+    ownedAsset: OwnedAsset[];
+};
+
 export const useAssetStore = defineStore('assetStore', {
 
-    state: () => {
-        return {
+    state: () => ({
+
             /** Reactive list objects */
             listOfGroups: reactive(AssetService.fetchGroupList()),
-            listOfAssets: reactive(AssetService.fetchAssetList()),
+            ownedAsset: reactive(AssetService.fetchAssetList()),
             /** Count that is used, to determine what action buttons should be active */
             selectedAssetCount: 0,
             showGroupWrapper: false,
             activeModalUnderlay: false
-        }
-    },
+
+    } as RootState),
 
     actions: {
 
@@ -29,11 +34,13 @@ export const useAssetStore = defineStore('assetStore', {
          * @param listObjectName String
          *
          * @returns {*}
+         * TODO: don't use in future, since strongly typed models can be used right away
          */
-        getListObject(listObjectName) {
+        getListObject(listObjectName: string): object {
             switch (listObjectName) {
                 case 'groupList': return this.listOfGroups
                 case 'assetList': return this.listOfAssets
+                default: return {}
             }
         },
 
@@ -44,9 +51,9 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {{}}
          */
-        getAssetsByGroupId(id) {
-            const listOfAssets = this.getListObject('assetList')
-            const tempObject = {}
+        getAssetsByGroupId(id: number): object {
+            const listOfAssets: object = this.getListObject('assetList')
+            const tempObject: object = {}
             for (const [key, asset] of Object.entries(listOfAssets)) {
                 if (asset.relatedGroupId === id) {
                     tempObject[key] = asset
@@ -60,9 +67,9 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {{}}
          */
-        getAssetsWithoutGroup() {
-            const listOfAssets = this.getListObject('assetList')
-            const tempObject = {}
+        getAssetsWithoutGroup(): object {
+            const listOfAssets: object = this.getListObject('assetList')
+            const tempObject: object = {}
             for (const [key, asset] of Object.entries(listOfAssets)) {
                 if (asset.relatedGroupId === null) {
                     tempObject[key] = asset
@@ -79,9 +86,9 @@ export const useAssetStore = defineStore('assetStore', {
          * @param id             Integer
          * @param relatedGroupId Integer
          */
-        toggleIsSelectedFlag(id, relatedGroupId) {
-            const listOfGroups = this.getListObject('groupList')
-            const listOfAssets = this.getListObject('assetList')
+        toggleIsSelectedFlag(id: number, relatedGroupId: number): void {
+            const listOfGroups: object = this.getListObject('groupList')
+            const listOfAssets: object = this.getListObject('assetList')
             listOfAssets[id]['isSelected'] = (!listOfAssets[id]['isSelected'])
             if (relatedGroupId !== null) {
                 const thisGroup = listOfGroups[relatedGroupId]
@@ -102,10 +109,10 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @param thisGroup Object
          */
-        toggleWholeGroupSelectedFlag(thisGroup) {
-            const listOfAssets = this.getListObject('assetList')
+        toggleWholeGroupSelectedFlag(thisGroup: object): void {
+            const listOfAssets: object = this.getListObject('assetList')
             // If all assets of this group are selected, set all to false, if not set all to true
-            const allSelected = this.checkIfWholeGroupIsSelected(thisGroup, listOfAssets)
+            const allSelected: boolean = this.checkIfWholeGroupIsSelected(thisGroup, listOfAssets)
             if (allSelected) {
                 this.setGroupsSelectedFlag(thisGroup, listOfAssets, false)
             } else {
@@ -123,8 +130,8 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {boolean} Boolean
          */
-        checkIfWholeGroupIsSelected(thisGroup, listOfAssets) {
-            let allSelected = true
+        checkIfWholeGroupIsSelected(thisGroup: object, listOfAssets: object): boolean {
+            let allSelected: boolean = true
             for (const assetId of thisGroup.relatedAssetsIdArray) {
                 if (!listOfAssets[assetId].isSelected) {
                     allSelected = false
@@ -141,7 +148,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param listOfAssets Object
          * @param setTo           Boolean
          */
-        setGroupsSelectedFlag(thisGroup, listOfAssets, setTo) {
+        setGroupsSelectedFlag(thisGroup: object, listOfAssets: object, setTo: boolean): void {
             for (const assetId of thisGroup.relatedAssetsIdArray) {
                 listOfAssets[assetId].isSelected = setTo
             }
@@ -153,9 +160,9 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {{}}
          */
-        getAllSelectedAssets () {
-            const listOfAssets = this.getListObject('assetList')
-            const tempObject = {}
+        getAllSelectedAssets(): object {
+            const listOfAssets: object = this.getListObject('assetList')
+            const tempObject: object = {}
             for (const [key, asset] of Object.entries(listOfAssets)) {
                 if (asset.isSelected) {
                     tempObject[key] = asset
@@ -167,10 +174,8 @@ export const useAssetStore = defineStore('assetStore', {
         /**
          * Returns the length of the selected asset object
          * This is needed to decide what action buttons should be rendered
-         *
-         * @returns {number} Integer
          */
-        setSelectedAssetCount() {
+        setSelectedAssetCount(): void {
             this.selectedAssetCount = Object.keys(this.getAllSelectedAssets()).length
             if (this.selectedAssetCount === 0) this.showGroupWrapper = false
         },
@@ -182,9 +187,9 @@ export const useAssetStore = defineStore('assetStore', {
          * @param object         Object
          * @param listObjectName String
          */
-        addToListObject(object, listObjectName = 'assetList') {
-            const newId = this.generateRandomId(listObjectName)
-            const listObject = this.getListObject(listObjectName)
+        addToListObject(object: object, listObjectName: string = 'assetList'): void {
+            const newId: number | undefined = this.generateRandomId(listObjectName)
+            const listObject: object = this.getListObject(listObjectName)
             object.id = newId
             listObject[newId] = object
         },
@@ -194,9 +199,9 @@ export const useAssetStore = defineStore('assetStore', {
          * and remove the id's of those assets from each groups relatedAssetsIdArray
          * TODO: popup message for safety reasons along with selection if group should be also deleted if there is a whole group selected
          */
-        removeAllSelectedAssets() {
-            const listOfGroups = this.getListObject('groupList')
-            const listOfAssets = this.getListObject('assetList')
+        removeAllSelectedAssets(): void {
+            const listOfGroups: object = this.getListObject('groupList')
+            const listOfAssets: object = this.getListObject('assetList')
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
                 delete listOfAssets[asset[1].id]
                 // Check for each group if this asset is listed in that group
@@ -210,8 +215,8 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @param targetGroupId Integer
          */
-        moveAction(targetGroupId) {
-            const listOfGroups = this.getListObject('groupList')
+        moveAction(targetGroupId: number): void {
+            const listOfGroups: object = this.getListObject('groupList')
             for (const asset of Object.entries(this.getAllSelectedAssets())) {
                 asset[1].relatedGroupId = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
                 asset[1].isSelected = false
@@ -225,12 +230,12 @@ export const useAssetStore = defineStore('assetStore', {
          * if the passed asset is in the groups relatedAssetsIdArray, if so remove it
          *
          * @param listOfGroups Object
-         * @param asset           Object
+         * @param asset        Object
          */
-        removeAssetsFromGroup(listOfGroups, asset) {
+        removeAssetsFromGroup(listOfGroups: object, asset: object): void {
             for (const group of Object.entries(listOfGroups)) {
-                const assetIdArray = group[1].relatedAssetsIdArray
-                const index = assetIdArray.indexOf(asset[1].id);
+                const assetIdArray: number[] = group[1].relatedAssetsIdArray
+                const index: number = assetIdArray.indexOf(asset[1].id);
                 if (index !== -1) {
                     assetIdArray.splice(index, 1);
                 }
@@ -244,11 +249,11 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {*} Integer
          */
-        generateRandomId(listObjectName) {
-            const listObject = this.getListObject(listObjectName)
-            const isTrue = true
+        generateRandomId(listObjectName: string): number | undefined {
+            const listObject: object = this.getListObject(listObjectName)
+            const isTrue: boolean = true
             while (isTrue) {
-                const randomId = this.getRandomInt(1000, 9999)
+                const randomId: number = this.getRandomInt(1000, 9999)
                 if (listObject[randomId] === undefined) {
                     return randomId
                 }
@@ -263,7 +268,7 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {number} Integer
          */
-        getRandomInt(min, max) {
+        getRandomInt(min: number, max: number): number {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min)) + min;
@@ -276,12 +281,12 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {string[]}
          */
-        getValueArray(assetValue) {
+        getValueArray(assetValue: number): string[] {
             // Parse the value of the asset to string
-            const valueString = parseFloat(assetValue).toString()
+            const valueString: string = parseFloat(String(assetValue)).toString()
 
             // create the value array by splitting the float
-            const valueArray = valueString.split('.')
+            const valueArray: string[] = valueString.split('.')
 
             // Add zeros to the value string, if it is only one digit long
             if (valueArray.length === 1) {

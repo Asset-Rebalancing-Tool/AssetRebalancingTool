@@ -23,10 +23,10 @@ export default defineComponent({
     SearchbarWrapper
   },
   methods: {
-    showModalUnderlay() {
+    showModalUnderlay(): void {
       this.assetStore.activeModalUnderlay = true
     },
-    hideModalUnderlay() {
+    hideModalUnderlay(): void {
       this.assetStore.activeModalUnderlay = false
     }
   },

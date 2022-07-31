@@ -67,13 +67,13 @@ export default defineComponent({
     return { assetStore }
   },
   computed: {
-    activeContainer() {
+    activeContainer(): string {
       return (this.thisAsset.isSelected) ? 'selected' : ''
     },
-    priceArray() {
+    priceArray(): string[] {
       return this.assetStore.getValueArray(this.thisAsset.stockPrice)
     },
-    deviationArray() {
+    deviationArray(): string[] {
       return this.assetStore.getValueArray(this.thisAsset.deviation)
     }
   }

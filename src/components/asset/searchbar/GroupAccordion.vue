@@ -29,7 +29,7 @@ export default defineComponent({
   },
   computed: {
     // Get an object of all assets, that are nested in that group
-    relatedAssets() {
+    relatedAssets(): object {
       return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
     }
   },

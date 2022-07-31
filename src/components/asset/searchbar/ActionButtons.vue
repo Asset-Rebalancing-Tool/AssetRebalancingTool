@@ -41,15 +41,15 @@ export default defineComponent({
     }
   },
   computed: {
-    oneSelected() {
+    oneSelected(): string {
       return (this.assetStore.selectedAssetCount === 1) ? 'active' : ''
     },
-    atLeastOneSelected() {
+    atLeastOneSelected(): string {
       return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
     }
   },
   methods: {
-    toggleGroupWrapper() {
+    toggleGroupWrapper(): void {
       this.assetStore.showGroupWrapper = (!this.assetStore.showGroupWrapper)
     },
   }

@@ -38,22 +38,22 @@ export default defineComponent({
   computed: {
 
     // The total value of this group
-    totalValue() {
+    totalValue(): number {
       return this.thisGroup.totalValue
     },
 
     // The total percentage of this group
-    totalPercentage() {
+    totalPercentage(): number {
       return this.thisGroup.totalPercentage
     },
 
     // The total target percentage of this group
-    totalTargetPercentage() {
+    totalTargetPercentage(): string[] {
       return this.assetStore.getValueArray(this.thisGroup.totalTargetPercentage)
     },
 
     // The total deviation of this group
-    totalDeviation() {
+    totalDeviation(): string[] {
       return this.assetStore.getValueArray(this.thisGroup.totalDeviation)
     }
   },

@@ -35,22 +35,22 @@ export default defineComponent({
   computed: {
 
     // Returns a bool that indicates if the assets object is empty or not
-    isEmptyGroup() {
+    isEmptyGroup(): boolean {
       return (this.thisGroup.relatedAssetsIdArray.length === 0)
     },
 
     // Render the selected class based in the groups isSelected flag
-    isSelectedGroup() {
+    isSelectedGroup(): string {
       return (this.thisGroup.isSelected) ? 'selected' : ''
     },
 
     // Render the empty-group class based on the isEmptyGroup bool
-    emptyGroupClass() {
+    emptyGroupClass(): string {
       return (this.isEmptyGroup) ? 'empty-group' : ''
     },
 
     // Get an object of all assets, that are nested in that group
-    relatedAssets() {
+    relatedAssets(): object {
       return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
     }
   },
