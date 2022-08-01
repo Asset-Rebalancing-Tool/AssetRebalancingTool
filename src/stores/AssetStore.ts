@@ -1,6 +1,6 @@
 import { defineStore }  from 'pinia'
 import { reactive }     from 'vue'
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 import { IOwnedGroups } from "@/models/IOwnedGroups";
 import { IOwnedGroup }  from "@/models/IOwnedGroup";
 import { IOwnedAssets } from "@/models/IOwnedAssets";
@@ -174,7 +174,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param thisGroup IOwnedGroups
          */
         addToOwnedGroups(thisGroup: IOwnedGroup): void {
-            const newId: string = uuidv4()
+            const newId: string = '0'//uuidv4()
             thisGroup.uuid = newId
             this.ownedGroups[newId] = thisGroup
         },
@@ -185,7 +185,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param thisAsset IOwnedAssets
          */
         addToOwnedAssets(thisAsset: IOwnedAsset): void {
-            const newId: string = uuidv4()
+            const newId: string = '0'//uuidv4()
             thisAsset.uuid = newId
             this.ownedAssets[newId] = thisAsset
         },
@@ -196,7 +196,6 @@ export const useAssetStore = defineStore('assetStore', {
          * TODO: popup message for safety reasons along with selection if group should be also deleted if there is a whole group selected
          */
         removeAllSelectedAssets(): void {
-            const ownedGroups: IOwnedGroups = this.ownedGroups
             const ownedAssets: IOwnedAssets = this.ownedAssets
             for (const [key, thisAsset] of Object.entries(this.getAllSelectedAssets())) {
                 delete ownedAssets[key]
@@ -212,12 +211,11 @@ export const useAssetStore = defineStore('assetStore', {
          * @param targetGroupId Integer
          */
         moveAction(targetGroupId: string): void {
-            for (const [key, thisAsset] of Object.entries(this.getAllSelectedAssets())) {
-                console.log(key)
+            for (const thisAsset of Object.entries(this.getAllSelectedAssets())) {
                 thisAsset[1].relatedGroupUuid = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
                 thisAsset[1].isSelected = false
                 // Check for each group if this asset is listed in that group
-                this.removeAssetsFromGroup(thisAsset)
+                this.removeAssetsFromGroup(thisAsset[1])
             }
         },
 
@@ -231,7 +229,7 @@ export const useAssetStore = defineStore('assetStore', {
             const ownedGroups: IOwnedGroups = this.ownedGroups
             for (const group of Object.entries(ownedGroups)) {
                 const assetIdArray: string[] = group[1].relatedAssetsUuidArray
-                const index: number = assetIdArray.indexOf(thisAsset[1].uuid);
+                const index: number = assetIdArray.indexOf(thisAsset.uuid);
                 if (index !== -1) {
                     assetIdArray.splice(index, 1);
                 }
