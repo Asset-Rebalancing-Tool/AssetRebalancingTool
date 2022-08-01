@@ -16,7 +16,7 @@ export default defineComponent({
       default: "text"
     },
     inputValue: {
-      type: String,
+      type: Number,
       required: true
     },
     unit: {
