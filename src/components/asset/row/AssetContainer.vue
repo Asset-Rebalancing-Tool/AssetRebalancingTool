@@ -39,15 +39,17 @@
   </div>
 </template>
 
-<script>
-import InfoColumn             from '@/components/asset/row/column/InfoColumn'
-import SingleValue            from '@/components/asset/row/column/SingleValue'
-import ActualValueColumn      from '@/components/asset/row/column/ActualValueColumn'
-import ColumnInput            from '@/components/asset/row/column/ColumnInput'
-
+<script lang="ts">
+import {defineComponent, PropType} from "vue";
 import { useAssetStore } from '@/stores/AssetStore'
+import { IOwnedAsset } from "@/models/IOwnedAsset";
 
-export default {
+import InfoColumn             from './column/InfoColumn.vue'
+import SingleValue            from './column/SingleValue.vue'
+import ActualValueColumn      from './column/ActualValueColumn.vue'
+import ColumnInput            from './column/ColumnInput.vue'
+
+export default defineComponent({
   name: 'AssetContainer',
   components: {
     InfoColumn,
@@ -57,7 +59,7 @@ export default {
   },
   props: {
     thisAsset: {
-      type: Object,
+      type: Object as PropType<IOwnedAsset>,
       required: true
     }
   },
@@ -66,17 +68,17 @@ export default {
     return { assetStore }
   },
   computed: {
-    activeContainer() {
+    activeContainer(): string {
       return (this.thisAsset.isSelected) ? 'selected' : ''
     },
-    priceArray() {
+    priceArray(): string[] {
       return this.assetStore.getValueArray(this.thisAsset.stockPrice)
     },
-    deviationArray() {
+    deviationArray(): string[] {
       return this.assetStore.getValueArray(this.thisAsset.deviation)
     }
   }
-}
+})
 </script>
 
 <style scoped>

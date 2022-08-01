@@ -3,7 +3,7 @@
 
     <header>
       <p>Neue Gruppe erstellen</p>
-      <button @click="assetStore.addToListObject(emptyGroupObject, 'groupList')">
+      <button>
         <span class="icon group"></span>
         <span class="icon plus"></span>
       </button>
@@ -15,24 +15,27 @@
     </label>
 
     <GroupAccordion
-        v-for="group in assetStore.listOfGroups"
-        :key="group.id"
+        v-for="group in assetStore.ownedGroups"
+        :key="group.uuid"
         :thisGroup="group"
     />
 
     <GroupAccordion :thisGroup="{name: 'Keine Gruppe'}">
         <li v-for="asset in assetStore.getAssetsWithoutGroup()"
-            :key="asset.id"
+            :key="asset.uuid"
             :class="{'selected': asset.isSelected}"
         >{{asset.name}}</li>
     </GroupAccordion>
   </div>
 </template>
 
-<script>
-import GroupAccordion from '@/components/asset/searchbar/GroupAccordion';
-import {useAssetStore} from '@/stores/AssetStore';
-export default {
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
+
+import GroupAccordion from './GroupAccordion.vue';
+
+export default defineComponent({
   name: 'GroupContextMenu',
   components: {
     GroupAccordion
@@ -43,27 +46,13 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      emptyGroupObject: {
-        "name": "Meine Gruppe 1",
-        "totalValue": 0.00,
-        "totalPercentage": 0.00,
-        "totalTargetPercentage": 0.00,
-        "totalDeviation": 0.00,
-        "currency": "€",
-        "isSelected": false,
-        "relatedAssetsIdArray": []
-      }
-    }
-  },
   setup() {
     const assetStore = useAssetStore()
     return {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

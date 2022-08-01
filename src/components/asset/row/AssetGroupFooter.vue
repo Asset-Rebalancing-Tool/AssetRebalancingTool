@@ -16,12 +16,15 @@
   </div>
 </template>
 
-<script>
-import SingleValue        from '@/components/asset/row/column/SingleValue'
-import ActualValueColumn  from '@/components/asset/row/column/ActualValueColumn'
-import {useAssetStore} from '@/stores/AssetStore';
+<script lang="ts">
+import {defineComponent, PropType} from "vue";
+import { useAssetStore }   from '@/stores/AssetStore';
 
-export default {
+import SingleValue        from './column/SingleValue.vue'
+import ActualValueColumn  from './column/ActualValueColumn.vue'
+import {IOwnedGroup} from "@/models/IOwnedGroup";
+
+export default defineComponent({
   name: 'AssetGroupFooter',
   components: {
     SingleValue,
@@ -29,29 +32,29 @@ export default {
   },
   props: {
     thisGroup: {
-      type: Object,
+      type: Object as PropType<IOwnedGroup>,
       required: true
     }
   },
   computed: {
 
     // The total value of this group
-    totalValue() {
+    totalValue(): number {
       return this.thisGroup.totalValue
     },
 
     // The total percentage of this group
-    totalPercentage() {
+    totalPercentage(): number {
       return this.thisGroup.totalPercentage
     },
 
     // The total target percentage of this group
-    totalTargetPercentage() {
+    totalTargetPercentage(): string[] {
       return this.assetStore.getValueArray(this.thisGroup.totalTargetPercentage)
     },
 
     // The total deviation of this group
-    totalDeviation() {
+    totalDeviation(): string[] {
       return this.assetStore.getValueArray(this.thisGroup.totalDeviation)
     }
   },
@@ -61,7 +64,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <style scoped>

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import PortfolioOverview   from '@/views/PortfolioOverview'
-import AssetList           from '@/views/AssetList'
-import EditAsset           from '@/views/EditAsset'
-import EditAssetGroup      from '@/views/EditAssetGroup'
-import ConnectBroker       from '@/views/ConnectBroker'
-import TransactionHistory  from '@/views/TransactionHistory'
+import PortfolioOverview   from '../views/PortfolioOverview.vue'
+import AssetList           from '../views/AssetList.vue'
+import EditAsset           from '../views/EditAsset.vue'
+import EditAssetGroup      from '../views/EditAssetGroup.vue'
+import ConnectBroker       from '../views/ConnectBroker.vue'
+import TransactionHistory  from '../views/TransactionHistory.vue'
 
 const routes = [
   {

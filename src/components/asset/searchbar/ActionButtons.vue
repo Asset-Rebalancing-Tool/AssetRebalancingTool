@@ -10,22 +10,21 @@
       <span class="icon group"></span>
       <span class="icon arrow-down"></span>
     </button>
-
     <!-- Context menu should not be the last element in the button-wrapper, to ensure the :last-child selector is working on the button -->
     <GroupContextMenu :showWrapper="assetStore.showGroupWrapper"/>
-
     <button :class="atLeastOneSelected" @click="assetStore.removeAllSelectedAssets">
       <span class="icon delete"></span>
     </button>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useAssetStore }   from '@/stores/AssetStore'
+import GroupContextMenu    from './GroupContextMenu.vue';
 
-import { useAssetStore } from '@/stores/AssetStore'
-import GroupContextMenu from '@/components/asset/searchbar/GroupContextMenu';
 
-export default {
+export default defineComponent({
   name: 'ActionButtons',
   components: {
     GroupContextMenu
@@ -42,19 +41,19 @@ export default {
     }
   },
   computed: {
-    oneSelected() {
+    oneSelected(): string {
       return (this.assetStore.selectedAssetCount === 1) ? 'active' : ''
     },
-    atLeastOneSelected() {
+    atLeastOneSelected(): string {
       return (this.assetStore.selectedAssetCount >= 1) ? 'active' : ''
     }
   },
   methods: {
-    toggleGroupWrapper() {
+    toggleGroupWrapper(): void {
       this.assetStore.showGroupWrapper = (!this.assetStore.showGroupWrapper)
     },
   }
-}
+})
 </script>
 
 <style scoped>

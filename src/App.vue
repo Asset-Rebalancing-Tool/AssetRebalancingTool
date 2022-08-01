@@ -4,17 +4,19 @@
   <ModalUnderlay />
 </template>
 
-<script>
-import SidebarSection from '@/components/sidebar/SidebarSection'
-import ModalUnderlay  from '@/components/asset/searchbar/ModalUnderlay'
+<script lang="ts">
+import { defineComponent } from 'vue';
 
-export default {
+import SidebarSection from './components/sidebar/SidebarSection.vue'
+import ModalUnderlay  from './components/asset/searchbar/ModalUnderlay.vue'
+
+export default defineComponent({
   name: 'App',
   components: {
     SidebarSection,
     ModalUnderlay
   }
-}
+})
 </script>
 
 <style>

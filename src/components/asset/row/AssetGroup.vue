@@ -4,22 +4,25 @@
     <div class="asset-wrapper">
       <AssetContainer
             v-for="asset in relatedAssets"
-            :key="asset.id"
+            :key="asset.uuid"
             :thisAsset="asset"
-            @click="assetStore.toggleIsSelectedFlag(asset.id, asset.relatedGroupId)"
+            @click="assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)"
       />
     </div>
     <AssetGroupFooter :thisGroup="thisGroup" />
   </div>
 </template>
 
-<script>
-import AssetContainer   from '@/components/asset/row/AssetContainer'
-import {useAssetStore}  from '@/stores/AssetStore'
-import AssetGroupFooter from '@/components/asset/row/AssetGroupFooter';
+<script lang="ts">
+import {defineComponent, PropType} from "vue";
+import { useAssetStore }   from '@/stores/AssetStore'
+import { IOwnedAssets }    from "@/models/IOwnedAssets";
 
+import AssetContainer   from './AssetContainer.vue'
+import AssetGroupFooter from './AssetGroupFooter.vue';
+import { IOwnedGroup }  from "@/models/IOwnedGroup";
 
-export default {
+export default defineComponent({
   name: 'AssetGroup',
   components: {
     AssetGroupFooter,
@@ -27,30 +30,30 @@ export default {
   },
   props: {
     thisGroup: {
-      type: Object,
+      type: Object as PropType<IOwnedGroup>,
       required: true
     }
   },
   computed: {
 
     // Returns a bool that indicates if the assets object is empty or not
-    isEmptyGroup() {
-      return (this.thisGroup.relatedAssetsIdArray.length === 0)
+    isEmptyGroup(): boolean {
+      return (this.thisGroup.relatedAssetsUuidArray.length === 0)
     },
 
     // Render the selected class based in the groups isSelected flag
-    isSelectedGroup() {
+    isSelectedGroup(): string {
       return (this.thisGroup.isSelected) ? 'selected' : ''
     },
 
     // Render the empty-group class based on the isEmptyGroup bool
-    emptyGroupClass() {
+    emptyGroupClass(): string {
       return (this.isEmptyGroup) ? 'empty-group' : ''
     },
 
     // Get an object of all assets, that are nested in that group
-    relatedAssets() {
-      return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
+    relatedAssets(): IOwnedAssets {
+      return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
     }
   },
   setup() {
@@ -59,7 +62,7 @@ export default {
       assetStore
     }
   }
-}
+})
 </script>
 
 <!-- not scoped -->
