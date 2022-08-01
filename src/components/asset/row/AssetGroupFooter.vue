@@ -22,7 +22,7 @@ import { useAssetStore }   from '@/stores/AssetStore';
 
 import SingleValue        from './column/SingleValue.vue'
 import ActualValueColumn  from './column/ActualValueColumn.vue'
-import {IOwnedGroup} from "@/models/IOwnedGroup";
+import {IOwnedPrivateGroup} from "@/models/IOwnedPrivateGroup";
 
 export default defineComponent({
   name: 'AssetGroupFooter',
@@ -32,7 +32,7 @@ export default defineComponent({
   },
   props: {
     thisGroup: {
-      type: Object as PropType<IOwnedGroup>,
+      type: Object as PropType<IOwnedPrivateGroup>,
       required: true
     }
   },

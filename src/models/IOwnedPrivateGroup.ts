@@ -1,4 +1,4 @@
-export interface IOwnedGroup {
+export interface IOwnedPrivateGroup {
     uuid: string,
     name: string,
     totalValue: number,

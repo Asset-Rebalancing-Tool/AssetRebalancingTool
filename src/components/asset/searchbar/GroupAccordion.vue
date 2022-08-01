@@ -19,13 +19,13 @@
 import {defineComponent, PropType} from "vue";
 import { useAssetStore } from '@/stores/AssetStore';
 import { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
-import { IOwnedGroup } from "@/models/IOwnedGroup";
+import { IOwnedPrivateGroup } from "@/models/IOwnedPrivateGroup";
 
 export default defineComponent({
   name: 'GroupAccordion',
   props: {
     thisGroup: {
-      type: Object as PropType<IOwnedGroup>,
+      type: Object as PropType<IOwnedPrivateGroup>,
       required: true
     }
   },

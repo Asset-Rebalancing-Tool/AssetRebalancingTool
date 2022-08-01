@@ -20,7 +20,7 @@ import { IOwnedPublicAssets }    from "@/models/IOwnedPublicAssets";
 
 import AssetContainer   from './AssetContainer.vue'
 import AssetGroupFooter from './AssetGroupFooter.vue';
-import { IOwnedGroup }  from "@/models/IOwnedGroup";
+import { IOwnedPrivateGroup }  from "@/models/IOwnedPrivateGroup";
 
 export default defineComponent({
   name: 'AssetGroup',
@@ -30,7 +30,7 @@ export default defineComponent({
   },
   props: {
     thisGroup: {
-      type: Object as PropType<IOwnedGroup>,
+      type: Object as PropType<IOwnedPrivateGroup>,
       required: true
     }
   },
