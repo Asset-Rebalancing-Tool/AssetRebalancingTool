@@ -17,11 +17,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {defineComponent, PropType} from "vue";
 import { useAssetStore }   from '@/stores/AssetStore';
 
 import SingleValue        from './column/SingleValue.vue'
 import ActualValueColumn  from './column/ActualValueColumn.vue'
+import {IOwnedGroup} from "@/models/IOwnedGroup";
 
 export default defineComponent({
   name: 'AssetGroupFooter',
@@ -31,7 +32,7 @@ export default defineComponent({
   },
   props: {
     thisGroup: {
-      type: Object,
+      type: Object as PropType<IOwnedGroup>,
       required: true
     }
   },
