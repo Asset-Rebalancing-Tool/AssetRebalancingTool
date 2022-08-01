@@ -12,11 +12,11 @@ export default defineComponent({
   name: 'ActualValueColumn',
   props: {
     value: {
-      type: String,
+      type: Number,
       required: true
     },
     percentage: {
-      type: String,
+      type: Number,
       required: true
     }
   },
