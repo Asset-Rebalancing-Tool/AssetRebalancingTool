@@ -1,5 +1,5 @@
 <template>
-  <div class="group-wrapper" @click="assetStore.moveAction(thisGroup.id)">
+  <div class="group-wrapper" @click="assetStore.moveAction(thisGroup.uuid)">
     <div class="group-header">
       <div class="icon group"></div>
       <p>{{thisGroup.name}}</p>
@@ -7,7 +7,7 @@
     <ul>
       <slot>
         <li v-for="asset in relatedAssets"
-            :key="asset.id"
+            :key="asset.uuid"
             :class="{'selected': asset.isSelected}"
         >{{asset.name}}</li>
       </slot>
@@ -16,21 +16,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useAssetStore }   from '@/stores/AssetStore';
+import {defineComponent, PropType} from "vue";
+import { useAssetStore } from '@/stores/AssetStore';
+import { IOwnedAssets } from "@/models/IOwnedAssets";
+import { IOwnedGroup } from "@/models/IOwnedGroup";
 
 export default defineComponent({
   name: 'GroupAccordion',
   props: {
     thisGroup: {
-      type: Object,
+      type: Object as PropType<IOwnedGroup>,
       required: true
     }
   },
   computed: {
     // Get an object of all assets, that are nested in that group
-    relatedAssets(): object {
-      return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
+    relatedAssets(): IOwnedAssets {
+      return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
     }
   },
   setup() {
