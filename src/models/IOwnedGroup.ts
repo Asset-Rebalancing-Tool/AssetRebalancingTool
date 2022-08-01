@@ -1,5 +1,5 @@
-export interface OwnedGroup {
-    id: number,
+export interface IOwnedGroup {
+    uuid: string,
     name: string,
     totalValue: number,
     totalPercentage: number,
@@ -7,5 +7,5 @@ export interface OwnedGroup {
     totalDeviation: number,
     currency: string,
     isSelected: boolean,
-    relatedAssetsIdArray: number[]
+    relatedAssetsUuidArray: string[]
 }
