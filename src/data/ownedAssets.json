@@ -1,7 +1,7 @@
 {
   "1101": {
-    "id" : 1101,
-    "relatedGroupId": 1100,
+    "uuid" : "1101",
+    "relatedGroupUuid": "1100",
     "name": "SPDR MSCI World UCITS ETF",
     "type": "ETF",
     "isin": "IE00BFY0GT14",
@@ -17,8 +17,8 @@
     "isSelected": false
   },
   "1102": {
-    "id" : 1102,
-    "relatedGroupId": 1100,
+    "uuid" : "1102",
+    "relatedGroupUuid": "1100",
     "name": "iShares Core MSCI EM IMI",
     "type": "ETF",
     "isin": "IE00BKM4GZ66",
@@ -34,8 +34,8 @@
     "isSelected": false
   },
   "1301": {
-    "id" : 1301,
-    "relatedGroupId": null,
+    "uuid" : "1301",
+    "relatedGroupUuid": null,
     "name": "Microsoft Corp",
     "type": "Aktie",
     "isin": "US5949181045",
@@ -51,8 +51,8 @@
     "isSelected": false
   },
   "1302": {
-    "id" : 1302,
-    "relatedGroupId": null,
+    "uuid" : "1302",
+    "relatedGroupUuid": null,
     "name": "Apple Inc",
     "type": "Aktie",
     "isin": "US2546871060",
@@ -68,8 +68,8 @@
     "isSelected": false
   },
   "1303": {
-    "id" : 1303,
-    "relatedGroupId": null,
+    "uuid" : "1303",
+    "relatedGroupUuid": null,
     "name": "Starbucks Corp",
     "type": "Aktie",
     "isin": "US8552441094",
