@@ -40,8 +40,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useAssetStore }   from '@/stores/AssetStore'
+import {defineComponent, PropType} from "vue";
+import { useAssetStore } from '@/stores/AssetStore'
+import { IOwnedAsset } from "@/models/IOwnedAsset";
 
 import InfoColumn             from './column/InfoColumn.vue'
 import SingleValue            from './column/SingleValue.vue'
@@ -58,7 +59,7 @@ export default defineComponent({
   },
   props: {
     thisAsset: {
-      type: Object,
+      type: Object as PropType<IOwnedAsset>,
       required: true
     }
   },
