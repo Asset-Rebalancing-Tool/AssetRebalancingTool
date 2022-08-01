@@ -1,10 +1,10 @@
 import axios from 'axios'
-import ownedGroups from '@/data/ownedGroups.json'
-import ownedAssets from '@/data/ownedAssets.json'
+import ownedGroups from '../data/ownedGroups.json'
+import ownedAssets from '../data/ownedAssets.json'
 
 
-import { IOwnedGroups } from "@/models/IOwnedGroups";
-import { IOwnedAssets } from "@/models/IOwnedAssets";
+import { IOwnedGroups } from '@/models/IOwnedGroups';
+import { IOwnedAssets } from '@/models/IOwnedAssets';
 
 const apiClient = axios.create({
   baseURL: 'https://my-json-server.typicode.com/',
