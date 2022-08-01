@@ -1,4 +1,4 @@
-export interface IOwnedAsset {
+export interface IOwnedPublicAsset {
     uuid : string,
     relatedGroupUuid: string | null,
     name: string,

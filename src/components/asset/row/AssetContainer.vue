@@ -42,7 +42,7 @@
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
 import { useAssetStore } from '@/stores/AssetStore'
-import { IOwnedAsset } from "@/models/IOwnedAsset";
+import { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
 
 import InfoColumn             from './column/InfoColumn.vue'
 import SingleValue            from './column/SingleValue.vue'
@@ -59,7 +59,7 @@ export default defineComponent({
   },
   props: {
     thisAsset: {
-      type: Object as PropType<IOwnedAsset>,
+      type: Object as PropType<IOwnedPublicAsset>,
       required: true
     }
   },

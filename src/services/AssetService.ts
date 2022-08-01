@@ -4,7 +4,7 @@ import ownedAssets from '../data/ownedAssets.json'
 
 
 import { IOwnedGroups } from '@/models/IOwnedGroups';
-import { IOwnedAssets } from '@/models/IOwnedAssets';
+import { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets';
 
 const apiClient = axios.create({
   baseURL: 'https://my-json-server.typicode.com/',
@@ -19,8 +19,8 @@ export default {
   fetchOwnedGroups(): IOwnedGroups {
     return ownedGroups as IOwnedGroups
   },
-  fetchOwnedAssets(): IOwnedAssets {
-    return ownedAssets as IOwnedAssets
+  fetchOwnedAssets(): IOwnedPublicAssets {
+    return ownedAssets as IOwnedPublicAssets
   },
 
   // TODO: like real

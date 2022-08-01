@@ -18,7 +18,7 @@
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
 import { useAssetStore } from '@/stores/AssetStore';
-import { IOwnedAssets } from "@/models/IOwnedAssets";
+import { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
 import { IOwnedGroup } from "@/models/IOwnedGroup";
 
 export default defineComponent({
@@ -31,7 +31,7 @@ export default defineComponent({
   },
   computed: {
     // Get an object of all assets, that are nested in that group
-    relatedAssets(): IOwnedAssets {
+    relatedAssets(): IOwnedPublicAssets {
       return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
     }
   },
