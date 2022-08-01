@@ -1,9 +1,7 @@
 <template>
-  <template>
-    <SidebarSection />
-    <router-view />
-    <ModalUnderlay />
-  </template>
+  <SidebarSection />
+  <router-view />
+  <ModalUnderlay />
 </template>
 
 <script lang="ts">
