@@ -45,7 +45,7 @@ export default defineComponent({
   },
   methods: {
     // copy the isin into the clipboard
-    copyISIN(event) {
+    copyISIN(event: Event) {
       let tempTextInput = document.createElement("input");
       if (this.isin !== undefined) {
         tempTextInput.value = this.isin;
