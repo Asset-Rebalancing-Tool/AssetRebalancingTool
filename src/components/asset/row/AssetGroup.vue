@@ -4,9 +4,9 @@
     <div class="asset-wrapper">
       <AssetContainer
             v-for="asset in relatedAssets"
-            :key="asset.id"
+            :key="asset.uuid"
             :thisAsset="asset"
-            @click="assetStore.toggleIsSelectedFlag(asset.id, asset.relatedGroupId)"
+            @click="assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)"
       />
     </div>
     <AssetGroupFooter :thisGroup="thisGroup" />
@@ -14,11 +14,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import {defineComponent, PropType} from "vue";
 import { useAssetStore }   from '@/stores/AssetStore'
+import { IOwnedAssets }    from "@/models/IOwnedAssets";
 
 import AssetContainer   from './AssetContainer.vue'
 import AssetGroupFooter from './AssetGroupFooter.vue';
+import { IOwnedGroup }  from "@/models/IOwnedGroup";
 
 export default defineComponent({
   name: 'AssetGroup',
@@ -28,7 +30,7 @@ export default defineComponent({
   },
   props: {
     thisGroup: {
-      type: Object,
+      type: Object as PropType<IOwnedGroup>,
       required: true
     }
   },
@@ -36,7 +38,7 @@ export default defineComponent({
 
     // Returns a bool that indicates if the assets object is empty or not
     isEmptyGroup(): boolean {
-      return (this.thisGroup.relatedAssetsIdArray.length === 0)
+      return (this.thisGroup.relatedAssetsUuidArray.length === 0)
     },
 
     // Render the selected class based in the groups isSelected flag
@@ -50,8 +52,8 @@ export default defineComponent({
     },
 
     // Get an object of all assets, that are nested in that group
-    relatedAssets(): object {
-      return this.assetStore.getAssetsByGroupId(this.thisGroup.id)
+    relatedAssets(): IOwnedAssets {
+      return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
     }
   },
   setup() {
