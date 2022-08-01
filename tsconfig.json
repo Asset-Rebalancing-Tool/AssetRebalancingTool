@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "resolveJsonModule": true,
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -27,11 +28,6 @@
       "dom.iterable",
       "scripthost"
     ],
-    /* Own development configs */
-    "resolveJsonModule": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": false,
-    "allowJs": true
   },
   "include": [
     "src/**/*.ts",
