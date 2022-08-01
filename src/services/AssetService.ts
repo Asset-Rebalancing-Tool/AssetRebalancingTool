@@ -1,8 +1,10 @@
 import axios from 'axios'
-import listOfGroups from '@/data/groups.json'
-import listOfAssets from '@/data/assets.json'
+import ownedGroups from '@/data/ownedGroups.json'
+import ownedAssets from '@/data/ownedAssets.json'
 
-import { ownedAsset } from "@/models/ownedAsset";
+
+import { IOwnedGroups } from "@/models/IOwnedGroups";
+import { IOwnedAssets } from "@/models/IOwnedAssets";
 
 const apiClient = axios.create({
   baseURL: 'https://my-json-server.typicode.com/',
@@ -14,17 +16,16 @@ const apiClient = axios.create({
 })
 
 export default {
-  fetchGroupList() {
-    // return apiClient.get('/asset-groups')
-    // TODO: remove along with import after the api is finished (if it needs to be async have a look at commit cc178fc6cffe8eec8c9fbd3ea81c7c240a7ee8db)
-    return listOfGroups
+  fetchOwnedGroups(): IOwnedGroups {
+    return ownedGroups as IOwnedGroups
   },
-  fetchAssetList(): object {
-    // return apiClient.get('/asset-groups')
-    // TODO: remove along with import after the api is finished (if it needs to be async have a look at commit cc178fc6cffe8eec8c9fbd3ea81c7c240a7ee8db)
-    return listOfAssets
+  fetchOwnedAssets(): IOwnedAssets {
+    return ownedAssets as IOwnedAssets
   },
-  fetchUnusedAsset(assetId: number): Promise<ownedAsset> {
+
+  // TODO: like real
+  /* fetchUnusedAsset(assetId: number): Promise<OwnedAssets>
+  {
     return apiClient.get('/assets/' + assetId)
-  }
+  } */
 }
