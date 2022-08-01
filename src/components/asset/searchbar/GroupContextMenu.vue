@@ -3,7 +3,7 @@
 
     <header>
       <p>Neue Gruppe erstellen</p>
-      <button @click="assetStore.addToOwnedGroups(emptyGroupObject)">
+      <button>
         <span class="icon group"></span>
         <span class="icon plus"></span>
       </button>
@@ -15,14 +15,14 @@
     </label>
 
     <GroupAccordion
-        v-for="group in assetStore.listOfGroups"
-        :key="group.id"
+        v-for="group in assetStore.ownedGroups"
+        :key="group.uuid"
         :thisGroup="group"
     />
 
     <GroupAccordion :thisGroup="{name: 'Keine Gruppe'}">
         <li v-for="asset in assetStore.getAssetsWithoutGroup()"
-            :key="asset.id"
+            :key="asset.uuid"
             :class="{'selected': asset.isSelected}"
         >{{asset.name}}</li>
     </GroupAccordion>
@@ -44,20 +44,6 @@ export default defineComponent({
     showWrapper: {
       type: Boolean,
       default: false
-    }
-  },
-  data() {
-    return {
-      emptyGroupObject: {
-        "name": "Meine Gruppe 1",
-        "totalValue": 0.00,
-        "totalPercentage": 0.00,
-        "totalTargetPercentage": 0.00,
-        "totalDeviation": 0.00,
-        "currency": "€",
-        "isSelected": false,
-        "relatedAssetsIdArray": []
-      }
     }
   },
   setup() {
