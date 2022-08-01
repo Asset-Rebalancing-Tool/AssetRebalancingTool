@@ -1,6 +1,6 @@
-export interface OwnedAsset {
-    id : number,
-    relatedGroupId: number,
+export interface IOwnedAsset {
+    uuid : string,
+    relatedGroupUuid: string | null,
     name: string,
     type: string,
     isin: string,
@@ -13,5 +13,5 @@ export interface OwnedAsset {
     actualPercentage: number,
     targetPercentage: number,
     deviation: number,
-    isSelected: false
+    isSelected: boolean
 }
