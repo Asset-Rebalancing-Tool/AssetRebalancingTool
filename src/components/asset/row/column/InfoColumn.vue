@@ -22,7 +22,7 @@ export default defineComponent({
   name: 'InfoColumn',
   props: {
     isSelected: {
-      type: Object,
+      type: Boolean,
       required: true
     },
     name: {
@@ -47,13 +47,15 @@ export default defineComponent({
     // copy the isin into the clipboard
     copyISIN(event) {
       let tempTextInput = document.createElement("input");
-      tempTextInput.value = this.isin;
-      document.body.appendChild(tempTextInput);
-      tempTextInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempTextInput);
-      event.stopPropagation()
-      alert("Copied the text: " + tempTextInput.value);
+      if (this.isin !== undefined) {
+        tempTextInput.value = this.isin;
+        document.body.appendChild(tempTextInput);
+        tempTextInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextInput);
+        event.stopPropagation()
+        alert("Copied the text: " + tempTextInput.value);
+      }
     }
   }
 })
