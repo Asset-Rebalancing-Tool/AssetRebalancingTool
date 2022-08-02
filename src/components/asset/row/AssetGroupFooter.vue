@@ -17,12 +17,12 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from "vue";
-import { useAssetStore }   from '@/stores/AssetStore';
-
-import SingleValue        from './column/SingleValue.vue'
+import { defineComponent } from "vue";
+import { useAssetStore } from '@/stores/AssetStore';
+import type { PropType } from "vue";
+import type { IOwnedPrivateGroup } from "@/models/IOwnedPrivateGroup";
 import ActualValueColumn  from './column/ActualValueColumn.vue'
-import {IOwnedPrivateGroup} from "@/models/IOwnedPrivateGroup";
+import SingleValue from './column/SingleValue.vue'
 
 export default defineComponent({
   name: 'AssetGroupFooter',

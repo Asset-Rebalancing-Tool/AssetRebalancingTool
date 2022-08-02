@@ -36,7 +36,7 @@ import TableFilters     from '../components/asset/searchbar/TableFilters.vue'
 import AssetGroup       from '../components/asset/row/AssetGroup.vue'
 import AssetContainer   from '../components/asset/row/AssetContainer.vue'
 import AssetListFooter  from '../components/asset/row/AssetListFooter.vue'
-import { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
+import type { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
 
 export default defineComponent({
   name: 'AssetList',

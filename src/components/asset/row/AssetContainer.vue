@@ -40,10 +40,10 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from "vue";
+import { defineComponent} from "vue";
 import { useAssetStore } from '@/stores/AssetStore'
-import { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
-
+import type { PropType } from "vue";
+import type { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
 import InfoColumn             from './column/InfoColumn.vue'
 import SingleValue            from './column/SingleValue.vue'
 import ActualValueColumn      from './column/ActualValueColumn.vue'

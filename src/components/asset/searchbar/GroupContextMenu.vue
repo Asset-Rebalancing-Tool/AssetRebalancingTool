@@ -31,8 +31,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useAssetStore }   from '@/stores/AssetStore';
-
+import { useAssetStore } from '@/stores/AssetStore';
 import GroupAccordion from './GroupAccordion.vue';
 
 export default defineComponent({

@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useAssetStore }   from '@/stores/AssetStore';
-import SearchbarWrapper    from './SearchbarWrapper.vue';
+import { useAssetStore } from '@/stores/AssetStore';
+import SearchbarWrapper from './SearchbarWrapper.vue';
 
 
 export default defineComponent({

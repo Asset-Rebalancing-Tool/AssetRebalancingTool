@@ -20,8 +20,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useAssetStore }   from '@/stores/AssetStore'
-import GroupContextMenu    from './GroupContextMenu.vue';
+import { useAssetStore } from '@/stores/AssetStore'
+import GroupContextMenu from './GroupContextMenu.vue';
 
 
 export default defineComponent({

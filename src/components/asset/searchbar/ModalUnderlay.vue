@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useAssetStore }   from '@/stores/AssetStore';
+import { useAssetStore } from '@/stores/AssetStore';
 
 export default defineComponent({
   name: 'ModalUnderlay',
