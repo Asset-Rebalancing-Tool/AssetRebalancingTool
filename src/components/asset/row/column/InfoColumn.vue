@@ -81,11 +81,11 @@ export default defineComponent({
   }
 
   .name-wrapper {
-    height: $asset-row-height);
+    height: $asset-row-height;
   }
 
   p {
-    color: $primary-text-color);
+    color: $primary-text-color;
     font-weight: 600;
     margin-top: 3px;
   }
@@ -97,9 +97,9 @@ export default defineComponent({
 
   .type {
     height: 20px;
-    background-color: $main-color);
-    border-radius: $secondary-border-radius);
-    color: $primary-text-color);
+    background-color: $main-color;
+    border-radius: $secondary-border-radius;
+    color: $primary-text-color;
     font-weight: 600;
     padding: 0 5px;
     line-height: 1.4;
@@ -112,19 +112,19 @@ export default defineComponent({
     display: flex;
     column-gap: 8px;
     padding: 0 4px;
-    border-radius: $secondary-border-radius);
+    border-radius: $secondary-border-radius;
   }
 
   .isin-wrapper:hover {
-    background-color: $tertiary-background-color);
+    background-color: $tertiary-background-color;
   }
 
   .isin {
-    color: $secondary-text-color);
+    color: $secondary-text-color;
   }
 
   .isin.label {
-    color: $tertiary-text-color);
+    color: $tertiary-text-color;
     margin-left: 4px;
 
   }
@@ -133,7 +133,7 @@ export default defineComponent({
     width: 15px;
     height: 15px;
     margin-top: 4px;
-    background-image: $icon-copy-clipboard);
+    background-image: $icon-copy-clipboard;
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;

@@ -97,6 +97,6 @@ export default defineComponent({
   }
 
   li.selected {
-    color: $main-color);
+    color: $main-color;
   }
 </style>

@@ -68,7 +68,7 @@ export default defineComponent({
     font-size: 15px;
     font-weight: 600;
     text-align: right;
-    color: $primary-text-color);
+    color: $primary-text-color;
   }
 
   .actual-value-wrapper .currency {

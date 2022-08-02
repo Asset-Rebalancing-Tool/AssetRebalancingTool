@@ -123,11 +123,11 @@ export default defineComponent({
     height: 10px;
   }
 
-  .icon.edit       { background-image: $icon-edit-action);   }
-  .icon.group      { background-image: $icon-group-action);  }
-  .icon.delete     { background-image: $icon-delete-action); }
-  .icon.arrow-up   { background-image: $icon-arrow-up);      }
-  .icon.arrow-down { background-image: $icon-arrow-down);    }
+  .icon.edit       { background-image: $icon-edit-action;   }
+  .icon.group      { background-image: $icon-group-action;  }
+  .icon.delete     { background-image: $icon-delete-action; }
+  .icon.arrow-up   { background-image: $icon-arrow-up;      }
+  .icon.arrow-down { background-image: $icon-arrow-down;    }
 
   button.active .icon {
     opacity: 1;
