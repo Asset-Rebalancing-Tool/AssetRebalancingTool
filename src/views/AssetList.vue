@@ -1,75 +1,78 @@
 <template>
-  <section id="asset-list">
+    <section id="asset-list">
+        <header>
+            <AssetSearchbar />
+            <ActionButtons />
+        </header>
 
-    <header>
-      <AssetSearchbar />
-      <ActionButtons />
-    </header>
+        <TableFilters />
 
-    <TableFilters />
+        <AssetGroup
+            v-for="group in assetStore.ownedGroups"
+            :key="group.uuid"
+            :thisGroup="group"
+        />
 
-    <AssetGroup
-        v-for="group in assetStore.ownedGroups"
-        :key="group.uuid"
-        :thisGroup="group"
-    />
+        <AssetContainer
+            v-for="asset in singleAssets"
+            :key="asset.uuid"
+            :thisAsset="asset"
+            @click="
+                assetStore.toggleIsSelectedFlag(
+                    asset.uuid,
+                    asset.relatedGroupUuid
+                )
+            "
+        />
 
-    <AssetContainer
-        v-for="asset in singleAssets"
-        :key="asset.uuid"
-        :thisAsset="asset"
-        @click="assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)"
-    />
-
-    <AssetListFooter />
-
-  </section>
+        <AssetListFooter />
+    </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useAssetStore }   from '@/stores/AssetStore'
+import { defineComponent } from 'vue'
+import { useAssetStore } from '@/stores/AssetStore'
 
-import AssetSearchbar   from '../components/asset/searchbar/AssetSearchbar.vue'
-import ActionButtons    from '../components/asset/searchbar/ActionButtons.vue'
-import TableFilters     from '../components/asset/searchbar/TableFilters.vue'
-import AssetGroup       from '../components/asset/row/AssetGroup.vue'
-import AssetContainer   from '../components/asset/row/AssetContainer.vue'
-import AssetListFooter  from '../components/asset/row/AssetListFooter.vue'
-import type { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
+import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
+import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
+import TableFilters from '../components/asset/searchbar/TableFilters.vue'
+import AssetGroup from '../components/asset/row/AssetGroup.vue'
+import AssetContainer from '../components/asset/row/AssetContainer.vue'
+import AssetListFooter from '../components/asset/row/AssetListFooter.vue'
+import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 
 export default defineComponent({
-  name: 'AssetList',
-  components: {
-    AssetSearchbar,
-    ActionButtons,
-    TableFilters,
-    AssetGroup,
-    AssetContainer,
-    AssetListFooter
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return { assetStore }
-  },
-  computed: {
-    singleAssets(): IOwnedPublicAssets {
-      return this.assetStore.getAssetsWithoutGroup()
-    }
-  }
+    name: 'AssetList',
+    components: {
+        AssetSearchbar,
+        ActionButtons,
+        TableFilters,
+        AssetGroup,
+        AssetContainer,
+        AssetListFooter,
+    },
+    setup() {
+        const assetStore = useAssetStore()
+        return { assetStore }
+    },
+    computed: {
+        singleAssets(): IOwnedPublicAssets {
+            return this.assetStore.getAssetsWithoutGroup()
+        },
+    },
 })
 </script>
 
 <style lang="scss" scoped>
-  #asset-list {
+#asset-list {
     position: relative;
     width: 100%;
     padding: 25px;
-  }
+}
 
-  header {
+header {
     display: flex;
     column-gap: 25px;
     margin-bottom: 25px;
-  }
+}
 </style>

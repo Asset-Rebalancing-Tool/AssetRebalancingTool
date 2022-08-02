@@ -1,22 +1,22 @@
 <template>
-  <div class="asset-footer">
-    <p>Gesamtsumme</p>
-    <div class="wrapper">
-      <span>20.000,00 €</span>
+    <div class="asset-footer">
+        <p>Gesamtsumme</p>
+        <div class="wrapper">
+            <span>20.000,00 €</span>
+        </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'AssetListFooter'
+    name: 'AssetListFooter',
 })
 </script>
 
 <style lang="scss" scoped>
-  .asset-footer {
+.asset-footer {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -27,11 +27,12 @@ export default defineComponent({
     align-items: center;
     justify-content: space-between;
     padding: 0 25px;
-  }
+}
 
-  p, span {
+p,
+span {
     color: $primary-text-color;
     font-weight: 600;
     font-size: 18px;
-  }
+}
 </style>

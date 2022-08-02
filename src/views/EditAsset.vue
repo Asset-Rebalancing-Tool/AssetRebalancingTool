@@ -1,18 +1,18 @@
 <template>
-  <div>
-    {{asset}}
-  </div>
+    <div>
+        {{ asset }}
+    </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'EditAsset',
-  data() {
-    return {
-      asset: null
-    }
-  }
+    name: 'EditAsset',
+    data() {
+        return {
+            asset: null,
+        }
+    },
 })
 </script>
