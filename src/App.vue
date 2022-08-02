@@ -18,9 +18,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style>
-  @import "assets/css/theme.scss";
-  @import "assets/css/general.scss";
-  @import "assets/css/icons.scss";
-</style>
