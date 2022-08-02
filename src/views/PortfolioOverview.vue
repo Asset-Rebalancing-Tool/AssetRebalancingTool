@@ -1,13 +1,13 @@
 <template>
-  <section class="content">
-    <label>Portfolio Overview</label>
-  </section>
+    <section class="content">
+        <label>Portfolio Overview</label>
+    </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'PortfolioOverview',
+    name: 'PortfolioOverview',
 })
 </script>

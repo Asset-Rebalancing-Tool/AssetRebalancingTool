@@ -1,24 +1,27 @@
 <template>
-  <div class="modal-underlay" :class="{'active': assetStore.activeModalUnderlay}"></div>
+    <div
+        class="modal-underlay"
+        :class="{ active: assetStore.activeModalUnderlay }"
+    ></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { useAssetStore } from '@/stores/AssetStore';
+import { defineComponent } from 'vue'
+import { useAssetStore } from '@/stores/AssetStore'
 
 export default defineComponent({
-  name: 'ModalUnderlay',
-  setup() {
-    const assetStore = useAssetStore()
-    return {
-      assetStore
-    }
-  }
+    name: 'ModalUnderlay',
+    setup() {
+        const assetStore = useAssetStore()
+        return {
+            assetStore,
+        }
+    },
 })
 </script>
 
 <style lang="scss" scoped>
-  .modal-underlay {
+.modal-underlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -29,10 +32,10 @@ export default defineComponent({
     z-index: 10;
     pointer-events: none;
     transition: 200ms ease-out;
-  }
+}
 
-  .modal-underlay.active {
+.modal-underlay.active {
     opacity: 0.45;
     pointer-events: all;
-  }
+}
 </style>

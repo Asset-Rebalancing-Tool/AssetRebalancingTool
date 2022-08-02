@@ -1,17 +1,17 @@
 <template>
-  <div class="searchbar-wrapper"></div>
+    <div class="searchbar-wrapper"></div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'SearchbarWrapper'
+    name: 'SearchbarWrapper',
 })
 </script>
 
 <style lang="scss" scoped>
-  .searchbar-wrapper {
+.searchbar-wrapper {
     display: none;
     position: absolute;
     bottom: -40px; /* Input height 52px + Row gap 10px + Modal height Xpx */
@@ -21,5 +21,5 @@ export default defineComponent({
     padding: 0 25px;
     background-color: $secondary-background-color;
     border-radius: $primary-border-radius;
-  }
+}
 </style>
