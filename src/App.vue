@@ -1,6 +1,6 @@
 <template>
   <SidebarSection />
-  <router-view />
+  <RouterView />
   <ModalUnderlay />
 </template>
 

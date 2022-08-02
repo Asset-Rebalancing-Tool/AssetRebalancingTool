@@ -4,22 +4,22 @@
       <div class="app-logo" />
     </header>
     <nav>
-      <router-link class="overview" :to="{name: 'PortfolioOverview'}">
+      <RouterLink class="overview" :to="{name: 'PortfolioOverview'}">
         <span class="icon overview"></span>
         <span>Übersicht</span>
-      </router-link>
-      <router-link class="asset" :to="{name: 'AssetList'}">
+      </RouterLink>
+      <RouterLink class="asset" :to="{name: 'AssetList'}">
         <span class="icon asset"></span>
         <span>Assets verwalten</span>
-      </router-link>
-      <router-link class="broker" :to="{name: 'ConnectBroker'}">
+      </RouterLink>
+      <RouterLink class="broker" :to="{name: 'ConnectBroker'}">
         <span class="icon broker"></span>
         <span>Broker Anbindung</span>
-      </router-link>
-      <router-link class="history" :to="{name: 'TransactionHistory' }">
+      </RouterLink>
+      <RouterLink class="history" :to="{name: 'TransactionHistory' }">
         <span class="icon history"></span>
         <span>Transaktionshistorie</span>
-      </router-link>
+      </RouterLink>
     </nav>
   </section>
 </template>
