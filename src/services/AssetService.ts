@@ -15,15 +15,15 @@ import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 })*/
 
 export default {
-    fetchOwnedGroups(): IOwnedPrivateGroups {
-        return ownedGroups as IOwnedPrivateGroups
-    },
-    fetchOwnedAssets(): IOwnedPublicAssets {
-        return ownedAssets as IOwnedPublicAssets
-    },
+  fetchOwnedGroups(): IOwnedPrivateGroups {
+    return ownedGroups as IOwnedPrivateGroups
+  },
+  fetchOwnedAssets(): IOwnedPublicAssets {
+    return ownedAssets as IOwnedPublicAssets
+  },
 
-    // TODO: like real
-    /* fetchUnusedAsset(assetId: number): Promise<OwnedAssets>
+  // TODO: like real
+  /* fetchUnusedAsset(assetId: number): Promise<OwnedAssets>
   {
     return apiClient.get('/assets/' + assetId)
   } */

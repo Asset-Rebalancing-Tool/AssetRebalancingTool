@@ -1,28 +1,28 @@
 <template>
-    <div class="button-wrapper">
-        <button :class="oneSelected">
-            <span class="icon edit"></span>
-        </button>
-        <button
-            class="group"
-            :class="{
-                active: atLeastOneSelected,
-                highlighted: assetStore.showGroupWrapper,
-            }"
-            @click="toggleGroupWrapper"
-        >
-            <span class="icon group"></span>
-            <span class="icon arrow-down"></span>
-        </button>
-        <!-- Context menu should not be the last element in the button-wrapper, to ensure the :last-child selector is working on the button -->
-        <GroupContextMenu :showWrapper="assetStore.showGroupWrapper" />
-        <button
-            :class="atLeastOneSelected"
-            @click="assetStore.removeAllSelectedAssets"
-        >
-            <span class="icon delete"></span>
-        </button>
-    </div>
+  <div class="button-wrapper">
+    <button :class="oneSelected">
+      <span class="icon edit"></span>
+    </button>
+    <button
+      class="group"
+      :class="{
+        active: atLeastOneSelected,
+        highlighted: assetStore.showGroupWrapper,
+      }"
+      @click="toggleGroupWrapper"
+    >
+      <span class="icon group"></span>
+      <span class="icon arrow-down"></span>
+    </button>
+    <!-- Context menu should not be the last element in the button-wrapper, to ensure the :last-child selector is working on the button -->
+    <GroupContextMenu :showWrapper="assetStore.showGroupWrapper" />
+    <button
+      :class="atLeastOneSelected"
+      @click="assetStore.removeAllSelectedAssets"
+    >
+      <span class="icon delete"></span>
+    </button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -31,121 +31,121 @@ import { useAssetStore } from '@/stores/AssetStore'
 import GroupContextMenu from './GroupContextMenu.vue'
 
 export default defineComponent({
-    name: 'ActionButtons',
-    components: {
-        GroupContextMenu,
+  name: 'ActionButtons',
+  components: {
+    GroupContextMenu,
+  },
+  setup() {
+    const assetStore = useAssetStore()
+    return {
+      assetStore,
+    }
+  },
+  data() {
+    return {
+      showGroupWrapper: false,
+    }
+  },
+  computed: {
+    oneSelected(): string {
+      return this.assetStore.selectedAssetCount === 1 ? 'active' : ''
     },
-    setup() {
-        const assetStore = useAssetStore()
-        return {
-            assetStore,
-        }
+    atLeastOneSelected(): string {
+      return this.assetStore.selectedAssetCount >= 1 ? 'active' : ''
     },
-    data() {
-        return {
-            showGroupWrapper: false,
-        }
+  },
+  methods: {
+    toggleGroupWrapper(): void {
+      this.assetStore.showGroupWrapper = !this.assetStore.showGroupWrapper
     },
-    computed: {
-        oneSelected(): string {
-            return this.assetStore.selectedAssetCount === 1 ? 'active' : ''
-        },
-        atLeastOneSelected(): string {
-            return this.assetStore.selectedAssetCount >= 1 ? 'active' : ''
-        },
-    },
-    methods: {
-        toggleGroupWrapper(): void {
-            this.assetStore.showGroupWrapper = !this.assetStore.showGroupWrapper
-        },
-    },
+  },
 })
 </script>
 
 <style lang="scss" scoped>
 .button-wrapper {
-    position: relative;
-    display: flex;
+  position: relative;
+  display: flex;
 }
 
 .button-wrapper button {
-    width: 52px;
-    height: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid $passive-border-color;
-    background-color: $secondary-infill-color;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $passive-border-color;
+  background-color: $secondary-infill-color;
 }
 
 button {
-    cursor: not-allowed;
-    pointer-events: none;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 button.active {
-    cursor: pointer;
-    pointer-events: all;
+  cursor: pointer;
+  pointer-events: all;
 }
 
 button.active:hover {
-    background-color: $primary-background-color;
+  background-color: $primary-background-color;
 }
 
 button.highlighted {
-    background-color: $primary-background-color;
+  background-color: $primary-background-color;
 }
 
 button.group {
-    width: 70px;
-    column-gap: 8px;
+  width: 70px;
+  column-gap: 8px;
 }
 
 button:first-child {
-    border-radius: $primary-border-radius 0 0 $primary-border-radius;
+  border-radius: $primary-border-radius 0 0 $primary-border-radius;
 }
 
 button:last-child {
-    border-radius: 0 $primary-border-radius $primary-border-radius 0;
+  border-radius: 0 $primary-border-radius $primary-border-radius 0;
 }
 
 button:not(:last-child) {
-    border-right: 0;
+  border-right: 0;
 }
 
 .icon {
-    width: 18px;
-    height: 18px;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 10;
-    opacity: 0.6;
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 10;
+  opacity: 0.6;
 }
 
 .icon.arrow-up,
 .icon.arrow-down {
-    width: 10px;
-    height: 10px;
+  width: 10px;
+  height: 10px;
 }
 
 .icon.edit {
-    background-image: $icon-edit-action;
+  background-image: $icon-edit-action;
 }
 .icon.group {
-    background-image: $icon-group-action;
+  background-image: $icon-group-action;
 }
 .icon.delete {
-    background-image: $icon-delete-action;
+  background-image: $icon-delete-action;
 }
 .icon.arrow-up {
-    background-image: $icon-arrow-up;
+  background-image: $icon-arrow-up;
 }
 .icon.arrow-down {
-    background-image: $icon-arrow-down;
+  background-image: $icon-arrow-down;
 }
 
 button.active .icon {
-    opacity: 1;
+  opacity: 1;
 }
 </style>

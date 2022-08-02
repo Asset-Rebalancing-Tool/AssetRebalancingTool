@@ -1,32 +1,29 @@
 <template>
-    <section id="asset-list">
-        <header>
-            <AssetSearchbar />
-            <ActionButtons />
-        </header>
+  <section id="asset-list">
+    <header>
+      <AssetSearchbar />
+      <ActionButtons />
+    </header>
 
-        <TableFilters />
+    <TableFilters />
 
-        <AssetGroup
-            v-for="group in assetStore.ownedGroups"
-            :key="group.uuid"
-            :thisGroup="group"
-        />
+    <AssetGroup
+      v-for="group in assetStore.ownedGroups"
+      :key="group.uuid"
+      :thisGroup="group"
+    />
 
-        <AssetContainer
-            v-for="asset in singleAssets"
-            :key="asset.uuid"
-            :thisAsset="asset"
-            @click="
-                assetStore.toggleIsSelectedFlag(
-                    asset.uuid,
-                    asset.relatedGroupUuid
-                )
-            "
-        />
+    <AssetContainer
+      v-for="asset in singleAssets"
+      :key="asset.uuid"
+      :thisAsset="asset"
+      @click="
+        assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
+      "
+    />
 
-        <AssetListFooter />
-    </section>
+    <AssetListFooter />
+  </section>
 </template>
 
 <script lang="ts">
@@ -42,37 +39,37 @@ import AssetListFooter from '../components/asset/row/AssetListFooter.vue'
 import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 
 export default defineComponent({
-    name: 'AssetList',
-    components: {
-        AssetSearchbar,
-        ActionButtons,
-        TableFilters,
-        AssetGroup,
-        AssetContainer,
-        AssetListFooter,
+  name: 'AssetList',
+  components: {
+    AssetSearchbar,
+    ActionButtons,
+    TableFilters,
+    AssetGroup,
+    AssetContainer,
+    AssetListFooter,
+  },
+  setup() {
+    const assetStore = useAssetStore()
+    return { assetStore }
+  },
+  computed: {
+    singleAssets(): IOwnedPublicAssets {
+      return this.assetStore.getAssetsWithoutGroup()
     },
-    setup() {
-        const assetStore = useAssetStore()
-        return { assetStore }
-    },
-    computed: {
-        singleAssets(): IOwnedPublicAssets {
-            return this.assetStore.getAssetsWithoutGroup()
-        },
-    },
+  },
 })
 </script>
 
 <style lang="scss" scoped>
 #asset-list {
-    position: relative;
-    width: 100%;
-    padding: 25px;
+  position: relative;
+  width: 100%;
+  padding: 25px;
 }
 
 header {
-    display: flex;
-    column-gap: 25px;
-    margin-bottom: 25px;
+  display: flex;
+  column-gap: 25px;
+  margin-bottom: 25px;
 }
 </style>
