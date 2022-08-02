@@ -1,0 +1,10 @@
+@mixin reset-list {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  background: transparent;
+  color: $primary-text-color;
+}

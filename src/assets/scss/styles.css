@@ -1,0 +1,19 @@
+/* Error: Undefined variable.
+ *   ,
+ * 4 |   background-color: $primary-infill-color;
+ *   |                     ^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   element\_input.scss 4:21        @import
+ *   element\__element-dir.scss 4:9  @import
+ *   styles.scss 7:9                 root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a   \2577 \a 4 \2502    background-color: $primary-infill-color;\d\a   \2502                      ^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   element\\_input.scss 4:21        @import\a   element\\__element-dir.scss 4:9  @import\a   styles.scss 7:9                 root stylesheet";
+}
