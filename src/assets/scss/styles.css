@@ -1,19 +1,92 @@
-/* Error: Undefined variable.
- *   ,
- * 4 |   background-color: $primary-infill-color;
- *   |                     ^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   element\_input.scss 4:21        @import
- *   element\__element-dir.scss 4:9  @import
- *   styles.scss 7:9                 root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
+/* Main color */
+/* All background color gradations */
+/* All text colors */
+/* All infill colors */
+/* All border colors */
+/* All text colors */
+button {
+  position: relative;
   display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a   \2577 \a 4 \2502    background-color: $primary-infill-color;\d\a   \2502                      ^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   element\\_input.scss 4:21        @import\a   element\\__element-dir.scss 4:9  @import\a   styles.scss 7:9                 root stylesheet";
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
 }
+
+input {
+  width: 100%;
+  height: 52px;
+  background-color: #1C2125;
+  color: #FFFFFF;
+  outline: #3C444D;
+  padding-left: 25px;
+  border-radius: 5px;
+  border: 1px solid #3C444D;
+}
+
+input:focus,
+textarea:focus {
+  border: 1px solid #19B399;
+}
+
+textarea::-webkit-input-placeholder,
+textarea:-moz-placeholder,
+textarea::-moz-placeholder,
+textarea:-ms-input-placeholder,
+textarea::placeholder {
+  color: #787878;
+}
+
+label {
+  position: relative;
+  width: 100%;
+  color: #FFFFFF;
+}
+
+/******************************************************/
+/* --------------Main Body & App Styles ------------- */
+/******************************************************/
+body {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
+  display: flex;
+  height: 100vh;
+  background: #24292D;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
+}
+
+/*# sourceMappingURL=styles.css.map */

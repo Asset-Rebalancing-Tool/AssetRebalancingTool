@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+// All theme styles
+@import "theme/__theme-dir";
+
 // All abstracts styles
 @import "abstract/__abstract-dir";
 
@@ -9,8 +12,7 @@
 // All layout styles
 @import "layout/__layout-dir";
 
-// All theme styles
-@import "theme/__theme-dir";
+
 
 /******************************************************/
 /* --------------Main Body & App Styles ------------- */
