@@ -73,8 +73,8 @@ export default defineComponent({
   }
 
   .asset-group-container.selected {
-    border-radius: var(--primary-border-radius);
-    outline: 1px solid var(--main-color);
+    border-radius: $primary-border-radius;
+    outline: 1px solid $main-color;
     outline-offset: -1px;
   }
 
@@ -89,7 +89,7 @@ export default defineComponent({
   }
 
   .asset-wrapper .asset-container:first-child {
-    border-radius: var(--primary-border-radius) var(--primary-border-radius) 0 0;
+    border-radius: $primary-border-radius) $primary-border-radius) 0 0;
   }
 
   .asset-wrapper .asset-container:last-child {
@@ -97,21 +97,21 @@ export default defineComponent({
   }
 
   .asset-group-container.empty-group {
-    outline: 1px solid var(--passive-border-color);
-    border-radius: var(--primary-border-radius);
-    background-color: var(--secondary-background-color);
+    outline: 1px solid $passive-border-color);
+    border-radius: $primary-border-radius);
+    background-color: $secondary-background-color);
   }
 
   .empty-group-button {
     width: calc(100% - 5px);
-    height: calc(var(--asset-row-height) - 5px);
+    height: calc($asset-row-height) - 5px);
     margin: 2.5px;
-    background-color: var(--primary-infill-color);
-    border-radius: var(--primary-border-radius);
+    background-color: $primary-infill-color);
+    border-radius: $primary-border-radius);
     border-style: dotted;
-    border-color: var(--passive-border-color);
+    border-color: $passive-border-color);
     font-size: 20px;
-    color: var(--secondary-text-color);
+    color: $secondary-text-color);
     cursor: pointer;
   }
 </style>

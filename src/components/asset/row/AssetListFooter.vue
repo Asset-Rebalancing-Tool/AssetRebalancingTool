@@ -22,7 +22,7 @@ export default defineComponent({
     bottom: 0;
     width: 100%;
     height: 60px;
-    background-color: var(--tertiary-background-color);
+    background-color: $tertiary-background-color;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,7 +30,7 @@ export default defineComponent({
   }
 
   p, span {
-    color: var(--primary-text-color);
+    color: $primary-text-color;
     font-weight: 600;
     font-size: 18px;
   }

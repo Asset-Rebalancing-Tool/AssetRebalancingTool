@@ -84,10 +84,10 @@ export default defineComponent({
 <style scoped>
   .asset-container {
     width: 100%;
-    height: var(--asset-row-height);
-    background-color: var(--secondary-background-color);
-    border: 1px solid var(--passive-border-color);
-    border-radius: var(--primary-border-radius);
+    height: $asset-row-height;
+    background-color: $secondary-background-color;
+    border: 1px solid $passive-border-color;
+    border-radius: $primary-border-radius;
     margin-bottom: 15px;
     padding-right: 10px;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
@@ -97,7 +97,7 @@ export default defineComponent({
   }
 
   .asset-container.selected {
-    outline: 1px solid var(--main-color);
-    box-shadow: var(--box-shaddow-main-color);
+    outline: 1px solid $main-color;
+    box-shadow: $box-shaddow-main-color;
   }
 </style>

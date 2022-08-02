@@ -60,9 +60,9 @@ export default defineComponent({
     right: 0;
     bottom: -415px; /* Input height 52px + Row gap 10px + Modal height Xpx */
     width: 280px;
-    background-color: var(--primary-background-color);
-    border: 1px solid var(--passive-border-color);
-    border-radius: var(--primary-border-radius);
+    background-color: $primary-background-color;
+    border: 1px solid $passive-border-color;
+    border-radius: $primary-border-radius;
     box-shadow: 3px 3px 6px rgba(0,0,0,0.16);
     z-index: 10;
     overflow: hidden;
@@ -79,7 +79,7 @@ export default defineComponent({
   }
 
   p {
-    color: var(--primary-text-color);
+    color: $primary-text-color;
     font-size: 18px;
     line-height: 22px;
     margin-top: 2px;
@@ -92,14 +92,14 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     column-gap: 8px;
-    border: 1px solid var(--passive-border-color);
-    background-color: var(--secondary-infill-color);
-    border-radius: var(--primary-border-radius);
+    border: 1px solid $passive-border-color;
+    background-color: $secondary-infill-color;
+    border-radius: $primary-border-radius;
     cursor: pointer;
   }
 
   button:hover {
-    background-color: var(--primary-background-color);
+    background-color: $primary-background-color;
   }
 
   input {
@@ -118,10 +118,10 @@ export default defineComponent({
   .icon.group {
     width: 18px;
     height: 18px;
-    background-image: var(--icon-group-action);
+    background-image: $icon-group-action;
   }
   .icon.plus {
-    background-image: var(--icon-add);
+    background-image: $icon-add;
     width: 13px;
     height: 13px;
   }
@@ -132,7 +132,7 @@ export default defineComponent({
     top: 50%;
     right: 35px;
     transform: translateY(-50%);
-    background-image: var(--icon-searchbar);
+    background-image: $icon-searchbar;
   }
 
   /* duplicated, since I need to scope the style tag */
@@ -145,7 +145,7 @@ export default defineComponent({
   li {
     height: 26px;
     line-height: 26px;
-    color: var(--primary-text-color);
+    color: $primary-text-color;
   }
 
   li::marker {
@@ -153,6 +153,6 @@ export default defineComponent({
   }
 
   li.selected {
-    color: var(--main-color);
+    color: $main-color);
   }
 </style>

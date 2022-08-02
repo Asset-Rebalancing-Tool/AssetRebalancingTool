@@ -30,7 +30,7 @@ export default defineComponent({
 <style scoped>
   .wrapper {
     width: 115px;
-    height: var(--asset-row-height);
+    height: $asset-row-height;
     display: flex;
     justify-content: center;
     align-items: center;

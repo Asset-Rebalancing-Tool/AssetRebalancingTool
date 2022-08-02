@@ -53,7 +53,7 @@ export default defineComponent({
   }
 
   .group-wrapper:hover {
-    background-color: var(--secondary-background-color);
+    background-color: $secondary-background-color;
   }
 
   .group-header {
@@ -63,7 +63,7 @@ export default defineComponent({
   }
 
   p {
-    color: var(--primary-text-color);
+    color: $primary-text-color;
     font-size: 18px;
     line-height: 22px;
     margin-top: 2px;
@@ -78,7 +78,7 @@ export default defineComponent({
   .icon.group {
     width: 18px;
     height: 18px;
-    background-image: var(--icon-group-action);
+    background-image: $icon-group-action;
   }
 
   ul {
@@ -89,7 +89,7 @@ export default defineComponent({
   li {
     height: 26px;
     line-height: 26px;
-    color: var(--primary-text-color);
+    color: $primary-text-color;
   }
 
   li::marker {
@@ -97,6 +97,6 @@ export default defineComponent({
   }
 
   li.selected {
-    color: var(--main-color);
+    color: $main-color);
   }
 </style>

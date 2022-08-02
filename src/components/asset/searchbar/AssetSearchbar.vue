@@ -49,7 +49,7 @@ export default defineComponent({
     background-repeat: no-repeat;
     top: 18px;
     right: 25px;
-    background-image: var(--icon-searchbar);
+    background-image: $icon-searchbar;
     opacity: 0.6;
   }
 

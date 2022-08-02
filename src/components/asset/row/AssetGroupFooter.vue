@@ -71,8 +71,8 @@ export default defineComponent({
 .asset-group-footer {
   width: 100%;
   height: 45px;
-  background-color: var(--tertiary-background-color);
-  border-radius: 0 0 var(--primary-border-radius) var(--primary-border-radius);
+  background-color: $tertiary-background-color;
+  border-radius: 0 0 $primary-border-radius $primary-border-radius;
   display: flex;
   align-items: center;
   column-gap: 50px;
@@ -83,7 +83,7 @@ export default defineComponent({
 
 .asset-group-footer p {
   flex: 1;
-  color: var(--primary-text-color);
+  color: $primary-text-color;
 }
 
 .asset-group-footer span {
@@ -99,7 +99,7 @@ export default defineComponent({
 }
 
 .group-value {
-  color: var(--primary-text-color);
+  color: $primary-text-color;
 }
 
 .total-target-percentage {

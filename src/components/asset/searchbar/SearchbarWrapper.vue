@@ -19,7 +19,7 @@ export default defineComponent({
     width: 100%;
     height: 50px;
     padding: 0 25px;
-    background-color: var(--secondary-background-color);
-    border-radius: var(--primary-border-radius);
+    background-color: $secondary-background-color;
+    border-radius: $primary-border-radius;
   }
 </style>

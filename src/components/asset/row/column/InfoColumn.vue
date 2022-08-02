@@ -64,7 +64,7 @@ export default defineComponent({
 <style scoped>
   .info-wrapper {
     flex: 1;
-    height: var(--asset-row-height);
+    height: $asset-row-height;
     display: flex;
   }
 
@@ -72,20 +72,20 @@ export default defineComponent({
     height: 38px;
     width: 38px;
     margin: 10px;
-    background-color: var(--tertiary-background-color);
-    border-radius: var(--secondary-border-radius);
+    background-color: $tertiary-background-color;
+    border-radius: $secondary-border-radius;
   }
 
   .asset-image.selected {
-    background-image: var(--icon-selected-asset);
+    background-image: $icon-selected-asset;
   }
 
   .name-wrapper {
-    height: var(--asset-row-height);
+    height: $asset-row-height);
   }
 
   p {
-    color: var(--primary-text-color);
+    color: $primary-text-color);
     font-weight: 600;
     margin-top: 3px;
   }
@@ -97,9 +97,9 @@ export default defineComponent({
 
   .type {
     height: 20px;
-    background-color: var(--main-color);
-    border-radius: var(--secondary-border-radius);
-    color: var(--primary-text-color);
+    background-color: $main-color);
+    border-radius: $secondary-border-radius);
+    color: $primary-text-color);
     font-weight: 600;
     padding: 0 5px;
     line-height: 1.4;
@@ -112,19 +112,19 @@ export default defineComponent({
     display: flex;
     column-gap: 8px;
     padding: 0 4px;
-    border-radius: var(--secondary-border-radius);
+    border-radius: $secondary-border-radius);
   }
 
   .isin-wrapper:hover {
-    background-color: var(--tertiary-background-color);
+    background-color: $tertiary-background-color);
   }
 
   .isin {
-    color: var(--secondary-text-color);
+    color: $secondary-text-color);
   }
 
   .isin.label {
-    color: var(--tertiary-text-color);
+    color: $tertiary-text-color);
     margin-left: 4px;
 
   }
@@ -133,7 +133,7 @@ export default defineComponent({
     width: 15px;
     height: 15px;
     margin-top: 4px;
-    background-image: var(--icon-copy-clipboard);
+    background-image: $icon-copy-clipboard);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;

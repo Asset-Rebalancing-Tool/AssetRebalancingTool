@@ -68,8 +68,8 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid var(--passive-border-color);
-    background-color: var(--secondary-infill-color);
+    border: 1px solid $passive-border-color;
+    background-color: $secondary-infill-color;
   }
 
   button {
@@ -83,11 +83,11 @@ export default defineComponent({
   }
 
   button.active:hover {
-    background-color: var(--primary-background-color);
+    background-color: $primary-background-color;
   }
 
   button.highlighted {
-    background-color: var(--primary-background-color);
+    background-color: $primary-background-color;
   }
 
   button.group {
@@ -96,11 +96,11 @@ export default defineComponent({
   }
 
   button:first-child {
-    border-radius: var(--primary-border-radius) 0 0 var(--primary-border-radius);
+    border-radius: $primary-border-radius 0 0 $primary-border-radius;
   }
 
   button:last-child {
-    border-radius: 0 var(--primary-border-radius) var(--primary-border-radius) 0;
+    border-radius: 0 $primary-border-radius $primary-border-radius 0;
   }
 
   button:not(:last-child) {
@@ -123,11 +123,11 @@ export default defineComponent({
     height: 10px;
   }
 
-  .icon.edit       { background-image: var(--icon-edit-action);   }
-  .icon.group      { background-image: var(--icon-group-action);  }
-  .icon.delete     { background-image: var(--icon-delete-action); }
-  .icon.arrow-up   { background-image: var(--icon-arrow-up);      }
-  .icon.arrow-down { background-image: var(--icon-arrow-down);    }
+  .icon.edit       { background-image: $icon-edit-action);   }
+  .icon.group      { background-image: $icon-group-action);  }
+  .icon.delete     { background-image: $icon-delete-action); }
+  .icon.arrow-up   { background-image: $icon-arrow-up);      }
+  .icon.arrow-down { background-image: $icon-arrow-down);    }
 
   button.active .icon {
     opacity: 1;

@@ -3,7 +3,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background: var(--primary-background-color);
+    background: $primary-background-color;
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
     Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     font-size: 15px;
@@ -34,17 +34,17 @@ p {
 input {
     width: 100%;
     height: 52px;
-    background-color: var(--primary-infill-color);
-    color: var(--primary-text-color);
-    outline: var(--passive-border-color);
+    background-color: $primary-infill-color;
+    color: $primary-text-color;
+    outline: $passive-border-color;
     padding-left: 25px;
-    border-radius: var(--primary-border-radius);
-    border: 1px solid var(--passive-border-color);
+    border-radius: $primary-border-radius;
+    border: 1px solid $passive-border-color;
 }
 
 input:focus,
 textarea:focus {
-    border: 1px solid var(--active-border-color);
+    border: 1px solid $active-border-color;
 }
 
 .asset-container input {
@@ -56,33 +56,33 @@ textarea:focus {
 label {
     position: relative;
     width: 100%;
-    color: var(--primary-text-color);
+    color: $primary-text-color;
 }
 
 span {
     display: block;
 }
 
-span .primary   { color: var(--primary-text-color);   }
-span .secondary { color: var(--secondary-text-color); }
-span .tertiary  { color: var(--tertiary-text-color);  }
+span .primary   { color: $primary-text-color;   }
+span .secondary { color: $secondary-text-color; }
+span .tertiary  { color: $tertiary-text-color;  }
 
 textarea::-webkit-input-placeholder {
-    color: var(--tertiary-text-color);
+    color: $tertiary-text-color;
 }
 
 textarea:-moz-placeholder { /* Firefox 18- */
-    color: var(--tertiary-text-color);
+    color: $tertiary-text-color;
 }
 
 textarea::-moz-placeholder {  /* Firefox 19+ */
-    color: var(--tertiary-text-color);
+    color: $tertiary-text-color;
 }
 
 textarea:-ms-input-placeholder {
-    color: var(--tertiary-text-color);
+    color: $tertiary-text-color;
 }
 
 textarea::placeholder {
-    color: var(--tertiary-text-color);
+    color: $tertiary-text-color;
 }

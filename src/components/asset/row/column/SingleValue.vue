@@ -49,7 +49,7 @@ export default defineComponent({
 }
 
 .first-digit {
-  color: var(--primary-text-color);
+  color: $primary-text-color;
   font-size: 16px;
   font-weight: 600;
   margin-top: 5px;
@@ -57,7 +57,7 @@ export default defineComponent({
 
 .first-decimal {
   height: 14px;
-  color: var(--secondary-text-color);
+  color: $secondary-text-color;
   font-size: 13px;
   margin-left: 3px;
 }
@@ -68,13 +68,13 @@ export default defineComponent({
 
 .second-decimal {
   height: 10px;
-  color: var(--tertiary-text-color);
+  color: $tertiary-text-color;
   font-size: 13px;
 }
 
 .unit {
   height: 12px;
-  color: var(--primary-text-color);
+  color: $primary-text-color;
   font-size: 14px;
   margin-left: 3px;
 }

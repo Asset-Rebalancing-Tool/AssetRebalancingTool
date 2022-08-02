@@ -35,7 +35,7 @@ export default defineComponent({
     height: 30px;
     display: grid;
     grid-template-columns: auto 102px 165px 250px 165px 102px;
-    border-bottom: 1px solid var(--tertiary-background-color);
+    border-bottom: 1px solid $tertiary-background-color;
     margin-bottom: 25px;
   }
 
@@ -43,7 +43,7 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     text-align: center;
-    color: var(--secondary-text-color);
+    color: $secondary-text-color;
   }
 
   .label {
@@ -56,7 +56,7 @@ export default defineComponent({
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
-    background-image: var(--icon-sort);
+    background-image: $icon-sort;
     margin-left: 5px;
     margin-top: 5px;
   }

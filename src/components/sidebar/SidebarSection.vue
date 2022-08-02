@@ -36,8 +36,8 @@ export default defineComponent({
   #sidebar {
     min-width: 210px;
     height: 100vh;
-    background-color: var(--secondary-background-color);
-    border-right: 1px solid var(--passive-border-color);
+    background-color: $secondary-background-color;
+    border-right: 1px solid $passive-border-color;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,7 +57,7 @@ export default defineComponent({
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    background-image: var(--app-logo);
+    background-image: $app-logo;
   }
 
   nav {
@@ -73,12 +73,12 @@ export default defineComponent({
     margin-bottom: 10px;
     border: none;
     text-decoration: none;
-    border-right: 5px solid var(--secondary-background-color);
+    border-right: 5px solid $secondary-background-color;
     background-color: transparent;
   }
 
   a.router-link-exact-active {
-    border-color: var(--main-color);
+    border-color: $main-color;
   }
 
   a.router-link-exact-active:before {
@@ -105,19 +105,19 @@ export default defineComponent({
     opacity: 1;
   }
 
-  .icon.overview { background-image: var(--icon-portfolio-overview);  }
-  .icon.asset    { background-image: var(--icon-asset-list);          }
-  .icon.broker   { background-image: var(--icon-connect-broker);      }
-  .icon.history  { background-image: var(--icon-transaction-history); }
+  .icon.overview { background-image: $icon-portfolio-overview;  }
+  .icon.asset    { background-image: $icon-asset-list;          }
+  .icon.broker   { background-image: $icon-connect-broker;      }
+  .icon.history  { background-image: $icon-transaction-history; }
 
   span {
-    color: var(--secondary-text-color);
+    color: $secondary-text-color;
     margin-left: 20px;
     cursor: pointer;
   }
 
   a.router-link-exact-active span {
-    color: var(--primary-text-color);
+    color: $primary-text-color;
   }
 
 </style>
