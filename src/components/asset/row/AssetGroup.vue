@@ -14,13 +14,13 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from "vue";
+import { defineComponent } from "vue";
 import { useAssetStore }   from '@/stores/AssetStore'
-import { IOwnedPublicAssets }    from "@/models/IOwnedPublicAssets";
-
+import type { PropType } from "vue";
+import type { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
+import type { IOwnedPrivateGroup } from "@/models/IOwnedPrivateGroup";
 import AssetContainer   from './AssetContainer.vue'
 import AssetGroupFooter from './AssetGroupFooter.vue';
-import { IOwnedPrivateGroup }  from "@/models/IOwnedPrivateGroup";
 
 export default defineComponent({
   name: 'AssetGroup',
