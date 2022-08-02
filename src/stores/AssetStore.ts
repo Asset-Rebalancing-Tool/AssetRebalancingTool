@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import type { IOwnedPrivateGroups } from "@/models/IOwnedPrivateGroups";
-import type { IOwnedPrivateGroup } from "@/models/IOwnedPrivateGroup";
-import type { IOwnedPublicAssets } from "@/models/IOwnedPublicAssets";
-import type { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
+import type { IOwnedPrivateGroups } from '@/models/IOwnedPrivateGroups'
+import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
+import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
+import type { IOwnedPublicAsset } from '@/models/IOwnedPublicAsset'
 import AssetService from '@/services/AssetService'
 
 /***********************************************************************************/
@@ -11,27 +11,26 @@ import AssetService from '@/services/AssetService'
 /***********************************************************************************/
 
 export type RootState = {
-    ownedGroups:         IOwnedPrivateGroups;
-    ownedAssets:         IOwnedPublicAssets;
-    selectedAssetCount:  number;
-    showGroupWrapper:    boolean;
-    activeModalUnderlay: boolean;
-};
+    ownedGroups: IOwnedPrivateGroups
+    ownedAssets: IOwnedPublicAssets
+    selectedAssetCount: number
+    showGroupWrapper: boolean
+    activeModalUnderlay: boolean
+}
 
 export const useAssetStore = defineStore('assetStore', {
-
-    state: () => ({
-        /** Reactive list objects */
-        ownedGroups: reactive(AssetService.fetchOwnedGroups()),
-        ownedAssets: reactive(AssetService.fetchOwnedAssets()),
-        /** Count that is used, to determine what action buttons should be active */
-        selectedAssetCount: 0,
-        showGroupWrapper: false,
-        activeModalUnderlay: false
-    } as RootState),
+    state: () =>
+        ({
+            /** Reactive list objects */
+            ownedGroups: reactive(AssetService.fetchOwnedGroups()),
+            ownedAssets: reactive(AssetService.fetchOwnedAssets()),
+            /** Count that is used, to determine what action buttons should be active */
+            selectedAssetCount: 0,
+            showGroupWrapper: false,
+            activeModalUnderlay: false,
+        } as RootState),
 
     actions: {
-
         /**
          * Return an object of all assets that are related to a specific group
          *
@@ -40,7 +39,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @returns {{}}
          */
         getAssetsByGroupUuid(uuid: string): IOwnedPublicAssets {
-            const tempObject: IOwnedPublicAssets = {};
+            const tempObject: IOwnedPublicAssets = {}
             const ownedAssets: IOwnedPublicAssets = this.ownedAssets
             for (const [key, asset] of Object.entries(ownedAssets)) {
                 if (asset.relatedGroupUuid === uuid.toString()) {
@@ -56,7 +55,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @returns {{}}
          */
         getAssetsWithoutGroup(): IOwnedPublicAssets {
-            const tempObject: IOwnedPublicAssets = {};
+            const tempObject: IOwnedPublicAssets = {}
             for (const [key, asset] of Object.entries(this.ownedAssets)) {
                 if (asset.relatedGroupUuid === null) {
                     tempObject[key] = asset
@@ -76,10 +75,13 @@ export const useAssetStore = defineStore('assetStore', {
         toggleIsSelectedFlag(uuid: string, relatedGroupUuid: number): void {
             const ownedGroups: IOwnedPrivateGroups = this.ownedGroups
             const ownedAssets: IOwnedPublicAssets = this.ownedAssets
-            ownedAssets[uuid]['isSelected'] = (!ownedAssets[uuid]['isSelected'])
+            ownedAssets[uuid]['isSelected'] = !ownedAssets[uuid]['isSelected']
             if (relatedGroupUuid !== null) {
                 const thisGroup = ownedGroups[relatedGroupUuid]
-                const allSelected = this.checkIfWholeGroupIsSelected(thisGroup, ownedAssets)
+                const allSelected = this.checkIfWholeGroupIsSelected(
+                    thisGroup,
+                    ownedAssets
+                )
                 if (allSelected) {
                     this.setGroupsSelectedFlag(thisGroup, ownedAssets, true)
                 } else {
@@ -99,14 +101,17 @@ export const useAssetStore = defineStore('assetStore', {
         toggleWholeGroupSelectedFlag(thisGroup: IOwnedPrivateGroup): void {
             const ownedAssets: IOwnedPublicAssets = this.ownedAssets
             // If all assets of this group are selected, set all to false, if not set all to true
-            const allSelected: boolean = this.checkIfWholeGroupIsSelected(thisGroup, ownedAssets)
+            const allSelected: boolean = this.checkIfWholeGroupIsSelected(
+                thisGroup,
+                ownedAssets
+            )
             if (allSelected) {
                 this.setGroupsSelectedFlag(thisGroup, ownedAssets, false)
             } else {
                 this.setGroupsSelectedFlag(thisGroup, ownedAssets, true)
             }
             // Always set the selected asset count after isSelected flags have been mutated
-            this.setSelectedAssetCount();
+            this.setSelectedAssetCount()
         },
 
         /**
@@ -117,8 +122,11 @@ export const useAssetStore = defineStore('assetStore', {
          *
          * @returns {boolean} Boolean
          */
-        checkIfWholeGroupIsSelected(thisGroup: IOwnedPrivateGroup, ownedAssets: IOwnedPublicAssets): boolean {
-            let allSelected: boolean = true
+        checkIfWholeGroupIsSelected(
+            thisGroup: IOwnedPrivateGroup,
+            ownedAssets: IOwnedPublicAssets
+        ): boolean {
+            let allSelected = true
             for (const assetId of thisGroup.relatedAssetsUuidArray) {
                 if (!ownedAssets[assetId].isSelected) {
                     allSelected = false
@@ -135,7 +143,11 @@ export const useAssetStore = defineStore('assetStore', {
          * @param ownedAssets IOwnedPublicAssets
          * @param setTo       Boolean
          */
-        setGroupsSelectedFlag(thisGroup: IOwnedPrivateGroup, ownedAssets: IOwnedPublicAssets, setTo: boolean): void {
+        setGroupsSelectedFlag(
+            thisGroup: IOwnedPrivateGroup,
+            ownedAssets: IOwnedPublicAssets,
+            setTo: boolean
+        ): void {
             for (const assetId of thisGroup.relatedAssetsUuidArray) {
                 ownedAssets[assetId].isSelected = setTo
             }
@@ -163,7 +175,9 @@ export const useAssetStore = defineStore('assetStore', {
          * This is needed to decide what action buttons should be rendered
          */
         setSelectedAssetCount(): void {
-            this.selectedAssetCount = Object.keys(this.getAllSelectedAssets()).length
+            this.selectedAssetCount = Object.keys(
+                this.getAllSelectedAssets()
+            ).length
             if (this.selectedAssetCount === 0) this.showGroupWrapper = false
         },
 
@@ -173,7 +187,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param thisGroup IOwnedPrivateGroups
          */
         addToOwnedGroups(thisGroup: IOwnedPrivateGroup): void {
-            const newId: string = '0'//uuidv4()
+            const newId = '0' //uuidv4()
             thisGroup.uuid = newId
             this.ownedGroups[newId] = thisGroup
         },
@@ -184,7 +198,7 @@ export const useAssetStore = defineStore('assetStore', {
          * @param thisAsset IOwnedPublicAssets
          */
         addToOwnedAssets(thisAsset: IOwnedPublicAsset): void {
-            const newId: string = '0'//uuidv4()
+            const newId = '0' //uuidv4()
             thisAsset.uuid = newId
             this.ownedAssets[newId] = thisAsset
         },
@@ -196,7 +210,9 @@ export const useAssetStore = defineStore('assetStore', {
          */
         removeAllSelectedAssets(): void {
             const ownedAssets: IOwnedPublicAssets = this.ownedAssets
-            for (const [key, thisAsset] of Object.entries(this.getAllSelectedAssets())) {
+            for (const [key, thisAsset] of Object.entries(
+                this.getAllSelectedAssets()
+            )) {
                 delete ownedAssets[key]
                 // Check for each group if this asset is listed in that group
                 this.removeAssetsFromGroup(thisAsset)
@@ -210,8 +226,11 @@ export const useAssetStore = defineStore('assetStore', {
          * @param targetGroupId Integer
          */
         moveAction(targetGroupId: string): void {
-            for (const thisAsset of Object.entries(this.getAllSelectedAssets())) {
-                thisAsset[1].relatedGroupUuid = (typeof targetGroupId !== 'undefined') ? targetGroupId : null
+            for (const thisAsset of Object.entries(
+                this.getAllSelectedAssets()
+            )) {
+                thisAsset[1].relatedGroupUuid =
+                    typeof targetGroupId !== 'undefined' ? targetGroupId : null
                 thisAsset[1].isSelected = false
                 // Check for each group if this asset is listed in that group
                 this.removeAssetsFromGroup(thisAsset[1])
@@ -228,9 +247,9 @@ export const useAssetStore = defineStore('assetStore', {
             const ownedGroups: IOwnedPrivateGroups = this.ownedGroups
             for (const group of Object.entries(ownedGroups)) {
                 const assetIdArray: string[] = group[1].relatedAssetsUuidArray
-                const index: number = assetIdArray.indexOf(thisAsset.uuid);
+                const index: number = assetIdArray.indexOf(thisAsset.uuid)
                 if (index !== -1) {
-                    assetIdArray.splice(index, 1);
+                    assetIdArray.splice(index, 1)
                 }
             }
         },
@@ -244,7 +263,9 @@ export const useAssetStore = defineStore('assetStore', {
          */
         getValueArray(assetValue: number): string[] {
             // Parse the value of the asset to string
-            const valueString: string = parseFloat(String(assetValue)).toString()
+            const valueString: string = parseFloat(
+                String(assetValue)
+            ).toString()
 
             // create the value array by splitting the float
             const valueArray: string[] = valueString.split('.')
@@ -258,18 +279,16 @@ export const useAssetStore = defineStore('assetStore', {
             }
 
             // If the first value is smaller than two digit add a zero as first character (visual purpose)
-            valueArray[0] = (valueArray[0].length < 2)
-                ? '0' + valueArray[0]
-                : valueArray[0]
+            valueArray[0] =
+                valueArray[0].length < 2 ? '0' + valueArray[0] : valueArray[0]
 
             // If the first value is smaller than two digit add a zero as first character (visual purpose)
-            valueArray[2] = (valueArray[1].length > 2)
-                ? valueArray[1].substring(2)
-                : '0'
+            valueArray[2] =
+                valueArray[1].length > 2 ? valueArray[1].substring(2) : '0'
 
-            valueArray[1] = (valueArray[1].substring(0,2)).toString()
+            valueArray[1] = valueArray[1].substring(0, 2).toString()
 
             return valueArray
-        }
+        },
     },
 })
