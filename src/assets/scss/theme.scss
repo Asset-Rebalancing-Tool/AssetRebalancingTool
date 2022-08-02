@@ -1,59 +1,49 @@
-
-
 /****************************************************************************/
 /* ----------------------- Theme Color Variables -------------------------- */
 /****************************************************************************/
 
-:root {
+/* Main color */
+$main-color:   #19B399;
 
-    /* Main color */
-    --main-color:   #19B399;
+/* All background color gradations */
+$primary-background-color:   #24292D;
+$secondary-background-color: #2F363E;
+$tertiary-background-color:  #3C444D;
 
-    /* All background color gradations */
-    --primary-background-color:   #24292D;
-    --secondary-background-color: #2F363E;
-    --tertiary-background-color:  #3C444D;
+/* All text colors */
+$primary-text-color:   #FFFFFF;
+$secondary-text-color: #B5B5B5;
+$tertiary-text-color:  #787878;
 
-    /* All text colors */
-    --primary-text-color:   #FFFFFF;
-    --secondary-text-color: #B5B5B5;
-    --tertiary-text-color:  #787878;
+/* All infill colors */
+$primary-infill-color: #1C2125;
+$secondary-infill-color: #1A1E21;
 
-    /* All infill colors */
-    --primary-infill-color: #1C2125;
-    --secondary-infill-color: #1A1E21;
+$primary-border-radius: 5px;
+$secondary-border-radius: 3px;
 
-    --primary-border-radius: 5px;
-    --secondary-border-radius: 3px;
-
-    --box-shaddow-main-color:
-            0 0 1px rgba(25,179,153,0.05),
-            0 0 4px rgba(25,179,153,0.2),
-            0 0 8px rgba(25,179,153,0.2),
-            0 0 12px rgba(25,179,153,0.2);
-}
+$box-shaddow-main-color:
+    0 0 1px rgba(25,179,153,0.05),
+    0 0 4px rgba(25,179,153,0.2),
+    0 0 8px rgba(25,179,153,0.2),
+    0 0 12px rgba(25,179,153,0.2);
 
 /****************************************************************************/
 /* -------------------- Interactive Color Variables ----------------------- */
 /****************************************************************************/
 
-:root {
+/* All border colors */
+$passive-border-color: $tertiary-background-color;
+$active-border-color: $main-color;
 
-    /* All border colors */
-    --passive-border-color: $tertiary-background-color;
-    --active-border-color: $main-color;
-
-    /* All text colors */
-    --passive-text-color: $tertiary-background-color;
-    --active-text-color: $primary-text-color;
-}
+/* All text colors */
+$passive-text-color: $tertiary-background-color;
+$active-text-color: $primary-text-color;
 
 /****************************************************************************/
 /* ------------------- All Asset Related variables ------------------------ */
 /****************************************************************************/
 
-:root {
+/* Asset Row */
+$asset-row-height: 58px
 
-    /* Asset Row */
-    --asset-row-height: 58px
-}
