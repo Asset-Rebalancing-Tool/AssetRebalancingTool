@@ -10,6 +10,7 @@ button {
   margin: 0;
   padding: 0;
   list-style: none;
+  text-decoration: none;
   border: none;
   background: transparent;
   color: #FFFFFF;
@@ -54,6 +55,7 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
+  text-decoration: none;
   border: none;
   background: transparent;
   color: #FFFFFF;
@@ -84,6 +86,7 @@ h1, h2, h3, h4, h5, h6, p, span {
   margin: 0;
   padding: 0;
   list-style: none;
+  text-decoration: none;
   border: none;
   background: transparent;
   color: #FFFFFF;
