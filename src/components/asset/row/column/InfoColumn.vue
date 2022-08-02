@@ -61,7 +61,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .info-wrapper {
     flex: 1;
     height: $asset-row-height;

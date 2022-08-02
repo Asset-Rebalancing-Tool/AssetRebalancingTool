@@ -39,7 +39,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .icon {
     position: absolute;
     width: 18px;

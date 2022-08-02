@@ -81,7 +81,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .asset-container {
     width: 100%;
     height: $asset-row-height;

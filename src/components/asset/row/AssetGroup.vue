@@ -66,7 +66,7 @@ export default defineComponent({
 </script>
 
 <!-- not scoped -->
-<style>
+<style lang="scss">
   .asset-group-container {
     width: 100%;
     margin-bottom: 15px;

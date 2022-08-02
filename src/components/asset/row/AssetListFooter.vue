@@ -15,7 +15,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .asset-footer {
     position: absolute;
     left: 0;

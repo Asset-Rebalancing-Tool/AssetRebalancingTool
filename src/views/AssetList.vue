@@ -60,7 +60,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   #asset-list {
     position: relative;
     width: 100%;

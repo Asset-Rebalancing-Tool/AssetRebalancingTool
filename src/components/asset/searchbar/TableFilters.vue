@@ -29,7 +29,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .filter-grid {
     width: 100%;
     height: 30px;

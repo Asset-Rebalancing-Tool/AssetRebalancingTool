@@ -54,7 +54,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .move-action-wrapper {
     position: absolute;
     right: 0;

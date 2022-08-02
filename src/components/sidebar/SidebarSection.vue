@@ -32,7 +32,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   #sidebar {
     min-width: 210px;
     height: 100vh;

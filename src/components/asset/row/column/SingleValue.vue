@@ -40,7 +40,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .single-value-wrapper {
   width: 52px;
   display: flex;

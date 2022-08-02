@@ -10,7 +10,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .searchbar-wrapper {
     display: none;
     position: absolute;

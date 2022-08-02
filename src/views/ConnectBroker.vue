@@ -11,6 +11,3 @@ export default defineComponent({
   name: 'ConnectBroker',
 })
 </script>
-
-<style>
-</style>

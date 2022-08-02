@@ -52,7 +52,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .actual-value-wrapper {
     width: 200px;
     display: flex;

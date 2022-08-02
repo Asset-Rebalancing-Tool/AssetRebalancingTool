@@ -27,7 +27,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .wrapper {
     width: 115px;
     height: $asset-row-height;

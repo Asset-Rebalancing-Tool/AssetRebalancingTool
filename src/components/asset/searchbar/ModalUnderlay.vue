@@ -17,7 +17,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .modal-underlay {
     position: absolute;
     top: 0;

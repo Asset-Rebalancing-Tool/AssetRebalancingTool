@@ -67,7 +67,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .asset-group-footer {
   width: 100%;
   height: 45px;

@@ -45,7 +45,7 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .group-wrapper {
     width: 100%;
     padding: 15px 15px 10px;
