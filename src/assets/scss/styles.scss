@@ -12,8 +12,6 @@
 // All layout styles
 @import "layout/__layout-dir";
 
-
-
 /******************************************************/
 /* --------------Main Body & App Styles ------------- */
 /******************************************************/
@@ -39,6 +37,13 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
+}
+
+/** all router views */
+section:not(#sidebar) {
+  position: relative;
+  width: 100%;
+  padding: 25px;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {

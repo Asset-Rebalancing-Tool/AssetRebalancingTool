@@ -1,33 +1,6 @@
 <template>
   <div class="asset-container" :class="activeContainer">
-    <InfoColumn
-      :isSelected="thisAsset.isSelected"
-      :name="thisAsset.name"
-      :type="thisAsset.type"
-      :isin="thisAsset.isin"
-    />
 
-    <SingleValue :valueArray="priceArray" :unit="thisAsset.currency" />
-
-    <ColumnInput
-      :inputValue="thisAsset.shares"
-      :unit="'Stk.'"
-      @click="$event.stopPropagation()"
-    />
-
-    <ActualValueColumn
-      :value="thisAsset.actualValue"
-      :percentage="thisAsset.actualPercentage"
-      :currency="thisAsset.currency"
-    />
-
-    <ColumnInput
-      :inputValue="thisAsset.targetPercentage"
-      :unit="'%'"
-      @click="$event.stopPropagation()"
-    />
-
-    <SingleValue :valueArray="deviationArray" :unit="'%'" />
   </div>
 </template>
 

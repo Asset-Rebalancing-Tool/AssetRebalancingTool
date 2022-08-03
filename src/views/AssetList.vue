@@ -1,28 +1,11 @@
 <template>
   <section id="asset-list">
-    <header>
-      <AssetSearchbar />
-      <ActionButtons />
-    </header>
-
-    <TableFilters />
-
-    <AssetGroup
-      v-for="group in assetStore.ownedGroups"
-      :key="group.uuid"
-      :thisGroup="group"
-    />
-
     <AssetContainer
-      v-for="asset in singleAssets"
-      :key="asset.uuid"
-      :thisAsset="asset"
-      @click="
-        assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
-      "
+        v-for="asset in singleAssets"
+        :key="asset.uuid"
+        :thisAsset="asset"
+        @click="assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)"
     />
-
-    <AssetListFooter />
   </section>
 </template>
 
@@ -60,16 +43,6 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-#asset-list {
-  position: relative;
-  width: 100%;
-  padding: 25px;
-}
-
-header {
-  display: flex;
-  column-gap: 25px;
-  margin-bottom: 25px;
-}
+<style lang="scss">
+  @import "@/assets/scss/components/_asset-list.scss";
 </style>
