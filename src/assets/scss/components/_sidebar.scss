@@ -1,6 +1,6 @@
 #sidebar {
   @include flex-column-center-x;
-  width: clamp(210px, 30%, 210px);
+  min-width: 210px;
   height: 100vh;
   background-color: $secondary-background-color;
   border-right: 1px solid $passive-border-color;
@@ -44,10 +44,12 @@
     z-index: 10;
   }
 
-  .icon.overview { background-image: $icon-portfolio-overview;  }
-  .icon.asset    { background-image: $icon-asset-list;          }
-  .icon.broker   { background-image: $icon-connect-broker;      }
-  .icon.history  { background-image: $icon-transaction-history; }
+  .icon.overview { background-image: $icon-portfolio-overview;   }
+  .icon.asset    { background-image: $icon-asset-list;           }
+  .icon.broker   { background-image: $icon-connect-broker;       }
+  .icon.history  { background-image: $icon-transaction-history;  }
+  .icon.invest   { background-image: $icon-schedule-investments; }
+  .icon.settings { background-image: $icon-app-settings;         }
 
   /*******************************************************/
   /* -------------- Active Button Styles --------------- */
