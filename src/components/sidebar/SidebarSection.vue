@@ -7,17 +7,25 @@
       <span class="icon overview"></span>
       <span>Übersicht</span>
     </RouterLink>
-    <RouterLink :to="{ name: 'AssetList' }">
-      <span class="icon asset"></span>
-      <span>Assets verwalten</span>
-    </RouterLink>
     <RouterLink :to="{ name: 'ConnectBroker' }">
       <span class="icon broker"></span>
       <span>Broker Anbindung</span>
     </RouterLink>
+    <RouterLink :to="{ name: 'AssetList' }">
+      <span class="icon asset"></span>
+      <span>Assets verwalten</span>
+    </RouterLink>
     <RouterLink :to="{ name: 'TransactionHistory' }">
       <span class="icon history"></span>
       <span>Transaktionshistorie</span>
+    </RouterLink>
+    <RouterLink :to="{ name: 'ScheduleInvestments' }">
+      <span class="icon invest"></span>
+      <span>Investitionen planen</span>
+    </RouterLink>
+    <RouterLink :to="{ name: 'AppSettings' }">
+      <span class="icon settings"></span>
+      <span>Einstellungen</span>
     </RouterLink>
   </section>
 </template>
