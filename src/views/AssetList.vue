@@ -1,11 +1,17 @@
 <template>
   <section id="asset-list">
+    <TableFilters />
+
     <AssetRow
-        v-for="asset in singleAssets"
-        :key="asset.uuid"
-        :thisAsset="asset"
-        @click="assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)"
+      v-for="asset in singleAssets"
+      :key="asset.uuid"
+      :thisAsset="asset"
+      @click="
+        assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
+      "
     />
+
+    <AssetListFooter />
   </section>
 </template>
 

@@ -39,5 +39,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/_components/_sidebar.scss';
+@import '@/assets/scss/components/sidebar/_sidebar.scss';
 </style>

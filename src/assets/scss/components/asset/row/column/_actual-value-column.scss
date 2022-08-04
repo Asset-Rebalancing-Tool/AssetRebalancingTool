@@ -1,0 +1,17 @@
+.actual-value-wrapper {
+  @include flex-center-xy;
+  width: 100%;
+  column-gap: $asset-row-column-gap;
+
+
+  .actual-value-wrapper,
+  .percentage {
+    width: 100%;
+    height: 18px;
+    line-height: 18px;
+    font-size: 15px;
+    font-weight: $bold-font-weight;
+    text-align: right;
+    color: $primary-text-color;
+  }
+}

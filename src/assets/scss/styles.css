@@ -22,9 +22,9 @@ input {
   background-color: #1C2125;
   color: #FFFFFF;
   outline: #3C444D;
-  padding-left: 25px;
   border-radius: 5px;
   border: 1px solid #3C444D;
+  text-align: center;
 }
 
 input:focus,
@@ -47,7 +47,10 @@ label {
 }
 
 /******************************************************/
-/* --------------Main Body & App Styles ------------- */
+/* -------------- Single Value Column --------------- */
+/******************************************************/
+/******************************************************/
+/* ------------- Main Body & App Styles ------------- */
 /******************************************************/
 body {
   position: relative;

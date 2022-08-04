@@ -32,7 +32,7 @@ export default defineComponent({
 p,
 span {
   color: $primary-text-color;
-  font-weight: 600;
+  font-weight: $bold-font-weight;
   font-size: 18px;
 }
 </style>

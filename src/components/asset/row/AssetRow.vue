@@ -1,15 +1,39 @@
 <template>
   <div class="asset-row" :class="selectedAsset">
-
     <div class="asset-logo"></div>
 
     <InfoColumn
-        :isSelected="thisAsset.isSelected"
-        :name="thisAsset.name"
-        :type="thisAsset.type"
-        :isin="thisAsset.isin"
+      :isSelected="thisAsset.isSelected"
+      :name="thisAsset.name"
+      :type="thisAsset.type"
+      :isin="thisAsset.isin"
     />
 
+    <SingleValue
+      :graph="thisAsset.graph"
+      :valueArray="priceArray"
+      :unit="thisAsset.currency"
+    />
+
+    <ColumnInput
+      :inputValue="thisAsset.shares"
+      :unit="'Stk.'"
+      @click="$event.stopPropagation()"
+    />
+
+    <ActualValueColumn
+      :value="thisAsset.actualValue"
+      :percentage="thisAsset.actualPercentage"
+      :currency="thisAsset.currency"
+    />
+
+    <ColumnInput
+      :inputValue="thisAsset.targetPercentage"
+      :unit="'%'"
+      @click="$event.stopPropagation()"
+    />
+
+    <SingleValue :arrow="'up'" :valueArray="deviationArray" :unit="'%'" />
   </div>
 </template>
 
@@ -50,12 +74,11 @@ export default defineComponent({
     },
     deviationArray(): string[] {
       return this.assetStore.getValueArray(this.thisAsset.deviation)
-    }
+    },
   },
 })
 </script>
 
 <style lang="scss">
-  @import "@/assets/scss/_components/_asset-row.scss";
+@import '@/assets/scss/components/asset/row/_asset-row.scss';
 </style>
-

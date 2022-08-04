@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="input-wrapper">
     <input :type="inputType" :value="inputValue" />
     <label>{{ unit }}</label>
   </div>
@@ -9,7 +9,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'TargetPercentageColumn',
+  name: 'ColumnInput',
   props: {
     inputType: {
       type: String,
@@ -27,17 +27,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.wrapper {
-  width: 115px;
-  height: $asset-row-height;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 10px;
-}
-
-.wrapper input {
-  width: 80px;
-}
-</style>
+<style lang="scss" scoped></style>

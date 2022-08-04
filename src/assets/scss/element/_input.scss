@@ -4,9 +4,9 @@ input {
   background-color: $primary-infill-color;
   color: $primary-text-color;
   outline: $passive-border-color;
-  padding-left: 25px;
   border-radius: $primary-border-radius;
   border: 1px solid $passive-border-color;
+  text-align: center;
 }
 
 input:focus,

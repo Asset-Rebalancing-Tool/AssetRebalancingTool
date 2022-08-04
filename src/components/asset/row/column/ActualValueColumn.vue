@@ -1,7 +1,7 @@
 <template>
   <div class="actual-value-wrapper">
-    <span class="currency">{{ formatValue }} €</span>
-    <span class="percentage">{{ formatPercentage }} %</span>
+    <span class="currency">{{ formatValue }}</span>
+    <span class="percentage">{{ formatPercentage }}</span>
   </div>
 </template>
 
@@ -45,39 +45,11 @@ export default defineComponent({
       }
 
       // Return the value and the decimal digit added as one string
-      return valueArray[0] + ',' + valueArray[1]
+      return valueArray[0] + ',' + valueArray[1] + '€'
     },
     formatPercentage() {
-      return this.percentage.toString().replace('.', ',')
+      return this.percentage.toString().replace('.', ',') + '%'
     },
   },
 })
 </script>
-
-<style lang="scss" scoped>
-.actual-value-wrapper {
-  width: 200px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  column-gap: 50px;
-}
-
-.actual-value-wrapper .currency,
-.actual-value-wrapper .percentage {
-  height: 18px;
-  line-height: 18px;
-  font-size: 15px;
-  font-weight: 600;
-  text-align: right;
-  color: $primary-text-color;
-}
-
-.actual-value-wrapper .currency {
-  width: 90px;
-}
-
-.actual-value-wrapper .percentage {
-  width: 65px;
-}
-</style>

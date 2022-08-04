@@ -2,4 +2,9 @@
 $asset-row-height: 58px;
 $asset-row-padding: 8px;
 $asset-inner-row: calc($asset-row-height - ($asset-row-padding * 2));
-$asset-row-columns: $asset-inner-row auto 80px 100px 240px 100px 80px;
+$asset-row-columns: $asset-inner-row auto 75px 110px min-content 110px 65px;
+$asset-row-column-gap: 30px;
+
+// Single Row Dimensions
+$single-value-columns: calc($asset-inner-row / 3);
+$single-value-rows: calc($asset-inner-row / 3);

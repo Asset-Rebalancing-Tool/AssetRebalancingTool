@@ -1,13 +1,13 @@
 <template>
-  <div class="single-value-wrapper">
+  <div class="single-value-wrapper" :class="smallerGrid">
+    <span class="graph" :class="graph"></span>
     <span class="first-digit">{{ firstDigit }}</span>
-    <span>
-      <span class="decimal-wrapper">
-        <span class="first-decimal">{{ firstDecimal }}</span>
-        <span class="second-decimal">{{ secondDecimal }}</span>
-      </span>
-      <span class="unit">{{ unit }}</span>
+    <span class="decimal-wrapper">
+      <span class="first-decimal">{{ firstDecimal }}</span>
+      <span class="second-decimal">{{ secondDecimal }}</span>
     </span>
+    <span class="unit">{{ unit }}</span>
+    <span class="arrow" v-if="showArrow" :class="arrow"></span>
   </div>
 </template>
 
@@ -25,6 +25,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    graph: {
+      type: String,
+      required: false,
+    },
+    arrow: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     firstDigit() {
@@ -36,22 +44,22 @@ export default defineComponent({
     secondDecimal() {
       return this.valueArray[2]
     },
+    showArrow() {
+      return this.arrow === 'up' || this.arrow === 'down'
+    },
+    smallerGrid() {
+      return this.showArrow ? 'smaller' : ''
+    },
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.single-value-wrapper {
-  width: 52px;
-  display: flex;
-  justify-content: center;
-  margin-top: 11px;
-}
-
+/*
 .first-digit {
   color: $primary-text-color;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: $bold-font-weight;
   margin-top: 5px;
 }
 
@@ -77,5 +85,5 @@ export default defineComponent({
   color: $primary-text-color;
   font-size: 14px;
   margin-left: 3px;
-}
+}*/
 </style>

@@ -1,6 +1,6 @@
 export interface IOwnedPublicAsset {
   uuid: string
-  relatedGroupUuid: string | null
+  relatedGroupUuid?: string
   name: string
   type: string
   isin: string
@@ -14,4 +14,5 @@ export interface IOwnedPublicAsset {
   targetPercentage: number
   deviation: number
   isSelected: boolean
+  graph?: string
 }
