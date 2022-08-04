@@ -4,13 +4,25 @@
     @click="assetStore.toggleWholeGroupSelectedFlag(thisGroup)"
   >
     <p>{{ thisGroup.name }}</p>
-    <ActualValueColumn :value="totalValue" :percentage="totalPercentage" />
-    <SingleValue
-      class="total-target-percentage"
-      :valueArray="totalTargetPercentage"
-      :unit="'%'"
+
+    <ActualValueColumn
+        :value="totalValue"
+        :percentage="totalPercentage"
     />
-    <SingleValue :valueArray="totalDeviation" :unit="'%'" />
+
+    <ColumnInput
+        :inputValue="'90'"
+        :unit="'%'"
+        @click="$event.stopPropagation()"
+    />
+
+    <!-- TODO: Total target percentage in same column as the column input-->
+
+    <SingleValue
+        :arrow="'up'"
+        :valueArray="totalDeviation"
+        :unit="'%'"
+    />
   </div>
 </template>
 
@@ -20,12 +32,14 @@ import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
 import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
 import ActualValueColumn from '../row/column/ActualValueColumn.vue'
+import ColumnInput from '../row/column/ColumnInput.vue'
 import SingleValue from '../row/column/SingleValue.vue'
 
 export default defineComponent({
   name: 'AssetGroupFooter',
   components: {
     SingleValue,
+    ColumnInput,
     ActualValueColumn,
   },
   props: {
@@ -64,43 +78,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-.asset-group-footer {
-  width: 100%;
-  height: 45px;
-  background-color: $tertiary-background-color;
-  border-radius: 0 0 $primary-border-radius $primary-border-radius;
-  display: flex;
-  align-items: center;
-  column-gap: 50px;
-  padding-left: 10px;
-  padding-right: 11px;
-  cursor: pointer;
-}
-
-.asset-group-footer p {
-  flex: 1;
-  color: $primary-text-color;
-}
-
-.asset-group-footer span {
-}
-
-/* Because the footer has a smaller height than the assets */
-.asset-group-footer .single-value-wrapper {
-  margin-top: -8px;
-}
-
-.asset-group-footer .actual-value-wrapper {
-  margin-right: 12px;
-}
-
-.group-value {
-  color: $primary-text-color;
-}
-
-.total-target-percentage {
-  margin-right: 42px;
-  margin-left: 10px;
-}
+<!-- not scoped !-->
+<style lang="scss">
+  @import '../../../assets/scss/components/asset/group/asset-group-footer';
 </style>

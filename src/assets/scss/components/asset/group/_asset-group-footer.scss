@@ -1,0 +1,33 @@
+.asset-group-footer {
+  @include asset-row-grid;
+  width: 100%;
+  height: $group-footer-height;
+  grid-template-rows: $group-footer-inner-height;
+  background-color: $tertiary-background-color;
+  border-radius: 0 0 $primary-border-radius $primary-border-radius;
+  cursor: pointer;
+
+  @import "src/assets/scss/components/asset/row/column/single-value-column";
+  @import "src/assets/scss/components/asset/row/column/column-input";
+  @import "src/assets/scss/components/asset/row/column/actual-value-column";
+
+  p {
+    line-height: $group-footer-inner-height;
+    width: fit-content;
+    white-space: nowrap;
+    margin-left: 2px;
+  }
+
+  .actual-value-wrapper {
+    grid-column: 5 / 6;
+  }
+
+  .input-wrapper,
+  .input-wrapper input {
+    height: 28px
+  }
+
+  .single-value-wrapper.smaller {
+    margin-top: -13px;
+  }
+}

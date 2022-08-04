@@ -8,3 +8,7 @@ $asset-row-column-gap: 40px;
 // Single Row Dimensions
 $single-value-columns: calc($asset-inner-row / 3);
 $single-value-rows: calc($asset-inner-row / 3);
+
+// Group Footer
+$group-footer-height: 45px;
+$group-footer-inner-height: calc($group-footer-height - 16px);
