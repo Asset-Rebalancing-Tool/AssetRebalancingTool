@@ -49,3 +49,10 @@ section:not(#sidebar) {
 h1, h2, h3, h4, h5, h6, p, span {
   @include reset-list;
 }
+
+p {
+  font-family: $primary-font-family;
+  font-size: $primary-font-size;
+  line-height:  $primary-line-height;
+  color:  $primary-text-color;
+}

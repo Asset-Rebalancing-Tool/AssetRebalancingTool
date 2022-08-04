@@ -1,0 +1,10 @@
+@mixin asset-row-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* logo, title, price, shares, value, target, deviation */
+  grid-template-columns: $asset-row-columns;
+  grid-template-rows: $asset-inner-row;
+  grid-column-gap: 10px;
+  padding: $asset-row-padding;
+}

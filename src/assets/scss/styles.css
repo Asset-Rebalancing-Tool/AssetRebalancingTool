@@ -99,4 +99,11 @@ h1, h2, h3, h4, h5, h6, p, span {
   color: #FFFFFF;
 }
 
+p {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #FFFFFF;
+}
+
 /*# sourceMappingURL=styles.css.map */

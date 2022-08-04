@@ -1,1 +1,5 @@
+// Asset Row Dimensions
 $asset-row-height: 58px;
+$asset-row-padding: 8px;
+$asset-inner-row: calc($asset-row-height - ($asset-row-padding * 2));
+$asset-row-columns: $asset-inner-row auto 80px 100px 240px 100px 80px;

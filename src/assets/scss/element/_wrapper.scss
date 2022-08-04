@@ -1,0 +1,7 @@
+@mixin base-wrapper {
+  width: 100%;
+  background-color: $secondary-background-color;
+  border: 1px solid $passive-border-color;
+  border-radius: $primary-border-radius;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
+}

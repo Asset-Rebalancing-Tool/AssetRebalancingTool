@@ -1,7 +1,0 @@
-.asset-row {
-  @include base-wrapper;
-  @include asset-row-grid;
-  height: $asset-row-height;
-  cursor: pointer;
-}
-

@@ -1,6 +1,6 @@
 <template>
   <section id="asset-list">
-    <AssetContainer
+    <AssetRow
         v-for="asset in singleAssets"
         :key="asset.uuid"
         :thisAsset="asset"
@@ -17,7 +17,7 @@ import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
 import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
 import TableFilters from '../components/asset/searchbar/TableFilters.vue'
 import AssetGroup from '../components/asset/row/AssetGroup.vue'
-import AssetContainer from '../components/asset/row/AssetContainer.vue'
+import AssetRow from '../components/asset/row/AssetRow.vue'
 import AssetListFooter from '../components/asset/row/AssetListFooter.vue'
 import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 
@@ -28,7 +28,7 @@ export default defineComponent({
     ActionButtons,
     TableFilters,
     AssetGroup,
-    AssetContainer,
+    AssetRow,
     AssetListFooter,
   },
   setup() {
@@ -42,7 +42,3 @@ export default defineComponent({
   },
 })
 </script>
-
-<style lang="scss">
-  @import "@/assets/scss/components/_asset-list.scss";
-</style>

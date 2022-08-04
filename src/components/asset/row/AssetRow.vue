@@ -1,5 +1,14 @@
 <template>
-  <div class="asset-container" :class="activeContainer">
+  <div class="asset-row" :class="selectedAsset">
+
+    <div class="asset-logo"></div>
+
+    <InfoColumn
+        :isSelected="thisAsset.isSelected"
+        :name="thisAsset.name"
+        :type="thisAsset.type"
+        :isin="thisAsset.isin"
+    />
 
   </div>
 </template>
@@ -15,7 +24,7 @@ import ActualValueColumn from './column/ActualValueColumn.vue'
 import ColumnInput from './column/ColumnInput.vue'
 
 export default defineComponent({
-  name: 'AssetContainer',
+  name: 'AssetRow',
   components: {
     InfoColumn,
     SingleValue,
@@ -33,7 +42,7 @@ export default defineComponent({
     return { assetStore }
   },
   computed: {
-    activeContainer(): string {
+    selectedAsset(): string {
       return this.thisAsset.isSelected ? 'selected' : ''
     },
     priceArray(): string[] {
@@ -41,28 +50,12 @@ export default defineComponent({
     },
     deviationArray(): string[] {
       return this.assetStore.getValueArray(this.thisAsset.deviation)
-    },
+    }
   },
 })
 </script>
 
-<style lang="scss" scoped>
-.asset-container {
-  width: 100%;
-  height: $asset-row-height;
-  background-color: $secondary-background-color;
-  border: 1px solid $passive-border-color;
-  border-radius: $primary-border-radius;
-  margin-bottom: 15px;
-  padding-right: 10px;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.16);
-  display: flex;
-  column-gap: 50px;
-  cursor: pointer;
-}
-
-.asset-container.selected {
-  outline: 1px solid $main-color;
-  box-shadow: $box-shaddow-main-color;
-}
+<style lang="scss">
+  @import "@/assets/scss/_components/_asset-row.scss";
 </style>
+

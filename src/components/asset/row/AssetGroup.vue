@@ -8,7 +8,7 @@
   >
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
     <div class="asset-wrapper">
-      <AssetContainer
+      <AssetRow
         v-for="asset in relatedAssets"
         :key="asset.uuid"
         :thisAsset="asset"
@@ -27,14 +27,14 @@ import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
 import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
-import AssetContainer from './AssetContainer.vue'
+import AssetRow from './AssetRow.vue'
 import AssetGroupFooter from './AssetGroupFooter.vue'
 
 export default defineComponent({
   name: 'AssetGroup',
   components: {
     AssetGroupFooter,
-    AssetContainer,
+    AssetRow,
   },
   props: {
     thisGroup: {
