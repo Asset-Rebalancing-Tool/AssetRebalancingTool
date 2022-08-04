@@ -1,0 +1,18 @@
+@mixin full-reset {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  color: $primary-text-color;
+}
+
+@mixin reset-absolute-center-xy {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0);
+}

@@ -1,15 +1,15 @@
 <template>
-    <div class="info-wrapper">
-      <p>{{ name }}</p>
-      <div class="info-row">
-        <div class="type">{{ type }}</div>
-        <span class="isin label">ISIN</span>
-        <span class="isin-wrapper" @click="copyISIN($event)">
-          <span class="isin">{{ isin }}</span>
-          <span class="icon"></span>
-        </span>
-      </div>
+  <div class="info-wrapper">
+    <p>{{ name }}</p>
+    <div class="info-row">
+      <div class="type">{{ type }}</div>
+      <span class="isin label">ISIN</span>
+      <span class="isin-wrapper" @click="copyISIN($event)">
+        <span class="isin">{{ isin }}</span>
+        <span class="icon"></span>
+      </span>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

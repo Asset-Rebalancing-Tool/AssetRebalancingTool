@@ -2,6 +2,12 @@
   <section id="asset-list">
     <TableFilters />
 
+    <AssetGroup
+      v-for="group in assetStore.ownedGroups"
+      :key="group.uuid"
+      :thisGroup="group"
+    />
+
     <AssetRow
       v-for="asset in singleAssets"
       :key="asset.uuid"
@@ -19,19 +25,17 @@
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 
-import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
-import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
-import TableFilters from '../components/asset/searchbar/TableFilters.vue'
-import AssetGroup from '../components/asset/row/AssetGroup.vue'
+// import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
+// import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
+import TableFilters from '../components/asset/TableFilters.vue'
+import AssetGroup from '../components/asset/group/AssetGroup.vue'
 import AssetRow from '../components/asset/row/AssetRow.vue'
-import AssetListFooter from '../components/asset/row/AssetListFooter.vue'
+import AssetListFooter from '../components/asset/AssetListFooter.vue'
 import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 
 export default defineComponent({
   name: 'AssetList',
   components: {
-    AssetSearchbar,
-    ActionButtons,
     TableFilters,
     AssetGroup,
     AssetRow,
@@ -48,3 +52,8 @@ export default defineComponent({
   },
 })
 </script>
+
+<!-- not scoped ! -->
+<style lang="scss">
+@import 'src/assets/scss/components/asset/group/_asset-group.scss';
+</style>

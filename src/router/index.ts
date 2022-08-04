@@ -52,7 +52,7 @@ const router = createRouter({
       path: '/app-einstellungen',
       name: 'AppSettings',
       component: AppSettings,
-    }
+    },
   ],
 })
 

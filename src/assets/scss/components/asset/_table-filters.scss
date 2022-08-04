@@ -1,0 +1,48 @@
+.filter-grid {
+  @include asset-row-grid;
+  height: 50px;
+  border-bottom: 1px solid $tertiary-background-color;
+  margin-bottom: 25px;
+
+  div {
+    position: relative;
+  }
+
+  .label {
+    @include flex-center-xy;
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: $primary-font-size;
+    line-height: $exact-primary-line-height;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .info-column {
+    @include flex-center-y;
+    grid-column: 2 / 3;
+    margin-left: calc(10px - $asset-row-column-gap);
+
+    .label {
+      @include reset-absolute-center-xy;
+      left: calc(0px - ($asset-inner-row + 8px) )
+    }
+
+    .price .label {
+      padding-left: 50px;
+    }
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: $icon-sort;
+    margin-left: 5px;
+  }
+}

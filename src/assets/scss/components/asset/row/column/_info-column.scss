@@ -1,0 +1,56 @@
+.info-wrapper {
+  height: $asset-inner-row;
+  margin-left: calc(10px - $asset-row-column-gap);
+}
+
+p {
+  font-weight: $bold-font-weight;
+  line-height: $primary-line-height;
+  margin-top: -4px;
+}
+
+.info-row {
+  display: flex;
+  line-height: $exact-primary-line-height;;
+}
+
+.type {
+  height: 20px;
+  background-color: $main-color;
+  border-radius: $secondary-border-radius;
+  color: $primary-text-color;
+  font-size: $secondary-font-size;
+  font-weight: $bold-font-weight;
+  padding: 0 5px;
+}
+
+.isin-wrapper {
+  cursor: pointer;
+  display: flex;
+  column-gap: 8px;
+  padding: 0 4px;
+  border-radius: $secondary-border-radius;
+}
+
+.isin-wrapper:hover {
+  background-color: $tertiary-background-color;
+}
+
+.isin {
+  color: $secondary-text-color;
+}
+
+.isin.label {
+  color: $tertiary-text-color;
+  margin-left: 8px;
+  margin-right: 4px;
+}
+
+.icon {
+  @include background-image-presets;
+  width: 15px;
+  height: 15px;
+  margin-top: 2.5px;
+  background-image: $icon-copy-clipboard;
+  cursor: pointer;
+}

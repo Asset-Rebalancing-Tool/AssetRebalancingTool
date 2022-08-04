@@ -19,8 +19,8 @@ import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
 import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
-import ActualValueColumn from './column/ActualValueColumn.vue'
-import SingleValue from './column/SingleValue.vue'
+import ActualValueColumn from '../row/column/ActualValueColumn.vue'
+import SingleValue from '../row/column/SingleValue.vue'
 
 export default defineComponent({
   name: 'AssetGroupFooter',
