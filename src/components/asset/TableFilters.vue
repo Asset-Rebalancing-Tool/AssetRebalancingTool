@@ -12,7 +12,7 @@
     <div>
       <span class="label">aktueller Ist-Wert<span class="icon"></span></span>
     </div>
-    <div>
+    <div class="target-percentage">
       <span class="label">Soll-Wert<span class="icon"></span></span>
     </div>
     <div>
