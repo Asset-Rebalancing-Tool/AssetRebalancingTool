@@ -22,9 +22,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .modal-underlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include absolute-left-top-0;
   width: 100vw;
   height: 100vh;
   background-color: #000000;

@@ -1,5 +1,11 @@
 <template>
   <section id="asset-list">
+
+    <header>
+      <AssetSearchbar />
+      <ActionButtons />
+    </header>
+
     <TableFilters />
 
     <AssetGroup
@@ -25,8 +31,8 @@
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 
-// import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
-// import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
+import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
+import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
 import TableFilters from '../components/asset/TableFilters.vue'
 import AssetGroup from '../components/asset/group/AssetGroup.vue'
 import AssetRow from '../components/asset/row/AssetRow.vue'
@@ -36,6 +42,8 @@ import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 export default defineComponent({
   name: 'AssetList',
   components: {
+    AssetSearchbar,
+    ActionButtons,
     TableFilters,
     AssetGroup,
     AssetRow,
@@ -55,5 +63,9 @@ export default defineComponent({
 
 <!-- not scoped ! -->
 <style lang="scss">
-@import 'src/assets/scss/components/asset/group/_asset-group.scss';
+  header {
+    display: flex;
+    column-gap: 25px;
+  }
+  @import 'src/assets/scss/components/asset/group/_asset-group.scss';
 </style>

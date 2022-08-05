@@ -7,19 +7,19 @@
       @focusout="hideModalUnderlay"
     />
     <span class="icon"></span>
-    <SearchbarWrapper />
+    <SearchbarContentWrapper />
   </label>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import SearchbarWrapper from './SearchbarWrapper.vue'
+import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 
 export default defineComponent({
   name: 'AssetSearchbar',
   components: {
-    SearchbarWrapper,
+    SearchbarContentWrapper,
   },
   methods: {
     showModalUnderlay(): void {
@@ -39,6 +39,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+
+input {
+  text-align: left;
+  padding: 25px;
+}
+
+label {
+  position: relative;
+  z-index: 20;
+}
+
 .icon {
   position: absolute;
   width: 18px;
@@ -50,10 +61,5 @@ export default defineComponent({
   right: 25px;
   background-image: $icon-searchbar;
   opacity: 0.6;
-}
-
-label {
-  position: relative;
-  z-index: 20;
 }
 </style>
