@@ -1,5 +1,5 @@
 .actual-value-wrapper {
-  @include flex-center-xy;
+  @include flex-center-y-end-x;
   width: 100%;
   column-gap: $asset-row-column-gap;
 

@@ -4,7 +4,7 @@
   display: grid;
   /* logo, title, price, shares, value, target, deviation */
   grid-template-columns: $asset-row-columns;
-  grid-template-rows: $group-footer-height;
+  grid-template-rows: $asset-inner-row;
   grid-column-gap: $asset-row-column-gap;
   padding: $asset-row-padding;
 }

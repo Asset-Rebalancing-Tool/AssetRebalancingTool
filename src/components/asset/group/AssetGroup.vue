@@ -7,6 +7,7 @@
     }"
   >
     <button v-if="isEmptyGroup" class="empty-group-button">+</button>
+
     <AssetRow
       v-for="asset in relatedAssets"
       :key="asset.uuid"
@@ -15,6 +16,9 @@
         assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
       "
     />
+
+    <TargetPercentageGrouping :assets="relatedAssets"/>
+
     <AssetGroupFooter :thisGroup="thisGroup" />
   </div>
 </template>
@@ -26,13 +30,15 @@ import type { PropType } from 'vue'
 import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
 import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
 import AssetRow from '../row/AssetRow.vue'
+import TargetPercentageGrouping from '../row/column/TargetPercentageGrouping.vue'
 import AssetGroupFooter from './AssetGroupFooter.vue'
 
 export default defineComponent({
   name: 'AssetGroup',
   components: {
-    AssetGroupFooter,
     AssetRow,
+    AssetGroupFooter,
+    TargetPercentageGrouping
   },
   props: {
     thisGroup: {
@@ -59,13 +65,13 @@ export default defineComponent({
     // Get an object of all assets, that are nested in that group
     relatedAssets(): IOwnedPublicAssets {
       return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
-    },
+    }
   },
   setup() {
     const assetStore = useAssetStore()
     return {
       assetStore,
     }
-  },
+  }
 })
 </script>

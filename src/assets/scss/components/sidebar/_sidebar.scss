@@ -50,6 +50,7 @@
   .icon.history  { background-image: $icon-transaction-history;  }
   .icon.invest   { background-image: $icon-schedule-investments; }
   .icon.settings { background-image: $icon-app-settings;         }
+  .icon.logout   { background-image: $icon-logout;         }
 
   /*******************************************************/
   /* -------------- Active Button Styles --------------- */
@@ -73,5 +74,26 @@
       rgba(25, 179, 153, 0),
       rgba(25, 179, 153, 0.24)
     );
+  }
+
+  /*******************************************************/
+  /* ------------------ Logout Wrapper ----------------- */
+  /*******************************************************/
+
+  .logout-wrapper {
+    @include flex-center-xy;
+    position: absolute;
+    min-width: 210px;
+    height: $asset-list-footer-height;
+    left: 0;
+    bottom: 0;
+    opacity: 0.6;
+
+    .icon {
+      width: 18px;
+      height: 18px;
+      margin-left: 0;
+      margin-right: 12px;
+    }
   }
 }

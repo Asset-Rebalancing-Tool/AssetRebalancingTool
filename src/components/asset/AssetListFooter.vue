@@ -21,7 +21,7 @@ export default defineComponent({
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: $asset-list-footer-height;
   background-color: $tertiary-background-color;
   display: flex;
   align-items: center;

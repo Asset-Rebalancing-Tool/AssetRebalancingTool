@@ -27,6 +27,12 @@
       <span class="icon settings"></span>
       <span>Einstellungen</span>
     </RouterLink>
+
+    <div v-if="false" class="logout-wrapper">
+      <span class="icon logout"></span>
+      <span>Abmelden</span>
+    </div>
+
   </section>
 </template>
 

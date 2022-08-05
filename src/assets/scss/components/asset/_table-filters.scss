@@ -28,16 +28,18 @@
 
     .label {
       @include reset-absolute-center-xy;
-      left: calc(0px - ($asset-inner-row + 8px) )
-    }
-
-    .price .label {
-      padding-left: 50px;
+      left: calc(0px - ($asset-inner-row + 8px));
+      margin-left: 12px;
     }
   }
 
-  .target-percentage {
-    margin-left: -20px;
+  .price .label,
+  .actual-value .label {
+    margin-left: 12px;
+  }
+
+  .target-percentage .label {
+    margin-left: -13px;
   }
 
   .icon {

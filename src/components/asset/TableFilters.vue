@@ -9,7 +9,7 @@
     <div>
       <span class="label">gehaltene Anteile<span class="icon"></span></span>
     </div>
-    <div>
+    <div class="actual-value">
       <span class="label">aktueller Ist-Wert<span class="icon"></span></span>
     </div>
     <div class="target-percentage">

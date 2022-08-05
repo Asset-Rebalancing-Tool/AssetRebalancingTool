@@ -1,4 +1,5 @@
 #asset-list .asset-group-container {
+  position: relative;
   width: 100%;
   margin-bottom: 15px;
   border-radius: $primary-border-radius;
@@ -20,6 +21,8 @@
   .asset-row:not(:first-child) {
     border-radius: 0;
   }
+
+  @import "src/assets/scss/components/asset/row/column/target-percentage-grouping";
 }
 
 .asset-group-container.selected {

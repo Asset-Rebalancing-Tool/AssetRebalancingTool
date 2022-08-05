@@ -15,6 +15,12 @@
   align-items: center;
 }
 
+@mixin flex-center-y-end-x {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 @mixin flex-column-center-x {
   display: flex;
   flex-direction: column;
@@ -25,4 +31,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+@mixin flex-align-start {
+  display: flex;
+  align-items: flex-start;
 }
