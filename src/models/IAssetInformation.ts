@@ -1,4 +1,4 @@
 export interface IAssetInformation {
-    assetInformationType: String,
-    stringValue: String
+  assetInformationType: string
+  stringValue: string
 }

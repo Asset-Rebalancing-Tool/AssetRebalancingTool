@@ -49,5 +49,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import "src/assets/scss/components/asset/context-menu/group-accordion.scss";
+@import 'src/assets/scss/components/asset/context-menu/group-accordion.scss';
 </style>

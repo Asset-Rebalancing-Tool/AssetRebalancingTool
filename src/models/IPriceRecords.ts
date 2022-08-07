@@ -1,6 +1,6 @@
 export interface IPriceRecords {
-    Currency: String,
-    price: number,
-    priceType: String,
-    tsPrice: String
+  Currency: string
+  price: number
+  priceType: string
+  tsPrice: string
 }

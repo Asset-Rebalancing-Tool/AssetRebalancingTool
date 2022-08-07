@@ -5,24 +5,17 @@
   >
     <p>{{ thisGroup.name }}</p>
 
-    <ActualValueColumn
-        :value="totalValue"
-        :percentage="totalPercentage"
-    />
+    <ActualValueColumn :value="totalValue" :percentage="totalPercentage" />
 
     <ColumnInput
-        :inputValue="'90'"
-        :unit="'%'"
-        @click="$event.stopPropagation()"
+      :inputValue="'90'"
+      :unit="'%'"
+      @click="$event.stopPropagation()"
     />
 
     <!-- TODO: Total target percentage in same column as the column input-->
 
-    <SingleValue
-        :arrow="'up'"
-        :valueArray="totalDeviation"
-        :unit="'%'"
-    />
+    <SingleValue :arrow="'up'" :valueArray="totalDeviation" :unit="'%'" />
   </div>
 </template>
 
@@ -80,5 +73,5 @@ export default defineComponent({
 
 <!-- not scoped !-->
 <style lang="scss">
-  @import '../../../assets/scss/components/asset/group/asset-group-footer';
+@import '../../../assets/scss/components/asset/group/asset-group-footer';
 </style>

@@ -63,5 +63,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import "../../../assets/scss/components/asset/action-buttons/action-buttons";
+@import '../../../assets/scss/components/asset/action-buttons/action-buttons';
 </style>

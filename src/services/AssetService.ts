@@ -4,16 +4,16 @@ import ownedAssets from '../data/ownedAssets.json'
 
 import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
-import axios from "axios";
+import axios from 'axios'
 
-const apiClient = axios.create({
+/*const apiClient = axios.create({
   baseURL: 'http://localhost:8080/asset_api/',
   withCredentials: false,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json'
-  }
-})
+    'Content-Type': 'application/json',
+  },
+})*/
 
 export default {
   fetchOwnedGroups(): IOwnedPrivateGroups {
@@ -25,13 +25,16 @@ export default {
 
   // TODO: like real
   async searchAsset(searchString: string) {
-    axios.post('assets/search', {
-      SearchString : searchString
-    }).then((response) => {
-          console.log(response.data)
-          //return response.data
-    }).catch((error) => {
-          console.log(error)
-    })
-  }
+    axios
+      .post('assets/search', {
+        SearchString: searchString,
+      })
+      .then((response) => {
+        console.log(response.data)
+        //return response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
 }

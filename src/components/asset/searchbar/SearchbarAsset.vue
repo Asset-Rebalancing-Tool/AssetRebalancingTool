@@ -9,9 +9,9 @@
     />
 
     <SingleValue
-        :graph="thisAsset.graph"
-        :valueArray="priceArray"
-        :unit="thisAsset.currency"
+      :graph="thisAsset.graph"
+      :valueArray="priceArray"
+      :unit="thisAsset.currency"
     />
   </div>
 </template>
@@ -21,18 +21,12 @@ import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
 import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
-import ActualValueColumn from '../row/column/ActualValueColumn.vue'
-import ColumnInput from '../row/column/ColumnInput.vue'
 
 export default defineComponent({
   name: 'AssetRow',
   components: {
-    InfoColumn,
     SingleValue,
-    ColumnInput,
-    ActualValueColumn,
   },
   props: {
     thisAsset: {

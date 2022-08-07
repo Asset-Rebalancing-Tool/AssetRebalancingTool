@@ -57,5 +57,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import "src/assets/scss/components/asset/context-menu/group-context-menu.scss";
+@import 'src/assets/scss/components/asset/context-menu/group-context-menu.scss';
 </style>

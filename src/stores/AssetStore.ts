@@ -27,7 +27,7 @@ export const useAssetStore = defineStore('assetStore', {
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
       showGroupWrapper: false,
-      activeModalUnderlay: false
+      activeModalUnderlay: false,
     } as RootState),
 
   actions: {
@@ -283,6 +283,6 @@ export const useAssetStore = defineStore('assetStore', {
       valueArray[1] = valueArray[1].substring(0, 2).toString()
 
       return valueArray
-    }
+    },
   },
 })

@@ -32,7 +32,6 @@
       <span class="icon logout"></span>
       <span>Abmelden</span>
     </div>
-
   </section>
 </template>
 

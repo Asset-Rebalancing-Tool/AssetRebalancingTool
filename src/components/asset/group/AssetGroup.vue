@@ -17,7 +17,7 @@
       "
     />
 
-    <TargetPercentageGrouping :assets="relatedAssets"/>
+    <TargetPercentageGrouping :assets="relatedAssets" />
 
     <AssetGroupFooter :thisGroup="thisGroup" />
   </div>
@@ -38,7 +38,7 @@ export default defineComponent({
   components: {
     AssetRow,
     AssetGroupFooter,
-    TargetPercentageGrouping
+    TargetPercentageGrouping,
   },
   props: {
     thisGroup: {
@@ -65,13 +65,13 @@ export default defineComponent({
     // Get an object of all assets, that are nested in that group
     relatedAssets(): IOwnedPublicAssets {
       return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
-    }
+    },
   },
   setup() {
     const assetStore = useAssetStore()
     return {
       assetStore,
     }
-  }
+  },
 })
 </script>

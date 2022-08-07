@@ -1,6 +1,5 @@
 <template>
   <section id="asset-list">
-
     <header>
       <AssetSearchbar />
       <ActionButtons />
@@ -63,9 +62,9 @@ export default defineComponent({
 
 <!-- not scoped ! -->
 <style lang="scss">
-  header {
-    display: flex;
-    column-gap: 25px;
-  }
-  @import 'src/assets/scss/components/asset/group/_asset-group.scss';
+header {
+  display: flex;
+  column-gap: 25px;
+}
+@import 'src/assets/scss/components/asset/group/_asset-group.scss';
 </style>

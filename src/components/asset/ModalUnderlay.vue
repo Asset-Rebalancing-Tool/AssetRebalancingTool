@@ -16,7 +16,7 @@ export default defineComponent({
     return {
       assetStore,
     }
-  }
+  },
 })
 </script>
 
@@ -33,7 +33,7 @@ export default defineComponent({
 }
 
 .modal-underlay.active {
-  opacity: 0.60;
+  opacity: 0.6;
   pointer-events: all;
 }
 </style>

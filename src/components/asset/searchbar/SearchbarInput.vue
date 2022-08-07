@@ -8,7 +8,7 @@
       @keyup="fetchPublicAssets($event)"
     />
     <span class="icon"></span>
-    <SearchbarContentWrapper :fetchedAssets="assets"/>
+    <SearchbarContentWrapper :fetchedAssets="assets" />
   </label>
 </template>
 
@@ -25,21 +25,19 @@ export default defineComponent({
   },
   data() {
     return {
-      assets: []
+      assets: [],
     }
   },
-  computed: {
+  methods: {
     showModalUnderlay(): void {
       this.assetStore.activeModalUnderlay = true
     },
     hideModalUnderlay(): void {
       this.assetStore.activeModalUnderlay = false
     },
-  },
-  methods: {
     async fetchPublicAssets(event: Event) {
       this.assets = AssetService.searchAsset(event.target)
-    }
+    },
   },
   setup() {
     const assetStore = useAssetStore()
@@ -51,5 +49,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  @import "src/assets/scss/components/asset/searchbar/searchbar-input.scss";
+@import 'src/assets/scss/components/asset/searchbar/searchbar-input.scss';
 </style>
