@@ -3,6 +3,11 @@
   "include": ["vite.config.*", "vitest.config.*", "cypress.config.*"],
   "compilerOptions": {
     "composite": true,
-    "types": ["node"]
-  }
+    "types": ["node"],
+    "lib": ["ES6", "DOM"]
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
 }
