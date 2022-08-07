@@ -1,11 +1,75 @@
-.searchbar-wrapper {
-  display: none;
-  position: absolute;
-  bottom: -40px; /* Input height 52px + Row gap 10px + Modal height Xpx */
-  left: 0;
-  width: 100%;
-  height: 50px;
-  padding: 0 25px;
-  background-color: $secondary-background-color;
-  border-radius: $primary-border-radius;
+#asset-list {
+  .searchbar-content-wrapper {
+    @include base-wrapper;
+    position: absolute;
+    top: $primary-input-height + 15; /* Input height 52px + Row gap 10px + Modal height Xpx */
+    left: 0;
+    height: auto;
+    padding: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transition: 50ms ease-out;
+
+    .searchbar-label-grid {
+      @include searchbar-asset-label-grid;
+      padding: 0;
+      margin-bottom: 15px;
+
+      p {
+        @include flex-center-y;
+        color: $secondary-text-color;
+      }
+    }
+
+    @import "src/assets/scss/components/asset/searchbar/_searchbar-asset.scss";
+
+    .divider {
+      width: 100%;
+      height: 2px;
+      background-color: $tertiary-background-color;
+      border-radius: 25px;
+      margin: 15px 0;
+    }
+
+    .searchbar-content-footer {
+      @include flex-center-y;
+      column-gap: 25px;
+
+      .footer-info {
+        flex: 1;
+        height: 100%;
+
+        p:last-child {
+          color: $secondary-text-color;
+          line-height: 1.3;
+          margin-top: 2px;
+        }
+      }
+
+      .button-wrapper {
+        @include button-wrapper-flex;
+        width: fit-content;
+        column-gap: $primary-button-gap;
+        height: 100%;
+
+        button {
+          @include flex-button;
+          padding: $primary-button-padding;
+
+          .icon {
+            @include background-image-presets;
+            width: 12px;
+            height: 12px;
+            background-image: $icon-add;
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .searchbar-content-wrapper.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }

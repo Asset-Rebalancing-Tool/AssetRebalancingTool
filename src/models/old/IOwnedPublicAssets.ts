@@ -1,4 +1,4 @@
-import type { IOwnedPublicAsset } from '@/models/IOwnedPublicAsset'
+import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
 
 export interface IOwnedPublicAssets {
   [uuid: string]: IOwnedPublicAsset

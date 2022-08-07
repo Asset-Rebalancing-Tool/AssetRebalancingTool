@@ -8,7 +8,7 @@
 import { defineComponent } from 'vue'
 
 import SidebarSection from './components/sidebar/SidebarSection.vue'
-import ModalUnderlay from './components/asset/searchbar/ModalUnderlay.vue'
+import ModalUnderlay from './components/asset/ModalUnderlay.vue'
 
 export default defineComponent({
   name: 'App',

@@ -1,6 +1,6 @@
 <template>
-  <div class="asset-row" :class="selectedAsset">
-    <div class="asset-logo"></div>
+  <div class="searchbar-asset" :class="selectedAsset">
+    <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
       :name="thisAsset.name"
@@ -9,30 +9,10 @@
     />
 
     <SingleValue
-      :graph="thisAsset.graph"
-      :valueArray="priceArray"
-      :unit="thisAsset.currency"
+        :graph="thisAsset.graph"
+        :valueArray="priceArray"
+        :unit="thisAsset.currency"
     />
-
-    <ColumnInput
-      :inputValue="thisAsset.shares"
-      :unit="'Stk.'"
-      @click="$event.stopPropagation()"
-    />
-
-    <ActualValueColumn
-      :value="thisAsset.actualValue"
-      :percentage="thisAsset.actualPercentage"
-      :currency="thisAsset.currency"
-    />
-
-    <ColumnInput
-      :inputValue="thisAsset.targetPercentage"
-      :unit="'%'"
-      @click="$event.stopPropagation()"
-    />
-
-    <SingleValue :arrow="'up'" :valueArray="deviationArray" :unit="'%'" />
   </div>
 </template>
 
@@ -41,10 +21,10 @@ import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
 import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import InfoColumn from './column/InfoColumn.vue'
-import SingleValue from './column/SingleValue.vue'
-import ActualValueColumn from './column/ActualValueColumn.vue'
-import ColumnInput from './column/ColumnInput.vue'
+import InfoColumn from '../row/column/InfoColumn.vue'
+import SingleValue from '../row/column/SingleValue.vue'
+import ActualValueColumn from '../row/column/ActualValueColumn.vue'
+import ColumnInput from '../row/column/ColumnInput.vue'
 
 export default defineComponent({
   name: 'AssetRow',

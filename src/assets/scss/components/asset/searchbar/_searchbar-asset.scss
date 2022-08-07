@@ -1,0 +1,20 @@
+.searchbar-asset {
+  @include searchbar-asset-grid;
+  height: $asset-inner-row;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 10px;
+
+
+  .searchbar-asset-logo {
+    @include background-image-presets;
+    height: $asset-inner-row;
+    width: $asset-inner-row;
+    background-color: $tertiary-background-color;
+    border-radius: $secondary-border-radius;
+  }
+
+  .single-value-wrapper {
+    grid-column: 4 / 5;
+  }
+}

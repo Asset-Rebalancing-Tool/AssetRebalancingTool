@@ -6,7 +6,7 @@
       selected: isSelectedGroup,
     }"
   >
-    <button v-if="isEmptyGroup" class="empty-group-button">+</button>
+    <button v-if="isEmptyGroup">+</button>
 
     <AssetRow
       v-for="asset in relatedAssets"
@@ -27,8 +27,8 @@
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
-import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
-import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
+import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
+import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
 import AssetRow from '../row/AssetRow.vue'
 import TargetPercentageGrouping from '../row/column/TargetPercentageGrouping.vue'
 import AssetGroupFooter from './AssetGroupFooter.vue'

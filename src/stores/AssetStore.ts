@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import type { IOwnedPrivateGroups } from '@/models/IOwnedPrivateGroups'
-import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
-import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
-import type { IOwnedPublicAsset } from '@/models/IOwnedPublicAsset'
+import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
+import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
+import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
+import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
 import AssetService from '@/services/AssetService'
 
 /***********************************************************************************/

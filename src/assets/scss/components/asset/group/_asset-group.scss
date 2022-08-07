@@ -36,16 +36,7 @@
   background-color: $secondary-background-color;
 
   button {
-    width: calc(100% - 5px);
-    height: calc($asset-row-height - 5px);
-    margin: 2.5px;
-    background-color: $primary-infill-color;
-    border-radius: $primary-border-radius;
-    border-style: dotted;
-    border-color: $passive-border-color;
-    font-size: 20px;
-    color: $secondary-text-color;
-    cursor: pointer;
+    @include empty-group-button;
   }
 }
 

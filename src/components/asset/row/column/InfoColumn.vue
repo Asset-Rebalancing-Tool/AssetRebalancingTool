@@ -18,10 +18,6 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'InfoColumn',
   props: {
-    isSelected: {
-      type: Boolean,
-      required: true,
-    },
     name: {
       type: String,
       required: true,

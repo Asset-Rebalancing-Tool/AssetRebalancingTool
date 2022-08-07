@@ -12,8 +12,11 @@ $secondary-text-color: #B5B5B5;
 $tertiary-text-color:  #787878;
 
 /* All infill colors */
-$primary-infill-color: #1C2125;
-$secondary-infill-color: #1A1E21;
+//$primary-infill-color: #1C2125;
+$primary-infill-color: #1A1E21;
+//$secondary-infill-color: #1A1E21;
+$secondary-infill-color: #1C2125;
+
 
 /* All border colors */
 $passive-border-color: $tertiary-background-color;

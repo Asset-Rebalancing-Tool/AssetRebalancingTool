@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "pinia": "^2.0.16",
     "sass": "^1.54.0",
+    "swagger-typescript-api": "^9.3.1",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2"
   },

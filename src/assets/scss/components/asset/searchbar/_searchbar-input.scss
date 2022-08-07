@@ -1,0 +1,22 @@
+input {
+  text-align: left;
+  padding: 25px;
+}
+
+label {
+  position: relative;
+  z-index: 20;
+}
+
+.icon {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 18px;
+  right: 25px;
+  background-image: $icon-searchbar;
+  opacity: 0.6;
+}

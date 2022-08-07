@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import GroupContextMenu from './GroupContextMenu.vue'
+import GroupContextMenu from '../context-menu/GroupContextMenu.vue'
 
 export default defineComponent({
   name: 'ActionButtons',
@@ -63,89 +63,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.button-wrapper {
-  position: relative;
-  display: flex;
-}
-
-.button-wrapper button {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid $passive-border-color;
-  background-color: $secondary-infill-color;
-}
-
-button {
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-button.active {
-  cursor: pointer;
-  pointer-events: all;
-}
-
-button.active:hover {
-  background-color: $primary-background-color;
-}
-
-button.highlighted {
-  background-color: $primary-background-color;
-}
-
-button.group {
-  width: 70px;
-  column-gap: 8px;
-}
-
-button:first-child {
-  border-radius: $primary-border-radius 0 0 $primary-border-radius;
-}
-
-button:last-child {
-  border-radius: 0 $primary-border-radius $primary-border-radius 0;
-}
-
-button:not(:last-child) {
-  border-right: 0;
-}
-
-.icon {
-  width: 18px;
-  height: 18px;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 10;
-  opacity: 0.6;
-}
-
-.icon.arrow-up,
-.icon.arrow-down {
-  width: 10px;
-  height: 10px;
-}
-
-.icon.edit {
-  background-image: $icon-edit-action;
-}
-.icon.group {
-  background-image: $icon-group-action;
-}
-.icon.delete {
-  background-image: $icon-delete-action;
-}
-.icon.arrow-up {
-  background-image: $icon-arrow-up;
-}
-.icon.arrow-down {
-  background-image: $icon-arrow-down;
-}
-
-button.active .icon {
-  opacity: 1;
-}
+  @import "../../../assets/scss/components/asset/action-buttons/action-buttons";
 </style>

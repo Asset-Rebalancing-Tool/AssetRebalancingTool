@@ -13,7 +13,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import type { PropType } from 'vue'
-import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
+import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 import {useAssetStore} from "@/stores/AssetStore";
 
 export default defineComponent({

@@ -9,6 +9,8 @@ $actual-value-column: 165px;
 $target-percentage-column: 110px;
 $deviation-column: 65px;
 $asset-row-columns: $asset-inner-row auto $price-column $owned-shares-column $actual-value-column $target-percentage-column $deviation-column;
+$searchbar-asset-row-columns: $asset-inner-row auto auto $price-column;
+$searchbar-asset-label-columns: auto auto$price-column;
 $asset-row-column-gap: 40px;
 
 // Single Row Dimensions

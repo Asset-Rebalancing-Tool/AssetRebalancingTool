@@ -30,7 +30,7 @@
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
-import type { IOwnedPrivateGroup } from '@/models/IOwnedPrivateGroup'
+import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
 import ActualValueColumn from '../row/column/ActualValueColumn.vue'
 import ColumnInput from '../row/column/ColumnInput.vue'
 import SingleValue from '../row/column/SingleValue.vue'

@@ -21,6 +21,13 @@
     @import "column/actual-value-column";
   }
 
+  .searchbar-content-wrapper {
+    @import "column/info-column";
+    @import "column/single-value-column";
+    @import "column/column-input";
+    @import "column/actual-value-column";
+  }
+
   .asset-row.selected {
     outline: 1px solid $main-color;
     box-shadow: $box-shaddow-main-color;

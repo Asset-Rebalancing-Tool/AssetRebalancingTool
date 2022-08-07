@@ -31,13 +31,13 @@
 import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 
-import AssetSearchbar from '../components/asset/searchbar/AssetSearchbar.vue'
-import ActionButtons from '../components/asset/searchbar/ActionButtons.vue'
+import AssetSearchbar from '../components/asset/searchbar/SearchbarInput.vue'
+import ActionButtons from '../components/asset/action-buttons/ActionButtons.vue'
 import TableFilters from '../components/asset/TableFilters.vue'
 import AssetGroup from '../components/asset/group/AssetGroup.vue'
 import AssetRow from '../components/asset/row/AssetRow.vue'
 import AssetListFooter from '../components/asset/AssetListFooter.vue'
-import type { IOwnedPublicAssets } from '@/models/IOwnedPublicAssets'
+import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 
 export default defineComponent({
   name: 'AssetList',

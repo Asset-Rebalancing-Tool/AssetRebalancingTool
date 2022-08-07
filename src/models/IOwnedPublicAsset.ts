@@ -1,18 +1,15 @@
+import type { IPriceRecords } from "@/models/IPriceRecords";
+import type { IAssetInformation } from "@/models/IAssetInformation";
+import type { IUiProperties } from "@/models/IUiProperties";
+
 export interface IOwnedPublicAsset {
-  uuid: string
-  relatedGroupUuid: string | null
-  name: string
-  type: string
-  isin: string
-  tickerSymbol: string
-  stockPrice: number
-  currency: string
-  shares: number
-  sharesType: string
-  actualValue: number
-  actualPercentage: number
-  targetPercentage: number
-  deviation: number
-  isSelected: boolean
-  graph: string | null
+  uuid: String,
+  assetInformation?: IAssetInformation | null,
+  assetName: String,
+  assetType: String,
+  isin: String,
+  priceRecords: IPriceRecords,
+  symbol: String,
+  ownedQuantity: String,
+  uiProperties?: IUiProperties | null
 }
