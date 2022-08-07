@@ -5,7 +5,7 @@
       placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
       @focusin="showModalUnderlay"
       @focusout="hideModalUnderlay"
-      @keyup="fetchPublicAssets($event)"
+      @keyup="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
     <SearchbarContentWrapper :fetchedAssets="assets" />
@@ -35,8 +35,10 @@ export default defineComponent({
     hideModalUnderlay(): void {
       this.assetStore.activeModalUnderlay = false
     },
-    async fetchPublicAssets(event: Event) {
-      this.assets = AssetService.searchAsset(event.target)
+    async fetchPublicAssets(value: String) {
+      let test = await AssetService.searchAssets(value);
+      console.log(test)
+      this.assets = test
     },
   },
   setup() {

@@ -1,17 +1,16 @@
 <template>
-  <div class="searchbar-asset" :class="selectedAsset">
+  <div class="searchbar-asset">
     <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
-      :name="thisAsset.name"
-      :type="thisAsset.type"
+      :name="thisAsset.assetName"
+      :type="thisAsset.assetType"
       :isin="thisAsset.isin"
     />
 
     <SingleValue
-      :graph="thisAsset.graph"
-      :valueArray="priceArray"
-      :unit="thisAsset.currency"
+      :valueArray="priceArray(thisAsset.priceRecords[0].price)"
+      :unit="thisAsset.priceRecords[0].Currency"
     />
   </div>
 </template>
@@ -34,26 +33,20 @@ export default defineComponent({
     thisAsset: {
       type: Object as PropType<IOwnedPublicAsset>,
       required: true,
-    },
+    }
   },
   setup() {
     const assetStore = useAssetStore()
     return { assetStore }
   },
-  computed: {
-    selectedAsset(): string {
-      return this.thisAsset.isSelected ? 'selected' : ''
-    },
-    priceArray(): string[] {
-      return this.assetStore.getValueArray(this.thisAsset.stockPrice)
-    },
-    deviationArray(): string[] {
-      return this.assetStore.getValueArray(this.thisAsset.deviation)
+  methods: {
+    priceArray(price: number): string[] {
+      return this.assetStore.getValueArray(price)
     },
   },
 })
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/components/asset/row/_asset-row.scss';
+  @import '@/assets/scss/components/asset/row/_asset-row.scss';
 </style>

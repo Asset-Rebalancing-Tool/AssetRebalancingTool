@@ -4,16 +4,13 @@
     :class="{ active: assetStore.activeModalUnderlay }"
   >
     <div class="searchbar-label-grid">
-      <p>Ergebnisse (3)</p>
+      <p>Ergebnisse ({{ fetchedAssets.length }})</p>
     </div>
 
     <SearchbarAsset
-      v-for="asset in singleAssets"
+      v-for="asset in fetchedAssets"
       :key="asset.uuid"
       :thisAsset="asset"
-      @click="
-        assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
-      "
     />
 
     <div class="divider"></div>
@@ -44,6 +41,12 @@ export default defineComponent({
   name: 'SearchbarContentWrapper',
   components: {
     SearchbarAsset,
+  },
+  props: {
+    fetchedAssets: {
+      type: Array,
+      required: true
+    }
   },
   computed: {
     singleAssets(): IOwnedPublicAssets {
