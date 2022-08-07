@@ -21,12 +21,14 @@ import { defineComponent } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PropType } from 'vue'
 import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
+import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
 
 export default defineComponent({
   name: 'AssetRow',
   components: {
-    SingleValue,
+    InfoColumn,
+    SingleValue
   },
   props: {
     thisAsset: {
