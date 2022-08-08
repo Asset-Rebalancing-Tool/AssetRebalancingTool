@@ -1,8 +1,11 @@
 <template>
-  <div class="group-wrapper" @click="assetStore.moveAction(thisGroup.uuid)">
+  <div
+    class="group-wrapper"
+    @click="assetStore.moveAction(props.thisGroup.uuid)"
+  >
     <div class="group-header">
       <div class="icon group"></div>
-      <p>{{ thisGroup.name }}</p>
+      <p>{{ props.thisGroup.name }}</p>
     </div>
     <ul>
       <slot>
@@ -19,26 +22,24 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  import { useAssetStore } from '@/stores/AssetStore'
-  import type { PropType } from 'vue'
-  import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
+import { computed } from 'vue'
+import { useAssetStore } from '@/stores/AssetStore'
 
-  const assetStore = useAssetStore()
+const assetStore = useAssetStore()
 
-  const props = defineProps({
-    thisGroup: {
-      type: Object as PropType<IOwnedPrivateGroup>,
-      required: true,
-    }
-  })
+const props = defineProps({
+  thisGroup: {
+    type: Object,
+    required: true,
+  },
+})
 
-  // Get an object of all assets, that are nested in that group
-  const relatedAssets = computed(() => {
-    return assetStore.getAssetsByGroupUuid(props.thisGroup.uuid)
-  })
+// Get an object of all assets, that are nested in that group
+const relatedAssets = computed(() => {
+  return assetStore.getAssetsByGroupUuid(props.thisGroup.uuid)
+})
 </script>
 
 <style lang="scss" scoped>
-  @import 'src/assets/scss/components/asset/context-menu/group-accordion.scss';
+@import 'src/assets/scss/components/asset/context-menu/group-accordion.scss';
 </style>

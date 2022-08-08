@@ -3,14 +3,14 @@
     <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
-      :name="thisAsset.assetName"
-      :type="thisAsset.assetType"
-      :isin="thisAsset.isin"
+      :name="props.thisAsset.assetName"
+      :type="props.thisAsset.assetType"
+      :isin="props.thisAsset.isin"
     />
 
     <SingleValue
       :valueArray="priceArray(thisAsset.priceRecords[0].price)"
-      :unit="thisAsset.priceRecords[0].Currency"
+      :unit="props.thisAsset.priceRecords[0].Currency"
     />
   </div>
 </template>
@@ -19,16 +19,14 @@
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
-import { PropType } from "vue";
-import { IOwnedPublicAsset } from "@/models/old/IOwnedPublicAsset";
 
 const assetStore = useAssetStore()
 
 const props = defineProps({
   thisAsset: {
-    type: Object as PropType<IOwnedPublicAsset>,
+    type: Object,
     required: true,
-  }
+  },
 })
 
 // Get an array that contains the exploded strings of a price record
@@ -38,5 +36,5 @@ const priceArray = (price: number): string[] => {
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/components/asset/row/_asset-row.scss';
+@import '@/assets/scss/components/asset/row/_asset-row.scss';
 </style>

@@ -46,5 +46,5 @@ const singleAssets = computed(() => {
 
 <!-- not scoped ! -->
 <style lang="scss">
-  @import 'src/assets/scss/components/asset/group/_asset-group.scss';
+@import 'src/assets/scss/components/asset/group/_asset-group.scss';
 </style>

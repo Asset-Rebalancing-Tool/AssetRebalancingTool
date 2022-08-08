@@ -8,5 +8,5 @@
 </template>
 
 <style lang="scss" scoped>
-  @import "src/assets/scss/components/asset/footer/asset-list-footer";
+@import 'src/assets/scss/components/asset/footer/asset-list-footer';
 </style>

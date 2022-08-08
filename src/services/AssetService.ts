@@ -13,24 +13,25 @@ export default {
     return ownedAssets as IOwnedPublicAssets
   },
 
-  async searchAssets(searchString: String) {
+  async searchAssets(searchString: string) {
     try {
       const { data } = await axios.post(
-          '/api/asset_api/asset/search',
-          { SearchString: searchString },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Accept: 'application/json'
-            }
-          }
-        )
-      return data;
-    } catch(error) {
-      // @ts-ignore
-      console.log((axios.isAxiosError(error))
+        '/api/asset_api/asset/search',
+        { SearchString: searchString },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        }
+      )
+      return data
+    } catch (error) {
+      /*console.log(
+        axios.isAxiosError(error)
           ? error.message
-          : 'An unexpected error occurred')
+          : 'An unexpected error occurred'
+      )*/
     }
-  }
+  },
 }

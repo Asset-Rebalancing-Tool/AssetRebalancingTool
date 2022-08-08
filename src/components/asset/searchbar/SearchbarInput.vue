@@ -13,26 +13,26 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref } from 'vue'
-  import { useAssetStore } from '@/stores/AssetStore'
-  import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
-  import AssetService from '@/services/AssetService'
+import { ref } from 'vue'
+import { useAssetStore } from '@/stores/AssetStore'
+import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
+import AssetService from '@/services/AssetService'
 
-  const assetStore = useAssetStore()
-  let assets = []
+const assetStore = useAssetStore()
+let assets = []
 
-  // Show or hide the modal underlay when focussing the searchbar
-  const toggleModalUnderlay = () => {
-    assetStore.activeModalUnderlay = (!assetStore.activeModalUnderlay)
-  }
+// Show or hide the modal underlay when focussing the searchbar
+const toggleModalUnderlay = () => {
+  assetStore.activeModalUnderlay = !assetStore.activeModalUnderlay
+}
 
-  // Asynchronously fetch assets based on the users input
-  const fetchPublicAssets = async (searchValue: String) => {
-    let response = await AssetService.searchAssets(searchValue)
-    assets = ref(response)
-  }
+// Asynchronously fetch assets based on the users input
+const fetchPublicAssets = async (searchValue: string) => {
+  const response = await AssetService.searchAssets(searchValue)
+  assets = ref(response)
+}
 </script>
 
 <style lang="scss" scoped>
-  @import 'src/assets/scss/components/asset/searchbar/searchbar-input.scss';
+@import 'src/assets/scss/components/asset/searchbar/searchbar-input.scss';
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div
     class="asset-group-footer"
-    @click="assetStore.toggleWholeGroupSelectedFlag(thisGroup)"
+    @click="assetStore.toggleWholeGroupSelectedFlag(props.thisGroup)"
   >
-    <p>{{ thisGroup.name }}</p>
+    <p>{{ props.thisGroup.name }}</p>
 
     <ActualValueColumn :value="totalValue" :percentage="totalPercentage" />
 
@@ -20,42 +20,39 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from "vue";
-  import { useAssetStore } from '@/stores/AssetStore'
-  import type { PropType } from 'vue'
-  import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
-  import ActualValueColumn from '../row/column/ActualValueColumn.vue'
-  import ColumnInput from '../row/column/ColumnInput.vue'
-  import SingleValue from '../row/column/SingleValue.vue'
+import { computed } from 'vue'
+import { useAssetStore } from '@/stores/AssetStore'
+import ActualValueColumn from '../row/column/ActualValueColumn.vue'
+import ColumnInput from '../row/column/ColumnInput.vue'
+import SingleValue from '../row/column/SingleValue.vue'
 
-  const assetStore = useAssetStore()
+const assetStore = useAssetStore()
 
-  const props = defineProps({
-    thisGroup: {
-      type: Object as PropType<IOwnedPrivateGroup>,
-      required: true,
-    }
-  })
+const props = defineProps({
+  thisGroup: {
+    type: Object,
+    required: true,
+  },
+})
 
+// The total value of this group
+const totalValue = computed(() => props.thisGroup.totalValue)
 
-  // The total value of this group
-  const totalValue = computed(() => props.thisGroup.totalValue)
+// The total percentage of this group
+const totalPercentage = computed(() => props.thisGroup.totalPercentage)
 
-  // The total percentage of this group
-  const totalPercentage = computed(() => props.thisGroup.totalPercentage)
+// The total target percentage of this group
+/*const totalTargetPercentage = computed(() => {
+  return assetStore.getValueArray(props.thisGroup.totalTargetPercentage)
+})*/
 
-  // The total target percentage of this group
-  const totalTargetPercentage = computed(() => {
-    return assetStore.getValueArray(props.thisGroup.totalTargetPercentage)
-  })
-
-  // The total deviation of this group
-  const totalDeviation = computed(() => {
-    return assetStore.getValueArray(props.thisGroup.totalDeviation)
-  })
+// The total deviation of this group
+const totalDeviation = computed(() => {
+  return assetStore.getValueArray(props.thisGroup.totalDeviation)
+})
 </script>
 
 <!-- not scoped !-->
 <style lang="scss">
-  @import '../../../assets/scss/components/asset/group/asset-group-footer';
+@import '../../../assets/scss/components/asset/group/asset-group-footer';
 </style>

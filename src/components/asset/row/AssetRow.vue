@@ -3,31 +3,31 @@
     <div class="asset-logo"></div>
 
     <InfoColumn
-      :name="thisAsset.name"
-      :type="thisAsset.type"
-      :isin="thisAsset.isin"
+      :name="props.thisAsset.name"
+      :type="props.thisAsset.type"
+      :isin="props.thisAsset.isin"
     />
 
     <SingleValue
-      :graph="thisAsset.graph"
+      :graph="props.thisAsset.graph"
       :valueArray="priceArray"
-      :unit="thisAsset.currency"
+      :unit="props.thisAsset.currency"
     />
 
     <ColumnInput
-      :inputValue="thisAsset.shares"
+      :inputValue="props.thisAsset.shares"
       :unit="'Stk.'"
       @click="$event.stopPropagation()"
     />
 
     <ActualValueColumn
-      :value="thisAsset.actualValue"
-      :percentage="thisAsset.actualPercentage"
-      :currency="thisAsset.currency"
+      :value="props.thisAsset.actualValue"
+      :percentage="props.thisAsset.actualPercentage"
+      :currency="props.thisAsset.currency"
     />
 
     <ColumnInput
-      :inputValue="thisAsset.targetPercentage"
+      :inputValue="props.thisAsset.targetPercentage"
       :unit="'%'"
       @click="$event.stopPropagation()"
     />
@@ -37,40 +37,38 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed } from 'vue'
-  import { useAssetStore } from '@/stores/AssetStore'
-  import type { PropType } from 'vue'
-  import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-  import InfoColumn from './column/InfoColumn.vue'
-  import SingleValue from './column/SingleValue.vue'
-  import ActualValueColumn from './column/ActualValueColumn.vue'
-  import ColumnInput from './column/ColumnInput.vue'
+import { computed } from 'vue'
+import { useAssetStore } from '@/stores/AssetStore'
+import InfoColumn from './column/InfoColumn.vue'
+import SingleValue from './column/SingleValue.vue'
+import ActualValueColumn from './column/ActualValueColumn.vue'
+import ColumnInput from './column/ColumnInput.vue'
 
-  const assetStore = useAssetStore()
+const assetStore = useAssetStore()
 
-  const props = defineProps({
-    thisAsset: {
-      type: Object as PropType<IOwnedPublicAsset>,
-      required: true,
-    }
-  })
+const props = defineProps({
+  thisAsset: {
+    type: Object,
+    required: true,
+  },
+})
 
-  // Set the selected flag of an asset
-  const selectedAsset = computed(() => {
-    return props.thisAsset.isSelected ? 'selected' : ''
-  })
+// Set the selected flag of an asset
+const selectedAsset = computed(() => {
+  return props.thisAsset.isSelected ? 'selected' : ''
+})
 
-  // Get an array that contains the exploded strings of a price record
-  const priceArray = computed(() => {
-    return assetStore.getValueArray(props.thisAsset.stockPrice)
-  })
+// Get an array that contains the exploded strings of a price record
+const priceArray = computed(() => {
+  return assetStore.getValueArray(props.thisAsset.stockPrice)
+})
 
-  // Get an array that contains the exploded strings of a deviation record
-  const deviationArray = computed(() => {
-    return assetStore.getValueArray(props.thisAsset.deviation)
-  })
+// Get an array that contains the exploded strings of a deviation record
+const deviationArray = computed(() => {
+  return assetStore.getValueArray(props.thisAsset.deviation)
+})
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/components/asset/row/_asset-row.scss';
+@import '@/assets/scss/components/asset/row/_asset-row.scss';
 </style>
