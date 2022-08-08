@@ -12,40 +12,39 @@
 </template>
 
 <script lang="ts" setup>
+  import { computed } from "vue";
 
-import {computed} from "vue";
+  const props = defineProps({
+    valueArray: {
+      type: Array,
+      required: true,
+    },
+    unit: {
+      type: String,
+      required: true,
+    },
+    graph: {
+      type: String,
+      required: false,
+    },
+    arrow: {
+      type: String,
+      default: '',
+    }
+  })
 
-const props = defineProps({
-  valueArray: {
-    type: Array,
-    required: true,
-  },
-  unit: {
-    type: String,
-    required: true,
-  },
-  graph: {
-    type: String,
-    required: false,
-  },
-  arrow: {
-    type: String,
-    default: '',
-  }
-})
+  // Get the different parts of the exploded single value strings
+  const firstDigit    = computed(() => props.valueArray[0])
+  const firstDecimal  = computed(() => props.valueArray[1])
+  const secondDecimal = computed(() => props.valueArray[2])
 
-// Get the different parts of the exploded single value strings
-const firstDigit    = computed(() => props.valueArray[0])
-const firstDecimal  = computed(() => props.valueArray[1])
-const secondDecimal = computed(() => props.valueArray[2])
+  // Render the additional arrow class
+  const showArrow = computed(() => {
+    return props.arrow === 'up' || props.arrow === 'down'
+  })
 
-// Render the additional arrow class
-const showArrow = computed(() => {
-  return props.arrow === 'up' || props.arrow === 'down'
-})
-
-// Render the additional grid class
-const smallerGrid = computed(() => {
-  return showArrow ? 'smaller' : ''
-})
+  // Render the additional grid class
+  const smallerGrid = computed(() => {
+    return showArrow ? 'smaller' : ''
+  })
 </script>
