@@ -23,7 +23,7 @@
     { component: 'TransactionHistory',  label: 'Transaktionshistorie' },
     { component: 'ScheduleInvestments', label: 'Investitionen planen' },
     { component: 'AppSettings',         label: 'Einstellungen'        }
-  ];
+  ]
 </script>
 
 <style lang="scss">
