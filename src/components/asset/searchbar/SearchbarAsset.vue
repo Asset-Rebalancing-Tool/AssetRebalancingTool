@@ -19,12 +19,14 @@
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
+import { PropType } from "vue";
+import { IOwnedPublicAsset } from "@/models/old/IOwnedPublicAsset";
 
 const assetStore = useAssetStore()
 
 const props = defineProps({
   thisAsset: {
-    type: Object,
+    type: Object as PropType<IOwnedPublicAsset>,
     required: true,
   }
 })
