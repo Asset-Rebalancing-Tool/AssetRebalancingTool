@@ -37,40 +37,40 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import type { PropType } from 'vue'
-import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import InfoColumn from './column/InfoColumn.vue'
-import SingleValue from './column/SingleValue.vue'
-import ActualValueColumn from './column/ActualValueColumn.vue'
-import ColumnInput from './column/ColumnInput.vue'
+  import { computed } from 'vue'
+  import { useAssetStore } from '@/stores/AssetStore'
+  import type { PropType } from 'vue'
+  import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
+  import InfoColumn from './column/InfoColumn.vue'
+  import SingleValue from './column/SingleValue.vue'
+  import ActualValueColumn from './column/ActualValueColumn.vue'
+  import ColumnInput from './column/ColumnInput.vue'
 
-const assetStore = useAssetStore()
+  const assetStore = useAssetStore()
 
-const props = defineProps({
-  thisAsset: {
-    type: Object as PropType<IOwnedPublicAsset>,
-    required: true,
-  }
-})
+  const props = defineProps({
+    thisAsset: {
+      type: Object as PropType<IOwnedPublicAsset>,
+      required: true,
+    }
+  })
 
-// Set the selected flag of an asset
-const selectedAsset = computed(() => {
-  return props.thisAsset.isSelected ? 'selected' : ''
-})
+  // Set the selected flag of an asset
+  const selectedAsset = computed(() => {
+    return props.thisAsset.isSelected ? 'selected' : ''
+  })
 
-// Get an array that contains the exploded strings of a price record
-const priceArray = computed(() => {
-  return assetStore.getValueArray(props.thisAsset.stockPrice)
-})
+  // Get an array that contains the exploded strings of a price record
+  const priceArray = computed(() => {
+    return assetStore.getValueArray(props.thisAsset.stockPrice)
+  })
 
-// Get an array that contains the exploded strings of a deviation record
-const deviationArray = computed(() => {
-  return assetStore.getValueArray(props.thisAsset.deviation)
-})
+  // Get an array that contains the exploded strings of a deviation record
+  const deviationArray = computed(() => {
+    return assetStore.getValueArray(props.thisAsset.deviation)
+  })
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/components/asset/row/_asset-row.scss';
+  @import '@/assets/scss/components/asset/row/_asset-row.scss';
 </style>
