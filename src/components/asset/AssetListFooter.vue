@@ -7,32 +7,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'AssetListFooter',
-})
-</script>
-
 <style lang="scss" scoped>
-.asset-footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: $asset-list-footer-height;
-  background-color: $tertiary-background-color;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 25px;
-}
-
-p,
-span {
-  color: $primary-text-color;
-  font-weight: $bold-font-weight;
-  font-size: 18px;
-}
+  @import "src/assets/scss/components/asset/footer/asset-list-footer";
 </style>
