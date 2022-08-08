@@ -58,6 +58,6 @@ const emptyGroupClass = computed(() => {
 
 // Get an object of all assets, that are nested in that group
 const relatedAssets = computed(() => {
-  return assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
+  return assetStore.getAssetsByGroupUuid(props.thisGroup.uuid)
 })
 </script>
