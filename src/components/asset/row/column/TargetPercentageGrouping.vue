@@ -25,9 +25,8 @@
 
   // Calculate the height of the target percentage grouping
   const targetPercentageGroupingHeight = computed(() => {
-
     // Check for how many asset rows the wrapper height has to be adjusted
-    const assetCount = Object.keys(this.assets).length - 1
+    const assetCount = Object.keys(props.assets).length - 1
 
     // Css variables in _dimensions.scss
     // TODO: get variables from dom elements
