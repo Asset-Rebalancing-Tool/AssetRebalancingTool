@@ -31,6 +31,7 @@ const props = defineProps({
   }
 })
 
+// Get an array that contains the exploded strings of a price record
 const priceArray = (price: number): string[] => {
   return assetStore.getValueArray(price)
 }
