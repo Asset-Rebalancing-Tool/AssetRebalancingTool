@@ -104,6 +104,17 @@ p {
 }
 
 /******************************************************/
+/* ------------- Default Header Styles -------------- */
+/******************************************************/
+
+/* TODO: check if it does a difference here. It was originally placed in the AssetList.vue component  */
+
+header {
+  display: flex;
+  column-gap: 25px;
+}
+
+/******************************************************/
 /* -------------- App Modal Underlay  --------------- */
 /******************************************************/
 .modal-underlay {
