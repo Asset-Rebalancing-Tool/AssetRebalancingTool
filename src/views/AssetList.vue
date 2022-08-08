@@ -26,45 +26,25 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-
 import AssetSearchbar from '../components/asset/searchbar/SearchbarInput.vue'
 import ActionButtons from '../components/asset/action-buttons/ActionButtons.vue'
 import TableFilters from '../components/asset/TableFilters.vue'
 import AssetGroup from '../components/asset/group/AssetGroup.vue'
 import AssetRow from '../components/asset/row/AssetRow.vue'
 import AssetListFooter from '../components/asset/AssetListFooter.vue'
-import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 
-export default defineComponent({
-  name: 'AssetList',
-  components: {
-    AssetSearchbar,
-    ActionButtons,
-    TableFilters,
-    AssetGroup,
-    AssetRow,
-    AssetListFooter,
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return { assetStore }
-  },
-  computed: {
-    singleAssets(): IOwnedPublicAssets {
-      return this.assetStore.getAssetsWithoutGroup()
-    },
-  },
+const assetStore = useAssetStore()
+
+// Set the selected flag of an asset
+const singleAssets = computed(() => {
+  return assetStore.getAssetsWithoutGroup()
 })
 </script>
 
 <!-- not scoped ! -->
 <style lang="scss">
-header {
-  display: flex;
-  column-gap: 25px;
-}
-@import 'src/assets/scss/components/asset/group/_asset-group.scss';
+  @import 'src/assets/scss/components/asset/group/_asset-group.scss';
 </style>
