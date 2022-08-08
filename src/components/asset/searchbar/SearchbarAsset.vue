@@ -17,8 +17,6 @@
 
 <script lang="ts" setup>
 import { useAssetStore } from '@/stores/AssetStore'
-import type { PropType } from 'vue'
-import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
 
@@ -26,7 +24,7 @@ const assetStore = useAssetStore()
 
 const props = defineProps({
   thisAsset: {
-    type: Object as PropType<IOwnedPublicAsset>,
+    type: Object,
     required: true,
   }
 })
