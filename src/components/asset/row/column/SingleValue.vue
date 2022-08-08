@@ -11,12 +11,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+  import { computed } from "vue";
 
-export default defineComponent({
-  name: 'valueColumn',
-  props: {
+  const props = defineProps({
     valueArray: {
       type: Array,
       required: true,
@@ -32,58 +30,21 @@ export default defineComponent({
     arrow: {
       type: String,
       default: '',
-    },
-  },
-  computed: {
-    firstDigit() {
-      return this.valueArray[0]
-    },
-    firstDecimal() {
-      return this.valueArray[1]
-    },
-    secondDecimal() {
-      return this.valueArray[2]
-    },
-    showArrow() {
-      return this.arrow === 'up' || this.arrow === 'down'
-    },
-    smallerGrid() {
-      return this.showArrow ? 'smaller' : ''
-    },
-  },
-})
+    }
+  })
+
+  // Get the different parts of the exploded single value strings
+  const firstDigit    = computed(() => props.valueArray[0])
+  const firstDecimal  = computed(() => props.valueArray[1])
+  const secondDecimal = computed(() => props.valueArray[2])
+
+  // Render the additional arrow class
+  const showArrow = computed(() => {
+    return props.arrow === 'up' || props.arrow === 'down'
+  })
+
+  // Render the additional grid class
+  const smallerGrid = computed(() => {
+    return showArrow ? 'smaller' : ''
+  })
 </script>
-
-<style lang="scss" scoped>
-/*
-.first-digit {
-  color: $primary-text-color;
-  font-size: 16px;
-  font-weight: $bold-font-weight;
-  margin-top: 5px;
-}
-
-.first-decimal {
-  height: 14px;
-  color: $secondary-text-color;
-  font-size: 13px;
-  margin-left: 3px;
-}
-
-.decimal-wrapper {
-  display: flex;
-}
-
-.second-decimal {
-  height: 10px;
-  color: $tertiary-text-color;
-  font-size: 13px;
-}
-
-.unit {
-  height: 12px;
-  color: $primary-text-color;
-  font-size: 14px;
-  margin-left: 3px;
-}*/
-</style>

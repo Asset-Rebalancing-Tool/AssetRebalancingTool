@@ -3,53 +3,36 @@
     <input
       type="text"
       placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
-      @focusin="showModalUnderlay"
-      @focusout="hideModalUnderlay"
-      @keyup="fetchPublicAssets($event.target.value)"
+      @focusin="toggleModalUnderlay"
+      @focusout="toggleModalUnderlay"
+      @input="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
     <SearchbarContentWrapper :fetchedAssets="assets" />
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
-import AssetService from '@/services/AssetService'
+<script lang="ts" setup>
+  import { ref } from 'vue'
+  import { useAssetStore } from '@/stores/AssetStore'
+  import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
+  import AssetService from '@/services/AssetService'
 
-export default defineComponent({
-  name: 'AssetSearchbar',
-  components: {
-    SearchbarContentWrapper,
-  },
-  data() {
-    return {
-      assets: [],
-    }
-  },
-  methods: {
-    showModalUnderlay(): void {
-      this.assetStore.activeModalUnderlay = true
-    },
-    hideModalUnderlay(): void {
-      this.assetStore.activeModalUnderlay = false
-    },
-    async fetchPublicAssets(value: String) {
-      let test = await AssetService.searchAssets(value);
-      console.log(test)
-      this.assets = test
-    },
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return {
-      assetStore,
-    }
-  },
-})
+  const assetStore = useAssetStore()
+  let assets = []
+
+  // Show or hide the modal underlay when focussing the searchbar
+  const toggleModalUnderlay = () => {
+    assetStore.activeModalUnderlay = (!assetStore.activeModalUnderlay)
+  }
+
+  // Asynchronously fetch assets based on the users input
+  const fetchPublicAssets = async (searchValue: String) => {
+    let response = await AssetService.searchAssets(searchValue)
+    assets = ref(response)
+  }
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/scss/components/asset/searchbar/searchbar-input.scss';
+  @import 'src/assets/scss/components/asset/searchbar/searchbar-input.scss';
 </style>

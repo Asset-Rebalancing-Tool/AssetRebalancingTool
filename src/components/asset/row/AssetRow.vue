@@ -36,48 +36,41 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import type { PropType } from 'vue'
-import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import InfoColumn from './column/InfoColumn.vue'
-import SingleValue from './column/SingleValue.vue'
-import ActualValueColumn from './column/ActualValueColumn.vue'
-import ColumnInput from './column/ColumnInput.vue'
+<script lang="ts" setup>
+  import { computed } from 'vue'
+  import { useAssetStore } from '@/stores/AssetStore'
+  import type { PropType } from 'vue'
+  import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
+  import InfoColumn from './column/InfoColumn.vue'
+  import SingleValue from './column/SingleValue.vue'
+  import ActualValueColumn from './column/ActualValueColumn.vue'
+  import ColumnInput from './column/ColumnInput.vue'
 
-export default defineComponent({
-  name: 'AssetRow',
-  components: {
-    InfoColumn,
-    SingleValue,
-    ColumnInput,
-    ActualValueColumn,
-  },
-  props: {
+  const assetStore = useAssetStore()
+
+  const props = defineProps({
     thisAsset: {
       type: Object as PropType<IOwnedPublicAsset>,
       required: true,
-    },
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return { assetStore }
-  },
-  computed: {
-    selectedAsset(): string {
-      return this.thisAsset.isSelected ? 'selected' : ''
-    },
-    priceArray(): string[] {
-      return this.assetStore.getValueArray(this.thisAsset.stockPrice)
-    },
-    deviationArray(): string[] {
-      return this.assetStore.getValueArray(this.thisAsset.deviation)
-    },
-  },
-})
+    }
+  })
+
+  // Set the selected flag of an asset
+  const selectedAsset = computed(() => {
+    return props.thisAsset.isSelected ? 'selected' : ''
+  })
+
+  // Get an array that contains the exploded strings of a price record
+  const priceArray = computed(() => {
+    return assetStore.getValueArray(props.thisAsset.stockPrice)
+  })
+
+  // Get an array that contains the exploded strings of a deviation record
+  const deviationArray = computed(() => {
+    return assetStore.getValueArray(props.thisAsset.deviation)
+  })
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/components/asset/row/_asset-row.scss';
+  @import '@/assets/scss/components/asset/row/_asset-row.scss';
 </style>

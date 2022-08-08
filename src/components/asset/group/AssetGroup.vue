@@ -23,55 +23,41 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import type { PropType } from 'vue'
-import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
-import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
-import AssetRow from '../row/AssetRow.vue'
-import TargetPercentageGrouping from '../row/column/TargetPercentageGrouping.vue'
-import AssetGroupFooter from './AssetGroupFooter.vue'
+<script lang="ts" setup>
+  import { computed } from 'vue'
+  import { useAssetStore } from '@/stores/AssetStore'
+  import type { PropType } from 'vue'
+  import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
+  import AssetRow from '../row/AssetRow.vue'
+  import TargetPercentageGrouping from '../row/column/TargetPercentageGrouping.vue'
+  import AssetGroupFooter from './AssetGroupFooter.vue'
 
-export default defineComponent({
-  name: 'AssetGroup',
-  components: {
-    AssetRow,
-    AssetGroupFooter,
-    TargetPercentageGrouping,
-  },
-  props: {
+  const assetStore = useAssetStore()
+
+  const props = defineProps({
     thisGroup: {
       type: Object as PropType<IOwnedPrivateGroup>,
       required: true,
-    },
-  },
-  computed: {
-    // Returns a bool that indicates if the assets object is empty or not
-    isEmptyGroup(): boolean {
-      return this.thisGroup.relatedAssetsUuidArray.length === 0
-    },
-
-    // Render the selected class based in the groups isSelected flag
-    isSelectedGroup(): string {
-      return this.thisGroup.isSelected ? 'selected' : ''
-    },
-
-    // Render the empty-group class based on the isEmptyGroup bool
-    emptyGroupClass(): string {
-      return this.isEmptyGroup ? 'empty-group' : ''
-    },
-
-    // Get an object of all assets, that are nested in that group
-    relatedAssets(): IOwnedPublicAssets {
-      return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
-    },
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return {
-      assetStore,
     }
-  },
-})
+  })
+
+  // Returns a bool that indicates if the assets object is empty or not
+  const isEmptyGroup = computed(() => {
+    return props.thisGroup.relatedAssetsUuidArray.length === 0
+  })
+
+  // Render the selected class based in the groups isSelected flag
+  const isSelectedGroup = computed(() => {
+    return props.thisGroup.isSelected ? 'selected' : ''
+  })
+
+  // Render the empty-group class based on the isEmptyGroup bool
+  const emptyGroupClass = computed(() => {
+    return isEmptyGroup ? 'empty-group' : ''
+  })
+
+  // Get an object of all assets, that are nested in that group
+  const relatedAssets = computed(() => {
+    return assetStore.getAssetsByGroupUuid(props.thisGroup.uuid)
+  })
 </script>

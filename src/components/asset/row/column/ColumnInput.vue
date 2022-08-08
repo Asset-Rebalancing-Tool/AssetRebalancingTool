@@ -5,12 +5,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'ColumnInput',
-  props: {
+<script lang="ts" setup>
+  const props = defineProps({
     inputType: {
       type: String,
       default: 'text',
@@ -22,9 +18,6 @@ export default defineComponent({
     unit: {
       type: String,
       required: true,
-    },
-  },
-})
+    }
+  })
 </script>
-
-<style lang="scss" scoped></style>

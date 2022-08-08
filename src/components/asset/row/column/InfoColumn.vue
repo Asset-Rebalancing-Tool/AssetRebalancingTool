@@ -12,12 +12,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'InfoColumn',
-  props: {
+<script lang="ts" setup>
+  const props = defineProps({
     name: {
       type: String,
       required: true,
@@ -30,13 +26,13 @@ export default defineComponent({
       type: String,
       required: false,
     },
-  },
-  methods: {
-    // copy the isin into the clipboard
-    copyISIN(event: Event) {
+  })
+
+  // Copy the isin of an asset into the clipboard
+  const copyISIN = (event: Event) => {
       const tempTextInput = document.createElement('input')
-      if (this.isin !== undefined) {
-        tempTextInput.value = this.isin
+      if (props.isin !== undefined) {
+        tempTextInput.value = props.isin
         document.body.appendChild(tempTextInput)
         tempTextInput.select()
         document.execCommand('copy')
@@ -44,7 +40,5 @@ export default defineComponent({
         event.stopPropagation()
         alert('Copied the text: ' + tempTextInput.value)
       }
-    },
-  },
-})
+  }
 </script>

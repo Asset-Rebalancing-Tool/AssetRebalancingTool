@@ -15,36 +15,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { useAssetStore } from '@/stores/AssetStore'
-import type { PropType } from 'vue'
-import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
+import { PropType } from "vue";
+import { IOwnedPublicAsset } from "@/models/old/IOwnedPublicAsset";
 
-export default defineComponent({
-  name: 'AssetRow',
-  components: {
-    InfoColumn,
-    SingleValue
-  },
-  props: {
-    thisAsset: {
-      type: Object as PropType<IOwnedPublicAsset>,
-      required: true,
-    }
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return { assetStore }
-  },
-  methods: {
-    priceArray(price: number): string[] {
-      return this.assetStore.getValueArray(price)
-    },
-  },
+const assetStore = useAssetStore()
+
+const props = defineProps({
+  thisAsset: {
+    type: Object as PropType<IOwnedPublicAsset>,
+    required: true,
+  }
 })
+
+// Get an array that contains the exploded strings of a price record
+const priceArray = (price: number): string[] => {
+  return assetStore.getValueArray(price)
+}
 </script>
 
 <style lang="scss">

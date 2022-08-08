@@ -44,13 +44,12 @@
     z-index: 10;
   }
 
-  .icon.overview { background-image: $icon-portfolio-overview;   }
-  .icon.asset    { background-image: $icon-asset-list;           }
-  .icon.broker   { background-image: $icon-connect-broker;       }
-  .icon.history  { background-image: $icon-transaction-history;  }
-  .icon.invest   { background-image: $icon-schedule-investments; }
-  .icon.settings { background-image: $icon-app-settings;         }
-  .icon.logout   { background-image: $icon-logout;         }
+  .icon.PortfolioOverview   { background-image: $icon-portfolio-overview;   }
+  .icon.ConnectBroker       { background-image: $icon-connect-broker;       }
+  .icon.AssetList           { background-image: $icon-asset-list;           }
+  .icon.TransactionHistory  { background-image: $icon-transaction-history;  }
+  .icon.ScheduleInvestments { background-image: $icon-schedule-investments; }
+  .icon.AppSettings         { background-image: $icon-app-settings;         }
 
   /*******************************************************/
   /* -------------- Active Button Styles --------------- */
@@ -74,26 +73,5 @@
       rgba(25, 179, 153, 0),
       rgba(25, 179, 153, 0.24)
     );
-  }
-
-  /*******************************************************/
-  /* ------------------ Logout Wrapper ----------------- */
-  /*******************************************************/
-
-  .logout-wrapper {
-    @include flex-center-xy;
-    position: absolute;
-    min-width: 210px;
-    height: $asset-list-footer-height;
-    left: 0;
-    bottom: 0;
-    opacity: 0.6;
-
-    .icon {
-      width: 18px;
-      height: 18px;
-      margin-left: 0;
-      margin-right: 12px;
-    }
   }
 }
