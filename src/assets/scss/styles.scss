@@ -56,3 +56,23 @@ p {
   line-height:  $primary-line-height;
   color:  $primary-text-color;
 }
+
+/******************************************************/
+/* -------------- App Modal Underlay  --------------- */
+/******************************************************/
+
+.modal-underlay {
+  @include absolute-left-top-0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: 200ms ease-out;
+}
+
+.modal-underlay.active {
+  opacity: 0.6;
+  pointer-events: all;
+}
