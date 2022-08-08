@@ -31,31 +31,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import GroupAccordion from '../action-buttons/GroupAccordion.vue'
+<script lang="ts" setup>
+  import { useAssetStore } from '@/stores/AssetStore'
+  import GroupAccordion from '../action-buttons/GroupAccordion.vue'
 
-export default defineComponent({
-  name: 'GroupContextMenu',
-  components: {
-    GroupAccordion,
-  },
-  props: {
+  const assetStore = useAssetStore()
+
+  const props = defineProps({
     showWrapper: {
       type: Boolean,
       default: false,
-    },
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return {
-      assetStore,
     }
-  },
-})
+  })
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/scss/components/asset/context-menu/group-context-menu.scss';
+  @import 'src/assets/scss/components/asset/context-menu/group-context-menu.scss';
 </style>
