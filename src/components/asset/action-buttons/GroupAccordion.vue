@@ -18,36 +18,27 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import type { PropType } from 'vue'
-import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
-import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
+<script lang="ts" setup>
+  import { computed } from 'vue'
+  import { useAssetStore } from '@/stores/AssetStore'
+  import type { PropType } from 'vue'
+  import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
 
-export default defineComponent({
-  name: 'GroupAccordion',
-  props: {
+  const assetStore = useAssetStore()
+
+  const props = defineProps({
     thisGroup: {
       type: Object as PropType<IOwnedPrivateGroup>,
       required: true,
-    },
-  },
-  computed: {
-    // Get an object of all assets, that are nested in that group
-    relatedAssets(): IOwnedPublicAssets {
-      return this.assetStore.getAssetsByGroupUuid(this.thisGroup.uuid)
-    },
-  },
-  setup() {
-    const assetStore = useAssetStore()
-    return {
-      assetStore,
     }
-  },
-})
+  })
+
+  // Get an object of all assets, that are nested in that group
+  const relatedAssets = computed(() => {
+    return assetStore.getAssetsByGroupUuid(props.thisGroup.uuid)
+  })
 </script>
 
 <style lang="scss" scoped>
-@import 'src/assets/scss/components/asset/context-menu/group-accordion.scss';
+  @import 'src/assets/scss/components/asset/context-menu/group-accordion.scss';
 </style>
