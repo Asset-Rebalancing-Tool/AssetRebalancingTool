@@ -28,7 +28,7 @@
 
   // Asynchronously fetch assets based on the users input
   const fetchPublicAssets = async (searchValue: String) => {
-    let response = await AssetService.searchAssets(searchValue);
+    let response = await AssetService.searchAssets(searchValue)
     assets = ref(response)
   }
 </script>
