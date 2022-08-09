@@ -17,7 +17,7 @@ import { ref, reactive, computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 import AssetService from '@/services/AssetService'
-import axios from 'axios'
+import axios, {AxiosResponse} from 'axios'
 import type { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
 
 const assetStore = useAssetStore()
@@ -49,7 +49,7 @@ async function fetchPublicAssets(searchValue: string) {
   timer = setTimeout(async () => {
     // Asynchronously fetch assets based on the users input
     await AssetService.searchAssets(searchValue)
-      .then((response: Array) => {
+      .then((response: IOwnedPublicAsset) => {
         console.log(response, 'SearchbarInput::response')
         isLoading = false
         state.assets = ref(response);

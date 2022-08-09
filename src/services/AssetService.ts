@@ -1,8 +1,11 @@
 import axios from 'axios'
+import type { AxiosResponse } from 'axios'
 import ownedGroups from '../data/ownedGroups.json'
 import ownedAssets from '../data/ownedAssets.json'
 import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
+import type { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
+
 export default {
   fetchOwnedGroups(): IOwnedPrivateGroups {
     return ownedGroups as IOwnedPrivateGroups
@@ -11,8 +14,8 @@ export default {
     return ownedAssets as IOwnedPublicAssets
   },
 
-  async searchAssets(searchString: string) {
-    axios
+  async searchAssets(searchString: string): Promise<IOwnedPublicAsset[]> {
+    return axios
       .post(
         '/api/asset_api/asset/search',
         {
@@ -25,13 +28,10 @@ export default {
           },
         }
       )
-      .then((response) => {
+      .then((response: AxiosResponse<IOwnedPublicAsset[]>) => {
         console.log(response.data, 'AssetService::response.data')
         return response.data
       })
-      .catch((error) => {
-        // @ts-ignore that IDE can't find name console
-        console.log(error)
-      })
+
   },
 }

@@ -2,9 +2,9 @@ import type { IPriceRecords } from '@/models/IPriceRecords'
 import type { IAssetInformation } from '@/models/IAssetInformation'
 import type { IUiProperties } from '@/models/IUiProperties'
 
-export interface IOwnedPublicAsset {
+export interface IOwnedPublicAsset{
   uuid: string
-  assetInformation?: IAssetInformation | null
+  assetInformations?: IAssetInformation | null
   assetName: string
   assetType: string
   isin: string
