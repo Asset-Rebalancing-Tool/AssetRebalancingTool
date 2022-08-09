@@ -8,7 +8,7 @@
       @input="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
-    <SearchbarContentWrapper :fetchedAssets="assets" />
+    <SearchbarContentWrapper :fetchedAssets="state.assets" />
   </label>
 </template>
 
@@ -21,18 +21,17 @@ import axios, {AxiosResponse} from 'axios'
 import type { IOwnedPublicAsset } from "@/models/IOwnedPublicAsset";
 
 const assetStore = useAssetStore()
-let assets = ref([])
+let assets: IOwnedPublicAsset[] = reactive([]);
 let timer: any
 let isLoading = false
 
-const state = reactive({
-  assets: ref([]),
-});
+type IState = {
+  assets : IOwnedPublicAsset[]
+}
 
-// 👇 function to get index
-/*const getAssetUuid = (uuid: string) => {
-  return state.assets.findIndex((asset: IOwnedPublicAsset) => asset.uuid === uuid);
-};*/
+const state: IState = reactive({
+  'assets' : []
+});
 
 // Fetch public assets based on the user input
 async function fetchPublicAssets(searchValue: string) {
@@ -49,10 +48,9 @@ async function fetchPublicAssets(searchValue: string) {
   timer = setTimeout(async () => {
     // Asynchronously fetch assets based on the users input
     await AssetService.searchAssets(searchValue)
-      .then((response: IOwnedPublicAsset) => {
-        console.log(response, 'SearchbarInput::response')
+      .then((response: IOwnedPublicAsset[]) => {
         isLoading = false
-        state.assets = ref(response);
+        state.assets = response;
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
