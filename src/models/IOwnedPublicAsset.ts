@@ -11,5 +11,5 @@ export interface IOwnedPublicAsset{
   priceRecords: IPriceRecords
   symbol: string
   ownedQuantity: string
-  uiProperties?: IUiProperties | null
+  //uiProperties?: IUiProperties | null
 }
