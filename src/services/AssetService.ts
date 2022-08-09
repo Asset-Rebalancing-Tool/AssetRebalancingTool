@@ -1,10 +1,8 @@
-//import axios from 'axios'
+import axios from 'axios'
 import ownedGroups from '../data/ownedGroups.json'
 import ownedAssets from '../data/ownedAssets.json'
 import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
-import axios from 'axios'
-
 export default {
   fetchOwnedGroups(): IOwnedPrivateGroups {
     return ownedGroups as IOwnedPrivateGroups
@@ -14,10 +12,12 @@ export default {
   },
 
   async searchAssets(searchString: string) {
-    try {
-      const { data } = await axios.post(
+    axios
+      .post(
         '/api/asset_api/asset/search',
-        { SearchString: searchString },
+        {
+          SearchString: searchString,
+        },
         {
           headers: {
             'Content-Type': 'application/json',
@@ -25,13 +25,13 @@ export default {
           },
         }
       )
-      return data
-    } catch (error) {
-      /*console.log(
-        axios.isAxiosError(error)
-          ? error.message
-          : 'An unexpected error occurred'
-      )*/
-    }
+      .then((response) => {
+        console.log(response.data, 'AssetService::response.data')
+        return response.data
+      })
+      .catch((error) => {
+        // @ts-ignore that IDE can't find name console
+        console.log(error)
+      })
   },
 }

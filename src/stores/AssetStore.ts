@@ -28,6 +28,7 @@ export const useAssetStore = defineStore('assetStore', {
       selectedAssetCount: 0,
       showGroupWrapper: false,
       activeModalUnderlay: false,
+      request: null,
     } as RootState),
 
   actions: {

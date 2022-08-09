@@ -28,6 +28,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+console.log(props.fetchedAssets, 'SearchbarContentWrapper::props.fetchedAssets')
 </script>
 
 <!-- not scoped -->
