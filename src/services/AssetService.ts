@@ -29,7 +29,6 @@ export default {
         }
       )
       .then((response: AxiosResponse<IOwnedPublicAsset[]>) => {
-        console.log(response.data, 'AssetService::response.data')
         return response.data
       })
 
