@@ -16,20 +16,21 @@
 </template>
 
 <script lang="ts" setup>
+import { PropType } from "vue";
+import { IPublicAsset } from "@/models/IPublicAsset";
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
 
-const assetStore = useAssetStore()
-
 const props = defineProps({
   thisAsset: {
-    type: Object,
+    type: Object as PropType<IPublicAsset>,
     required: true,
   },
 })
 
 // Get an array that contains the exploded strings of a price record
+const assetStore = useAssetStore()
 const priceArray = (price: number): string[] => {
   return assetStore.getValueArray(price)
 }
