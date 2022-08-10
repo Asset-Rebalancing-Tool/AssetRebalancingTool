@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts" setup>
+import { defineProps } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import GroupAccordion from '../action-buttons/GroupAccordion.vue'
 

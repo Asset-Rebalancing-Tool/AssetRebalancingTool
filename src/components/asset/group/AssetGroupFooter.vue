@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, defineProps } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import ActualValueColumn from '../row/column/ActualValueColumn.vue'
 import ColumnInput from '../row/column/ColumnInput.vue'

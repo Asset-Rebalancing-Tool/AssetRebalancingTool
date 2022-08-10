@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from "vue";
+import { PropType, defineProps } from "vue";
 import { IPublicAsset } from "@/models/IPublicAsset";
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from '../row/column/InfoColumn.vue'
