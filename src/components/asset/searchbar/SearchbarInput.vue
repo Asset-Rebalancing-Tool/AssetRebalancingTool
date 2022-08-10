@@ -21,7 +21,7 @@ import { IPublicAsset } from "@/models/IPublicAsset";
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 
 // The components reactive state interface
-type ISearchbarInputState = {
+interface ISearchbarInputState {
   publicAssets: IPublicAsset[]
   timer: ReturnType<typeof setTimeout> | null
   isLoading: boolean
