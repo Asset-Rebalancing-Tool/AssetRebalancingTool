@@ -17,8 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, defineProps } from "vue";
-import { IPublicAsset } from "@/models/IPublicAsset";
+import { defineProps } from "vue";
+import type { PropType } from "vue";
+import type { IPublicAsset } from "@/models/IPublicAsset";
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
 import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'
