@@ -17,7 +17,7 @@ import axios from 'axios'
 import AssetService from '@/services/AssetService'
 import { reactive } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import { IPublicAsset } from "@/models/IPublicAsset";
+import type { IPublicAsset } from "@/models/IPublicAsset";
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 
 // The components reactive state interface
