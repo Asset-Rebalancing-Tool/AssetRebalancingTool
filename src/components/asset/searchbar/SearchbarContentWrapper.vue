@@ -17,11 +17,11 @@
 </template>
 
 <script lang="ts" setup>
+import { PropType } from "vue";
+import { IPublicAsset } from "@/models/IPublicAsset";
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
 import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'
-import { PropType } from "vue";
-import { IPublicAsset } from "@/models/IPublicAsset";
 
 const assetStore = useAssetStore()
 const props = defineProps({
