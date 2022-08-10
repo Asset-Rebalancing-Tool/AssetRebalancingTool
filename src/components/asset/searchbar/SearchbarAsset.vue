@@ -10,7 +10,7 @@
 
     <SingleValue
       :valueArray="priceArray(thisAsset.priceRecords[0].price)"
-      :unit="props.thisAsset.priceRecords[0].Currency"
+      :unit="props.thisAsset.priceRecords[0].currency"
     />
   </div>
 </template>
