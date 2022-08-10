@@ -17,7 +17,7 @@ export default {
   async searchAssets(searchString: string): Promise<IPublicAsset[]> {
     return axios
       .post(
-        '/api/asset_api/asset/search',
+        '/asset_api/asset/search',
         {
           SearchString: searchString,
         },
