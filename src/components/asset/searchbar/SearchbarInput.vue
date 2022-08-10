@@ -8,7 +8,7 @@
       @input="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
-    <SearchbarContentWrapper :fetchedAssets="state.assets" />
+    <SearchbarContentWrapper :fetchedAssets="state.publicAssets" />
   </label>
 </template>
 
@@ -22,14 +22,14 @@ import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 
 // The components reactive state interface
 type ISearchbarInputState = {
-  assets: IPublicAsset[]
-  timer: any
+  publicAssets: IPublicAsset[]
+  timer: ReturnType<typeof setTimeout> | null
   isLoading: boolean
 }
 
 // The components reactive state object
 const state: ISearchbarInputState = reactive({
-  assets : [],
+  publicAssets : [],
   timer: null,
   isLoading: false
 });
@@ -51,7 +51,7 @@ async function fetchPublicAssets(searchValue: string) {
     await AssetService.searchAssets(searchValue)
       .then((response: IPublicAsset[]) => {
         state.isLoading = false
-        state.assets = response;
+        state.publicAssets = response;
       })
       .catch((error) => {
         if (axios.isCancel(error)) {
