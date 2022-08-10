@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
-import type { PropType } from "vue";
-import type { IPublicAsset } from "@/models/IPublicAsset";
+import { defineProps } from 'vue'
+import type { PropType } from 'vue'
+import type { IPublicAsset } from '@/models/IPublicAsset'
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
 import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'
@@ -28,6 +28,10 @@ const assetStore = useAssetStore()
 const props = defineProps({
   fetchedAssets: {
     type: Array as PropType<IPublicAsset[]>,
+    required: true,
+  },
+  resultCount: {
+    type: Number,
     required: true,
   },
 })
