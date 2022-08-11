@@ -15,22 +15,34 @@
   </label>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import SearchbarContentWrapper from '@/components/asset/searchbar/SearchbarContentWrapper.vue'
-import axios from 'axios';
+import axios from 'axios'
+import { CancelTokenSource } from 'axios'
 import { reactive } from 'vue'
-import { useAssetStore } from "@/stores/AssetStore";
+import { useAssetStore } from "@/stores/AssetStore"
+import type { IPublicAsset } from "@/models/IPublicAsset"
 
 const assetStore = useAssetStore()
 
-const state = reactive({
-  publicAssets: [],
+interface IState {
+    publicAssets: IPublicAsset[],
+    resultCount: number,
+    cancelSource: CancelTokenSource | null,
+    timer: ReturnType<typeof setTimeout> | null
+}
+
+const state: IState = reactive({
+  publicAssets: [] as IPublicAsset[],
   resultCount: 0,
   cancelSource: null,
   timer: null
 })
 
-function searchAssets(inputValue) {
+function searchAssets(inputValue: string) {
+
+  // Always update the asset stores search string value
+  assetStore.searchString = inputValue
 
   // Don't fetch if the user input is smaller than 3 characters
   if (inputValue.length < 3) {
