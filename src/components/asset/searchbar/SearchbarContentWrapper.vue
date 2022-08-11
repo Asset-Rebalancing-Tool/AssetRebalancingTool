@@ -1,13 +1,13 @@
 <template>
   <div
-    class="searchbar-content-wrapper active"
+    class="searchbar-content-wrapper"
     :class="{ active: assetStore.activeModalUnderlay }"
   >
     <div class="searchbar-label-grid">
       <p>Ergebnisse ({{ resultCount }})</p>
     </div>
     <SearchbarAsset
-      v-for="asset in props.fetchedAssets"
+      v-for="asset in fetchedAssets"
       :key="asset.uuid"
       :thisAsset="asset"
     />
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
-import type { PropType } from "vue";
-import type { IPublicAsset } from "@/models/IPublicAsset";
+import { defineProps } from 'vue'
+import type { PropType } from 'vue'
+import type { IPublicAsset } from '@/models/IPublicAsset'
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
 import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'

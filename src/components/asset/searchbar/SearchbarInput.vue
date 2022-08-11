@@ -3,25 +3,29 @@
     <input
       type="text"
       placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
-      @focusin="toggleModalUnderlay"
-      @focusout="toggleModalUnderlay"
+      @focus="showModalUnderlay"
+      @blur="hideModalUnderlay"
       @input="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
-    <SearchbarContentWrapper :fetchedAssets="state.publicAssets" :resultCount="state.resultCount" />
+    <SearchbarContentWrapper
+      :resultCount="state.resultCount"
+      :fetchedAssets="state.publicAssets"
+    />
   </label>
 </template>
 
 <script lang="ts" setup>
 import axios from 'axios'
-import AssetService from '@/services/AssetService'
 import { reactive } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import type { IPublicAsset } from "@/models/IPublicAsset";
+import type { IPublicAsset } from '@/models/IPublicAsset'
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 
+const assetStore = useAssetStore()
+
 // The components reactive state interface
-interface ISearchbarInputState {
+interface IState {
   publicAssets: IPublicAsset[]
   resultCount: number
   timer: ReturnType<typeof setTimeout> | null
@@ -29,7 +33,7 @@ interface ISearchbarInputState {
 }
 
 // The components reactive state object
-const state: ISearchbarInputState = reactive({
+const state: IState = reactive({
   publicAssets : [],
   resultCount: 0,
   timer: null,
@@ -51,27 +55,30 @@ async function fetchPublicAssets(searchValue: string) {
     state.isLoading = true
   }
 
-  // Set the timer to 500ms before making the fetch request
+  // Set a timer of 500ms before firing the fetch request
   state.timer = setTimeout(async () => {
-    // Asynchronously fetch assets based on the users input
-    await AssetService.searchAssets(searchValue)
-      .then((response: IPublicAsset[]) => {
-        state.isLoading = false
-        state.resultCount = response.length
-        state.publicAssets = response;
-      })
-      .catch((error) => {
-        if (axios.isCancel(error)) {
-          console.log('Request cancelled')
-        }
-      })
-  }, 380)
+    axios.post(
+      '/asset_api/asset/search',
+      { SearchString: inputValue }
+    ).then((response) => {
+      if (response.data !== '') {
+        state.publicAssets = JSON.parse(JSON.stringify(response.data));
+        state.resultCount = response.data.length
+      } else {
+        console.log('empty')
+      }
+    });
+  }, 500)
 }
 
-// Show or hide the modal underlay when focussing the searchbar
-const assetStore = useAssetStore()
-const toggleModalUnderlay = () => {
-  assetStore.activeModalUnderlay = !assetStore.activeModalUnderlay
+// Show the modal underlay when focussing the searchbar
+const showModalUnderlay = () => {
+  assetStore.activeModalUnderlay = true
+}
+
+// Hide the modal underlay when focussing the searchbar
+const hideModalUnderlay = () => {
+  assetStore.activeModalUnderlay = false
 }
 </script>
 

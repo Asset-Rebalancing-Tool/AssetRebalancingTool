@@ -14,7 +14,7 @@
 
 <script lang="ts" setup>
 import { computed, defineProps } from 'vue'
-import type { PropType } from 'vue'
+import type { PropType, Ref } from 'vue'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 import { useAssetStore } from '@/stores/AssetStore'
@@ -39,8 +39,8 @@ const priceArray = computed((): string[] => {
       : priceRecordsArray[0].price
 
   return newestPrice !== null
-      ? assetStore.getValueArray(newestPrice)
-      : ['00', '00', '0']
+    ? assetStore.getValueArray(newestPrice)
+    : ['00', '00', '0']
 })
 
 // Get the currency of the newest price record
@@ -50,7 +50,7 @@ const currency = computed((): string => {
       : priceRecordsArray[0].currency
 
   return currency !== null
-      ? currency
+      ? assetStore.mapCurrency(currency)
       : '€'
 })
 </script>
