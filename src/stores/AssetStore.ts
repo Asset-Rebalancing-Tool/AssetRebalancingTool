@@ -260,30 +260,27 @@ export const useAssetStore = defineStore('assetStore', {
      */
     getValueArray(assetValue: number): string[] {
       // Parse the value of the asset to string
-      const valueString: string = parseFloat(String(assetValue)).toString()
+      const valueString: string = assetValue.toString()
 
       // create the value array by splitting the float
       const valueArray: string[] = valueString.split('.')
 
-      // Add zeros to the value string, if it is only one digit long
-      if (valueArray.length === 1) {
-        valueArray[1] = '0'
-        valueArray[2] = '0'
-      } else if (valueArray.length === 2) {
-        valueArray[2] = '0'
+      let firstDigit    = valueArray[0]
+      let firstDecimal  = valueArray[1]
+      let secondDecimal = ''
+
+      // If the first decimal is only one character long, add a zero to its end
+      if (firstDecimal.length === 1) {
+        firstDecimal = firstDecimal + '0'
       }
 
-      // If the first value is smaller than two digit add a zero as first character (visual purpose)
-      valueArray[0] =
-        valueArray[0].length < 2 ? '0' + valueArray[0] : valueArray[0]
+      // If the first decimal is greater than two characters, split it
+      if (firstDecimal.length > 2) {
+        secondDecimal = firstDecimal.slice(2, 3)
+        firstDecimal = firstDecimal.slice(0, 2)
+      }
 
-      // If the first value is smaller than two digit add a zero as first character (visual purpose)
-      valueArray[2] =
-        valueArray[1].length > 2 ? valueArray[1].substring(2) : '0'
-
-      valueArray[1] = valueArray[1].substring(0, 2).toString()
-
-      return valueArray
+      return [firstDigit, firstDecimal, secondDecimal]
     },
   },
 })
