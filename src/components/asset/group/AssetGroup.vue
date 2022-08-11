@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import AssetRow from '../row/AssetRow.vue'
 import TargetPercentageGrouping from '../row/column/TargetPercentageGrouping.vue'

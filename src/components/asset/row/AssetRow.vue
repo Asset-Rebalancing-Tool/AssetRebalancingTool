@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from './column/InfoColumn.vue'
 import SingleValue from './column/SingleValue.vue'

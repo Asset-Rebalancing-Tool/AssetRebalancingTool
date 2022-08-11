@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineProps } from 'vue'
+import { computed } from 'vue'
 import type { PropType, Ref } from 'vue'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import type { IPriceRecord } from '@/models/nested/IPriceRecord'
