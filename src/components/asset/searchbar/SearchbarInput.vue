@@ -8,7 +8,7 @@
       @input="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
-    <SearchbarContentWrapper :fetchedAssets="state.publicAssets" />
+    <SearchbarContentWrapper :fetchedAssets="state.publicAssets" :resultCount="state.resultCount" />
   </label>
 </template>
 
@@ -23,6 +23,7 @@ import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 // The components reactive state interface
 interface ISearchbarInputState {
   publicAssets: IPublicAsset[]
+  resultCount: number
   timer: ReturnType<typeof setTimeout> | null
   isLoading: boolean
 }
@@ -30,12 +31,17 @@ interface ISearchbarInputState {
 // The components reactive state object
 const state: ISearchbarInputState = reactive({
   publicAssets : [],
+  resultCount: 0,
   timer: null,
   isLoading: false
 });
 
 // Fetch public assets based on the user input
 async function fetchPublicAssets(searchValue: string) {
+
+  // Always update the search string of the asset store
+  assetStore.searchString = searchValue
+
   // If this method is called before the timer has expired, reset it
   // If there is no timer and therefore no request, set the isLoading flag to true
   if (state.timer) {
@@ -51,6 +57,7 @@ async function fetchPublicAssets(searchValue: string) {
     await AssetService.searchAssets(searchValue)
       .then((response: IPublicAsset[]) => {
         state.isLoading = false
+        state.resultCount = response.length
         state.publicAssets = response;
       })
       .catch((error) => {
