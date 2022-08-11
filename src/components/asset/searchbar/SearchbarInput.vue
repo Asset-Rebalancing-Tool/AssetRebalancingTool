@@ -18,7 +18,6 @@
 <script lang="ts" setup>
 import SearchbarContentWrapper from '@/components/asset/searchbar/SearchbarContentWrapper.vue'
 import axios from 'axios'
-import { CancelTokenSource } from 'axios'
 import { reactive } from 'vue'
 import { useAssetStore } from "@/stores/AssetStore"
 import type { IPublicAsset } from "@/models/IPublicAsset"
@@ -28,14 +27,12 @@ const assetStore = useAssetStore()
 interface IState {
     publicAssets: IPublicAsset[],
     resultCount: number,
-    cancelSource: CancelTokenSource | null,
     timer: ReturnType<typeof setTimeout> | null
 }
 
 const state: IState = reactive({
   publicAssets: [] as IPublicAsset[],
   resultCount: 0,
-  cancelSource: null,
   timer: null
 })
 
@@ -51,35 +48,24 @@ function searchAssets(inputValue: string) {
 
   // Cancel the latest request and reset the timer, if searchAssets() is called again before the ongoing timer has expired
   if (state.timer) {
-    cancelRequest();
     clearTimeout(state.timer)
     state.timer = null
   }
 
   // Set a timer of 500ms before firing the fetch request
   state.timer = setTimeout(async () => {
-    state.cancelSource = axios.CancelToken.source();
     axios.post(
       '/asset_api/asset/search',
-      { SearchString: inputValue },
-      { cancelToken: state.cancelSource.token }
+      { SearchString: inputValue }
     ).then((response) => {
       if (response.data !== '') {
         state.publicAssets = JSON.parse(JSON.stringify(response.data));
         state.resultCount = response.data.length
-        state.cancelSource = null;
       } else {
         console.log('empty')
       }
     });
   }, 500)
-}
-
-function cancelRequest() {
-  if (state.cancelSource) {
-    state.cancelSource.cancel();
-    state.cancelSource = null;
-  }
 }
 
 // Show the modal underlay when focussing the searchbar
