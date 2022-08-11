@@ -3,8 +3,8 @@
     <input
       type="text"
       placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
-      @focusin="toggleModalUnderlay"
-      @focusout="toggleModalUnderlay"
+      @focus="showModalUnderlay"
+      @blur="hideModalUnderlay"
       @input="searchAssets($event.target.value)"
     />
     <span class="icon"></span>
@@ -20,6 +20,8 @@ import SearchbarContentWrapper from '@/components/asset/searchbar/SearchbarConte
 import axios from 'axios';
 import { reactive } from 'vue'
 import { useAssetStore } from "@/stores/AssetStore";
+
+const assetStore = useAssetStore()
 
 const state = reactive({
   publicAssets: [],
@@ -51,7 +53,7 @@ function searchAssets(inputValue) {
       { cancelToken: state.cancelSource.token }
     ).then((response) => {
       if (response.data !== '') {
-        state.publicAssets = response.data;
+        state.publicAssets = JSON.parse(JSON.stringify(response.data));
         state.resultCount = response.data.length
         state.cancelSource = null;
       } else {
@@ -68,12 +70,15 @@ function cancelRequest() {
   }
 }
 
-// Show or hide the modal underlay when focussing the searchbar
-const assetStore = useAssetStore()
-const toggleModalUnderlay = () => {
-  assetStore.activeModalUnderlay = !assetStore.activeModalUnderlay
+// Show the modal underlay when focussing the searchbar
+const showModalUnderlay = () => {
+  assetStore.activeModalUnderlay = true
 }
 
+// Hide the modal underlay when focussing the searchbar
+const hideModalUnderlay = () => {
+  assetStore.activeModalUnderlay = false
+}
 </script>
 
 <style lang="scss" scoped>
