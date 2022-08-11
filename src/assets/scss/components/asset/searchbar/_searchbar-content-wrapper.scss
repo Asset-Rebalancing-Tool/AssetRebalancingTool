@@ -55,6 +55,7 @@
         button {
           @include flex-button;
           padding: $primary-button-padding;
+          cursor: pointer;
 
           .icon {
             @include background-image-presets;
@@ -64,12 +65,16 @@
             margin-top: 0;
           }
         }
+
+        button:hover {
+          background-color: $primary-background-color;
+        }
       }
     }
   }
 
   .searchbar-content-wrapper.active {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: all;
   }
 }

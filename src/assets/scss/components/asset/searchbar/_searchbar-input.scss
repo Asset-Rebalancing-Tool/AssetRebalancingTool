@@ -3,8 +3,9 @@ input {
   padding: 25px;
 }
 
-label {
+.searchbar-wrapper {
   position: relative;
+  width: 100%;
   z-index: 20;
 }
 

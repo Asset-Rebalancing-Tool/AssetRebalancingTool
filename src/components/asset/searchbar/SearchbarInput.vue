@@ -1,10 +1,9 @@
 <template>
-  <label>
+  <div class="searchbar-wrapper">
     <input
       type="text"
       placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
       @focus="showModalUnderlay"
-      @blur="hideModalUnderlay"
       @input="fetchPublicAssets($event.target.value)"
     />
     <span class="icon"></span>
@@ -12,7 +11,7 @@
       :resultCount="state.resultCount"
       :fetchedAssets="state.publicAssets"
     />
-  </label>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -74,11 +73,6 @@ async function fetchPublicAssets(searchValue: string) {
 // Show the modal underlay when focussing the searchbar
 const showModalUnderlay = () => {
   assetStore.activeModalUnderlay = true
-}
-
-// Hide the modal underlay when focussing the searchbar
-const hideModalUnderlay = () => {
-  assetStore.activeModalUnderlay = false
 }
 </script>
 
