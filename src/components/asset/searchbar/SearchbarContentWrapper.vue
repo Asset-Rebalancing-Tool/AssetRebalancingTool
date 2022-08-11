@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+import { defineProps, watch } from 'vue'
 import type { PropType } from 'vue'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { useAssetStore } from '@/stores/AssetStore'
@@ -35,6 +35,14 @@ const props = defineProps({
     required: true,
   },
 })
+
+watch(() => props.fetchedAssets, (first, second) => {
+  console.log(
+      "Watch props.selected function called with args:",
+      first,
+      second
+  );
+});
 </script>
 
 <!-- not scoped -->
