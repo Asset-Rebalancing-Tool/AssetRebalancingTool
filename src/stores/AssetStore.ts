@@ -13,6 +13,7 @@ import AssetService from '@/services/AssetService'
 export type RootState = {
   ownedGroups: IOwnedPrivateGroups
   ownedAssets: IOwnedPublicAssets
+  searchString: string
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -21,6 +22,8 @@ export type RootState = {
 export const useAssetStore = defineStore('assetStore', {
   state: () =>
     ({
+      /** Reactive asset searchbar user input */
+      searchString: '',
       /** Reactive list objects */
       ownedGroups: reactive(AssetService.fetchOwnedGroups()),
       ownedAssets: reactive(AssetService.fetchOwnedAssets()),
@@ -28,7 +31,6 @@ export const useAssetStore = defineStore('assetStore', {
       selectedAssetCount: 0,
       showGroupWrapper: false,
       activeModalUnderlay: false,
-      request: null,
     } as RootState),
 
   actions: {

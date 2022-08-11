@@ -49,7 +49,9 @@ const currency = computed((): string => {
       ? null
       : priceRecordsArray[0].currency
 
-  return currency !== null ? currency : '€'
+  return currency !== null
+      ? assetStore.mapCurrency(currency)
+      : '€'
 })
 </script>
 
