@@ -282,5 +282,19 @@ export const useAssetStore = defineStore('assetStore', {
 
       return [firstDigit, firstDecimal, secondDecimal]
     },
+
+    /**
+     * Map the currency of an assets to its symbol
+     *
+     * @param currency string
+     */
+    mapCurrency(currency: string): string {
+      switch (currency.toUpperCase()) {
+        default:
+        case 'UNSUPPORTED': return '?'
+        case 'EUR': return '€'
+        case 'USD': return '$'
+      }
+    }
   },
 })
