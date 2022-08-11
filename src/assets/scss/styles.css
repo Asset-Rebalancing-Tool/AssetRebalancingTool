@@ -44,6 +44,24 @@ label {
 /* -------------- Single Value Column --------------- */
 /******************************************************/
 /******************************************************/
+/* ------------ Asset List View Styles -------------- */
+/******************************************************/
+.asset-container {
+  width: 100%;
+  height: calc(100vh - $section-padding - $primary-input-height - $filter-grid-height - $asset-list-footer-height);
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  padding-top: 25px;
+}
+
+.asset-container::-webkit-scrollbar {
+  display: none;
+}
+
+/******************************************************/
 /* ------------- Main Body & App Styles ------------- */
 /******************************************************/
 body {

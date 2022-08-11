@@ -7,20 +7,22 @@
 
     <TableFilters />
 
-    <AssetGroup
-      v-for="group in assetStore.ownedGroups"
-      :key="group.uuid"
-      :thisGroup="group"
-    />
+    <div class="asset-container">
+      <AssetGroup
+        v-for="group in assetStore.ownedGroups"
+        :key="group.uuid"
+        :thisGroup="group"
+      />
 
-    <AssetRow
-      v-for="asset in singleAssets"
-      :key="asset.uuid"
-      :thisAsset="asset"
-      @click="
-        assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
-      "
-    />
+      <AssetRow
+        v-for="asset in singleAssets"
+        :key="asset.uuid"
+        :thisAsset="asset"
+        @click="
+          assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
+        "
+      />
+    </div>
 
     <AssetListFooter />
   </section>

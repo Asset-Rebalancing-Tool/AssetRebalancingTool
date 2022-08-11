@@ -1,7 +1,14 @@
+// Section variables
+$section-padding: 25px;
+
+// Filter grid
+$filter-grid-height: 50px;
+
 // Asset Row Dimensions
 $asset-row-height: 58px;
 $asset-row-padding: 8px;
 $asset-inner-row: calc($asset-row-height - ($asset-row-padding * 2));
+
 // Asset Row Columns
 $price-column: 75px;
 $owned-shares-column: 110px;
@@ -26,7 +33,6 @@ $primary-input-height: 52px;
 $secondary-input-height: 32px;
 
 // Target Percentage Grouping wrapper
-
 $single-target-percentage-grouping-header: 16px;
 $target-percentage-grouping-border: 3px;
 $target-percentage-grouping-inner-padding: 3px;

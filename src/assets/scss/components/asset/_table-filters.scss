@@ -1,8 +1,7 @@
 .filter-grid {
   @include asset-row-grid;
-  height: 50px;
+  height: $filter-grid-height;
   border-bottom: 1px solid $tertiary-background-color;
-  margin-bottom: 25px;
 
   div {
     position: relative;
