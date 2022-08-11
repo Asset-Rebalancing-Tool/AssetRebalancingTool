@@ -58,7 +58,7 @@ async function fetchPublicAssets(searchValue: string) {
   state.timer = setTimeout(async () => {
     axios.post(
       '/asset_api/asset/search',
-      { SearchString: inputValue }
+      { SearchString: searchValue }
     ).then((response) => {
       if (response.data !== '') {
         state.publicAssets = JSON.parse(JSON.stringify(response.data));
