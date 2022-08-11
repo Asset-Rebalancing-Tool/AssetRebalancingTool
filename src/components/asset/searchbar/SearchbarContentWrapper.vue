@@ -1,10 +1,10 @@
 <template>
   <div
-    class="searchbar-content-wrapper"
+    class="searchbar-content-wrapper active"
     :class="{ active: assetStore.activeModalUnderlay }"
   >
     <div class="searchbar-label-grid">
-      <p>Ergebnisse ({{ props.fetchedAssets.length }})</p>
+      <p>Ergebnisse ({{ resultCount }})</p>
     </div>
     <SearchbarAsset
       v-for="asset in props.fetchedAssets"
@@ -30,6 +30,10 @@ const props = defineProps({
     type: Array as PropType<IPublicAsset[]>,
     required: true,
   },
+  resultCount: {
+    type: Number,
+    required: true,
+  }
 })
 </script>
 
