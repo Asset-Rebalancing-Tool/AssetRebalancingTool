@@ -4,7 +4,7 @@ import ownedGroups from '../data/ownedGroups.json'
 import ownedAssets from '../data/ownedAssets.json'
 import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
-import type { IPublicAsset } from "@/models/IPublicAsset";
+import type { IPublicAsset } from '@/models/IPublicAsset'
 
 export default {
   fetchOwnedGroups(): IOwnedPrivateGroups {
@@ -17,7 +17,7 @@ export default {
   async searchAssets(searchString: string): Promise<IPublicAsset[]> {
     return axios
       .post(
-        '/api/asset_api/asset/search',
+        '/asset_api/asset/search',
         {
           SearchString: searchString,
         },
@@ -31,6 +31,5 @@ export default {
       .then((response: AxiosResponse<IPublicAsset[]>) => {
         return response.data
       })
-
   },
 }

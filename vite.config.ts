@@ -15,11 +15,10 @@ export default defineConfig({
 
   server: {
     proxy: {
-      '/api': {
+      '/asset_api': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-        secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false
       },
     },
   },

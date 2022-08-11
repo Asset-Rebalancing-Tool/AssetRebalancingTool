@@ -8,17 +8,15 @@
       :isin="props.thisAsset.isin"
     />
 
-    <SingleValue
-      :valueArray="priceArray(thisAsset.priceRecords[0].price)"
-      :unit="props.thisAsset.priceRecords[0].currency"
-    />
+    <SingleValue :valueArray="priceArray" :unit="currency" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
-import type { PropType } from "vue";
-import type { IPublicAsset } from "@/models/IPublicAsset";
+import { computed, defineProps } from 'vue'
+import type { PropType, Ref } from 'vue'
+import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
@@ -30,11 +28,31 @@ const props = defineProps({
   },
 })
 
-// Get an array that contains the exploded strings of a price record
 const assetStore = useAssetStore()
-const priceArray = (price: number): string[] => {
-  return assetStore.getValueArray(price)
-}
+const priceRecordsArray: IPriceRecord[] = props.thisAsset.priceRecords
+
+// Get an array that contains the exploded strings of a price record
+const priceArray = computed((): string[] => {
+  const price: IPriceRecord = priceRecordsArray[0]
+  const newestPrice = priceRecordsArray.length === 0
+      ? null
+      : priceRecordsArray[0].price
+
+  return newestPrice !== null
+    ? assetStore.getValueArray(newestPrice)
+    : ['00', '00', '0']
+})
+
+// Get the currency of the newest price record
+const currency = computed((): string => {
+  const currency = priceRecordsArray.length === 0
+      ? null
+      : priceRecordsArray[0].currency
+
+  return currency !== null
+      ? assetStore.mapCurrency(currency)
+      : '€'
+})
 </script>
 
 <style lang="scss">

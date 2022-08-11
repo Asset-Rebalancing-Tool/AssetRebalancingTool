@@ -4,10 +4,10 @@
     :class="{ active: assetStore.activeModalUnderlay }"
   >
     <div class="searchbar-label-grid">
-      <p>Ergebnisse ({{ props.fetchedAssets.length }})</p>
+      <p>Ergebnisse ({{ resultCount }})</p>
     </div>
     <SearchbarAsset
-      v-for="asset in props.fetchedAssets"
+      v-for="asset in fetchedAssets"
       :key="asset.uuid"
       :thisAsset="asset"
     />
@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from "vue";
-import type { PropType } from "vue";
-import type { IPublicAsset } from "@/models/IPublicAsset";
+import { defineProps, watch } from 'vue'
+import type { PropType } from 'vue'
+import type { IPublicAsset } from '@/models/IPublicAsset'
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
 import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'
@@ -30,7 +30,19 @@ const props = defineProps({
     type: Array as PropType<IPublicAsset[]>,
     required: true,
   },
+  resultCount: {
+    type: Number,
+    required: true,
+  },
 })
+
+watch(() => props.fetchedAssets, (first, second) => {
+  console.log(
+      "Watch props.selected function called with args:",
+      first,
+      second
+  );
+});
 </script>
 
 <!-- not scoped -->
