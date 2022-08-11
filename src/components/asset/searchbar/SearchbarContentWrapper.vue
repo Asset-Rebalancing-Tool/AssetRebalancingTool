@@ -4,10 +4,10 @@
     :class="{ active: assetStore.activeModalUnderlay }"
   >
     <div class="searchbar-label-grid">
-      <p>Ergebnisse ({{ props.fetchedAssets.length }})</p>
+      <p>Ergebnisse ({{ resultCount }})</p>
     </div>
     <SearchbarAsset
-      v-for="asset in props.fetchedAssets"
+      v-for="asset in fetchedAssets"
       :key="asset.uuid"
       :thisAsset="asset"
     />
