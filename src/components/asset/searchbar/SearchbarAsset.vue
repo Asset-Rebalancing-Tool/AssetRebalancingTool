@@ -8,7 +8,7 @@
       :isin="props.thisAsset.isin"
     />
 
-    <SingleValue :valueArray="priceArray" :unit="currency" />
+    <SingleValue :value-array="priceArray" :unit="currency" />
   </div>
 </template>
 
