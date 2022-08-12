@@ -10,14 +10,22 @@
     pointer-events: none;
     transition: 50ms ease-out;
 
-    .searchbar-label-grid {
-      @include searchbar-asset-label-grid;
-      padding: 0;
-      margin-bottom: 15px;
+    .searchbar-asset-container {
+      width: 100%;
+      max-height: 410px;
+      overflow-y: scroll;
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
 
-      p {
-        @include flex-center-y;
-        color: $secondary-text-color;
+      .searchbar-label-grid {
+        @include searchbar-asset-label-grid;
+        padding: 0;
+        margin-bottom: 15px;
+
+        p {
+          @include flex-center-y;
+          color: $secondary-text-color;
+        }
       }
     }
 
@@ -28,7 +36,7 @@
       height: 2px;
       background-color: $tertiary-background-color;
       border-radius: 25px;
-      margin: 15px 0;
+      margin-bottom: 15px;
     }
 
     .searchbar-content-footer {
