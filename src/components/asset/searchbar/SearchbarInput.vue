@@ -8,8 +8,9 @@
     />
     <span class="icon"></span>
     <SearchbarContentWrapper
-      :resultCount="state.resultCount"
-      :fetchedAssets="state.publicAssets"
+      :result-count="state.resultCount"
+      :fetched-assets="state.publicAssets"
+      :is-loading="state.isLoading"
     />
   </div>
 </template>
@@ -45,13 +46,21 @@ async function fetchPublicAssets(searchValue: string) {
   // Always update the search string of the asset store
   assetStore.searchString = searchValue
 
+  // Always reset reactive the state object
+  state.publicAssets = []
+  state.resultCount = 0
+  state.isLoading = true
+
+  if (searchValue.length < 3) {
+    state.isLoading = false
+    return
+  }
+
   // If this method is called before the timer has expired, reset it
   // If there is no timer and therefore no request, set the isLoading flag to true
   if (state.timer) {
     clearTimeout(state.timer)
     state.timer = null
-  } else {
-    state.isLoading = true
   }
 
   // Set a timer of 500ms before firing the fetch request
@@ -61,6 +70,7 @@ async function fetchPublicAssets(searchValue: string) {
       { SearchString: searchValue }
     ).then((response) => {
       if (response.data !== '') {
+        state.isLoading = false
         state.publicAssets = JSON.parse(JSON.stringify(response.data));
         state.resultCount = response.data.length
       } else {
