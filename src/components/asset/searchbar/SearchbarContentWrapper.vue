@@ -3,16 +3,20 @@
     class="searchbar-content-wrapper"
     :class="{ active: assetStore.activeModalUnderlay }"
   >
-    <div class="searchbar-label-grid">
-      <p>Ergebnisse ({{ resultCount }})</p>
-    </div>
-    <SearchbarAsset
-      v-for="asset in fetchedAssets"
-      :key="asset.uuid"
-      :thisAsset="asset"
-    />
 
-    <SearchbarSkeleton v-if="isLoading" v-for="index in 5" :key="index" />
+    <div class="searchbar-asset-container">
+      <div class="searchbar-label-grid">
+        <p>Ergebnisse ({{ resultCount }})</p>
+      </div>
+
+      <SearchbarAsset
+        v-for="asset in fetchedAssets"
+        :key="asset.uuid"
+        :thisAsset="asset"
+      />
+
+      <SearchbarSkeleton v-show="isLoading" v-for="index in 5" :key="index" />
+    </div>
 
     <div class="divider"></div>
     <SearchbarFooter />
