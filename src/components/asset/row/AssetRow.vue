@@ -3,19 +3,19 @@
     <div class="asset-logo"></div>
 
     <InfoColumn
-      :name="props.thisAsset.name"
+      :asset-name="props.thisAsset.name"
       :type="props.thisAsset.type"
       :isin="props.thisAsset.isin"
     />
 
     <SingleValue
       :graph="props.thisAsset.graph"
-      :valueArray="priceArray"
+      :value-array="priceArray"
       :unit="props.thisAsset.currency"
     />
 
     <ColumnInput
-      :inputValue="props.thisAsset.shares"
+      :input-value="props.thisAsset.shares"
       :unit="'Stk.'"
       @click="$event.stopPropagation()"
     />
@@ -27,12 +27,12 @@
     />
 
     <ColumnInput
-      :inputValue="props.thisAsset.targetPercentage"
+      :input-value="props.thisAsset.targetPercentage"
       :unit="'%'"
       @click="$event.stopPropagation()"
     />
 
-    <SingleValue :arrow="'up'" :valueArray="deviationArray" :unit="'%'" />
+    <SingleValue :arrow="'up'" :value-array="deviationArray" :unit="'%'" />
   </div>
 </template>
 
