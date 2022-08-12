@@ -11,6 +11,12 @@
       :key="asset.uuid"
       :thisAsset="asset"
     />
+
+    <SearchbarSkeleton
+        v-if="isLoading"
+        v-for="index in 5"
+        :key="index" />
+
     <div class="divider"></div>
     <SearchbarFooter />
   </div>
@@ -22,8 +28,10 @@ import type { IPublicAsset } from '@/models/IPublicAsset'
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
 import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'
+import SearchbarSkeleton from "@/components/asset/searchbar/SearchbarSkeleton.vue";
 
 const assetStore = useAssetStore()
+
 const props = defineProps({
   fetchedAssets: {
     type: Array as PropType<IPublicAsset[]>,
@@ -32,6 +40,10 @@ const props = defineProps({
   resultCount: {
     type: Number,
     required: true,
+  },
+  isLoading: {
+    type: Boolean,
+    required: true
   }
 })
 </script>
