@@ -9,6 +9,19 @@ p {
   margin-top: -4px;
 }
 
+// Should not be visual on default
+mark {
+  background-color: transparent;
+  color: $primary-text-color;
+}
+
+.searchbar-asset mark {
+  background-color: transparent;
+  color: $main-color;
+}
+
+
+
 .info-row {
   display: flex;
   line-height: $exact-primary-line-height;;
