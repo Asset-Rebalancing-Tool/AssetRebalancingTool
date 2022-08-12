@@ -267,8 +267,8 @@ export const useAssetStore = defineStore('assetStore', {
       // create the value array by splitting the float
       const valueArray: string[] = valueString.split('.')
 
-      let firstDigit    = valueArray[0]
-      let firstDecimal  = valueArray[1]
+      const firstDigit = valueArray[0]
+      let firstDecimal = valueArray[1]
       let secondDecimal = ''
 
       // If the first decimal is only one character long, add a zero to its end
@@ -293,10 +293,13 @@ export const useAssetStore = defineStore('assetStore', {
     mapCurrency(currency: string): string {
       switch (currency.toUpperCase()) {
         default:
-        case 'UNSUPPORTED': return '?'
-        case 'EUR': return '€'
-        case 'USD': return '$'
+        case 'UNSUPPORTED':
+          return '?'
+        case 'EUR':
+          return '€'
+        case 'USD':
+          return '$'
       }
-    }
+    },
   },
 })

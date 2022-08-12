@@ -34,9 +34,8 @@ const priceRecordsArray: IPriceRecord[] = props.thisAsset.priceRecords
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
   const price: IPriceRecord = priceRecordsArray[0]
-  const newestPrice = priceRecordsArray.length === 0
-      ? null
-      : priceRecordsArray[0].price
+  const newestPrice =
+    priceRecordsArray.length === 0 ? null : priceRecordsArray[0].price
 
   return newestPrice !== null
     ? assetStore.getValueArray(newestPrice)
@@ -45,13 +44,10 @@ const priceArray = computed((): string[] => {
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  const currency = priceRecordsArray.length === 0
-      ? null
-      : priceRecordsArray[0].currency
+  const currency =
+    priceRecordsArray.length === 0 ? null : priceRecordsArray[0].currency
 
-  return currency !== null
-      ? assetStore.mapCurrency(currency)
-      : '€'
+  return currency !== null ? assetStore.mapCurrency(currency) : '€'
 })
 </script>
 

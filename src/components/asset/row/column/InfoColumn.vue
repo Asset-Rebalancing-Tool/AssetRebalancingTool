@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 
 const assetStore = useAssetStore()
@@ -30,7 +30,7 @@ const props = defineProps({
   isin: {
     type: String,
     required: false,
-  }
+  },
 })
 
 // Copy the isin of an asset into the clipboard
@@ -48,15 +48,19 @@ const copyISIN = (event: Event) => {
 }
 
 const checkWordMatches = computed((): string => {
-  let input: string = assetStore.searchString.toLowerCase()
-  let assetName: string = props.assetName.toLowerCase()
+  const input: string = assetStore.searchString.toLowerCase()
+  const assetName: string = props.assetName.toLowerCase()
 
   if (assetName.includes(input)) {
-    let indexStart: number = assetName.indexOf(input);
-    let indexEnd: number = indexStart + input.length
-    return props.assetName.substring(0, indexStart)
-        + '<mark>' + props.assetName.substring(indexStart, indexEnd) +'</mark>'
-        + props.assetName.substring(indexEnd)
+    const indexStart: number = assetName.indexOf(input)
+    const indexEnd: number = indexStart + input.length
+    return (
+      props.assetName.substring(0, indexStart) +
+      '<mark>' +
+      props.assetName.substring(indexStart, indexEnd) +
+      '</mark>' +
+      props.assetName.substring(indexEnd)
+    )
   }
   return props.assetName
 })

@@ -9,5 +9,5 @@ export default {
   },
   fetchOwnedAssets(): IOwnedPublicAssets {
     return ownedAssets as IOwnedPublicAssets
-  }
+  },
 }

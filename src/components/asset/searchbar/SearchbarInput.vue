@@ -34,15 +34,14 @@ interface IState {
 
 // The components reactive state object
 const state: IState = reactive({
-  publicAssets : [],
+  publicAssets: [],
   resultCount: 0,
   timer: null,
-  isLoading: false
-});
+  isLoading: false,
+})
 
 // Fetch public assets based on the user input
 async function fetchPublicAssets(searchValue: string) {
-
   // Always update the search string of the asset store
   assetStore.searchString = searchValue
 
@@ -65,18 +64,17 @@ async function fetchPublicAssets(searchValue: string) {
 
   // Set a timer of 500ms before firing the fetch request
   state.timer = setTimeout(async () => {
-    axios.post(
-      '/asset_api/asset/search',
-      { SearchString: searchValue }
-    ).then((response) => {
-      if (response.data !== '') {
-        state.isLoading = false
-        state.publicAssets = JSON.parse(JSON.stringify(response.data));
-        state.resultCount = response.data.length
-      } else {
-        console.log('empty')
-      }
-    });
+    axios
+      .post('/asset_api/asset/search', { SearchString: searchValue })
+      .then((response) => {
+        if (response.data !== '') {
+          state.isLoading = false
+          state.publicAssets = JSON.parse(JSON.stringify(response.data))
+          state.resultCount = response.data.length
+        } else {
+          console.log('empty')
+        }
+      })
   }, 500)
 }
 
