@@ -15,7 +15,8 @@
     <SearchbarSkeleton
         v-if="isLoading"
         v-for="index in 5"
-        :key="index" />
+        :key="index"
+    />
 
     <div class="divider"></div>
     <SearchbarFooter />
