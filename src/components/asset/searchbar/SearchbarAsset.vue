@@ -3,7 +3,7 @@
     <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
-      :name="props.thisAsset.assetName"
+      :asset-name="props.thisAsset.assetName"
       :type="props.thisAsset.assetType"
       :isin="props.thisAsset.isin"
     />
