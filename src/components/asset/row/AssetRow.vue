@@ -3,31 +3,31 @@
     <div class="asset-logo"></div>
 
     <InfoColumn
-      :asset-name="props.thisAsset.name"
-      :type="props.thisAsset.type"
-      :isin="props.thisAsset.isin"
+      :asset-name="thisAsset.name"
+      :type="thisAsset.type"
+      :isin="thisAsset.isin"
     />
 
     <SingleValue
-      :graph="props.thisAsset.graph"
+      :graph="thisAsset.graph"
       :value-array="priceArray"
-      :unit="props.thisAsset.currency"
+      :unit="thisAsset.currency"
     />
 
     <ColumnInput
-      :input-value="props.thisAsset.shares"
+      :input-value="thisAsset.shares"
       :unit="'Stk.'"
       @click="$event.stopPropagation()"
     />
 
     <CurrentValueColumn
-      :value="props.thisAsset.currentValue"
-      :percentage="props.thisAsset.currentPercentage"
-      :currency="props.thisAsset.currency"
+      :value="thisAsset.currentValue"
+      :percentage="thisAsset.currentPercentage"
+      :currency="thisAsset.currency"
     />
 
     <ColumnInput
-      :input-value="props.thisAsset.targetPercentage"
+      :input-value="thisAsset.targetPercentage"
       :unit="'%'"
       @click="$event.stopPropagation()"
     />
