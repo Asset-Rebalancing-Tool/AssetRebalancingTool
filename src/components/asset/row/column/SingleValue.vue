@@ -18,9 +18,10 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { computed } from 'vue'
 import LineChart from '@/components/charts/LineChart.vue';
+import type { IPriceRecord } from "@/models/nested/IPriceRecord";
 
 const props = defineProps({
   valueArray: {
@@ -33,7 +34,7 @@ const props = defineProps({
   },
   priceRecords: {
     type: Array,
-    default: [],
+    default: [] as IPriceRecord[],
   },
   arrow: {
     type: String,
@@ -60,22 +61,24 @@ const smallerGrid = computed(() => {
   return showArrow.value ? 'smaller' : ''
 })
 
-const dataValues = computed(() => {
-  let dataValues = [];
+const dataValues = computed((): number[] => {
+  let dataValues: number[] = [];
   if (props.priceRecords) {
-    props.priceRecords.forEach(function (record) {
+    for (let item of props.priceRecords) {
+      let record = item as IPriceRecord
       dataValues.push(record.price)
-    })
+    }
   }
   return dataValues
 })
 
-const dataLabels = computed(() => {
-  let dataLabels = [];
+const dataLabels = computed((): string[] => {
+  let dataLabels: string[] = [];
   if (props.priceRecords) {
-    props.priceRecords.forEach(function (record) {
+    for (let item of props.priceRecords) {
+      let record = item as IPriceRecord
       dataLabels.push(record.tsPrice)
-    })
+    }
   }
   return dataLabels
 })
