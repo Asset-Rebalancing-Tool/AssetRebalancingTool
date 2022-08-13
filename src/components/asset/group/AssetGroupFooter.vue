@@ -5,7 +5,7 @@
   >
     <p>{{ props.thisGroup.name }}</p>
 
-    <ActualValueColumn :value="totalValue" :percentage="totalPercentage" />
+    <CurrentValueColumn :value="totalValue" :percentage="totalPercentage" />
 
     <ColumnInput
       :inputValue="'90'"
@@ -22,7 +22,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import ActualValueColumn from '../row/column/ActualValueColumn.vue'
+import CurrentValueColumn from '../row/column/CurrentValueColumn.vue'
 import ColumnInput from '../row/column/ColumnInput.vue'
 import SingleValue from '../row/column/SingleValue.vue'
 
