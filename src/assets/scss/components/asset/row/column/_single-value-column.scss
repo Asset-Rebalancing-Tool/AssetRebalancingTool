@@ -13,9 +13,10 @@
 
 .chart-container {
   @include graph-position;
-  width: 75%;
-  margin-left: 12%;
-  margin-top: -8px;
+  width: 65%;
+  height: 45px;
+  margin-left: 14%;
+  margin-top: -15px;
 }
 
 /******************************************************/
