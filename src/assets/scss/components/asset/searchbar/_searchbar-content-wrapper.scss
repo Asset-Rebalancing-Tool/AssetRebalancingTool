@@ -16,6 +16,7 @@
       overflow-y: scroll;
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
+      padding-bottom: 12px;
 
       .searchbar-label-grid {
         @include searchbar-asset-label-grid;

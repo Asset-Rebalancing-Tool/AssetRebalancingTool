@@ -1,9 +1,9 @@
 .searchbar-asset {
   @include searchbar-asset-grid;
-  height: $asset-inner-row;
+  height: $asset-inner-row + 12px;
   cursor: pointer;
-  padding: 0;
-  margin-bottom: 12px;
+  padding: 6px;
+  border-radius: 5px;
 
 
   .searchbar-asset-logo {
@@ -17,4 +17,8 @@
   .single-value-wrapper {
     grid-column: 4 / 5;
   }
+}
+
+.searchbar-asset:hover {
+  background-color: #2B3339;
 }

@@ -1,8 +1,7 @@
 .searchbar-asset-skeleton {
   @include searchbar-asset-grid;
-  height: $asset-inner-row;
-  padding: 0;
-  margin-bottom: 12px;
+  height: $asset-inner-row + 12px;
+  padding: 6px;
 
   .skeleton-logo {
     @include background-image-presets;
