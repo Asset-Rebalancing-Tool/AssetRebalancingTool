@@ -20,9 +20,9 @@
       @click="$event.stopPropagation()"
     />
 
-    <ActualValueColumn
-      :value="props.thisAsset.actualValue"
-      :percentage="props.thisAsset.actualPercentage"
+    <CurrentValueColumn
+      :value="props.thisAsset.currentValue"
+      :percentage="props.thisAsset.currentPercentage"
       :currency="props.thisAsset.currency"
     />
 
@@ -41,7 +41,7 @@ import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import InfoColumn from './column/InfoColumn.vue'
 import SingleValue from './column/SingleValue.vue'
-import ActualValueColumn from './column/ActualValueColumn.vue'
+import CurrentValueColumn from './column/CurrentValueColumn.vue'
 import ColumnInput from './column/ColumnInput.vue'
 
 const assetStore = useAssetStore()
