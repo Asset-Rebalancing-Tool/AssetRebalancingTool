@@ -1,5 +1,5 @@
 <template>
-  <div class="searchbar-asset">
+  <RouterLink :to="{ name: 'EditAsset', params: { uuid: thisAsset.uuid} }" class="searchbar-asset" @click="hideModalUnderlay">
     <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
@@ -13,7 +13,7 @@
         :value-array="priceArray"
         :unit="currency"
     />
-  </div>
+  </RouterLink>
 </template>
 
 <script lang="ts" setup>
@@ -52,6 +52,11 @@ const currency = computed((): string => {
 
   return currency !== null ? assetStore.mapCurrency(currency) : '€'
 })
+
+// Hide the modal underlay when focussing the searchbar
+const hideModalUnderlay = () => {
+  assetStore.activeModalUnderlay = false
+}
 </script>
 
 <style lang="scss">
