@@ -11,6 +11,8 @@
   import { LineChart } from 'vue-chart-3'
   import { Chart, LineController, PointElement, LineElement, CategoryScale, LinearScale} from 'chart.js'
 
+  Chart.register(LineController, PointElement, LineElement, CategoryScale, LinearScale)
+
   const props = defineProps({
     dataValues: {
       type: Array,
@@ -19,21 +21,30 @@
     dataLabels: {
       type: Array,
       required: true,
+    },
+    borderWidth: {
+      type: String,
+      required: true
+    },
+    backgroundColor: {
+      type: String,
+      required: true
+    },
+    borderColor: {
+      type: String,
+      required: true
     }
   })
 
-  Chart.register(LineController, PointElement, LineElement, CategoryScale, LinearScale)
-
-  const dataValues = ref([12, 14, 12, 18, 11, 13, 15])
-
   const data = computed(() => ({
-    labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    labels: props.dataLabels,
     datasets: [
         {
           label: 'Foo',
-          data: dataValues.value,
-          backgroundColor: '#19B399',
-          borderColor: '#19B399'
+          data: props.dataValues,
+          borderWidth: parseFloat(props.borderWidth),
+          backgroundColor: props.backgroundColor,
+          borderColor: props.borderColor
         }
     ]
   }))
@@ -70,5 +81,4 @@
       }
     }
   })
-
 </script>
