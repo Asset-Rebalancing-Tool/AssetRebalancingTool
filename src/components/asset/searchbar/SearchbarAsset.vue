@@ -9,7 +9,7 @@
     />
 
     <SingleValue
-        :price-records:="thisAsset.priceRecords"
+        :price-records="thisAsset.priceRecords"
         :value-array="priceArray"
         :unit="currency"
     />
