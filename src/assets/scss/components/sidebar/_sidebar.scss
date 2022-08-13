@@ -55,13 +55,15 @@
   /* -------------- Active Button Styles --------------- */
   /*******************************************************/
 
-  .router-link-exact-active {
+  .router-link-exact-active,
+  [href="/asset-list"].active-sub-view {
     border-color: $main-color;
     color: $primary-text-color;
     opacity: 1;
   }
 
-  .router-link-exact-active:before {
+  .router-link-exact-active:before,
+  [href="/asset-list"].active-sub-view:before {
     position: absolute;
     top: 0;
     right: 0;
