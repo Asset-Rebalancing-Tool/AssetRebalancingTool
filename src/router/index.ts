@@ -22,7 +22,7 @@ const router = createRouter({
       component: AssetList,
     },
     {
-      path: '/edit-asset/:assetId',
+      path: '/edit-asset/:uuid',
       name: 'EditAsset',
       props: true,
       component: EditAsset,
