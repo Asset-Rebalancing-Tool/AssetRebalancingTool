@@ -9,8 +9,8 @@ export interface IOwnedPublicAsset {
   currency: string
   shares: number
   sharesType: string
-  actualValue: number
-  actualPercentage: number
+  currentValue: number
+  currentPercentage: number
   targetPercentage: number
   deviation: number
   isSelected: boolean

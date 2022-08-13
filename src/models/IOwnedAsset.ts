@@ -1,10 +1,11 @@
 import type { IPublicAsset } from '@/models/IPublicAsset'
 
-export interface IOwnedAsset extends IPublicAsset {
+export interface IOwnedAsset {
+  publicAsset: IPublicAsset
   relatedGroupUuid?: string | null
   ownedQuantity: string
-  actualValue: number
-  actualPercentage: number
+  currentValue: number
+  currentPercentage: number
   targetPercentage: number
   deviation: number
   isSelected: boolean

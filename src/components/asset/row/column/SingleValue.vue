@@ -1,18 +1,26 @@
 <template>
   <div class="single-value-wrapper" :class="smallerGrid">
-    <span class="graph" :class="props.graph"></span>
+    <LineChart
+        v-if="showGraph"
+        :data-values="dataValues"
+        :data-labels="dataLabels"
+        :border-width="'0.8'"
+        :background-color="'#19B399'"
+        :border-color="'#19B399'"
+    />
     <span class="first-digit">{{ firstDigit }}</span>
     <span class="decimal-wrapper">
       <span class="first-decimal">{{ firstDecimal }}</span>
       <span class="second-decimal">{{ secondDecimal }}</span>
     </span>
-    <span class="unit">{{ props.unit }}</span>
-    <span class="arrow" v-if="showArrow" :class="props.arrow"></span>
+    <span class="unit">{{ unit }}</span>
+    <span class="arrow" v-if="showArrow" :class="arrow"></span>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { computed } from 'vue'
+import LineChart from '@/components/charts/LineChart.vue';
 
 const props = defineProps({
   valueArray: {
@@ -23,9 +31,9 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  graph: {
-    type: String,
-    required: false,
+  priceRecords: {
+    type: Array,
+    default: [],
   },
   arrow: {
     type: String,
@@ -43,8 +51,32 @@ const showArrow = computed(() => {
   return props.arrow === 'up' || props.arrow === 'down'
 })
 
+const showGraph = computed(() => {
+  return props.priceRecords.length > 0
+})
+
 // Render the additional grid class
 const smallerGrid = computed(() => {
   return showArrow.value ? 'smaller' : ''
+})
+
+const dataValues = computed(() => {
+  let dataValues = [];
+  if (props.priceRecords) {
+    props.priceRecords.forEach(function (record) {
+      dataValues.push(record.price)
+    })
+  }
+  return dataValues
+})
+
+const dataLabels = computed(() => {
+  let dataLabels = [];
+  if (props.priceRecords) {
+    props.priceRecords.forEach(function (record) {
+      dataLabels.push(record.tsPrice)
+    })
+  }
+  return dataLabels
 })
 </script>

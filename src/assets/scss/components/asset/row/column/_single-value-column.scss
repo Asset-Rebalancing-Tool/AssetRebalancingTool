@@ -7,15 +7,20 @@
   margin-top: -7px;
 }
 
-.graph {
-  @include background-image-presets;
+/******************************************************/
+/* ------------------ Graph Styles ------------------ */
+/******************************************************/
+
+.chart-container {
   @include graph-position;
+  width: 75%;
+  margin-left: 12%;
+  margin-top: -8px;
 }
 
-// TEMP GRAPHS
-.graph.graph-1 { background-image: $graph-1; }
-.graph.graph-2 { background-image: $graph-2; }
-.graph.graph-3 { background-image: $graph-3; }
+/******************************************************/
+/* ------------------ Value Styles ------------------ */
+/******************************************************/
 
 .first-digit {
   @include first-digit-position;
