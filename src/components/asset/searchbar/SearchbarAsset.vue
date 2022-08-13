@@ -3,12 +3,16 @@
     <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
-      :asset-name="props.thisAsset.assetName"
-      :type="props.thisAsset.assetType"
-      :isin="props.thisAsset.isin"
+      :asset-name="thisAsset.assetName"
+      :type="thisAsset.assetType"
+      :isin="thisAsset.isin"
     />
 
-    <SingleValue :value-array="priceArray" :unit="currency" />
+    <SingleValue
+        :price-records:="thisAsset.priceRecords"
+        :value-array="priceArray"
+        :unit="currency"
+    />
   </div>
 </template>
 
@@ -33,7 +37,6 @@ const priceRecordsArray: IPriceRecord[] = props.thisAsset.priceRecords
 
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
-  const price: IPriceRecord = priceRecordsArray[0]
   const newestPrice =
     priceRecordsArray.length === 0 ? null : priceRecordsArray[0].price
 
