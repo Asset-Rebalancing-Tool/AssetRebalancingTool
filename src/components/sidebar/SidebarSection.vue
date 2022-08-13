@@ -8,6 +8,7 @@
       v-for="link in sidebarLinks"
       :key="link.component"
       :to="{ name: link.component }"
+      :class="activeSubView"
     >
       <span class="icon" :class="link.component"></span>
       <span>{{ link.label }}</span>
@@ -15,7 +16,12 @@
   </section>
 </template>
 
-<script lang="ts" setup>
+<script setup>
+import { watch, ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
 const sidebarLinks = [
   { component: 'PortfolioOverview', label: 'Übersicht' },
   { component: 'ConnectBroker', label: 'Broker Anbindung' },
@@ -24,6 +30,14 @@ const sidebarLinks = [
   { component: 'ScheduleInvestments', label: 'Investitionen planen' },
   { component: 'AppSettings', label: 'Einstellungen' },
 ]
+
+// Watch route changes in order to render active class for sub views
+const activeSubView = ref('')
+watch(() => route.name, () => {
+  activeSubView.value = (route.name === 'EditAsset')
+    ? 'active-sub-view'
+    : '';
+});
 </script>
 
 <style lang="scss">
