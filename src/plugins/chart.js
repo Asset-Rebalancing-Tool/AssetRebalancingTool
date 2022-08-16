@@ -1,4 +1,4 @@
-import { Chart, Legend, Title, Tooltip } from "chart.js";
+import { Chart, Legend, Title, Tooltip } from 'chart.js'
 
 Chart.register(Legend, Title, Tooltip)
 

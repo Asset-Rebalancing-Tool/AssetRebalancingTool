@@ -1,12 +1,12 @@
 <template>
   <div class="single-value-wrapper" :class="smallerGrid">
     <LineChart
-        v-if="showGraph"
-        :data-values="dataValues"
-        :data-labels="dataLabels"
-        :border-width="'0.8'"
-        :background-color="'#19B399'"
-        :border-color="'#19B399'"
+      v-if="showGraph"
+      :data-values="dataValues"
+      :data-labels="dataLabels"
+      :border-width="'0.8'"
+      :background-color="'#19B399'"
+      :border-color="'#19B399'"
     />
     <span class="first-digit">{{ firstDigit }}</span>
     <span class="decimal-wrapper">
@@ -20,8 +20,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import LineChart from '@/components/charts/LineChart.vue';
-import type { IPriceRecord } from "@/models/nested/IPriceRecord";
+import LineChart from '@/components/charts/LineChart.vue'
+import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 
 const props = defineProps({
   valueArray: {
@@ -62,10 +62,10 @@ const smallerGrid = computed(() => {
 })
 
 const dataValues = computed((): number[] => {
-  let dataValues: number[] = [];
+  const dataValues: number[] = []
   if (props.priceRecords) {
-    for (let item of props.priceRecords) {
-      let record = item as IPriceRecord
+    for (const item of props.priceRecords) {
+      const record = item as IPriceRecord
       dataValues.push(record.price)
     }
   }
@@ -73,10 +73,10 @@ const dataValues = computed((): number[] => {
 })
 
 const dataLabels = computed((): string[] => {
-  let dataLabels: string[] = [];
+  const dataLabels: string[] = []
   if (props.priceRecords) {
-    for (let item of props.priceRecords) {
-      let record = item as IPriceRecord
+    for (const item of props.priceRecords) {
+      const record = item as IPriceRecord
       dataLabels.push(record.tsPrice)
     }
   }

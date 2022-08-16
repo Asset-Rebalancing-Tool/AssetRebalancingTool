@@ -17,10 +17,10 @@
 </template>
 
 <script setup>
-import { watch, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { watch, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-const route = useRoute();
+const route = useRoute()
 
 const sidebarLinks = [
   { component: 'PortfolioOverview', label: 'Übersicht' },
@@ -33,11 +33,12 @@ const sidebarLinks = [
 
 // Watch route changes in order to render active class for sub views
 const activeSubView = ref('')
-watch(() => route.name, () => {
-  activeSubView.value = (route.name === 'EditAsset')
-    ? 'active-sub-view'
-    : '';
-});
+watch(
+  () => route.name,
+  () => {
+    activeSubView.value = route.name === 'EditAsset' ? 'active-sub-view' : ''
+  }
+)
 </script>
 
 <style lang="scss">

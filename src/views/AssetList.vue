@@ -31,12 +31,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import AssetSearchbar from '../components/asset/searchbar/SearchbarInput.vue'
-import ActionButtons from '../components/asset/action-buttons/ActionButtons.vue'
-import TableFilters from '../components/asset/TableFilters.vue'
-import AssetGroup from '../components/asset/group/AssetGroup.vue'
-import AssetRow from '../components/asset/row/AssetRow.vue'
-import AssetListFooter from '../components/asset/AssetListFooter.vue'
+import AssetSearchbar from '../components/asset-list/searchbar/SearchbarInput.vue'
+import ActionButtons from '../components/asset-list/action-buttons/ActionButtons.vue'
+import TableFilters from '../components/asset-list/TableFilters.vue'
+import AssetGroup from '../components/asset-list/group/AssetGroup.vue'
+import AssetRow from '../components/asset-list/row/AssetRow.vue'
+import AssetListFooter from '../components/asset-list/AssetListFooter.vue'
 
 const assetStore = useAssetStore()
 

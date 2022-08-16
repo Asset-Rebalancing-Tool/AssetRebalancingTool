@@ -6,5 +6,5 @@
 
 <script lang="ts" setup>
 import SidebarSection from './components/sidebar/SidebarSection.vue'
-import ModalUnderlay from './components/asset/ModalUnderlay.vue'
+import ModalUnderlay from './components/asset-list/ModalUnderlay.vue'
 </script>

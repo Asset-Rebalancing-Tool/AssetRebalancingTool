@@ -1,5 +1,9 @@
 <template>
-  <RouterLink :to="{ name: 'EditAsset', params: { uuid: thisAsset.uuid} }" class="searchbar-asset" @click="hideModalUnderlay">
+  <RouterLink
+    :to="{ name: 'EditAsset', params: { uuid: thisAsset.uuid } }"
+    class="searchbar-asset"
+    @click="hideModalUnderlay"
+  >
     <div class="searchbar-asset-logo"></div>
 
     <InfoColumn
@@ -9,9 +13,9 @@
     />
 
     <SingleValue
-        :price-records="thisAsset.priceRecords"
-        :value-array="priceArray"
-        :unit="currency"
+      :price-records="thisAsset.priceRecords"
+      :value-array="priceArray"
+      :unit="currency"
     />
   </RouterLink>
 </template>

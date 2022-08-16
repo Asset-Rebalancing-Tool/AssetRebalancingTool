@@ -3,7 +3,6 @@
     class="searchbar-content-wrapper"
     :class="{ active: assetStore.activeModalUnderlay }"
   >
-
     <div class="searchbar-asset-container">
       <div class="searchbar-label-grid">
         <p>Ergebnisse ({{ resultCount }})</p>
@@ -27,9 +26,9 @@
 import type { PropType } from 'vue'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { useAssetStore } from '@/stores/AssetStore'
-import SearchbarAsset from '@/components/asset/searchbar/SearchbarAsset.vue'
-import SearchbarFooter from '@/components/asset/searchbar/SearchbarFooter.vue'
-import SearchbarSkeleton from '@/components/asset/searchbar/SearchbarSkeleton.vue'
+import SearchbarAsset from '@/components/asset-list/searchbar/SearchbarAsset.vue'
+import SearchbarFooter from '@/components/asset-list/searchbar/SearchbarFooter.vue'
+import SearchbarSkeleton from '@/components/asset-list/searchbar/SearchbarSkeleton.vue'
 
 const assetStore = useAssetStore()
 
