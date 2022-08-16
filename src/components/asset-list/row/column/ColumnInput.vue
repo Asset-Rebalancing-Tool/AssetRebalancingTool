@@ -1,6 +1,6 @@
 <template>
   <div class="input-wrapper">
-    <input :type="props.inputType" :value="props.inputValue" />
+    <input :type="inputType" :value="inputValue" />
     <label>{{ props.unit }}</label>
   </div>
 </template>

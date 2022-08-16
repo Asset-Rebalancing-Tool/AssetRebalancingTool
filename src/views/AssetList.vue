@@ -11,13 +11,13 @@
       <AssetGroup
         v-for="group in assetStore.ownedGroups"
         :key="group.uuid"
-        :thisGroup="group"
+        :this-group="group"
       />
 
       <AssetRow
         v-for="asset in singleAssets"
         :key="asset.uuid"
-        :thisAsset="asset"
+        :this-asset="asset"
         @click="
           assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
         "

@@ -1,5 +1,5 @@
 <template>
-  <div class="move-action-wrapper" v-show="props.showWrapper">
+  <div class="move-action-wrapper" v-show="showWrapper">
     <header>
       <p>Neue Gruppe erstellen</p>
       <button>
@@ -16,7 +16,7 @@
     <GroupAccordion
       v-for="group in assetStore.ownedGroups"
       :key="group.uuid"
-      :thisGroup="group"
+      :this-group="group"
     />
 
     <GroupAccordion :thisGroup="{ name: 'Keine Gruppe' }">

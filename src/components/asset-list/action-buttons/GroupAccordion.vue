@@ -1,11 +1,11 @@
 <template>
   <div
     class="group-wrapper"
-    @click="assetStore.moveAction(props.thisGroup.uuid)"
+    @click="assetStore.moveAction(thisGroup.uuid)"
   >
     <div class="group-header">
       <div class="icon group"></div>
-      <p>{{ props.thisGroup.name }}</p>
+      <p>{{ thisGroup.name }}</p>
     </div>
     <ul>
       <slot>

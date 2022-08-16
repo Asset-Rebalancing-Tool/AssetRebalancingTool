@@ -1,14 +1,14 @@
 <template>
   <div
     class="asset-group-footer"
-    @click="assetStore.toggleWholeGroupSelectedFlag(props.thisGroup)"
+    @click="assetStore.toggleWholeGroupSelectedFlag(thisGroup)"
   >
-    <p>{{ props.thisGroup.name }}</p>
+    <p>{{ thisGroup.name }}</p>
 
     <CurrentValueColumn :value="totalValue" :percentage="totalPercentage" />
 
     <ColumnInput
-      :inputValue="'90'"
+      :input-value="'90'"
       :unit="'%'"
       @click="$event.stopPropagation()"
     />

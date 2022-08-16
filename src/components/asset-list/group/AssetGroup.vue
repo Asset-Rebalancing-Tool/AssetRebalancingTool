@@ -11,7 +11,7 @@
     <AssetRow
       v-for="asset in relatedAssets"
       :key="asset.uuid"
-      :thisAsset="asset"
+      :this-asset="asset"
       @click="
         assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
       "

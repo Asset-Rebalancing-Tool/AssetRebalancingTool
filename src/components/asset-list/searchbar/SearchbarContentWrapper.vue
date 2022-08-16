@@ -11,7 +11,7 @@
       <SearchbarAsset
         v-for="asset in fetchedAssets"
         :key="asset.uuid"
-        :thisAsset="asset"
+        :this-asset="asset"
       />
 
       <SearchbarSkeleton v-show="isLoading" v-for="index in 5" :key="index" />

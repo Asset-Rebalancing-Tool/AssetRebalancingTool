@@ -15,7 +15,7 @@
       <span class="icon arrow-down"></span>
     </button>
     <!-- Context menu should not be the last element in the button-wrapper, to ensure the :last-child selector is working on the button -->
-    <GroupContextMenu :showWrapper="assetStore.showGroupWrapper" />
+    <GroupContextMenu :show-wrapper="assetStore.showGroupWrapper" />
     <button
       :class="atLeastOneSelected"
       @click="assetStore.removeAllSelectedAssets"
