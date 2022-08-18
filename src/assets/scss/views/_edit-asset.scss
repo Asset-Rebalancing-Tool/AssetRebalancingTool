@@ -1,0 +1,8 @@
+#edit-asset {
+  display: flex;
+
+  .card {
+    @include base-wrapper;
+    flex: 1;
+  }
+}
