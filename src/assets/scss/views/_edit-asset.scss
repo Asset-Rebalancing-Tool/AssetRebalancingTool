@@ -38,10 +38,11 @@
       position: relative;
       margin-top: 30px;
       border-radius: 0 $primary-border-radius $primary-border-radius 0;
+      padding: $base-padding;
 
       .card-header {
-        @include flex-center-xy;
-        width: 160px;
+        @include flex-center-x;
+        width: 145px;
         position: absolute;
         left: 0;
         top: -30px;
@@ -52,19 +53,38 @@
 
         p {
           @include flex-center-xy;
-          column-gap: 10px;
           position: relative;
+          column-gap: 10px;
+          margin-top: 1px; // + Outline offset
+        }
+      }
+
+
+      .live-data-header {
+        @include live-data-header-grid;
+
+        .asset-logo {
+          @include background-image-presets;
+          height: $asset-inner-row;
+          width: $asset-inner-row;
+          background-color: $tertiary-background-color;
+          border-radius: $secondary-border-radius;
+        }
+
+        .info-wrapper {
+          margin-left: 0;
         }
       }
     }
 
-    .card:first-child p:before {
+    .card:first-child .card-header p:before {
       content: '';
       display: block;
       width: 8px;
       height: 8px;
       border-radius: 100%;
       background-color: $main-color;
+      margin-top: 2px;
     }
   }
 }
