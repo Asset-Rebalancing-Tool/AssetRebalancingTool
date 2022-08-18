@@ -12,7 +12,8 @@
 
 .asset-container {
   width: 100%;
-  height: calc(100vh - $section-padding - $primary-input-height - $filter-grid-height - $asset-list-footer-height);
+  /* TODO: no hardcoded view height */
+  height: calc(800px - $section-padding - $primary-input-height - $filter-grid-height - $asset-list-footer-height); /* calc(100vh - ); Not working error in compiled css file */
   overflow-y: scroll;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
