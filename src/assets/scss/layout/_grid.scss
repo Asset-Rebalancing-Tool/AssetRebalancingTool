@@ -31,6 +31,16 @@
   padding: $asset-row-padding;
 }
 
+@mixin live-data-header-grid {
+  width: 100%;
+  height: $asset-inner-row;
+  display: grid;
+  /* logo, title, price, shares, value, target, deviation */
+  grid-template-columns: $live-data-header-columns;
+  grid-template-rows: $asset-inner-row;
+  grid-column-gap: 10px;
+}
+
 /******************************************************/
 /* -------------- Single Value Column --------------- */
 /******************************************************/
