@@ -1,5 +1,10 @@
 // Section variables
-$section-padding: 25px;
+$base-padding: 25px;
+$base-column-gap: $base-padding;
+
+/******************************************************/
+/* ----------- Asset List View Component ------------ */
+/******************************************************/
 
 // Filter grid
 $filter-grid-height: 50px;
@@ -48,3 +53,8 @@ $target-percentage-grouping-row-gap: 57px;
 
 // List Footer
 $asset-list-footer-height: 65px;
+
+
+/******************************************************/
+/* ----------- Edit Asset View Component ------------ */
+/******************************************************/
