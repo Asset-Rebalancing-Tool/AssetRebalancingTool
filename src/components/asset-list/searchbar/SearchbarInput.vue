@@ -69,7 +69,9 @@ async function fetchPublicAssets(searchValue: string) {
       .then((response) => {
         if (response.data !== '') {
           state.isLoading = false
-          state.publicAssets = JSON.parse(JSON.stringify(response.data))
+          let parsedAsset = JSON.parse(JSON.stringify(response.data))
+          state.publicAssets = parsedAsset
+          assetStore.searchbarAssets = parsedAsset
           state.resultCount = response.data.length
         } else {
           console.log('empty')
