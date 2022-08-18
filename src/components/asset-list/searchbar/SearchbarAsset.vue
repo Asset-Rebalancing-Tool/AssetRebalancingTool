@@ -51,9 +51,7 @@ const priceArray = computed((): string[] => {
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  const currency =
-    priceRecordsArray.length === 0 ? null : priceRecordsArray[0].currency
-
+  const currency = props.thisAsset.currency
   return currency !== null ? assetStore.mapCurrency(currency) : '€'
 })
 
