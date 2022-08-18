@@ -1,26 +1,27 @@
 <template>
   <div class="searchbar-wrapper">
     <input
-      type="text"
-      placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
-      @focus="showModalUnderlay"
-      @input="fetchPublicAssets($event.target.value)"
+        type="text"
+        placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
+        @focus="showModalUnderlay"
+        @input="searchAsset($event.target.value)"
     />
     <span class="icon"></span>
     <SearchbarContentWrapper
-      :result-count="state.resultCount"
-      :fetched-assets="state.publicAssets"
-      :is-loading="state.isLoading"
+        :result-count="state.resultCount"
+        :fetched-assets="state.publicAssets"
+        :is-loading="state.isLoading"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
 import axios from 'axios'
-import { reactive } from 'vue'
+import { reactive, toRaw } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
+import AssetService from '@/services/AssetService'
 
 const assetStore = useAssetStore()
 
@@ -40,16 +41,24 @@ const state: IState = reactive({
   isLoading: false,
 })
 
-// Fetch public assets based on the user input
-async function fetchPublicAssets(searchValue: string) {
+/**
+ * This method will be executed on each searchbar input change.
+ * In order to not spam the backend with requests, there is a timer that must expire,
+ * before the service fetch is executed.
+ *
+ * @param searchValue string
+ */
+function searchAsset(searchValue: string) {
+
   // Always update the search string of the asset store
   assetStore.searchString = searchValue
 
-  // Always reset reactive the state object
-  state.publicAssets = []
+  // Always reset the reactive state object properties
+  state.publicAssets = [] as IPublicAsset[]
   state.resultCount = 0
   state.isLoading = true
 
+  // Ensure to only make request, if the user input is greater than three characters
   if (searchValue.length < 3) {
     state.isLoading = false
     return
@@ -62,21 +71,15 @@ async function fetchPublicAssets(searchValue: string) {
     state.timer = null
   }
 
-  // Set a timer of 500ms before firing the fetch request
-  state.timer = setTimeout(async () => {
-    axios
-      .post('/asset_api/asset/search', { SearchString: searchValue })
-      .then((response) => {
-        if (response.data !== '') {
+  // Fetch each time the timer expires
+  state.timer = setTimeout(() => {
+    AssetService.fetchPublicAssets(searchValue)
+        .then(results => {
           state.isLoading = false
-          let parsedAsset = JSON.parse(JSON.stringify(response.data))
-          state.publicAssets = parsedAsset
-          assetStore.searchbarAssets = parsedAsset
-          state.resultCount = response.data.length
-        } else {
-          console.log('empty')
-        }
-      })
+          state.publicAssets = results
+          state.resultCount = results.length
+          assetStore.searchbarAssets = results
+        })
   }, 500)
 }
 
