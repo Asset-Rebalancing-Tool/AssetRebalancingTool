@@ -1,16 +1,18 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
+import AssetService from '@/services/AssetService'
 import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import AssetService from '@/services/AssetService'
+import type { IPublicAsset } from '@/models/IPublicAsset';
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
 /***********************************************************************************/
 
 export type RootState = {
+  searchbarAssets: IPublicAsset[]
   ownedGroups: IOwnedPrivateGroups
   ownedAssets: IOwnedPublicAssets
   searchString: string
@@ -22,8 +24,9 @@ export type RootState = {
 export const useAssetStore = defineStore('assetStore', {
   state: () =>
     ({
-      /** Reactive asset searchbar user input */
+      /** Reactive asset searchbar */
       searchString: '',
+      searchbarAssets: [],
       /** Reactive list objects */
       ownedGroups: reactive(AssetService.fetchOwnedGroups()),
       ownedAssets: reactive(AssetService.fetchOwnedAssets()),
@@ -34,6 +37,25 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
+
+    /**
+     * Iterate over the searchbar assets and check if the uuid matches the passed uuid
+     *
+     * @param uuid
+     */
+    getSearchbarAsset(uuid: string) {
+      // Ensure that the searchbar assets array is not empty
+      if (this.searchbarAssets.length === 0) {
+        return {} as IPublicAsset
+      }
+      // Loop over the searchbar assets and check if the uuid matches the passed uuid
+      for(const asset of this.searchbarAssets){
+        if (asset.uuid === uuid) return asset
+      }
+      // If there is no asset with the passed uuid, return an empty object
+      return {} as IPublicAsset
+    },
+
     /**
      * Return an object of all assets that are related to a specific group
      *
