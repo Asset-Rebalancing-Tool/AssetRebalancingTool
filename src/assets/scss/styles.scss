@@ -43,7 +43,7 @@ body {
 section:not(#sidebar) {
   position: relative;
   width: 100%;
-  padding: $section-padding;
+  padding: $base-padding;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
@@ -63,7 +63,7 @@ p {
 
 header {
   display: flex;
-  column-gap: 25px;
+  column-gap: $base-column-gap;
 }
 
 /******************************************************/

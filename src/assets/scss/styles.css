@@ -5,6 +5,12 @@
 /* All border colors */
 /* All text colors */
 /******************************************************/
+/* ----------- Asset List View Component ------------ */
+/******************************************************/
+/******************************************************/
+/* ----------- Edit Asset View Component ------------ */
+/******************************************************/
+/******************************************************/
 /* ------------------ Button Styles ----------------- */
 /******************************************************/
 /******************************************************/
@@ -48,9 +54,7 @@ label {
 /******************************************************/
 .asset-container {
   width: 100%;
-  /* TODO: no hardcoded view height */
-  height: calc(800px - $section-padding - $primary-input-height - $filter-grid-height - $asset-list-footer-height);
-  /* calc(100vh - ); Not working error in compiled css file */
+  height: calc(100vh - 25px - 52px - 50px - 65px);
   overflow-y: scroll;
   -ms-overflow-style: none;
   /* IE and Edge */
