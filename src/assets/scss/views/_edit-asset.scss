@@ -1,8 +1,70 @@
 #edit-asset {
-  display: flex;
+  @include flex-column-center-y;
 
-  .card {
-    @include base-wrapper;
-    flex: 1;
+  .breadcrumb-wrapper {
+    @include flex-center-y;
+    column-gap: 20px;
+    margin-bottom: $base-padding;
+
+    a {
+      @include full-reset;
+      font-weight: $regular-font-weight;
+      font-size: 22px;
+    }
+
+    a:last-child {
+      color: $main-color;
+    }
+
+    a:not(:last-child) {
+      cursor: pointer;
+    }
+
+    .arrow {
+      @include background-image-presets;
+      height: 16px;
+      width: 16px;
+      background-image: $icon-arrow-right;
+    }
+  }
+
+  .card-wrapper {
+    height: 100%;
+    display: flex;
+    column-gap: $base-column-gap;
+
+    .card {
+      @include base-wrapper;
+      position: relative;
+      margin-top: 30px;
+      border-radius: 0 $primary-border-radius $primary-border-radius 0;
+
+      .card-header {
+        @include flex-center-xy;
+        width: 160px;
+        position: absolute;
+        left: 0;
+        top: -30px;
+        height: 30px;
+        margin-left: -1px; // Outline offset
+        background-color: $tertiary-background-color;
+        border-radius: $primary-border-radius $primary-border-radius 0 0;
+
+        p {
+          @include flex-center-xy;
+          column-gap: 10px;
+          position: relative;
+        }
+      }
+    }
+
+    .card:first-child p:before {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: $main-color;
+    }
   }
 }
