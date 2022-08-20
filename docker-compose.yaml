@@ -3,11 +3,13 @@ version: "3"
 services:
   nginx:
     build: ./nginx
+    restart: always
     ports:
       - "3500:80"
     networks:
       - ar_net
   vite_server:
+    restart: always
     build:
       dockerfile: Dockerfile
     networks:
