@@ -13,11 +13,12 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import type { PropType } from 'vue'
 import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 
 const props = defineProps({
   valueArray: {
-    type: Array,
+    type: Array as PropType<string[]>,
     required: true,
   },
   unit: {

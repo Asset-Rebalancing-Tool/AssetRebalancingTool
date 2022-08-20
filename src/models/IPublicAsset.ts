@@ -9,7 +9,6 @@ export interface IPublicAsset {
   assetType: string
   symbol: string | null
   isin: string | null
-  priceRecords: IPriceRecord[]
   currency: string
   priceType: string
   icon: string | null
