@@ -1,11 +1,12 @@
-import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import {defineStore} from 'pinia'
+import {reactive} from 'vue'
 import AssetService from '@/services/AssetService'
-import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
-import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
-import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
-import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import type { IPublicAsset } from '@/models/IPublicAsset';
+import type {IOwnedPrivateGroups} from '@/models/old/IOwnedPrivateGroups'
+import type {IOwnedPrivateGroup} from '@/models/old/IOwnedPrivateGroup'
+import type {IOwnedPublicAssets} from '@/models/old/IOwnedPublicAssets'
+import type {IOwnedPublicAsset} from '@/models/old/IOwnedPublicAsset'
+import type {IPublicAsset} from '@/models/IPublicAsset';
+import {CurrencyEnum} from "@/models/nested/CurrencyEnum";
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -312,14 +313,14 @@ export const useAssetStore = defineStore('assetStore', {
      *
      * @param currency string
      */
-    mapCurrency(currency: string): string {
-      switch (currency.toUpperCase()) {
+    mapCurrency(currency: CurrencyEnum): string {
+      switch (currency) {
         default:
-        case 'UNSUPPORTED':
+        case CurrencyEnum.UNSUPPORTED:
           return '?'
-        case 'EUR':
+        case CurrencyEnum.EUR:
           return '€'
-        case 'USD':
+        case CurrencyEnum.USD:
           return '$'
       }
     },

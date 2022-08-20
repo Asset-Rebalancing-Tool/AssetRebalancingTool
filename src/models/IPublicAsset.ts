@@ -1,13 +1,10 @@
 import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 import type { IAssetInformation } from '@/models/nested/IAssetInformation'
-
-type CurrencyPriceRecordMap = {
-  [key: string]: IPriceRecord[];
-};
+import type { CurrencyEnum } from '@/models/nested/CurrencyEnum';
 
 export interface IPublicAsset {
   uuid: string
-  currencyPriceRecordMap: CurrencyPriceRecordMap
+  currencyPriceRecordMap: Record<CurrencyEnum, IPriceRecord[]>
   assetInformations: IAssetInformation[]
   assetName: string
   assetType: string

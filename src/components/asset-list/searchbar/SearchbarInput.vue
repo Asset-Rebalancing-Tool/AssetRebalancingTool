@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 import axios from 'axios'
-import { reactive, toRaw } from 'vue'
+import { reactive } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
