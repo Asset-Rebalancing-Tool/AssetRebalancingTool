@@ -15,7 +15,6 @@ steps:
     environment:
       COMPOSE_PROJECT_NAME: rape_runner
     commands:
-      - docker network create ar_net
       - docker compose up -d
 
 trigger:
