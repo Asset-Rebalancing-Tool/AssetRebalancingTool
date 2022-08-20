@@ -9,6 +9,7 @@ server:
   password:
     from_secret: ssh_password
 
+
 steps:
   - name: deploy
     environment:
