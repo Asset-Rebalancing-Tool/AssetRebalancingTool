@@ -9,12 +9,12 @@ server:
   password:
     from_secret: ssh_password
 
-
 steps:
   - name: deploy
     environment:
       COMPOSE_PROJECT_NAME: rape_runner
     commands:
+      - docker compose build
       - docker compose up -d
 
 trigger:
