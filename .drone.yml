@@ -1,0 +1,24 @@
+kind: pipeline
+type: ssh
+name: default
+
+server:
+  host:
+    from_secret: ssh_host
+  user: tobi
+  password:
+    from_secret: ssh_password
+
+steps:
+  - name: deploy
+    environment:
+      COMPOSE_PROJECT_NAME: rape_runner
+    commands:
+      - docker network create ar_net
+      - docker compose up -d
+
+trigger:
+  branch:
+    - master
+  event:
+    - push

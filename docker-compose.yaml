@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "3500:80"
+    networks:
+      - ar_net
+  vite_server:
+    build:
+      dockerfile: Dockerfile
+    networks:
+      - ar_net
+
+
+networks:
+  ar_net:
+    external: true
