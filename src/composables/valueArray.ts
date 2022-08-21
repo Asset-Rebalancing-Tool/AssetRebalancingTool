@@ -1,30 +1,44 @@
 import { useAssetStore } from "@/stores/AssetStore";
-import { ref } from "vue";
 import { CurrencyEnum } from "@/models/nested/CurrencyEnum";
 import type { IPublicAsset } from "@/models/IPublicAsset";
+import type { IPriceRecord } from "@/models/nested/IPriceRecord";
+
+/**
+ * Get the currency price record map, from the asset itself
+ *
+ * @param uuid string
+ */
+export function getCurrencyPriceRecordMap(uuid: string): Record<CurrencyEnum, IPriceRecord[]> {
+    const assetStore = useAssetStore()
+    const asset: IPublicAsset = assetStore.getSearchbarAsset(uuid)
+    return asset.currencyPriceRecordMap
+}
+
+/**
+ * Get the first price records array (EUR records)
+ *
+ * @param uuid string
+ */
+export function getFirstCurrencyPriceRecords(uuid: string): IPriceRecord[] {
+    const currencyPriceRecordMap = getCurrencyPriceRecordMap(uuid)
+    return currencyPriceRecordMap[CurrencyEnum.EUR];
+}
 
 /**
  * Get the newest price record of an asset, and format it as array, that can be accessed in single value components
  *
- * @param assetProp IPublicAsset | null
  * @param uuid string
  */
-export function getNewestPriceRecordFormatted(assetProp: IPublicAsset, uuid: string): string[] {
-    const assetStore = useAssetStore()
-
-    // if there is no asset prop passed as argument, get the asset by its uuid from the asset store
-    const asset: IPublicAsset = (assetProp !== null)
-        ? assetStore.getSearchbarAsset(uuid)
-        : assetProp
-
-    const currencyPriceRecordMap = ref(asset.currencyPriceRecordMap)
-    let priceRecords = currencyPriceRecordMap.value[CurrencyEnum.EUR];
+export function getNewestPriceRecordFormatted(uuid: string): string[] {
+    // Get the currency price records map along with the euro perice records
+    const currencyPriceRecordMap = getCurrencyPriceRecordMap(uuid)
+    let priceRecords = currencyPriceRecordMap[CurrencyEnum.EUR];
 
     // Check if the price records are undefined and if not get the first price records array by the first key
     if (priceRecords !== undefined) {
-        const currencyKeys = Object.keys(currencyPriceRecordMap.value)
+        const currencyKeys = Object.keys(currencyPriceRecordMap)
         const firstKey = currencyKeys[0] as CurrencyEnum
-        priceRecords = currencyPriceRecordMap.value[firstKey]
+        priceRecords = currencyPriceRecordMap[firstKey]
     }
 
     // Get the newest price of the price records
@@ -36,16 +50,15 @@ export function getNewestPriceRecordFormatted(assetProp: IPublicAsset, uuid: str
     }
 
     // Return a formatted value array
-    return formatValueArray(newestPrice, asset)
+    return formatValueArray(newestPrice)
 }
 
 /**
  * Format a float value into an array, so it can be accessed in single value components
  *
  * @param assetValue float
- * @param asset IPublicAsset
  */
-export function formatValueArray(assetValue: number, asset: IPublicAsset): string[] {
+export function formatValueArray(assetValue: number): string[] {
     // Parse the value of the asset to string
     const valueString: string = assetValue.toString()
 
