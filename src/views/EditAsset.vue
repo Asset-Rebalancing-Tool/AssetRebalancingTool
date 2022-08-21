@@ -1,8 +1,6 @@
 <template>
   <section id="edit-asset">
-
     <BreadcrumbNavigation />
-
     <div class="card-wrapper">
       <CardWrapper :header-text="'Live Daten'">
         <template #content>
@@ -15,21 +13,9 @@
                 :isin="asset.isin"
             />
             <SingleValue
-                :price-records="asset.priceRecords"
-                :value-array="valueArray"
+                :value-array="priceArray"
                 :unit="currency"
-            >
-              <template #graph>
-                <LineChart
-                    v-if="showGraph"
-                    :data-values="dataValues"
-                    :data-labels="dataLabels"
-                    :border-width="'0.8'"
-                    :background-color="'#19B399'"
-                    :border-color="'#19B399'"
-                />
-              </template>
-            </SingleValue>
+            />
           </div>
 
 
@@ -41,7 +27,6 @@
 
         </template>
       </CardWrapper>
-
     </div>
   </section>
 </template>
@@ -49,14 +34,13 @@
 <script lang="ts" setup>
 import BreadcrumbNavigation from '@/components/edit-asset/BreadcrumbNavigation.vue'
 import CardWrapper from '@/components/edit-asset/CardWrapper.vue'
-import InfoColumn from '@/components/asset-list/row/column/InfoColumn.vue';
-import LineChart from '@/components/charts/LineChart.vue'
-import SingleValue from '@/components/asset-list/row/column/SingleValue.vue';
-import { useAssetStore } from '@/stores/AssetStore';
+import InfoColumn from '@/components/asset-list/row/column/InfoColumn.vue'
+import SingleValue from '@/components/asset-list/row/column/SingleValue.vue'
+import { useAssetStore } from '@/stores/AssetStore'
 import { computed } from 'vue';
-import type { IPublicAsset } from '@/models/IPublicAsset';
-import type { IPriceRecord } from '@/models/nested/IPriceRecord';
-import { useValueArray } from '@/composables/valueArray';
+import type { IPublicAsset } from '@/models/IPublicAsset'
+import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
+import { getAssetCurrency } from '@/composables/currency'
 
 const assetStore = useAssetStore()
 
@@ -72,39 +56,19 @@ const asset = computed<IPublicAsset>(() => {
   return assetStore.getSearchbarAsset(props.uuid)
 })
 
-const valueArray = useValueArray(props.uuid).valueArray
-
-
-
-const showGraph = computed(() => {
-  return props.priceRecords.length > 0
+// Get an array that contains the exploded strings of a price record
+const priceArray = computed((): string[] => {
+  return getNewestPriceRecordFormatted(props.uuid)
 })
 
-
-const dataValues = computed((): number[] => {
-  const dataValues: number[] = []
-  if (props.priceRecords) {
-    for (const item of props.priceRecords) {
-      const record = item as IPriceRecord
-      dataValues.push(record.price)
-    }
-  }
-  return dataValues
-})
-
-const dataLabels = computed((): string[] => {
-  const dataLabels: string[] = []
-  if (props.priceRecords) {
-    for (const item of props.priceRecords) {
-      const record = item as IPriceRecord
-      dataLabels.push(record.tsPrice)
-    }
-  }
-  return dataLabels
+// Get the currency of the newest price record
+const currency = computed((): string => {
+  return getAssetCurrency(props.uuid)
 })
 </script>
 
 <style lang="scss">
 @import "src/assets/scss/components/asset/row/column/info-column.scss";
+@import "src/assets/scss/components/asset/row/column/single-value-column.scss";
 @import 'src/assets/scss/views/_edit-asset';
 </style>
