@@ -9,6 +9,7 @@
     />
 
     <SingleValue
+      :asset-uuid="thisAsset.uuid"
       :graph="thisAsset.graph"
       :value-array="priceArray"
       :unit="thisAsset.currency"
@@ -32,7 +33,7 @@
       @click="$event.stopPropagation()"
     />
 
-    <SingleValue :arrow="'up'" :value-array="deviationArray" :unit="'%'" />
+    <SingleValue :asset-uuid="thisAsset.uuid" :arrow="'up'" :value-array="deviationArray" :unit="'%'" />
   </div>
 </template>
 
