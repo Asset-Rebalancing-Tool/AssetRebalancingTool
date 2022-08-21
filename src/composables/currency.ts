@@ -6,21 +6,14 @@ import type { IPublicAsset } from '@/models/IPublicAsset';
 /**
  * Get the currency of the passed asset or by the uuid of an asset
  *
- * @param assetProp IPublicAsset
  * @param uuid string
  */
-export function getAssetCurrency(assetProp: IPublicAsset, uuid: string) {
+export function getAssetCurrency(uuid: string) {
     const assetStore = useAssetStore()
-
-    // if there is no asset prop passed as argument, get the asset by its uuid from the asset store
-    const asset: IPublicAsset = (assetProp !== null)
-        ? assetStore.getSearchbarAsset(uuid)
-        : assetProp
-
+    const asset: IPublicAsset = assetStore.getSearchbarAsset(uuid)
     const currencyPriceRecordMap = ref(asset.currencyPriceRecordMap)
     const currencyKeys = Object.keys(currencyPriceRecordMap.value)
     const firstCurrency = currencyKeys[0] as CurrencyEnum
-
     return mapCurrency(firstCurrency)
 }
 
