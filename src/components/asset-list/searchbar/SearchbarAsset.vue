@@ -13,6 +13,7 @@
     />
 
     <SingleValue
+      :asset-uuid="thisAsset.uuid"
       :value-array="priceArray"
       :unit="currency"
     />
@@ -39,12 +40,12 @@ const props = defineProps({
 
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
-  return getNewestPriceRecordFormatted(props.thisAsset, props.thisAsset.uuid)
+  return getNewestPriceRecordFormatted(props.thisAsset.uuid)
 })
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  return getAssetCurrency(props.thisAsset, props.thisAsset.uuid)
+  return getAssetCurrency(props.thisAsset.uuid)
 })
 </script>
 
