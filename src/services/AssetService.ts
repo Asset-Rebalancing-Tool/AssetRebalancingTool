@@ -1,5 +1,3 @@
-import ownedGroups from '../data/ownedGroups.json'
-import ownedAssets from '../data/ownedAssets.json'
 import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 import type { IPublicAsset } from '@/models/IPublicAsset';
@@ -8,10 +6,12 @@ import axios from "axios";
 
 export default {
   fetchOwnedGroups(): IOwnedPrivateGroups {
-    return ownedGroups as IOwnedPrivateGroups
+    // return ownedGroups as IOwnedPrivateGroups
+    return {} as IOwnedPrivateGroups
   },
   fetchOwnedAssets(): IOwnedPublicAssets {
-    return ownedAssets as IOwnedPublicAssets
+    //return ownedAssets as IOwnedPublicAssets
+    return {} as IOwnedPublicAssets
   },
   fetchPublicAssets(searchValue: string): Promise<IPublicAsset[]> {
     return axios
