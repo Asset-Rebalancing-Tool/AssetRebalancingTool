@@ -15,7 +15,7 @@
 
     <!-- TODO: Total target percentage in same column as the column input-->
 
-    <SingleValue :arrow="'up'" :valueArray="totalDeviation" :unit="'%'" />
+    <SingleValue :asset-uuid="thisGroup.uuid" :arrow="'up'" :valueArray="totalDeviation" :unit="'%'" />
   </div>
 </template>
 
