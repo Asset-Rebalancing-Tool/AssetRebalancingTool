@@ -14,7 +14,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import type { PropType } from 'vue'
-import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 
 const props = defineProps({
   valueArray: {
@@ -24,10 +23,6 @@ const props = defineProps({
   unit: {
     type: String,
     required: true,
-  },
-  priceRecords: {
-    type: Array,
-    default: [] as IPriceRecord[],
   },
   arrow: {
     type: String,
