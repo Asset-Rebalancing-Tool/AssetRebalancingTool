@@ -6,8 +6,9 @@
   />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, computed } from 'vue'
+import type { PropType } from 'vue'
 import { LineChart } from 'vue-chart-3'
 import {
   Chart,
@@ -28,11 +29,11 @@ Chart.register(
 
 const props = defineProps({
   dataValues: {
-    type: Array,
+    type: Array as PropType<number[]>,
     required: true,
   },
   dataLabels: {
-    type: Array,
+    type: Array as PropType<string[]>,
     required: true,
   },
   borderWidth: {
