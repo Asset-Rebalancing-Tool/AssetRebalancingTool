@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import axios from 'axios'
 import { reactive } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
+import { showModalUnderlay } from '@/composables/modalOverlay'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import SearchbarContentWrapper from './SearchbarContentWrapper.vue'
 import AssetService from '@/services/AssetService'
@@ -81,11 +81,6 @@ function searchAsset(searchValue: string) {
           assetStore.searchbarAssets = results
         })
   }, 500)
-}
-
-// Show the modal underlay when focussing the searchbar
-const showModalUnderlay = () => {
-  assetStore.activeModalUnderlay = true
 }
 </script>
 
