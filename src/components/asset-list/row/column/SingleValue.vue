@@ -1,6 +1,15 @@
 <template>
   <div class="single-value-wrapper" :class="smallerGrid">
-    <slot name="graph"></slot>
+    <slot name="graph">
+      <LineChart
+          v-if="showGraph"
+          :data-values="getDataValues(assetUuid)"
+          :data-labels="getDataLabels(assetUuid)"
+          :border-width="'0.8'"
+          :background-color="'#19B399'"
+          :border-color="'#19B399'"
+      />
+    </slot>
     <span class="first-digit">{{ firstDigit }}</span>
     <span class="decimal-wrapper">
       <span class="first-decimal">{{ firstDecimal }}</span>
@@ -14,8 +23,15 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import type { PropType } from 'vue'
+import LineChart from '@/components/charts/LineChart.vue';
+import { getAssetCurrency } from '@/composables/currency';
+import { showGraph, getDataValues, getDataLabels } from '@/composables/smallLineChart';
 
 const props = defineProps({
+  assetUuid: {
+    type: String,
+    required: true,
+  },
   valueArray: {
     type: Array as PropType<string[]>,
     required: true,
@@ -43,5 +59,10 @@ const showArrow = computed(() => {
 // Render the additional grid class
 const smallerGrid = computed(() => {
   return showArrow.value ? 'smaller' : ''
+})
+
+// Get the currency of the newest price record
+const currency = computed((): string => {
+  return getAssetCurrency(props.assetUuid)
 })
 </script>
