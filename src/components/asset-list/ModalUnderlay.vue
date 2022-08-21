@@ -8,10 +8,7 @@
 
 <script lang="ts" setup>
 import { useAssetStore } from '@/stores/AssetStore'
-const assetStore = useAssetStore()
+import { hideModalUnderlay } from '@/composables/modalOverlay'
 
-// Hide the modal underlay when focussing the searchbar
-const hideModalUnderlay = () => {
-  assetStore.activeModalUnderlay = false
-}
+const assetStore = useAssetStore()
 </script>
