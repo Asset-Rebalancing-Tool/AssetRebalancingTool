@@ -2,7 +2,7 @@
   <div class="info-wrapper">
     <p v-html="assetNameWithWordMatches"></p>
     <div class="info-row">
-      <div class="type">{{ assetType }}</div>
+      <div class="type">{{ type }}</div>
       <span class="isin label">ISIN</span>
       <span class="isin-wrapper" @click.prevent="copyISIN($event)">
         <span class="isin">{{ isin }}</span>
