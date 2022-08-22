@@ -8,7 +8,7 @@ import type { IPublicAsset } from '@/models/IPublicAsset';
  *
  * @param uuid string
  */
-export function getAssetCurrency(uuid: string) {
+export function mapAssetCurrencyByUuid(uuid: string) {
     const assetStore = useAssetStore()
     const asset: IPublicAsset = assetStore.getSearchbarAsset(uuid)
     const currencyPriceRecordMap = ref(asset.currencyPriceRecordMap)
