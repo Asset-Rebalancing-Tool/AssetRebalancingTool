@@ -1,0 +1,15 @@
+.input-wrapper {
+  @include flex-center-xy;
+  width: 100%;
+  height: $asset-inner-row;
+  column-gap: 10px;
+}
+
+.input-wrapper input {
+  flex: 1;
+  height: $secondary-input-height;
+}
+
+label {
+  width: 30px;
+}

@@ -1,0 +1,79 @@
+@mixin asset-row-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* logo, title, price, shares, value, target, deviation */
+  grid-template-columns: $asset-row-columns;
+  grid-template-rows: $asset-inner-row;
+  grid-column-gap: $asset-row-column-gap;
+  padding: $asset-row-padding;
+}
+
+@mixin searchbar-asset-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* logo, title, price, shares, value, target, deviation */
+  grid-template-columns: $searchbar-asset-row-columns;
+  grid-template-rows: $asset-inner-row;
+  grid-column-gap: $asset-row-column-gap;
+  padding: $asset-row-padding;
+}
+
+@mixin searchbar-asset-label-grid {
+  width: 100%;
+  height: 20px;
+  display: grid;
+  /* logo, title, price, shares, value, target, deviation */
+  grid-template-columns: $searchbar-asset-label-columns;
+  grid-template-rows: 20px;
+  grid-column-gap: $asset-row-column-gap;
+  padding: $asset-row-padding;
+}
+
+@mixin live-data-header-grid {
+  width: 100%;
+  height: $asset-inner-row;
+  display: grid;
+  /* logo, title, price, shares, value, target, deviation */
+  grid-template-columns: $live-data-header-columns;
+  grid-template-rows: $asset-inner-row;
+  grid-column-gap: 10px;
+}
+
+/******************************************************/
+/* -------------- Single Value Column --------------- */
+/******************************************************/
+
+@mixin single-value-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 50px 25px 15px;
+  grid-template-rows: repeat(3, $single-value-rows);
+}
+
+@mixin graph-position {
+  grid-column: 1 / 4;
+  grid-row: 1 / 4;
+}
+
+@mixin arrow-position {
+  grid-column: 3 / 4;
+  grid-row: 1 / 4;
+}
+
+@mixin first-digit-position{
+  grid-column: 1 / 2;
+  grid-row: 2 / 4;
+}
+
+@mixin decimal-wrapper-position {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+@mixin unit-wrapper-position {
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}

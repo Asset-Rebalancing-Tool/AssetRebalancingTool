@@ -1,0 +1,25 @@
+// This file is used to import all layout styles
+
+@import 'flex';
+@import 'grid';
+@import 'absolute';
+
+// All Vue Router Views
+
+/******************************************************/
+/* ------------ Asset List View Styles -------------- */
+/******************************************************/
+
+.asset-container {
+  width: 100%;
+  // 100vh - $base-padding - $primary-input-height - $filter-grid-height - $asset-list-footer-height
+  height: calc(100vh - 25px - 52px - 50px - 65px);
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  padding-top: 25px;
+}
+
+.asset-container::-webkit-scrollbar {
+  display: none;
+}

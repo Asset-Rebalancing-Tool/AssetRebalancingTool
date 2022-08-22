@@ -1,0 +1,30 @@
+input {
+  width: 100%;
+  height: $primary-input-height;
+  background-color: $primary-infill-color;
+  color: $primary-text-color;
+  outline: $passive-border-color;
+  border-radius: $primary-border-radius;
+  border: 1px solid $passive-border-color;
+  text-align: center;
+}
+
+input:focus,
+textarea:focus {
+  border: 1px solid $active-border-color;
+}
+
+textarea::-webkit-input-placeholder,
+textarea:-moz-placeholder,
+textarea::-moz-placeholder,
+textarea:-ms-input-placeholder,
+textarea::placeholder
+{
+  color: $tertiary-text-color;
+}
+
+label {
+  position: relative;
+  width: 100%;
+  color: $primary-text-color;
+}

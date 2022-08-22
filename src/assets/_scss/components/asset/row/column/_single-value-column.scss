@@ -1,0 +1,79 @@
+.single-value-wrapper {
+  @include single-value-grid;
+}
+
+.single-value-wrapper.smaller {
+  grid-template-columns: 25px 25px 15px;
+  margin-top: -7px;
+}
+
+/******************************************************/
+/* ------------------ Graph Styles ------------------ */
+/******************************************************/
+
+.chart-container {
+  @include graph-position;
+  width: 65%;
+  height: 45px;
+  margin-left: 14%;
+  margin-top: -15px;
+}
+
+/******************************************************/
+/* ------------------ Value Styles ------------------ */
+/******************************************************/
+
+.first-digit {
+  @include first-digit-position;
+  line-height: calc($single-value-rows * 2);
+  font-weight: $bold-font-weight;
+  text-align: right;
+  padding-right: 3px;
+}
+
+.decimal-wrapper {
+  @include decimal-wrapper-position;
+  line-height: $single-value-rows;
+  display: flex;
+}
+
+.first-decimal,
+.second-decimal,
+.unit {
+  font-size: $secondary-font-size;
+}
+
+.first-decimal {
+  color: $secondary-text-color;
+}
+
+.second-decimal {
+  color: $tertiary-text-color;
+}
+
+.unit {
+  @include unit-wrapper-position;
+  line-height: $single-value-rows;
+  color: $primary-text-color;
+}
+
+.arrow {
+  @include background-image-presets;
+  @include arrow-position;
+  height: $asset-row-height;
+  width: 10px;
+  margin-top: -2px;
+}
+
+.arrow.up {
+  background-image: $icon-deviation-higher;
+}
+
+
+.arrow.down {
+  background-image: $icon-deviation-lower;
+}
+
+
+
+
