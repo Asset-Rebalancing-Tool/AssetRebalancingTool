@@ -6,7 +6,7 @@ import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
 import type { IPublicAsset } from '@/models/IPublicAsset';
-import { CurrencyEnum } from "@/models/nested/CurrencyEnum";
+import { CurrencyEnum } from "@/models/enums/CurrencyEnum";
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
