@@ -1,8 +1,8 @@
 <template>
   <div class="info-wrapper">
-    <p v-html="checkWordMatches"></p>
+    <p v-html="assetNameWithWordMatches"></p>
     <div class="info-row">
-      <div class="type">{{ type }}</div>
+      <div class="type">{{ assetType }}</div>
       <span class="isin label">ISIN</span>
       <span class="isin-wrapper" @click.prevent="copyISIN($event)">
         <span class="isin">{{ isin }}</span>
@@ -47,7 +47,7 @@ const copyISIN = (event: Event) => {
   }
 }
 
-const checkWordMatches = computed((): string => {
+const assetNameWithWordMatches = computed((): string => {
   const input: string = assetStore.searchString.toLowerCase()
   const assetName: string = props.assetName.toLowerCase()
 
