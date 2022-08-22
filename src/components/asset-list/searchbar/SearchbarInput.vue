@@ -27,7 +27,8 @@ const assetStore = useAssetStore()
 
 // The components reactive state interface
 interface IState {
-  publicAssets: IPublicAsset[]
+  publicAssets: IPublicAsset[],
+  abortController: AbortController | null
   resultCount: number
   timer: ReturnType<typeof setTimeout> | null
   isLoading: boolean
@@ -36,6 +37,7 @@ interface IState {
 // The components reactive state object
 const state: IState = reactive({
   publicAssets: [],
+  abortController: new AbortController(),
   resultCount: 0,
   timer: null,
   isLoading: false,
@@ -49,6 +51,12 @@ const state: IState = reactive({
  * @param searchValue string
  */
 function searchAsset(searchValue: string) {
+
+  // Always abort previous requests
+  if (state.abortController) {
+    state.abortController.abort()
+    state.abortController = null
+  }
 
   // Always update the search string of the asset store
   assetStore.searchString = searchValue
@@ -73,7 +81,9 @@ function searchAsset(searchValue: string) {
 
   // Fetch each time the timer expires
   state.timer = setTimeout(() => {
-    AssetService.fetchPublicAssets(searchValue)
+    // Controller that is used to abort the request if necessary
+    state.abortController = new AbortController();
+    AssetService.fetchPublicAssets(searchValue, state.abortController)
         .then(results => {
           state.isLoading = false
           state.publicAssets = results
