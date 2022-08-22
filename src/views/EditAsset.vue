@@ -40,7 +40,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import { computed } from 'vue';
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
-import { getAssetCurrency } from '@/composables/currency'
+import { mapAssetCurrencyByUuid } from '@/composables/currency'
 
 const assetStore = useAssetStore()
 
@@ -63,7 +63,7 @@ const priceArray = computed((): string[] => {
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  return getAssetCurrency(props.uuid)
+  return mapAssetCurrencyByUuid(props.uuid)
 })
 </script>
 

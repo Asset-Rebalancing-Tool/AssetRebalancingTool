@@ -38,7 +38,7 @@ import type { PropType } from 'vue'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
 import { hideModalUnderlay } from '@/composables/modalOverlay'
-import { getAssetCurrency } from '@/composables/currency'
+import { mapAssetCurrencyByUuid } from '@/composables/currency'
 import InfoColumn from '../row/column/InfoColumn.vue'
 import SingleValue from '../row/column/SingleValue.vue'
 import { useAssetStore } from '@/stores/AssetStore'
@@ -73,7 +73,7 @@ const priceArray = computed((): string[] => {
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  return getAssetCurrency(props.thisAsset.uuid)
+  return mapAssetCurrencyByUuid(props.thisAsset.uuid)
 })
 </script>
 
