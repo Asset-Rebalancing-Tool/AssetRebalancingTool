@@ -13,9 +13,13 @@ export default {
     //return ownedAssets as IOwnedPublicAssets
     return {} as IOwnedPublicAssets
   },
-  fetchPublicAssets(searchValue: string): Promise<IPublicAsset[]> {
+  fetchPublicAssets(searchValue: string, abortController: any): Promise<IPublicAsset[]> {
     return axios
-        .post('/asset_api/asset/search', { SearchString: searchValue })
+        .post('/asset_api/asset/search', {
+            SearchString: searchValue
+        }, {
+            signal: abortController.signal
+        })
         .then((response: AxiosResponse) => {
           // Ensure that the response isn't an empty string
           if (response.data !== '') {

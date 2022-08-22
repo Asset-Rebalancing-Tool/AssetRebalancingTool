@@ -1,12 +1,12 @@
-import {defineStore} from 'pinia'
-import {reactive} from 'vue'
+import { defineStore } from 'pinia'
+import { reactive } from 'vue'
 import AssetService from '@/services/AssetService'
-import type {IOwnedPrivateGroups} from '@/models/old/IOwnedPrivateGroups'
-import type {IOwnedPrivateGroup} from '@/models/old/IOwnedPrivateGroup'
-import type {IOwnedPublicAssets} from '@/models/old/IOwnedPublicAssets'
-import type {IOwnedPublicAsset} from '@/models/old/IOwnedPublicAsset'
-import type {IPublicAsset} from '@/models/IPublicAsset';
-import {CurrencyEnum} from "@/models/nested/CurrencyEnum";
+import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
+import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
+import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
+import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
+import type { IPublicAsset } from '@/models/IPublicAsset';
+import { CurrencyEnum } from "@/models/nested/CurrencyEnum";
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
