@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { useAssetStore } from "@/stores/AssetStore";
-import type { CurrencyEnum } from '@/models/nested/CurrencyEnum';
+import type { CurrencyEnum } from '@/models/enums/CurrencyEnum';
 import type { IPublicAsset } from '@/models/IPublicAsset';
 
 /**
@@ -20,10 +20,10 @@ export function getAssetCurrency(uuid: string) {
 /**
  * Map the currency of an assets to its symbol
  *
- * @param currency string
+ * @param currency CurrencyEnum
  */
-function mapCurrency(currency: string): string {
-    switch (currency.toUpperCase()) {
+function mapCurrency(currency: CurrencyEnum): string {
+    switch (currency) {
         default:
         case 'UNSUPPORTED':
             return '?'
