@@ -1,5 +1,5 @@
 import { useAssetStore } from "@/stores/AssetStore";
-import { CurrencyEnum } from "@/models/nested/CurrencyEnum";
+import { CurrencyEnum } from "@/models/enums/CurrencyEnum";
 import type { IPublicAsset } from "@/models/IPublicAsset";
 import type { IPriceRecord } from "@/models/nested/IPriceRecord";
 
