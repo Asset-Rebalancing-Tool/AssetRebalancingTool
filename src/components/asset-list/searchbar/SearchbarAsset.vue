@@ -9,7 +9,7 @@
 
     <InfoColumn
       :asset-name="thisAsset.assetName"
-      :type="thisAsset.assetType"
+      :type="assetType"
       :isin="thisAsset.isin"
     />
 
@@ -44,6 +44,7 @@ import SingleValue from '../row/column/SingleValue.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { showGraph, getDataValues, getDataLabels } from '@/composables/smallLineChart';
 import LineChart from '@/components/charts/LineChart.vue';
+import { mapAssetType } from "@/composables/assetType";
 
 const assetStore = useAssetStore()
 
@@ -65,6 +66,11 @@ function newAssetAction(): void {
     //assetStore.
   }
 }
+
+// Get the mapped asset type
+const assetType = computed((): string => {
+  return mapAssetType(props.thisAsset.assetType)
+})
 
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
