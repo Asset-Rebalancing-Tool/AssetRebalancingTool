@@ -4,7 +4,7 @@ import type { CurrencyEnum } from '@/models/nested/CurrencyEnum';
 import type { IPublicAsset } from '@/models/IPublicAsset';
 
 /**
- * Get the currency of the passed asset or by the uuid of an asset
+ * Get the currency by passing the uuid of an asset
  *
  * @param uuid string
  */
