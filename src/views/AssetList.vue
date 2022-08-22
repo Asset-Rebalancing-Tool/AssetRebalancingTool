@@ -7,6 +7,11 @@
 
     <TableFilters />
 
+    <ThreeDigitValue
+        :value-array="testArray"
+        :unit="'€'"
+    />
+
     <div class="asset-container">
       <AssetGroup
         v-for="group in assetStore.ownedGroups"
@@ -37,8 +42,11 @@ import TableFilters from '../components/asset-list/TableFilters.vue'
 import AssetGroup from '../components/asset-list/group/AssetGroup.vue'
 import AssetRow from '../components/asset-list/row/AssetRow.vue'
 import AssetListFooter from '../components/asset-list/AssetListFooter.vue'
+import ThreeDigitValue from "@/components/values/ThreeDigitValue.vue";
 
 const assetStore = useAssetStore()
+
+const testArray = ['326', '24', '3']
 
 // Set the selected flag of an asset
 const singleAssets = computed(() => {

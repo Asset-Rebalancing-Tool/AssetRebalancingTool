@@ -13,8 +13,12 @@
       :isin="thisAsset.isin"
     />
 
-    <SingleValue
-      :asset-uuid="thisAsset.uuid"
+    <ThreeDigitValue
+        :value-array="priceArray"
+        :unit="currency"
+    />
+
+<!--    <SingleValue
       :value-array="priceArray"
       :unit="currency"
     >
@@ -28,7 +32,7 @@
             :border-color="'#19B399'"
         />
       </template>
-    </SingleValue>
+    </SingleValue>-->
   </RouterLink>
 </template>
 

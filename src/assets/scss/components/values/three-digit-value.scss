@@ -1,0 +1,42 @@
+.three-digit-wrapper {
+  width: 100%;
+  height: $asset-inner-row;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 50%;
+}
+
+.first-digit {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  line-height: $asset-inner-row;
+  font-weight: $bold-font-weight;
+  text-align: right;
+}
+
+.decimal-wrapper {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  display: flex;
+}
+
+.first-decimal,
+.second-decimal,
+.unit {
+  font-size: $secondary-font-size;
+}
+
+.first-decimal {
+  color: $secondary-text-color;
+}
+
+.second-decimal {
+  color: $tertiary-text-color;
+}
+
+.unit {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  line-height: $single-value-rows;
+  color: $primary-text-color;
+}
