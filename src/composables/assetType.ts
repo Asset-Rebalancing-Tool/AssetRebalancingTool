@@ -18,7 +18,7 @@ export function mapAssetTypeByUUid(uuid: string) {
  *
  * @param assetType AssetTypeEnum
  */
-function mapAssetType(assetType: AssetTypeEnum): string {
+export function mapAssetType(assetType: AssetTypeEnum): string {
     switch (assetType) {
         default:
         case 'Other':

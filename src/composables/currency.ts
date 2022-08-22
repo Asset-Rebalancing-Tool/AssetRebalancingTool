@@ -22,7 +22,7 @@ export function mapAssetCurrencyByUuid(uuid: string) {
  *
  * @param currency CurrencyEnum
  */
-function mapCurrency(currency: CurrencyEnum): string {
+export function mapCurrency(currency: CurrencyEnum): string {
     switch (currency) {
         default:
         case 'UNSUPPORTED':
