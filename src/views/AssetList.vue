@@ -1,60 +1,32 @@
 <template>
   <section id="asset-list">
     <header>
-      <AssetSearchbar />
-      <ActionButtons />
+      <SearchbarInput />
+      <SearchbarContent />
     </header>
 
     <TableFilters />
 
-    <ThreeDigitValue
-        :value-array="testArray"
-        :unit="'€'"
-    />
-
     <div class="asset-container">
-      <AssetGroup
-        v-for="group in assetStore.ownedGroups"
-        :key="group.uuid"
-        :this-group="group"
-      />
-
-      <AssetRow
-        v-for="asset in singleAssets"
-        :key="asset.uuid"
-        :this-asset="asset"
-        @click="
-          assetStore.toggleIsSelectedFlag(asset.uuid, asset.relatedGroupUuid)
-        "
-      />
+      <AssetRow />
+      <AssetGroup>
+        <template #assets>
+          <AssetRow />
+          <AssetRow />
+        </template>
+      </AssetGroup>
     </div>
-
-    <AssetListFooter />
   </section>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
-import AssetSearchbar from '../components/asset-list/searchbar/SearchbarInput.vue'
-import ActionButtons from '../components/asset-list/action-buttons/ActionButtons.vue'
-import TableFilters from '../components/asset-list/TableFilters.vue'
-import AssetGroup from '../components/asset-list/group/AssetGroup.vue'
-import AssetRow from '../components/asset-list/row/AssetRow.vue'
-import AssetListFooter from '../components/asset-list/AssetListFooter.vue'
-import ThreeDigitValue from "@/components/values/ThreeDigitValue.vue";
-
-const assetStore = useAssetStore()
-
-const testArray = ['326', '24', '3']
-
-// Set the selected flag of an asset
-const singleAssets = computed(() => {
-  return assetStore.getAssetsWithoutGroup()
-})
+import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
+import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
+import AssetRow from '@/components/wrappers/AssetRow.vue'
+import AssetGroup from '@/components/wrappers/AssetGroup.vue'
+import TableFilters from '@/components/wrappers/TableFilters.vue'
 </script>
 
-<!-- not scoped ! -->
 <style lang="scss">
-@import 'src/assets/scss/components/asset/group/_asset-group.scss';
+@import '@/assets/scss/views/asset-list.scss';
 </style>

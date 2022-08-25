@@ -5,18 +5,20 @@ import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
 import type { IOwnedPrivateGroup } from '@/models/old/IOwnedPrivateGroup'
 import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
 import type { IOwnedPublicAsset } from '@/models/old/IOwnedPublicAsset'
-import type { IPublicAsset } from '@/models/IPublicAsset';
-import { CurrencyEnum } from "@/models/enums/CurrencyEnum";
+import type { IPublicAsset } from '@/models/IPublicAsset'
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
 /***********************************************************************************/
 
 export type RootState = {
+  searchString: string
   searchbarAssets: IPublicAsset[]
+  searchbarResultCount: number
+  searchbarLoadingFlag: boolean
   ownedGroups: IOwnedPrivateGroups
   ownedAssets: IOwnedPublicAssets
-  searchString: string
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -28,6 +30,8 @@ export const useAssetStore = defineStore('assetStore', {
       /** Reactive asset searchbar */
       searchString: '',
       searchbarAssets: [],
+      searchbarResultCount: 0,
+      searchbarLoadingFlag: false,
       /** Reactive list objects */
       ownedGroups: reactive(AssetService.fetchOwnedGroups()),
       ownedAssets: reactive(AssetService.fetchOwnedAssets()),
@@ -38,7 +42,6 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
-
     /**
      * Iterate over the searchbar assets and check if the uuid matches the passed uuid
      *
@@ -50,7 +53,7 @@ export const useAssetStore = defineStore('assetStore', {
         return {} as IPublicAsset
       }
       // Loop over the searchbar assets and check if the uuid matches the passed uuid
-      for(const asset of this.searchbarAssets){
+      for (const asset of this.searchbarAssets) {
         if (asset.uuid === uuid) return asset
       }
       // If there is no asset with the passed uuid, return an empty object

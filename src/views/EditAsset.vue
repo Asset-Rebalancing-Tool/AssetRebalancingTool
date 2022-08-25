@@ -4,35 +4,27 @@
     <div class="card-wrapper">
       <CardWrapper :header-text="'Live Daten'">
         <template #content>
-
           <div class="live-data-header">
             <div class="asset-logo"></div>
             <InfoColumn
-                :asset-name="asset.assetName"
-                :type="asset.assetType"
-                :isin="asset.isin"
+              :asset-name="asset.assetName"
+              :type="asset.assetType"
+              :isin="asset.isin"
             />
-            <SingleValue
-                :value-array="priceArray"
-                :unit="currency"
-            />
+            <SingleValue :value-array="priceArray" :unit="currency" />
           </div>
-
-
         </template>
       </CardWrapper>
 
       <CardWrapper :header-text="'Asset hinzufügen'">
-        <template #content>
-
-        </template>
+        <template #content> </template>
       </CardWrapper>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import BreadcrumbNavigation from '@/components/edit-asset/BreadcrumbNavigation.vue'
+/*import BreadcrumbNavigation from '@/components/edit-asset/BreadcrumbNavigation.vue'
 import CardWrapper from '@/components/edit-asset/CardWrapper.vue'
 import InfoColumn from '@/components/asset-list/row/column/InfoColumn.vue'
 import SingleValue from '@/components/asset-list/row/column/SingleValue.vue'
@@ -64,11 +56,11 @@ const priceArray = computed((): string[] => {
 // Get the currency of the newest price record
 const currency = computed((): string => {
   return mapAssetCurrencyByUuid(props.uuid)
-})
+})*/
 </script>
 
 <style lang="scss">
-@import "src/assets/scss/components/asset/row/column/info-column.scss";
+/*@import "src/assets/scss/components/asset/row/column/info-column.scss";
 @import "src/assets/scss/components/asset/row/column/single-value-column.scss";
-@import 'src/assets/scss/views/_edit-asset';
+@import 'src/assets/scss/views/_edit-asset';*/
 </style>

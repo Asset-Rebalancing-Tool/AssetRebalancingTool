@@ -1,7 +1,7 @@
 import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 import type { IAssetInformation } from '@/models/nested/IAssetInformation'
-import type { CurrencyEnum } from '@/models/enums/CurrencyEnum';
-import type { AssetTypeEnum } from "@/models/enums/AssetTypeEnum";
+import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 
 export interface IPublicAsset {
   uuid: string
