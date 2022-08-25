@@ -5,5 +5,5 @@ export enum AssetTypeEnum {
   ETF = 'Etf',
   COMMODITY = 'Commodity',
   PRECIOUS_METALS = 'PreciousMetals',
-  CRYPTO = 'Crypto'
+  CRYPTO = 'Crypto',
 }

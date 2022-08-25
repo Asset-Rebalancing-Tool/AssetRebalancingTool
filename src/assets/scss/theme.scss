@@ -1,0 +1,146 @@
+/*******************************************************/
+/* -------------- Theme Color Variables -------------- */
+/*******************************************************/
+
+// Main color
+$main-color: #19B399;
+
+// All background color gradations
+$primary-background-color: #24292D;
+$secondary-background-color: #2F363E;
+$tertiary-background-color: #3C444D;
+
+// All hover variables
+$hover-button: $primary-background-color;
+$hover-secondary-background: #2a3238;
+
+// All text colors
+$primary-text-color: #FFFFFF;
+$secondary-text-color: #B5B5B5;
+$tertiary-text-color: #787878;
+
+// All infill colors
+$primary-infill-color: #1A1E21;
+$secondary-infill-color: #1C2125;
+
+// All border colors
+$passive-border-color: $tertiary-background-color;
+$active-border-color: $main-color;
+
+// All text colors
+$passive-text-color: $tertiary-background-color;
+$active-text-color: $primary-text-color;
+
+/*******************************************************/
+/* -------------- Theme Font Variables --------------- */
+/*******************************************************/
+
+// All font families
+$primary-font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+
+// All font sizes
+$primary-font-size: 15px;
+$secondary-font-size: 14px;
+
+// All line heights
+$primary-line-height: 1.6;
+$exact-primary-line-height: 1.4; // no spacing primary font size
+
+// All font weights
+$bold-font-weight: 600;
+$regular-font-weight: 400;
+
+/*******************************************************/
+/* ------------ Theme Appearance Variables ----------- */
+/*******************************************************/
+
+// All border radius's
+$primary-border-radius: 5px;
+$secondary-border-radius: 3px;
+
+// All box shadow's
+$box-shadow-main-color:
+    0 0 1px rgba(25,179,153,0.05),
+    0 0 4px rgba(25,179,153,0.2),
+    0 0 8px rgba(25,179,153,0.2),
+    0 0 12px rgba(25,179,153,0.2);
+
+/*******************************************************/
+/* ------------ Theme Distances Variables ------------ */
+/*******************************************************/
+
+// All paddings
+$base-padding: 25px;
+
+// All column gaps
+$base-column-gap: $base-padding;
+$small-column-gap: 5px;
+$medium-column-gap: 10px;
+
+// All margins
+$base-margin: $base-padding;
+
+/*******************************************************/
+/* ------------- Theme Input Variables --------------- */
+/*******************************************************/
+
+// Input heights
+$primary-input-height: 52px;
+$secondary-input-height: 32px;
+
+input {
+    width: 100%;
+    height: $primary-input-height;
+    background-color: $primary-infill-color;
+    color: $primary-text-color;
+    outline: $passive-border-color;
+    border-radius: $primary-border-radius;
+    border: 1px solid $passive-border-color;
+    text-align: center;
+}
+
+input:focus,
+textarea:focus {
+    border: 1px solid $active-border-color;
+}
+
+textarea::-webkit-input-placeholder,
+textarea:-moz-placeholder,
+textarea::-moz-placeholder,
+textarea:-ms-input-placeholder,
+textarea::placeholder
+{
+    color: $tertiary-text-color;
+}
+
+label {
+    position: relative;
+    width: 100%;
+    color: $primary-text-color;
+}
+
+/*******************************************************/
+/* ------------ Theme Button Variables --------------- */
+/*******************************************************/
+
+@mixin base-button {
+    border: 1px solid $passive-border-color;
+    background-color: $secondary-infill-color;
+    border-radius: $primary-border-radius;
+}
+
+@mixin button-wrapper-flex {
+    @include flex-center-xy;
+    position: relative;
+}
+
+@mixin flex-button {
+    @include full-reset;
+    @include base-button;
+    @include flex-center-xy;
+    column-gap: $primary-button-gap;
+}
+
+$primary-button-padding: 12px 16px;
+$primary-button-gap: 6px;

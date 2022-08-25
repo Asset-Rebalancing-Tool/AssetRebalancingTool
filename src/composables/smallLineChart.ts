@@ -1,5 +1,5 @@
-import type { IPriceRecord } from '@/models/nested/IPriceRecord';
-import { getFirstCurrencyPriceRecords } from "@/composables/valueArray";
+import type { IPriceRecord } from '@/models/nested/IPriceRecord'
+import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
 
 /**
  * Get the data values for displaying a line chart based on the price records
@@ -7,15 +7,15 @@ import { getFirstCurrencyPriceRecords } from "@/composables/valueArray";
  * @param uuid string
  */
 export function getDataValues(uuid: string): number[] {
-    const priceRecords = getFirstCurrencyPriceRecords(uuid)
-    let dataValues: number[] = [];
-    if (priceRecords) {
-        for (let item of priceRecords) {
-            let record = item as IPriceRecord
-            dataValues.push(record.price)
-        }
+  const priceRecords = getFirstCurrencyPriceRecords(uuid)
+  const dataValues: number[] = []
+  if (priceRecords) {
+    for (const item of priceRecords) {
+      const record = item as IPriceRecord
+      dataValues.push(record.price)
     }
-    return dataValues
+  }
+  return dataValues
 }
 
 /**
@@ -24,15 +24,15 @@ export function getDataValues(uuid: string): number[] {
  * @param uuid string
  */
 export function getDataLabels(uuid: string): string[] {
-    const priceRecords = getFirstCurrencyPriceRecords(uuid)
-    let dataLabels: string[] = [];
-    if (priceRecords) {
-        for (let item of priceRecords) {
-            let record = item as IPriceRecord
-            dataLabels.push(record.tsPrice)
-        }
+  const priceRecords = getFirstCurrencyPriceRecords(uuid)
+  const dataLabels: string[] = []
+  if (priceRecords) {
+    for (const item of priceRecords) {
+      const record = item as IPriceRecord
+      dataLabels.push(record.tsPrice)
     }
-    return dataLabels
+  }
+  return dataLabels
 }
 
 /**
@@ -41,5 +41,5 @@ export function getDataLabels(uuid: string): string[] {
  * @param uuid string
  */
 export function showGraph(uuid: string): boolean {
-    return getFirstCurrencyPriceRecords(uuid).length > 0
+  return getFirstCurrencyPriceRecords(uuid).length > 0
 }

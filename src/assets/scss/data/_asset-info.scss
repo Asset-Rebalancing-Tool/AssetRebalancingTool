@@ -1,0 +1,58 @@
+.asset-info {
+  @include asset-information-grid;
+  height: $inner-asset-row-height;
+
+  .asset-logo {
+    height: $inner-asset-row-height;
+    width: $inner-asset-row-height;
+    border-radius: $secondary-border-radius;
+    background-color: $tertiary-background-color;
+  }
+
+  .additional-info {
+    @include flex-center-y;
+    column-gap: $asset-info-gap;
+    grid-column: 2 / 3;
+    margin-top: -4px;
+  }
+
+  h4 {
+    font-weight: $bold-font-weight;
+    margin-top: -2px;
+  }
+
+  .asset-type {
+    width: 35px;
+    background-color: $main-color;
+    border-radius: $secondary-border-radius;
+    color: $primary-text-color;
+    font-size: $secondary-font-size;
+    font-weight: $bold-font-weight;
+    padding: 0 5px;
+  }
+
+  .isin-wrapper {
+    @include flex-center-y;
+    column-gap: $asset-info-gap / 2;
+
+    .label {
+      color: $secondary-text-color;
+    }
+
+    .isin {
+      color: $tertiary-text-color;
+      padding: 0 5px;
+      border-radius: $secondary-border-radius;
+      cursor: pointer;
+    }
+
+    .isin:hover {
+      background-color: $tertiary-background-color;
+    }
+
+    svg {
+      width: 14px;
+      height: 12px;
+    }
+  }
+}

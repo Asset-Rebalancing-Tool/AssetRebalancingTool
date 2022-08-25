@@ -1,6 +1,6 @@
-import { useAssetStore } from "@/stores/AssetStore";
-import type { IPublicAsset } from '@/models/IPublicAsset';
-import type { AssetTypeEnum } from "@/models/enums/AssetTypeEnum";
+import { useAssetStore } from '@/stores/AssetStore'
+import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 
 /**
  * Get the asset type by passing the uuid of an asset
@@ -8,9 +8,9 @@ import type { AssetTypeEnum } from "@/models/enums/AssetTypeEnum";
  * @param uuid string
  */
 export function mapAssetTypeByUUid(uuid: string) {
-    const assetStore = useAssetStore()
-    const asset: IPublicAsset = assetStore.getSearchbarAsset(uuid)
-    return mapAssetType(asset.assetType)
+  const assetStore = useAssetStore()
+  const asset: IPublicAsset = assetStore.getSearchbarAsset(uuid)
+  return mapAssetType(asset.assetType)
 }
 
 /**
@@ -19,21 +19,21 @@ export function mapAssetTypeByUUid(uuid: string) {
  * @param assetType AssetTypeEnum
  */
 export function mapAssetType(assetType: AssetTypeEnum): string {
-    switch (assetType) {
-        default:
-        case 'Other':
-            return 'Anderes'
-        case 'Stock':
-            return 'Aktie'
-        case 'Fond':
-            return 'Fond'
-        case 'Etf':
-            return 'ETF'
-        case 'Commodity':
-            return 'Rohstoff'
-        case 'PreciousMetals':
-            return 'Edelmetall'
-        case 'Crypto':
-            return 'Kryptowährung'
-    }
+  switch (assetType) {
+    default:
+    case 'Other':
+      return 'Anderes'
+    case 'Stock':
+      return 'Aktie'
+    case 'Fond':
+      return 'Fond'
+    case 'Etf':
+      return 'ETF'
+    case 'Commodity':
+      return 'Rohstoff'
+    case 'PreciousMetals':
+      return 'Edelmetall'
+    case 'Crypto':
+      return 'Kryptowährung'
+  }
 }

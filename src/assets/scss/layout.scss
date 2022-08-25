@@ -1,0 +1,210 @@
+/*******************************************************/
+/* ------------------ Reset Mixins ------------------- */
+/*******************************************************/
+
+@mixin full-reset {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  color: $primary-text-color;
+}
+
+@mixin reset-absolute-center-xy {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0);
+}
+
+@mixin asset-row-reset {
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+}
+
+/*******************************************************/
+/* --------------- Flex Layout Mixins ---------------- */
+/*******************************************************/
+
+@mixin flex-center-x {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-center-y {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-center-xy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-center-y-end-x {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@mixin flex-column-center-x {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-column-center-y {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@mixin flex-align-start {
+  display: flex;
+  align-items: flex-start;
+}
+
+/*******************************************************/
+/* --------------- Grid Layout Mixins ---------------- */
+/*******************************************************/
+
+@mixin base-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+}
+
+/*******************************************************/
+/* ------------- Position Absolute Mixins ------------ */
+/*******************************************************/
+
+@mixin absolute-center-xy {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-left-top-0 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@mixin absolute-left-bottom-0 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+@mixin absolute-right-center-y {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(-100%, -50%);
+}
+
+/*******************************************************/
+/* -------------- Image & Icon Presets --------------- */
+/*******************************************************/
+
+@mixin background-image-presets {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/*******************************************************/
+/* ----------------- Wrapper Mixins ------------------ */
+/*******************************************************/
+
+@mixin base-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: $primary-border-radius;
+  border: 1px solid $passive-border-color;
+  background-color: $secondary-background-color;
+}
+
+/*******************************************************/
+/* -------------- Asset List Variables --------------- */
+/*******************************************************/
+
+// Asset row
+$asset-row-padding: 8px;
+$outer-asset-row-height: 65px;
+$inner-asset-row-height: calc($outer-asset-row-height - ($asset-row-padding * 2));
+$asset-row-column-gap: 30px;
+
+// Asset row columns
+$current-price-column: 75px;
+$owned-quantity-column: 110px;
+$current-value-column: 165px;
+$target-percentage-column: 110px;
+$deviation-column: 65px;
+$asset-row-template-columns: auto $current-price-column $owned-quantity-column $current-value-column $target-percentage-column $deviation-column;
+
+// Asset info
+$asset-info-gap: 10px;
+
+// Three digit value
+$three-digit-height: 30px;
+$three-digit-column-gap: 3px;
+
+// Searchbar asset
+$searchbar-asset-row-columns: auto $current-price-column;
+
+// Table filters
+$table-filter-grid-height: 50px;
+
+@mixin searchbar-asset-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: $searchbar-asset-row-columns;
+  grid-template-rows: $inner-asset-row-height;
+  grid-column-gap: $asset-row-column-gap;
+  padding: $asset-row-padding;
+}
+
+@mixin searchbar-asset-label-grid {
+  width: 100%;
+  height: 20px;
+  display: grid;
+  grid-template-columns: $searchbar-asset-row-columns;
+  grid-template-rows: 20px;
+  grid-column-gap: $asset-row-column-gap;
+  padding: $asset-row-padding;
+}
+
+@mixin asset-row-grid {
+  @include base-grid;
+  /* asset information, price, shares, value, target, deviation */
+  grid-template-columns: $asset-row-template-columns;
+  grid-template-rows: $inner-asset-row-height;
+  grid-column-gap: $asset-row-column-gap;
+  padding: $asset-row-padding 20px $asset-row-padding $asset-row-padding;
+}
+
+@mixin asset-information-grid {
+  @include base-grid;
+  grid-template-columns: $inner-asset-row-height auto;
+  grid-template-rows: repeat(2, $inner-asset-row-height / 2);
+  grid-column-gap: $asset-info-gap;
+}
+
+@mixin asset-footer-grid {
+  @include base-grid;
+  grid-template-columns: $asset-row-template-columns;
+  grid-template-rows: $inner-asset-row-height;
+  grid-column-gap: $asset-row-column-gap;
+  padding: 0 20px 0 $asset-row-padding;
+}

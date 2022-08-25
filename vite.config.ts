@@ -32,12 +32,9 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "@/assets/scss/theme/_appearance.scss";
-          @import "@/assets/scss/theme/_color.scss";
-          @import "@/assets/scss/theme/_dimension.scss";
-          @import "@/assets/scss/theme/_font.scss";
-          @import "@/assets/scss/theme/_icon.scss";
-          @import "@/assets/scss/styles.scss";
+          @import "@/assets/scss/theme.scss";
+          @import "@/assets/scss/layout.scss";
+          @import "@/assets/scss/icon.scss";
         `,
       },
     },

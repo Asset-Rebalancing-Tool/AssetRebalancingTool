@@ -64,6 +64,7 @@ const data = computed(() => ({
 }))
 
 const options = ref({
+  events: [],
   plugins: {
     title: {
       text: 'Line',
