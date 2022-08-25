@@ -16,6 +16,8 @@
         </template>
       </AssetGroup>
     </div>
+
+    <footer></footer>
   </section>
 </template>
 
