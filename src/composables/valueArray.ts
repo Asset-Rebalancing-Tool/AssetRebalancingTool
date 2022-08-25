@@ -41,18 +41,13 @@ export function getNewestPriceRecordFormatted(uuid: string): string[] {
     const currencyKeys = Object.keys(currencyPriceRecordMap)
     const firstKey = currencyKeys[0] as CurrencyEnum
     priceRecords = currencyPriceRecordMap[firstKey]
+
+    return (priceRecords[0] !== undefined)
+      ? formatValueArray(priceRecords[0].price)
+      : ['00', '00', '0']
   }
 
-  // Get the newest price of the price records
-  const newestPrice = priceRecords[0].price
-
-  // Ensure, that there are price records
-  if (!priceRecords) {
-    return ['00', '00', '0']
-  }
-
-  // Return a formatted value array
-  return formatValueArray(newestPrice)
+  return ['00', '00', '0']
 }
 
 /**

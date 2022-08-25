@@ -9,11 +9,11 @@
     <ThreeDigitValue
       :value-array="priceArray"
       :unit="currency"
-      :show-graph="showGraph"
+      :show-graph="showGraph(thisAsset.uuid)"
     >
       <template #graph>
         <LineChart
-          v-if="showGraph"
+          v-if="showGraph(thisAsset.uuid)"
           :data-values="getDataValues(thisAsset.uuid)"
           :data-labels="getDataLabels(thisAsset.uuid)"
           :border-width="'0.8'"
@@ -48,6 +48,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+console.log(showGraph(props.thisAsset.uuid))
 
 function newAssetAction(): void {
   // Hide the modal underlay, no matter what creation will be fired

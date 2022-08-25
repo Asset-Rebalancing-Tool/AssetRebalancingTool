@@ -41,5 +41,6 @@ export function getDataLabels(uuid: string): string[] {
  * @param uuid string
  */
 export function showGraph(uuid: string): boolean {
-  return getFirstCurrencyPriceRecords(uuid).length > 0
+  const priceRecords: number[] = getDataValues(uuid);
+  return (priceRecords.length > 0)
 }
