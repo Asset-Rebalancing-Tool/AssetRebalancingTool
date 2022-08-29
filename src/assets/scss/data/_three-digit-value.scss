@@ -28,7 +28,7 @@
       grid-column: 2 / 3;
       grid-row: 1 / 2;
       display: flex;
-      line-height: $three-digit-height / 2;
+      line-height: calc($three-digit-height / 2);
     }
 
     .first-decimal,
@@ -49,7 +49,7 @@
       grid-column: 2 / 3;
       grid-row: 2 / 3;
       color: $primary-text-color;
-      line-height: $three-digit-height / 2;
+      line-height: calc($three-digit-height / 2);
     }
   }
 }

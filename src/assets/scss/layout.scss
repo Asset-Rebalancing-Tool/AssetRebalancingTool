@@ -197,7 +197,7 @@ $table-filter-grid-height: 50px;
 @mixin asset-information-grid {
   @include base-grid;
   grid-template-columns: $inner-asset-row-height auto;
-  grid-template-rows: repeat(2, $inner-asset-row-height / 2);
+  grid-template-rows: repeat(2, calc($inner-asset-row-height / 2));
   grid-column-gap: $asset-info-gap;
 }
 

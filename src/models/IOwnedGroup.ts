@@ -1,4 +1,4 @@
-import type { IOwnedAsset } from '@/models/IOwnedAsset'
+import type { IOwnedPrivateAsset } from '@/models/IOwnedPrivateAsset'
 
 export interface IOwnedGroup {
   uuid: string
@@ -8,6 +8,6 @@ export interface IOwnedGroup {
   totalTargetPercentage: number
   totalDeviation: number
   currency: string
-  relatedAssetsUuidArray: IOwnedAsset[] | null
+  relatedAssetsUuidArray: IOwnedPrivateAsset[] | null
   isSelected: boolean
 }

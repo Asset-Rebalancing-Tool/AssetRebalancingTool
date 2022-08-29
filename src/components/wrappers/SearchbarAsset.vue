@@ -17,8 +17,8 @@
           :data-values="getDataValues(thisAsset.uuid)"
           :data-labels="getDataLabels(thisAsset.uuid)"
           :border-width="'0.8'"
-          :background-color="'#19B399'"
-          :border-color="'#19B399'"
+          :background-color="getChartColor(thisAsset.uuid)"
+          :border-color="getChartColor(thisAsset.uuid)"
         />
       </template>
     </ThreeDigitValue>
@@ -40,6 +40,7 @@ import {
   showGraph,
   getDataValues,
   getDataLabels,
+  getChartColor
 } from '@/composables/smallLineChart'
 
 const props = defineProps({
@@ -48,8 +49,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-console.log(showGraph(props.thisAsset.uuid))
 
 function newAssetAction(): void {
   // Hide the modal underlay, no matter what creation will be fired
