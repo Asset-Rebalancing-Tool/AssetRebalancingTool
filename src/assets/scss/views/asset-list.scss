@@ -104,10 +104,11 @@
 
       .dndrop-draggable-wrapper {
         margin-bottom: 0;
+        border-top: 1px solid $passive-border-color;
       }
 
-      .asset-row {
-        border-top: 1px solid $passive-border-color;
+      .dndrop-draggable-wrapper:first-child {
+        border-top: none;
       }
 
       .percentage-wrapper {
