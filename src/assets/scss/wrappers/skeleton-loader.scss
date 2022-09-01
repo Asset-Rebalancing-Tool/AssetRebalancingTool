@@ -5,7 +5,7 @@
   padding: 6px;
 
   .skeleton-logo {
-    @include background-image-presets;
+    @include background-image-contain;
     height: $inner-asset-row-height;
     width: $inner-asset-row-height;
     background-color: $tertiary-background-color;

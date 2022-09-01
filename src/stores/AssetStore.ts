@@ -42,6 +42,7 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
+
     /**
      * Iterate over the searchbar assets and check if the uuid matches the passed uuid
      *

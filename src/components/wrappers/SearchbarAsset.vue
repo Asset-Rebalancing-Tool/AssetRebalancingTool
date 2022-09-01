@@ -17,8 +17,8 @@
           :data-values="getDataValues(thisAsset.uuid)"
           :data-labels="getDataLabels(thisAsset.uuid)"
           :border-width="'0.8'"
-          :background-color="'#19B399'"
-          :border-color="'#19B399'"
+          :background-color="getChartColor(thisAsset.uuid)"
+          :border-color="getChartColor(thisAsset.uuid)"
         />
       </template>
     </ThreeDigitValue>
@@ -34,12 +34,13 @@ import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import { computed } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
-import { mapAssetCurrencyByUuid } from '@/composables/currency'
+import { mapCurrency} from '@/composables/currency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
   showGraph,
   getDataValues,
   getDataLabels,
+  getChartColor
 } from '@/composables/smallLineChart'
 
 const props = defineProps({
@@ -48,13 +49,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-console.log(showGraph(props.thisAsset.uuid))
-
-function newAssetAction(): void {
-  // Hide the modal underlay, no matter what creation will be fired
-  hideModalUnderlay()
-}
 
 // Get the mapped asset type
 const assetType = computed((): string => {
@@ -68,6 +62,6 @@ const priceArray = computed((): string[] => {
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  return mapAssetCurrencyByUuid(props.thisAsset.uuid)
+  return mapCurrency(props.thisAsset.availableCurrencies[0])
 })
 </script>

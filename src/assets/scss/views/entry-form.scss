@@ -1,0 +1,145 @@
+#sign-up,
+#sign-in {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  .left-wrapper {
+    @include background-image-cover;
+    position: relative;
+    width: 50%;
+    background-image: $entry-background;
+
+    .app-logo {
+      @include background-image-contain;
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 65px;
+      height: 65px;
+      background-image: $app-logo;
+    }
+  }
+
+  .left-wrapper:before {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+  }
+
+  .right-wrapper {
+    @include flex-center-xy;
+    width: 50%;
+    height: 100vh;
+  }
+
+  .sign-in-form,
+  .sign-up-form {
+    max-width: 480px;
+    flex: 1;
+
+    h1 {
+      font-weight: $regular-font-weight;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      color: $secondary-text-color;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+
+    .input-container {
+      .input-wrapper {
+        position: relative;
+
+        input {
+          text-align: left;
+          padding-left: 25px;
+          font-size: 16px;
+        }
+
+        svg {
+          right: 0;
+          width: 18px;
+          height: 18px;
+          pointer-events: all;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .form-spacing-wrapper {
+      width: 100%;
+      height: 100px;
+
+      .checkbox-wrapper span:not(.checkmark){
+        color: $secondary-text-color;
+        line-height: 23px;
+      }
+    }
+
+    .change-entry-view {
+      text-align: center;
+      margin-top: 15px;
+      color: $secondary-text-color;
+    }
+
+    .link {
+      margin-top: 15px;
+      line-height: 23px;
+      color: $main-color;
+      text-decoration: underline;
+      white-space: nowrap;
+    }
+
+    button {
+      @include primary-base-button;
+      width: 100%;
+      height: $primary-input-height;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .third-party-button {
+      @include flex-center-xy;
+      column-gap: 15px;
+      background-color: #373F48;
+      margin-top: 25px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .divider-wrapper {
+      @include flex-center-xy;
+      column-gap: 15px;
+      margin-top: 25px;
+
+      span {
+        color: $secondary-text-color;
+        line-height: 20px;
+      }
+
+      span:first-child,
+      span:last-child {
+        flex: 1;
+        height: 1px;
+        margin-bottom: -1px;
+        background-color: $passive-border-color;
+      }
+    }
+  }
+}
+
+#sign-in .form-spacing-wrapper {
+  display: flex;
+  justify-content: space-between;
+}

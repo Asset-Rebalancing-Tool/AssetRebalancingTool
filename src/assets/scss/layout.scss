@@ -116,8 +116,14 @@
 /* -------------- Image & Icon Presets --------------- */
 /*******************************************************/
 
-@mixin background-image-presets {
+@mixin background-image-contain {
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@mixin background-image-cover {
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -197,7 +203,7 @@ $table-filter-grid-height: 50px;
 @mixin asset-information-grid {
   @include base-grid;
   grid-template-columns: $inner-asset-row-height auto;
-  grid-template-rows: repeat(2, $inner-asset-row-height / 2);
+  grid-template-rows: repeat(2, calc($inner-asset-row-height / 2));
   grid-column-gap: $asset-info-gap;
 }
 

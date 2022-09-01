@@ -16,7 +16,7 @@
   }
 
   .app-logo {
-    @include background-image-presets;
+    @include background-image-contain;
     width: 100px;
     height: 100px;
     background-image: $app-logo;

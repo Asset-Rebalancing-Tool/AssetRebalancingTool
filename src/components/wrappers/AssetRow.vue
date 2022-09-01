@@ -1,7 +1,7 @@
 <template>
   <div class="asset-row">
     <AssetInfo
-      :asset-name="'SPDR MSCI World UCITS ETF'"
+      :asset-name="id + ' ' + name"
       :type="'ETF'"
       :isin="'IE00BFY0GT14'"
     />
@@ -38,6 +38,19 @@ import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
+
+// TODO: remove later
 const testPrice = ['236', '26', '8']
 const testDeviation = ['08', '16', '0']
+
+const props = defineProps({
+  id: {
+    type: Number,
+    default: '',
+  },
+  name: {
+    type: String,
+    default: '',
+  }
+})
 </script>

@@ -33,7 +33,7 @@
 
   .isin-wrapper {
     @include flex-center-y;
-    column-gap: $asset-info-gap / 2;
+    column-gap: calc($asset-info-gap / 2);
 
     .label {
       color: $secondary-text-color;

@@ -3,9 +3,15 @@
   position: relative;
   width: 100%;
 
-  header, footer, .asset-container {
+  header, footer {
     width: 100%;
     padding: 0 $base-padding;
+    column-gap: $base-column-gap;
+  }
+
+  .asset-container {
+    width: calc(100% - (2 * $base-padding));
+    margin: 0 $base-padding;
     column-gap: $base-column-gap;
   }
 
@@ -45,11 +51,15 @@
     /* --------------- Asset Row Component --------------- */
     /*******************************************************/
 
+    .dndrop-draggable-wrapper {
+      margin-bottom: 15px;
+      overflow: visible;
+    }
+
     .asset-row {
       @include base-wrapper;
       @include asset-row-grid;
       height: $outer-asset-row-height;
-      margin-bottom: 15px;
       cursor: pointer;
 
       @import 'src/assets/scss/data/_asset-info.scss';
@@ -92,7 +102,11 @@
         @include asset-row-reset;
       }
 
-      .asset-row:not(:first-child):not(:last-child) {
+      .dndrop-draggable-wrapper {
+        margin-bottom: 0;
+      }
+
+      .asset-row {
         border-top: 1px solid $passive-border-color;
       }
 

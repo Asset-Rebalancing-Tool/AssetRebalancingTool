@@ -7,7 +7,7 @@ import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
  * @param uuid string
  */
 export function getDataValues(uuid: string): number[] {
-  const priceRecords = getFirstCurrencyPriceRecords(uuid)
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid).reverse()
   const dataValues: number[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
@@ -24,7 +24,7 @@ export function getDataValues(uuid: string): number[] {
  * @param uuid string
  */
 export function getDataLabels(uuid: string): string[] {
-  const priceRecords = getFirstCurrencyPriceRecords(uuid)
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid)
   const dataLabels: string[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
@@ -36,6 +36,20 @@ export function getDataLabels(uuid: string): string[] {
 }
 
 /**
+ * Determine the chart color based on the price records first and last entry
+ *
+ * @param uuid
+ */
+export function getChartColor(uuid: string) {
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid)
+  const firstRecord = priceRecords[0]
+  const lastRecord = priceRecords[priceRecords.length - 1]
+  return (firstRecord > lastRecord)
+      ? '#19B399'
+      : '#C63A3A'
+}
+
+/**
  * Get a boolean that indicates, if the price records are empty and therefore the graph should or shouldn't be displayed
  *
  * @param uuid string
@@ -44,3 +58,4 @@ export function showGraph(uuid: string): boolean {
   const priceRecords: number[] = getDataValues(uuid);
   return (priceRecords.length > 0)
 }
+
