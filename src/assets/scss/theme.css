@@ -46,5 +46,72 @@ label {
 /*******************************************************/
 /* ------------ Theme Button Variables --------------- */
 /*******************************************************/
+/***************************************************************/
+/* ---------------- General Checkbox Styles ------------------ */
+/***************************************************************/
+/* The container */
+.checkbox-wrapper {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-wrapper input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #1A1E21;
+  border: 1px solid #3C444D;
+  border-radius: 4px;
+  box-shadow: var(--box-shaddow);
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-wrapper:hover input ~ .checkmark {
+  background-color: var(--background-white);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbox-wrapper input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbox-wrapper .checkmark:after {
+  position: absolute;
+  left: 4px;
+  top: 3px;
+  width: 16px;
+  height: 15px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11.495' height='8.813' viewBox='0 0 11.495 8.813'%3E%3Cpath id='check' d='M0,19.434l1.277-1.66L4.6,20.583l5.364-6L11.5,15.985,4.726,23.393Z' transform='translate(0 -14.58)' fill='%2319b399'/%3E%3C/svg%3E%0A");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 
 /*# sourceMappingURL=theme.css.map */

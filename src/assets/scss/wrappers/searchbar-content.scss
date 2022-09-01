@@ -95,7 +95,7 @@
         cursor: pointer;
 
         .icon {
-          @include background-image-presets;
+          @include background-image-contain;
           width: 12px;
           height: 12px;
           background-image: $icon-add;

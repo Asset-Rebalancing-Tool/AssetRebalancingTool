@@ -16,10 +16,6 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-  label: {
-    type: String,
-    default: '',
-  },
   placeholder: {
     type: String,
     default: '',

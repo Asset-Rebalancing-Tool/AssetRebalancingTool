@@ -116,8 +116,14 @@
 /* -------------- Image & Icon Presets --------------- */
 /*******************************************************/
 
-@mixin background-image-presets {
+@mixin background-image-contain {
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@mixin background-image-cover {
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
