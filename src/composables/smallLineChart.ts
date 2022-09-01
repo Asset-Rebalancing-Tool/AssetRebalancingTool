@@ -7,7 +7,7 @@ import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
  * @param uuid string
  */
 export function getDataValues(uuid: string): number[] {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid)
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid).reverse()
   const dataValues: number[] = []
   if (priceRecords) {
     for (const item of priceRecords) {

@@ -51,11 +51,15 @@
     /* --------------- Asset Row Component --------------- */
     /*******************************************************/
 
+    .dndrop-draggable-wrapper {
+      margin-bottom: 15px;
+      overflow: visible;
+    }
+
     .asset-row {
       @include base-wrapper;
       @include asset-row-grid;
       height: $outer-asset-row-height;
-      margin-bottom: 15px;
       cursor: pointer;
 
       @import 'src/assets/scss/data/_asset-info.scss';
@@ -98,7 +102,11 @@
         @include asset-row-reset;
       }
 
-      .asset-row:not(:first-child):not(:last-child) {
+      .dndrop-draggable-wrapper {
+        margin-bottom: 0;
+      }
+
+      .asset-row {
         border-top: 1px solid $passive-border-color;
       }
 

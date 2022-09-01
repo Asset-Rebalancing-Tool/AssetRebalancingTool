@@ -13,6 +13,7 @@
         v-for="asset in store.searchbarAssets"
         :key="asset.uuid"
         :this-asset="asset"
+        @click="newAssetAction(asset.uuid)"
       />
 
       <SearchbarSkeleton
@@ -32,10 +33,36 @@ import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/wrappers/SearchbarAsset.vue'
 import SearchbarSkeleton from '@/components/wrappers/SearchbarSkeleton.vue'
 import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
+import { hideModalUnderlay } from "@/composables/UseModalUnderlay";
+import type {IPublicAsset} from "@/models/IPublicAsset";
+import type { PostPublicAssetHolding } from "@/requests/PostPublicAssetHolding";
+import { getToken } from "@/composables/getToken";
+import axios from "axios";
 
 const store = useAssetStore()
 
 const showPriceLabel = computed(() => {
   return store.searchbarLoadingFlag || store.searchbarAssets.length > 0
 })
+
+
+async function newAssetAction(uuid: string) {
+  // Hide the modal underlay, no matter what creation will be fired
+  hideModalUnderlay()
+  let asset: IPublicAsset = store.getSearchbarAsset(uuid)
+  let request = { publicAssetUuid: asset.uuid } as PostPublicAssetHolding
+
+  await getToken().then(token => {
+    axios.post('/holding_api/asset_holding/public', request, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    }).then(result => {
+      console.log(result)
+    }).catch(error => {
+      console.log(error)
+    })
+  })
+
+}
 </script>

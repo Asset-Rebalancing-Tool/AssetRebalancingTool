@@ -1,6 +1,6 @@
 import type { IPublicAsset } from '@/models/IPublicAsset'
 
-export interface IOwnedPrivateAsset {
+export interface IOwnedPublicAsset {
   publicAsset: IPublicAsset
   relatedGroupUuid?: string | null
   ownedQuantity: string

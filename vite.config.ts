@@ -20,7 +20,16 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-    },
+      '/auth_api': {
+        target: 'http://192.168.1.52:8080',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/holding_api': {
+        target: 'http://192.168.1.52:8080',
+        changeOrigin: true,
+        secure: false,
+      },    },
   },
 
   /**

@@ -51,9 +51,14 @@ function removeUserInput() {
  * before the service fetch is executed.
  *
  * @param searchValue string
+ *
+ * @return void
  */
-function searchAsset(searchValue: string) {
+function searchAsset(searchValue: string): void {
 
+  console.log(searchValue)
+
+  // Abort the previous fetch and reset the asset store state variables
   resetFetch()
 
   // Always update the search string of the asset store
@@ -77,21 +82,27 @@ function searchAsset(searchValue: string) {
   }
 
   // Fetch each time the timer expires
-  timer.value = setTimeout(() => {
+  timer.value = setTimeout(async () => {
     // Controller that is used to abort the request if necessary
     abortController.value = new AbortController()
-    AssetService.fetchPublicAssets(searchValue, abortController.value).then(
-      (results) => {
-        store.searchbarLoadingFlag = false
-        store.searchbarResultCount = results.length
-        store.searchbarAssets = results
-      }
-    )
+    await AssetService.fetchPublicAssets(searchValue, abortController.value).then(
+        (results) => {
+          store.searchbarLoadingFlag = false
+          store.searchbarResultCount = results.length
+          store.searchbarAssets = results
+        }
+    ).catch(error => {
+      console.log(error)
+    })
   }, 500)
 }
 
-// Reset the store's asset state variables
-function resetFetch() {
+/**
+ * Abort the previous fetch and reset the asset store state variables
+ *
+ * @return void
+ */
+function resetFetch(): void {
   // Always abort previous requests
   if (abortController.value) {
     abortController.value.abort()

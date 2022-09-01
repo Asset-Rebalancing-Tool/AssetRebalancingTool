@@ -1,7 +1,7 @@
 import { useAssetStore } from '@/stores/AssetStore'
-import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type { IPublicAsset } from '@/models/IPublicAsset'
-import type { IPriceRecord } from '@/models/nested/IPriceRecord'
+import { CurrencyEnum } from "@/models/enums/CurrencyEnum";
+import type {IPublicAsset} from '@/models/IPublicAsset'
+import type {IPriceRecord} from '@/models/nested/IPriceRecord'
 
 /**
  * Get the currency price record map, from the asset itself
@@ -13,7 +13,7 @@ export function getCurrencyPriceRecordMap(
 ): Record<CurrencyEnum, IPriceRecord[]> {
   const assetStore = useAssetStore()
   const asset: IPublicAsset = assetStore.getSearchbarAsset(uuid)
-  return asset.currencyPriceRecordMap
+  return groupBy(asset.assetPriceRecords, i => i.currency)
 }
 
 /**
@@ -22,9 +22,17 @@ export function getCurrencyPriceRecordMap(
  * @param uuid string
  */
 export function getFirstCurrencyPriceRecords(uuid: string): IPriceRecord[] {
-  const currencyPriceRecordMap = getCurrencyPriceRecordMap(uuid)
+  const currencyPriceRecordMap: Record<CurrencyEnum, IPriceRecord[]> = getCurrencyPriceRecordMap(uuid)
   return currencyPriceRecordMap[CurrencyEnum.EUR]
 }
+
+// A little bit simplified version
+const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
+    arr.reduce((groups, item) => {
+      (groups[key(item)] ||= []).push(item);
+      return groups;
+    }, {} as Record<K, T[]>
+);
 
 /**
  * Get the newest price record of an asset, and format it as array, that can be accessed in single value components

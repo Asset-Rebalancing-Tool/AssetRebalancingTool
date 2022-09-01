@@ -34,7 +34,7 @@ import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import { computed } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
-import { mapAssetCurrencyByUuid } from '@/composables/currency'
+import { mapCurrency} from '@/composables/currency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
   showGraph,
@@ -50,11 +50,6 @@ const props = defineProps({
   },
 })
 
-function newAssetAction(): void {
-  // Hide the modal underlay, no matter what creation will be fired
-  hideModalUnderlay()
-}
-
 // Get the mapped asset type
 const assetType = computed((): string => {
   return mapAssetType(props.thisAsset.assetType)
@@ -67,6 +62,6 @@ const priceArray = computed((): string[] => {
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  return mapAssetCurrencyByUuid(props.thisAsset.uuid)
+  return mapCurrency(props.thisAsset.availableCurrencies[0])
 })
 </script>
