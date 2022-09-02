@@ -38,6 +38,7 @@ import type {IPublicAsset} from "@/models/IPublicAsset";
 import type { PostPublicAssetHolding } from "@/requests/PostPublicAssetHolding";
 import { getToken } from "@/composables/getToken";
 import axios from "axios";
+import type {IPublicAssetHolding} from "@/models/IPublicAssetHolding";
 
 const store = useAssetStore()
 
@@ -53,12 +54,12 @@ async function newAssetAction(uuid: string) {
   let request = { publicAssetUuid: asset.uuid } as PostPublicAssetHolding
 
   await getToken().then(token => {
-    axios.post('/holding_api/asset_holding/public', request, {
+    axios.post<IPublicAssetHolding>('/holding_api/asset_holding/public', request, {
       headers: {
         Authorization: 'Bearer ' + token
       }
     }).then(result => {
-      console.log(result)
+      store.publicAssetHoldings.push(result.data)
     }).catch(error => {
       console.log(error)
     })

@@ -9,16 +9,16 @@
     <ThreeDigitValue
       :value-array="priceArray"
       :unit="currency"
-      :show-graph="showGraph(thisAsset.uuid)"
+      :show-graph="showGraph(thisAsset.assetPriceRecords)"
     >
       <template #graph>
         <LineChart
-          v-if="showGraph(thisAsset.uuid)"
-          :data-values="getDataValues(thisAsset.uuid)"
-          :data-labels="getDataLabels(thisAsset.uuid)"
+          v-if="showGraph(thisAsset.assetPriceRecords)"
+          :data-values="getDataValues(thisAsset.assetPriceRecords)"
+          :data-labels="getDataLabels(thisAsset.assetPriceRecords)"
           :border-width="'0.8'"
-          :background-color="getChartColor(thisAsset.uuid)"
-          :border-color="getChartColor(thisAsset.uuid)"
+          :background-color="getChartColor(thisAsset.assetPriceRecords)"
+          :border-color="getChartColor(thisAsset.assetPriceRecords)"
         />
       </template>
     </ThreeDigitValue>
@@ -30,7 +30,6 @@ import type { PropType } from 'vue'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
-import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import { computed } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
@@ -57,7 +56,7 @@ const assetType = computed((): string => {
 
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
-  return getNewestPriceRecordFormatted(props.thisAsset.uuid)
+  return getNewestPriceRecordFormatted(props.thisAsset.assetPriceRecords)
 })
 
 // Get the currency of the newest price record

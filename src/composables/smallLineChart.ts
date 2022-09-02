@@ -4,10 +4,10 @@ import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
 /**
  * Get the data values for displaying a line chart based on the price records
  *
- * @param uuid string
+ * @param allPriceRecords string
  */
-export function getDataValues(uuid: string): number[] {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid).reverse()
+export function getDataValues(allPriceRecords: IPriceRecord[]): number[] {
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords).reverse()
   const dataValues: number[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
@@ -21,10 +21,10 @@ export function getDataValues(uuid: string): number[] {
 /**
  * Get the data labels for displaying a line chart based on the price records
  *
- * @param uuid string
+ * @param allPriceRecords string
  */
-export function getDataLabels(uuid: string): string[] {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid)
+export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
   const dataLabels: string[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
@@ -38,10 +38,10 @@ export function getDataLabels(uuid: string): string[] {
 /**
  * Determine the chart color based on the price records first and last entry
  *
- * @param uuid
+ * @param allPriceRecords
  */
-export function getChartColor(uuid: string) {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(uuid)
+export function getChartColor(allPriceRecords: IPriceRecord[]) {
+  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
   const firstRecord = priceRecords[0]
   const lastRecord = priceRecords[priceRecords.length - 1]
   return (firstRecord > lastRecord)
@@ -52,10 +52,10 @@ export function getChartColor(uuid: string) {
 /**
  * Get a boolean that indicates, if the price records are empty and therefore the graph should or shouldn't be displayed
  *
- * @param uuid string
+ * @param allPriceRecords string
  */
-export function showGraph(uuid: string): boolean {
-  const priceRecords: number[] = getDataValues(uuid);
+export function showGraph(allPriceRecords: IPriceRecord[]): boolean {
+  const priceRecords: number[] = getDataValues(allPriceRecords);
   return (priceRecords.length > 0)
 }
 

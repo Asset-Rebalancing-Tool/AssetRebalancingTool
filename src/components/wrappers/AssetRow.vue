@@ -6,9 +6,26 @@
       :isin="assetHolding.publicAsset.isin"
     />
 
-    <ThreeDigitValue :value-array="priceArray" :unit="currency" />
+    <ThreeDigitValue
+        :value-array="priceArray"
+        :unit="currency"
+        :show-graph="showGraph(assetHolding.publicAsset.assetPriceRecords)">
+      <template #graph>
+        <LineChart
+            v-if="showGraph(assetHolding.publicAsset.assetPriceRecords)"
+            :data-values="getDataValues(assetHolding.publicAsset.assetPriceRecords)"
+            :data-labels="getDataLabels(assetHolding.publicAsset.assetPriceRecords)"
+            :border-width="'0.8'"
+            :background-color="getChartColor(assetHolding.publicAsset.assetPriceRecords)"
+            :border-color="getChartColor(assetHolding.publicAsset.assetPriceRecords)"
+        />
+      </template>
+    </ThreeDigitValue>
 
-    <BaseInput :modelValue="assetHolding.ownedQuantity">
+    <BaseInput
+        :modelValue="assetHolding.ownedQuantity"
+        @input="$emit('update:modelValue', $event.target.value)"
+    >
       <template #unit>
         <span>Stk.</span>
       </template>
@@ -19,7 +36,10 @@
       <p>66,84 %</p>
     </div>
 
-    <BaseInput :modelValue="assetHolding.targetPercentage">
+    <BaseInput
+        :modelValue="assetHolding.targetPercentage"
+        @input="$emit('update:modelValue', $event.target.value)"
+    >
       <template #unit>
         <span>%</span>
       </template>
@@ -70,7 +90,7 @@ const assetType = computed((): string => {
 
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
-  return getNewestPriceRecordFormatted(props.assetHolding.publicAsset.uuid)
+  return getNewestPriceRecordFormatted(props.assetHolding.publicAsset.assetPriceRecords)
 })
 
 // Get the currency of the newest price record

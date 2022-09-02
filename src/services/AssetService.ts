@@ -1,5 +1,6 @@
 import axios from 'axios'
 import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding';
+import type { IAssetHoldingGroup } from "@/models/IAssetHoldingGroup";
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import type { AxiosResponse } from 'axios'
 import { getToken, login } from '@/composables/getToken';
@@ -8,7 +9,7 @@ import { getToken, login } from '@/composables/getToken';
 export default {
 
   async fetchPublicAssetHoldings(): Promise<IPublicAssetHolding[]> {
-    await login('claes', 'pw')
+    await login('sclaes', 'pw')
     return getToken().then(token => {
           return axios.get('/holding_api/asset_holding/public',
           {
@@ -20,6 +21,20 @@ export default {
       return response.data
     })
   },
+
+  async fetchAssetHoldingGroups(): Promise<IAssetHoldingGroup[]> {
+    return getToken().then(token => {
+      return axios.get('/holding_api/asset_holding/group',
+          {
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+          })
+    }).then((response: AxiosResponse) => {
+      return response.data
+    })
+  },
+
 
   fetchPublicAssets(
     searchValue: string,

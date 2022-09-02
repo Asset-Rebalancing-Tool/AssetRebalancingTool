@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import type {IPublicAssetHolding} from "@/models/IPublicAssetHolding";
+import type {IAssetHoldingGroup} from "@/models/IAssetHoldingGroup";
 
 
 /***********************************************************************************/
@@ -14,6 +15,7 @@ export type RootState = {
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
   publicAssetHoldings: IPublicAssetHolding[]
+  assetHoldingGroups: IAssetHoldingGroup[]
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -29,6 +31,7 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarLoadingFlag: false,
       /** Reactive list objects */
       publicAssetHoldings: [],
+      assetHoldingGroups: [],
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
       showGroupWrapper: false,

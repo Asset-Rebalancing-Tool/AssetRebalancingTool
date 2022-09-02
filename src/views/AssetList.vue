@@ -53,6 +53,7 @@ const store = useAssetStore()
 
 onMounted(async () => {
   store.publicAssetHoldings = await AssetService.fetchPublicAssetHoldings()
+  store.assetHoldingGroups = await AssetService.fetchAssetHoldingGroups()
 })
 
 const assetHoldingsExist = computed(() => {
