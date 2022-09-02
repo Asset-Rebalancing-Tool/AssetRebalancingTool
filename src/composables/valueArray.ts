@@ -26,9 +26,14 @@ export function getFirstCurrencyPriceRecords(uuid: string): IPriceRecord[] {
   return currencyPriceRecordMap[CurrencyEnum.EUR]
 }
 
-// A little bit simplified version
-const groupBy = <T, K extends keyof any>(arr: T[], key: (i: T) => K) =>
-    arr.reduce((groups, item) => {
+/**
+ * Group the price records based on their currency
+ *
+ * @param array IPriceRecord[]
+ * @param key CurrencyEnum
+ */
+const groupBy = <T, K extends keyof any>(array: T[], key: (i: T) => K) =>
+    array.reduce((groups, item) => {
       (groups[key(item)] ||= []).push(item);
       return groups;
     }, {} as Record<K, T[]>

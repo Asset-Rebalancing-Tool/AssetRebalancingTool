@@ -56,8 +56,6 @@ function removeUserInput() {
  */
 function searchAsset(searchValue: string): void {
 
-  console.log(searchValue)
-
   // Abort the previous fetch and reset the asset store state variables
   resetFetch()
 

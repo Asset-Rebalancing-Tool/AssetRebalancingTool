@@ -1,26 +1,30 @@
-import type { IOwnedPrivateGroups } from '@/models/old/IOwnedPrivateGroups'
-import type { IOwnedPublicAssets } from '@/models/old/IOwnedPublicAssets'
+import axios from 'axios'
+import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding';
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import type { AxiosResponse } from 'axios'
-import axios from 'axios'
-import { getToken } from "@/composables/getToken";
+import { getToken, login } from '@/composables/getToken';
+
 
 export default {
 
-  fetchOwnedGroups(): IOwnedPrivateGroups {
-    // return ownedGroups as IOwnedPrivateGroups
-    return {} as IOwnedPrivateGroups
-  },
-  fetchOwnedAssets(): IOwnedPublicAssets {
-    //return ownedAssets as IOwnedPublicAssets
-    return {} as IOwnedPublicAssets
+  async fetchPublicAssetHoldings(): Promise<IPublicAssetHolding[]> {
+    await login('claes', 'pw')
+    return getToken().then(token => {
+          return axios.get('/holding_api/asset_holding/public',
+          {
+            headers: {
+              Authorization: 'Bearer ' + token
+            }
+          })
+    }).then((response: AxiosResponse) => {
+      return response.data
+    })
   },
 
-   fetchPublicAssets(
+  fetchPublicAssets(
     searchValue: string,
     abortController: AbortController
   ): Promise<IPublicAsset[]> {
-
     return getToken().then(token => {
       return axios
           .post(

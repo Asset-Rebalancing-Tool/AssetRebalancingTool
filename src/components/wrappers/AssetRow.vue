@@ -1,14 +1,14 @@
 <template>
   <div class="asset-row">
     <AssetInfo
-      :asset-name="id + ' ' + name"
-      :type="'ETF'"
-      :isin="'IE00BFY0GT14'"
+      :asset-name="assetHolding.publicAsset.assetName"
+      :type="assetType"
+      :isin="assetHolding.publicAsset.isin"
     />
 
-    <ThreeDigitValue :value-array="testPrice" :unit="'€'" />
+    <ThreeDigitValue :value-array="priceArray" :unit="currency" />
 
-    <BaseInput>
+    <BaseInput :modelValue="assetHolding.ownedQuantity">
       <template #unit>
         <span>Stk.</span>
       </template>
@@ -19,7 +19,7 @@
       <p>66,84 %</p>
     </div>
 
-    <BaseInput>
+    <BaseInput :modelValue="assetHolding.targetPercentage">
       <template #unit>
         <span>%</span>
       </template>
@@ -34,23 +34,47 @@
 </template>
 
 <script lang="ts" setup>
+import type { PropType } from 'vue'
+import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding';
+import type { IPublicAsset } from '@/models/IPublicAsset'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
+import { computed } from 'vue'
+import { mapAssetType } from '@/composables/assetType'
+import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
+import { mapCurrency} from '@/composables/currency'
+import LineChart from '@/components/charts/LineChart.vue'
+import {
+  showGraph,
+  getDataValues,
+  getDataLabels,
+  getChartColor
+} from '@/composables/smallLineChart'
 
-// TODO: remove later
-const testPrice = ['236', '26', '8']
-const testDeviation = ['08', '16', '0']
+
+let testDeviation = ['08', '62', '1']
 
 const props = defineProps({
-  id: {
-    type: Number,
-    default: '',
+  assetHolding: {
+    type: Object as PropType<IPublicAssetHolding>,
+    required: true,
   },
-  name: {
-    type: String,
-    default: '',
-  }
+})
+
+// Get the mapped asset type
+const assetType = computed((): string => {
+  return mapAssetType(props.assetHolding.publicAsset.assetType)
+})
+
+// Get an array that contains the exploded strings of a price record
+const priceArray = computed((): string[] => {
+  return getNewestPriceRecordFormatted(props.assetHolding.publicAsset.uuid)
+})
+
+// Get the currency of the newest price record
+const currency = computed((): string => {
+  return mapCurrency(props.assetHolding.publicAsset.availableCurrencies[0])
 })
 </script>
