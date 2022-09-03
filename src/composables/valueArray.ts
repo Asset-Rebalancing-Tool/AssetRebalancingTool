@@ -24,6 +24,26 @@ const groupBy = <T, K extends keyof any>(array: T[], key: (i: T) => K) =>
     }, {} as Record<K, T[]>
 );
 
+
+export function getNewestPriceRecord(allPriceRecords: IPriceRecord[]): number {
+  // Get the currency price records map along with the euro perice records
+  const currencyPriceRecordMap = groupBy(allPriceRecords, i => i.currency)
+  let priceRecords = currencyPriceRecordMap[CurrencyEnum.EUR]
+
+  // Check if the price records are undefined and if not get the first price records array by the first key
+  if (priceRecords !== undefined) {
+    const currencyKeys = Object.keys(currencyPriceRecordMap)
+    const firstKey = currencyKeys[0] as CurrencyEnum
+    priceRecords = currencyPriceRecordMap[firstKey]
+
+    return (priceRecords[0] !== undefined)
+        ? priceRecords[0]['price']
+        : 0
+  }
+}
+
+
+
 /**
  * Get the newest price record of an asset, and format it as array, that can be accessed in single value components
  *
