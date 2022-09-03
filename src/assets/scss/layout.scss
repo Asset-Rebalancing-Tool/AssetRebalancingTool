@@ -72,6 +72,12 @@
   align-items: flex-start;
 }
 
+@mixin flex-row-reverse {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+
 /*******************************************************/
 /* --------------- Grid Layout Mixins ---------------- */
 /*******************************************************/
@@ -151,7 +157,7 @@ $inner-asset-row-height: calc($outer-asset-row-height - ($asset-row-padding * 2)
 $asset-row-column-gap: 70px;
 
 // Asset row columns
-$current-price-column: 75px;
+$current-price-column: 140px;
 $owned-quantity-column: 110px;
 $current-value-column: 165px;
 $target-percentage-column: 110px;
