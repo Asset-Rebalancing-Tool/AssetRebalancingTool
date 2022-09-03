@@ -3,10 +3,11 @@
   height: $inner-asset-row-height;
 
   .asset-logo {
+    @include background-image-contain;
     height: $inner-asset-row-height;
     width: $inner-asset-row-height;
     border-radius: $secondary-border-radius;
-    background-color: $tertiary-background-color;
+    background-color: #f2f2f2;
   }
 
   .additional-info {
