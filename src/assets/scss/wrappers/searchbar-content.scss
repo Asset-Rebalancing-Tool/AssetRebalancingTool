@@ -28,6 +28,10 @@
         color: $secondary-text-color;
         font-weight: $bold-font-weight;
       }
+
+      p:last-child {
+        justify-content: center;
+      }
     }
 
     /*******************************************************/
