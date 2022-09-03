@@ -4,6 +4,7 @@
       :asset-name="assetHolding.publicAsset.assetName"
       :type="assetType"
       :isin="assetHolding.publicAsset.isin"
+      :logo="assetHolding.publicAsset.iconBase64"
     />
 
     <ThreeDigitValue
@@ -63,7 +64,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
-import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
+import { getNewestPriceRecord, getNewestPriceRecordFormatted} from '@/composables/valueArray'
 import { mapCurrency} from '@/composables/currency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
@@ -96,5 +97,14 @@ const priceArray = computed((): string[] => {
 // Get the currency of the newest price record
 const currency = computed((): string => {
   return mapCurrency(props.assetHolding.publicAsset.availableCurrencies[0])
+})
+
+const currentValue = computed(() => {
+  return props.assetHolding.ownedQuantity * getNewestPriceRecord(props.assetHolding.publicAsset.assetPriceRecords)
+
+})
+
+const currentValuePercentage = computed(() => {
+
 })
 </script>
