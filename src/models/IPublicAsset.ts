@@ -14,5 +14,5 @@ export interface IPublicAsset {
   isin: string | null
   availableCurrencies: CurrencyEnum[]
   availableUnitTypes: UnitType[]
-  icon: string | null
+  iconBase64: string | null
 }
