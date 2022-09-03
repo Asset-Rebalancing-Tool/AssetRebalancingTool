@@ -4,6 +4,7 @@
       :asset-name="thisAsset.assetName"
       :type="assetType"
       :isin="thisAsset.isin"
+      :logo="thisAsset.iconBase64"
     />
 
     <ThreeDigitValue
