@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type {IPublicAssetHolding} from "@/models/IPublicAssetHolding";
-import type {IAssetHoldingGroup} from "@/models/IAssetHoldingGroup";
+import type { IPublicAssetHolding } from "@/models/IPublicAssetHolding";
+import type { IAssetHoldingGroup } from "@/models/IAssetHoldingGroup";
 
 
 /***********************************************************************************/
