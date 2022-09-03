@@ -1,6 +1,6 @@
 <template>
   <div class="asset-info">
-    <div class="asset-logo"></div>
+    <div class="asset-logo" v-bind:style="{ 'background-image': 'url(data:image/png;base64,' + logo + ')' }"></div>
     <h4 v-html="assetNameWithWordMatches"></h4>
     <div class="additional-info">
       <div class="asset-type">{{ type }}</div>
@@ -31,6 +31,10 @@ const props = defineProps({
     required: false,
   },
   isin: {
+    type: String,
+    required: false,
+  },
+  logo: {
     type: String,
     required: false,
   },
