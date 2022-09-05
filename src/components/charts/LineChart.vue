@@ -10,6 +10,7 @@
 import { ref, computed } from 'vue'
 import type { PropType } from 'vue'
 import { LineChart } from 'vue-chart-3'
+import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum'
 import {
   Chart,
   LineController,
@@ -40,25 +41,32 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  backgroundColor: {
-    type: String,
+  isPositive: {
+    type: Boolean,
     required: true,
-  },
-  borderColor: {
-    type: String,
-    required: true,
-  },
+  }
 })
 
 const data = computed(() => ({
   labels: props.dataLabels,
   datasets: [
     {
-      label: 'Foo',
       data: props.dataValues,
       borderWidth: parseFloat(props.borderWidth),
-      backgroundColor: props.backgroundColor,
-      borderColor: props.borderColor,
+      fill: true,
+      borderColor: (props.isPositive) ? ChartColumnEnum.BORDER_COLOR_POSITIVE : ChartColumnEnum.BORDER_COLOR_NEGATIVE,
+      backgroundColor: (ctx: any) => {
+        const canvas = ctx.chart.ctx;
+        const gradient = canvas.createLinearGradient(0,0,0,42);
+        if (props.isPositive) {
+          gradient.addColorStop(0, ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_60);
+          gradient.addColorStop(1, ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_0);
+        } else {
+          gradient.addColorStop(0, ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_60);
+          gradient.addColorStop(1, ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_0);
+        }
+        return gradient;
+      },
     },
   ],
 }))
@@ -74,6 +82,9 @@ const options = ref({
     point: {
       radius: 0,
     },
+    line: {
+      fill: true
+    }
   },
   scales: {
     x: {
