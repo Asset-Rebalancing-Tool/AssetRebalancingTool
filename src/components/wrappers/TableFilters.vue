@@ -4,7 +4,7 @@
       <span>Asset Bezeichnung <IconFilterArrow /></span>
     </span>
     <span class="column">
-      <span>Kurswert<IconFilterArrow /></span>
+      <span>Kurswert (YTD)<IconFilterArrow /></span>
     </span>
     <span class="column">
       <span>gehaltene Anteile<IconFilterArrow /></span>
