@@ -13,7 +13,7 @@
         v-for="asset in store.searchbarAssets"
         :key="asset.uuid"
         :this-asset="asset"
-        @click="newAssetAction(asset.uuid)"
+        @click="newPublicAssetAction(asset.uuid)"
       />
 
       <SearchbarSkeleton
@@ -47,7 +47,7 @@ const showPriceLabel = computed(() => {
 })
 
 
-async function newAssetAction(uuid: string) {
+async function newPublicAssetAction(uuid: string) {
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
   let asset: IPublicAsset = store.getSearchbarAsset(uuid)
