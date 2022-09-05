@@ -8,31 +8,15 @@
 
     <TableFilters />
 
-    <Container class="asset-container" @drop="onDrop($event)">
+    <div class="asset-container">
+      <AssetRow
+          :asset-holding="assetHolding"
+          v-if="assetHoldingsExist"
+          v-for="assetHolding in store.publicAssetHoldings"
+          :key="assetHolding.holdingUuid"
+      />
+    </div>
 
-      <!--Asset Group Holdings -->
-      <!--<Draggable v-for="group in assetHoldingGroups" :key="group.uuid">
-        <AssetGroup>
-          <template #assets>
-            <Container @drop="onGroupDrop($event)">
-
-              <Draggable v-for="asset in group.assets" :key="asset.order">
-                <AssetRow
-                    :id="asset.uuid"
-                    :name="asset.name"
-                />
-              </Draggable>
-            </Container>
-          </template>
-        </AssetGroup>
-      </Draggable>-->
-
-      <!-- Public Asset Holdings -->
-      <Draggable v-if="assetHoldingsExist" v-for="assetHolding in store.publicAssetHoldings" :key="assetHolding.holdingUuid">
-        <AssetRow :asset-holding="assetHolding" />
-      </Draggable>
-
-    </Container>
     <footer></footer>
   </section>
 </template>
@@ -43,8 +27,6 @@ import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import AssetRow from '@/components/wrappers/AssetRow.vue'
 import AssetGroup from '@/components/wrappers/AssetGroup.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import { Container, Draggable } from "vue-dndrop";
-import { applyDrag } from "@/composables/ApplyDrag";
 import { computed, onMounted } from "vue";
 import AssetService from "@/services/AssetService";
 import { useAssetStore } from "@/stores/AssetStore";
@@ -59,14 +41,6 @@ onMounted(async () => {
 const assetHoldingsExist = computed(() => {
   return store.publicAssetHoldings.length !== 0
 })
-
-function onDrop(dropResult) {
-  //assets.value = applyDrag(assets.value, dropResult);
-}
-
-function onGroupDrop(dropResult) {
-  //groupAssets.value = applyDrag(groupAssets.value, dropResult);
-}
 </script>
 
 <style lang="scss">
