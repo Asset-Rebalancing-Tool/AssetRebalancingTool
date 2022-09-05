@@ -17,8 +17,7 @@
             :data-values="getDataValues(priceRecords)"
             :data-labels="getDataLabels(priceRecords)"
             :border-width="'0.8'"
-            :background-color="getChartColor(priceRecords)"
-            :border-color="getChartColor(priceRecords)"
+            :is-positive="isPositiveChart(props.assetHolding.publicAsset.assetPriceRecords)"
         />
       </template>
     </ThreeDigitValue>
@@ -66,11 +65,12 @@ import { mapAssetType } from '@/composables/assetType'
 import { getNewestPriceRecord, getNewestPriceRecordFormatted} from '@/composables/valueArray'
 import { mapCurrency} from '@/composables/currency'
 import LineChart from '@/components/charts/LineChart.vue'
+import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum'
 import {
   showGraph,
   getDataValues,
   getDataLabels,
-  getChartColor
+  isPositiveChart
 } from '@/composables/smallLineChart'
 
 
@@ -82,7 +82,6 @@ const props = defineProps({
     required: true,
   },
 })
-
 
 const priceRecords = computed(() => {
   return props.assetHolding.publicAsset.assetPriceRecords

@@ -10,16 +10,15 @@
     <ThreeDigitValue
       :value-array="priceArray"
       :unit="currency"
-      :show-graph="showGraph(thisAsset.assetPriceRecords)"
+      :show-graph="showGraph(priceRecords)"
     >
       <template #graph>
         <LineChart
-          v-if="showGraph(thisAsset.assetPriceRecords)"
-          :data-values="getDataValues(thisAsset.assetPriceRecords)"
-          :data-labels="getDataLabels(thisAsset.assetPriceRecords)"
+          v-if="showGraph(priceRecords)"
+          :data-values="getDataValues(priceRecords)"
+          :data-labels="getDataLabels(priceRecords)"
           :border-width="'0.8'"
-          :background-color="getChartColor(thisAsset.assetPriceRecords)"
-          :border-color="getChartColor(thisAsset.assetPriceRecords)"
+          :is-positive="isPositiveChart(priceRecords)"
         />
       </template>
     </ThreeDigitValue>
@@ -40,7 +39,7 @@ import {
   showGraph,
   getDataValues,
   getDataLabels,
-  getChartColor
+  isPositiveChart
 } from '@/composables/smallLineChart'
 
 const props = defineProps({
@@ -48,6 +47,10 @@ const props = defineProps({
     type: Object as PropType<IPublicAsset>,
     required: true,
   },
+})
+
+const priceRecords = computed(() => {
+  return props.thisAsset.assetPriceRecords
 })
 
 // Get the mapped asset type
