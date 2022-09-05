@@ -2,6 +2,7 @@
   @include flex-column-center-y;
   position: relative;
   width: 100%;
+  overflow: hidden;
 
   header, footer {
     width: 100%;
@@ -25,10 +26,46 @@
   }
 
   footer:not(.asset-container footer) {
-    @include flex-center-y;
-    justify-content: space-between;
+    @include asset-row-grid;
     height: $outer-asset-row-height;
     background-color: $tertiary-background-color;
+    padding-left: 33px;
+    padding-right: 40px;
+    box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
+
+    h4, .total-value, .total-percentage {
+      font-weight: $bold-font-weight;
+      font-size: 17px;
+    }
+
+    h4 {
+      @include flex-center-y;
+      width: 100%;
+      height: 100%;
+    }
+
+    span:not(.three-digit-wrapper span) {
+      @include flex-center-xy;
+      column-gap: 10px;
+      width: 100%;
+      height: 100%;
+    }
+
+    @import 'src/assets/scss/data/_three-digit-value.scss';
+
+    .three-digit-wrapper {
+      column-gap: 4px;
+
+      .first-digit {
+        font-weight: $bold-font-weight;
+        font-size: 17px;
+      }
+
+      .first-decimal, .second-decimal {
+        font-size: 15px !important;
+        font-weight: $bold-font-weight;
+      }
+    }
   }
 
   .asset-container {
