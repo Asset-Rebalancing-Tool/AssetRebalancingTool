@@ -42,8 +42,8 @@ export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
  */
 export function isPositiveChart(allPriceRecords: IPriceRecord[]) {
   const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
-  const firstRecord = priceRecords[0]
-  const lastRecord = priceRecords[priceRecords.length - 1]
+  const firstRecord = priceRecords[0].price
+  const lastRecord = priceRecords[priceRecords.length - 1].price
   return firstRecord > lastRecord
 }
 
