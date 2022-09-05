@@ -10,15 +10,15 @@
     <ThreeDigitValue
         :value-array="priceArray"
         :unit="currency"
-        :show-graph="showGraph(assetHolding.publicAsset.assetPriceRecords)">
+        :show-graph="showGraph(priceRecords)">
       <template #graph>
         <LineChart
-            v-if="showGraph(assetHolding.publicAsset.assetPriceRecords)"
-            :data-values="getDataValues(assetHolding.publicAsset.assetPriceRecords)"
-            :data-labels="getDataLabels(assetHolding.publicAsset.assetPriceRecords)"
+            v-if="showGraph(priceRecords)"
+            :data-values="getDataValues(priceRecords)"
+            :data-labels="getDataLabels(priceRecords)"
             :border-width="'0.8'"
-            :background-color="getChartColor(assetHolding.publicAsset.assetPriceRecords)"
-            :border-color="getChartColor(assetHolding.publicAsset.assetPriceRecords)"
+            :background-color="getChartColor(priceRecords)"
+            :border-color="getChartColor(priceRecords)"
         />
       </template>
     </ThreeDigitValue>
@@ -33,8 +33,8 @@
     </BaseInput>
 
     <div class="current-value-wrapper">
-      <p>10.642,59 €</p>
-      <p>66,84 %</p>
+      <p>{{ currentValue }}</p>
+      <p>{{ currentValuePercentage }}</p>
     </div>
 
     <BaseInput
@@ -57,7 +57,6 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding';
-import type { IPublicAsset } from '@/models/IPublicAsset'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
@@ -84,6 +83,11 @@ const props = defineProps({
   },
 })
 
+
+const priceRecords = computed(() => {
+  return props.assetHolding.publicAsset.assetPriceRecords
+})
+
 // Get the mapped asset type
 const assetType = computed((): string => {
   return mapAssetType(props.assetHolding.publicAsset.assetType)
@@ -100,11 +104,11 @@ const currency = computed((): string => {
 })
 
 const currentValue = computed(() => {
-  return props.assetHolding.ownedQuantity * getNewestPriceRecord(props.assetHolding.publicAsset.assetPriceRecords)
-
+  let value = props.assetHolding.ownedQuantity * getNewestPriceRecord(props.assetHolding.publicAsset.assetPriceRecords)
+  return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(value)
 })
 
 const currentValuePercentage = computed(() => {
-
+  return new Intl.NumberFormat('de-DE').format(66.84) + ' %'
 })
 </script>
