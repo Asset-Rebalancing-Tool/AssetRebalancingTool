@@ -36,17 +36,15 @@ export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
 }
 
 /**
- * Determine the chart color based on the price records first and last entry
+ * Determine if the first price record is greater than the last and therefore the chart is positive
  *
- * @param allPriceRecords
+ * @param allPriceRecords IPriceRecord[]
  */
-export function getChartColor(allPriceRecords: IPriceRecord[]) {
+export function isPositiveChart(allPriceRecords: IPriceRecord[]) {
   const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
   const firstRecord = priceRecords[0]
   const lastRecord = priceRecords[priceRecords.length - 1]
-  return (firstRecord > lastRecord)
-      ? '#19B399'
-      : '#C63A3A'
+  return firstRecord > lastRecord
 }
 
 /**
