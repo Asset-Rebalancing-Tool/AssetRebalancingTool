@@ -65,7 +65,6 @@ import { mapAssetType } from '@/composables/assetType'
 import { getNewestPriceRecord, getNewestPriceRecordFormatted} from '@/composables/valueArray'
 import { mapCurrency} from '@/composables/currency'
 import LineChart from '@/components/charts/LineChart.vue'
-import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum'
 import {
   showGraph,
   getDataValues,
