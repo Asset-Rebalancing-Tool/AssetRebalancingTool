@@ -10,7 +10,7 @@
       <span>gehaltene Anteile<IconFilterArrow /></span>
     </span>
     <span class="column">
-      <span>aktueller Ist-<IconFilterArrow /></span>
+      <span>aktueller Ist-Wert<IconFilterArrow /></span>
     </span>
     <span class="column">
       <span>Soll-Wert<IconFilterArrow /></span>
