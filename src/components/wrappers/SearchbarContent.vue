@@ -6,7 +6,7 @@
     <div class="searchbar-asset-container">
       <div class="searchbar-label-grid">
         <p>Ergebnisse ({{ store.searchbarResultCount }})</p>
-        <p v-show="showPriceLabel">Kurswert</p>
+        <p v-show="showPriceLabel">Kurswert (YTD)</p>
       </div>
 
       <SearchbarAsset
