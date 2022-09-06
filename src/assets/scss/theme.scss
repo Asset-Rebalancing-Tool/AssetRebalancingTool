@@ -82,7 +82,7 @@ $medium-column-gap: 10px;
 $base-margin: $base-padding;
 
 /*******************************************************/
-/* ------------- Theme Input Variables --------------- */
+/* -------------- Theme Input Styles ----------------- */
 /*******************************************************/
 
 // Input heights
@@ -151,6 +151,53 @@ label {
 
 $primary-button-padding: 12px 16px;
 $primary-button-gap: 6px;
+
+/***************************************************************/
+/* ------------------ General App Styles --------------------- */
+/***************************************************************/
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    background: $primary-background-color;
+    font-family: $primary-font-family;
+    font-size: $primary-font-size;
+    line-height: $primary-line-height;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#app {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+h1, h2, h3, h4, h5, h6, p, span {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    color: $primary-text-color;
+}
+
+p {
+    font-family: $primary-font-family;
+    font-size: $primary-font-size;
+    line-height: $primary-line-height;
+    color: $primary-text-color;
+}
 
 /***************************************************************/
 /* ---------------- General Checkbox Styles ------------------ */
