@@ -1,4 +1,4 @@
-export enum UnitType {
+export enum UnitTypeEnum {
   GRAMS = 'Grams',
   KILOS = 'Kilos',
   LITERS = 'Liters',

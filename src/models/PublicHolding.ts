@@ -1,5 +1,5 @@
 import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type { UnitType } from '@/models/enums/UnitTypeEnum'
+import type { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import type { PublicAsset } from '@/models/PublicAsset'
 
 export enum HoldingOriginEnum {
@@ -16,5 +16,5 @@ export interface PublicHolding {
   publicAsset: PublicAsset
   targetPercentage: number
   currency: CurrencyEnum
-  unitType: UnitType
+  unitType: UnitTypeEnum
 }
