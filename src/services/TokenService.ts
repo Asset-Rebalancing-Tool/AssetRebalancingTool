@@ -7,7 +7,6 @@ let token: string
 let lastFetched: Date = new Date()
 
 export function getAuthorizedInstance(): Promise<AxiosInstance> {
-
   if (!token) {
     return Promise.reject(new Error('should call login first'))
   }

@@ -6,34 +6,33 @@ import { login, getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 
 export default {
+  /**
+   * Build the request body for the public holding patch
+   *
+   * @param inputData string
+   */
+  publicHoldingPatchRequest(inputData: string): PublicHoldingRequest {
+    const data: number = +inputData
+    return { data } as unknown as PublicHoldingRequest
+  },
 
-    /**
-     * Build the request body for the public holding patch
-     *
-     * @param inputData string
-     */
-    publicHoldingPatchRequest(inputData: string): PublicHoldingRequest {
-        const data: number = +inputData
-        return { data } as unknown as PublicHoldingRequest
-    },
+  /**
+   * Build the request body for the private holding patch
+   *
+   * @param inputData string
+   */
+  privateHoldingPatchRequest(inputData: string): PrivateHoldingRequest {
+    const data: number = +inputData
+    return { data } as unknown as PrivateHoldingRequest
+  },
 
-    /**
-     * Build the request body for the private holding patch
-     *
-     * @param inputData string
-     */
-    privateHoldingPatchRequest(inputData: string): PrivateHoldingRequest {
-        const data: number = +inputData
-        return { data } as unknown as PrivateHoldingRequest
-    },
-
-    /**
-     * Patch a public holding based on its uuid
-     *
-     * @param inputData string
-     * @param holdingUuid string
-     * @param abortController AbortController
-     */
+  /**
+   * Patch a public holding based on its uuid
+   *
+   * @param inputData string
+   * @param holdingUuid string
+   * @param abortController AbortController
+   */
   async patchPublicHolding(
     inputData: string,
     holdingUuid: string,
@@ -44,7 +43,7 @@ export default {
       .then((instance) => {
         return instance.patch(
           `/holding_api/asset_holding/public/${holdingUuid}`,
-            this.publicHoldingPatchRequest(inputData),
+          this.publicHoldingPatchRequest(inputData),
           {
             signal: abortController.signal as AbortSignal,
           }
@@ -55,31 +54,31 @@ export default {
       })
   },
 
-    /**
-     * Patch a private holding based on its uuid
-     *
-     * @param inputData string
-     * @param holdingUuid string
-     * @param abortController AbortController
-     */
-    async patchPrivateHolding(
-        inputData: string,
-        holdingUuid: string,
-        abortController: AbortController
-    ): Promise<PrivateHolding> {
+  /**
+   * Patch a private holding based on its uuid
+   *
+   * @param inputData string
+   * @param holdingUuid string
+   * @param abortController AbortController
+   */
+  async patchPrivateHolding(
+    inputData: string,
+    holdingUuid: string,
+    abortController: AbortController
+  ): Promise<PrivateHolding> {
     await login('sclaes', 'pw')
     return getAuthorizedInstance()
-        .then((instance) => {
-            return instance.patch(
-                `/holding_api/asset_holding/private/${holdingUuid}`,
-                this.privateHoldingPatchRequest(inputData),
-                {
-                    signal: abortController.signal as AbortSignal,
-                }
-            )
-        })
-        .then((response: AxiosResponse) => {
-            return response.data
-        })
-    },
+      .then((instance) => {
+        return instance.patch(
+          `/holding_api/asset_holding/private/${holdingUuid}`,
+          this.privateHoldingPatchRequest(inputData),
+          {
+            signal: abortController.signal as AbortSignal,
+          }
+        )
+      })
+      .then((response: AxiosResponse) => {
+        return response.data
+      })
+  },
 }

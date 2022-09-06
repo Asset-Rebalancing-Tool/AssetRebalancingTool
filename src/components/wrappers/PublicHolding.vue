@@ -47,9 +47,9 @@
     </div>
 
     <BaseInput
-        type="number"
-        :modelValue="assetHolding.targetPercentage"
-        @input="
+      type="number"
+      :modelValue="assetHolding.targetPercentage"
+      @input="
         PatchAssetService.patchPublicHolding(
           $event.target.value,
           assetHolding.holdingUuid,
