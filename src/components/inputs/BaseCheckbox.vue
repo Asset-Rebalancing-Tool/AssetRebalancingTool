@@ -1,8 +1,10 @@
 <template>
-  <label class="checkbox-wrapper"><span>{{ label }}</span>
-    <input type="checkbox"
-           :checked="modelValue"
-           @change="$emit('update:modelValue', $event.target.checked)"
+  <label class="checkbox-wrapper"
+    ><span>{{ label }}</span>
+    <input
+      type="checkbox"
+      :checked="modelValue"
+      @change="$emit('update:modelValue', $event.target.checked)"
     />
     <span class="checkmark"></span>
   </label>
@@ -21,5 +23,4 @@ const props = defineProps({
 })
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>

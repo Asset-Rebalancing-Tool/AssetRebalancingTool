@@ -7,7 +7,11 @@
     v-model="userInput"
   >
     <template #inputIcon>
-      <Component :is="inputIcon" :class="{'remove-value': userInput.length > 0}" @click="removeUserInput" />
+      <Component
+        :is="inputIcon"
+        :class="{ 'remove-value': userInput.length > 0 }"
+        @click="removeUserInput"
+      />
     </template>
   </BaseInput>
 </template>
@@ -18,11 +22,11 @@ import { useAssetStore } from '@/stores/AssetStore'
 import { showModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import type { Ref } from 'vue'
-import AssetService from '@/services/AssetService'
+import AssetService from '@/services/FetchAssetService'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconInputSearch from '@/assets/icons/inputs/IconInputSearch.vue'
 import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
-import type { InputIconEnum } from "@/models/enums/InputIconEnum";
+import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 
 const store = useAssetStore()
 
@@ -30,9 +34,8 @@ const store = useAssetStore()
 const abortController: Ref<AbortController | null> = ref(new AbortController())
 const timer: Ref<ReturnType<typeof setTimeout> | null> = ref(null)
 
-let userInput: Ref<string> = ref('')
-let inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
-
+const userInput: Ref<string> = ref('')
+const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
 
 // Clear the search string if the user click the remove icon and reset the store's asset state variables
 function removeUserInput() {
@@ -55,16 +58,13 @@ function removeUserInput() {
  * @return void
  */
 function searchAsset(searchValue: string): void {
-
   // Abort the previous fetch and reset the asset store state variables
   resetFetch()
 
   // Always update the search string of the asset store
   store.searchString = searchValue
 
-  inputIcon.value = (searchValue.length > 0)
-      ? IconRemoveValue
-      : IconInputSearch
+  inputIcon.value = searchValue.length > 0 ? IconRemoveValue : IconInputSearch
 
   // Ensure to only make request, if the user input is greater than three characters
   if (searchValue.length < 3) {
@@ -83,15 +83,15 @@ function searchAsset(searchValue: string): void {
   timer.value = setTimeout(async () => {
     // Controller that is used to abort the request if necessary
     abortController.value = new AbortController()
-    await AssetService.fetchPublicAssets(searchValue, abortController.value).then(
-        (results) => {
-          store.searchbarLoadingFlag = false
-          store.searchbarResultCount = results.length
-          store.searchbarAssets = results
-        }
-    ).catch(error => {
-      console.log(error)
-    })
+    await AssetService.fetchPublicAssets(searchValue, abortController.value)
+      .then((results) => {
+        store.searchbarLoadingFlag = false
+        store.searchbarResultCount = results.length
+        store.searchbarAssets = results
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }, 500)
 }
 
@@ -133,5 +133,4 @@ header input {
   pointer-events: all;
   cursor: pointer;
 }
-
 </style>

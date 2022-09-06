@@ -13,7 +13,7 @@
         v-for="asset in store.searchbarAssets"
         :key="asset.uuid"
         :this-asset="asset"
-        @click="newPublicAssetAction(asset.uuid)"
+        @click="newPublicHoldingAction(asset.uuid)"
       />
 
       <SearchbarSkeleton
@@ -28,17 +28,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/wrappers/SearchbarAsset.vue'
 import SearchbarSkeleton from '@/components/wrappers/SearchbarSkeleton.vue'
 import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
-import { hideModalUnderlay } from "@/composables/UseModalUnderlay";
-import type {IPublicAsset} from "@/models/IPublicAsset";
-import type { PostPublicAssetHolding } from "@/requests/PostPublicAssetHolding";
-import { getToken } from "@/composables/getToken";
-import axios from "axios";
-import type {IPublicAssetHolding} from "@/models/IPublicAssetHolding";
+import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
+import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicAssetHoldingRequest } from '@/requests/PublicAssetHoldingRequest'
+import { getAuthorizedInstance } from '@/services/TokenService'
+import axios from 'axios'
+import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
 
 const store = useAssetStore()
 
@@ -46,24 +46,21 @@ const showPriceLabel = computed(() => {
   return store.searchbarLoadingFlag || store.searchbarAssets.length > 0
 })
 
-
-async function newPublicAssetAction(uuid: string) {
+async function newPublicHoldingAction(uuid: string) {
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
-  let asset: IPublicAsset = store.getSearchbarAsset(uuid)
-  let request = { publicAssetUuid: asset.uuid } as PostPublicAssetHolding
+  const asset: IPublicAsset = store.getSearchbarAsset(uuid)
+  const request = { publicAssetUuid: asset.uuid } as PublicAssetHoldingRequest
 
-  await getToken().then(token => {
-    axios.post<IPublicAssetHolding>('/holding_api/asset_holding/public', request, {
-      headers: {
-        Authorization: 'Bearer ' + token
-      }
-    }).then(result => {
-      store.publicAssetHoldings.push(result.data)
-    }).catch(error => {
-      console.log(error)
-    })
+  await getAuthorizedInstance().then((instance) => {
+    instance
+      .post<IPublicAssetHolding>('/holding_api/asset_holding/public', request)
+      .then((result) => {
+        store.publicAssetHoldings.push(result.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   })
-
 }
 </script>

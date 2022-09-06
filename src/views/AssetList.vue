@@ -1,6 +1,5 @@
 <template>
   <section id="asset-list">
-
     <header>
       <SearchbarInput />
       <SearchbarContent />
@@ -9,11 +8,18 @@
     <TableFilters />
 
     <div class="asset-container">
-      <AssetRow
-          :asset-holding="assetHolding"
-          v-if="assetHoldingsExist"
-          v-for="assetHolding in store.publicAssetHoldings"
-          :key="assetHolding.holdingUuid"
+      <PublicAssetRow
+        v-if="publicAssetHoldingsExist"
+        v-for="assetHolding in store.publicAssetHoldings"
+        :asset-holding="assetHolding"
+        :key="assetHolding.holdingUuid"
+      />
+
+      <PrivateAssetRow
+        v-if="privateAssetHoldingsExist"
+        v-for="assetHolding in store.privateAssetHoldings"
+        :asset-holding="assetHolding"
+        :key="assetHolding.holdingUuid"
       />
     </div>
 
@@ -35,27 +41,34 @@
 <script setup>
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
-import AssetRow from '@/components/wrappers/AssetRow.vue'
+import AssetRow from '@/components/wrappers/PublicAssetRow.vue'
 import AssetGroup from '@/components/wrappers/AssetGroup.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import { computed, onMounted } from 'vue';
-import AssetService from '@/services/AssetService';
-import { useAssetStore } from '@/stores/AssetStore';
-import IconCheck from '@/assets/icons/IconCheck.vue';
+import { computed, onMounted } from 'vue'
+import AssetService from '@/services/FetchAssetService'
+import { useAssetStore } from '@/stores/AssetStore'
+import IconCheck from '@/assets/icons/IconCheck.vue'
+import PublicAssetRow from '@/components/wrappers/PublicAssetRow.vue'
+import PrivateAssetRow from '@/components/wrappers/PrivateAssetRow.vue'
 
 const store = useAssetStore()
 
-let testDeviation = ['08', '62', '1']
+const testDeviation = ['08', '62', '1']
 
 onMounted(async () => {
   store.publicAssetHoldings = await AssetService.fetchPublicAssetHoldings()
+  store.privateAssetHoldings = await AssetService.fetchPrivateAssetHoldings()
   store.assetHoldingGroups = await AssetService.fetchAssetHoldingGroups()
 })
 
-const assetHoldingsExist = computed(() => {
+const publicAssetHoldingsExist = computed(() => {
   return store.publicAssetHoldings.length !== 0
+})
+
+const privateAssetHoldingsExist = computed(() => {
+  return store.privateAssetHoldings.length !== 0
 })
 </script>
 

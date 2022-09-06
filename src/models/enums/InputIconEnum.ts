@@ -5,5 +5,5 @@ import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 export enum InputIconEnum {
   SEARCH_ASSET = IconInputSearch,
   LOCKED_INPUT = IconInputLocked,
-  REMOVE_VALUE = IconRemoveValue
+  REMOVE_VALUE = IconRemoveValue,
 }

@@ -25,8 +25,11 @@
           <RouterLink class="link" to="">Passwort vergessen?</RouterLink>
         </div>
         <button type="submit" @click.prevent="submitForm">Anmelden</button>
-        <span class="change-entry-view">Noch kein Konto?
-          <RouterLink class="link" :to="{ name: 'SignUp' }">Kostenlos registrieren</RouterLink>
+        <span class="change-entry-view"
+          >Noch kein Konto?
+          <RouterLink class="link" :to="{ name: 'SignUp' }"
+            >Kostenlos registrieren</RouterLink
+          >
         </span>
         <div class="divider-wrapper">
           <span></span>
@@ -43,17 +46,15 @@
 </template>
 
 <script lang="ts" setup>
-import BaseInput from '@/components/inputs/BaseInput.vue';
-import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue';
-import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue';
-import IconGoogle from '@/assets/icons/IconGoogle.vue';
-import BaseCheckbox from "@/components/inputs/BaseCheckbox.vue";
+import BaseInput from '@/components/inputs/BaseInput.vue'
+import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
+import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
+import IconGoogle from '@/assets/icons/IconGoogle.vue'
+import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
 
-function submitForm() {
-
-}
+function submitForm() {}
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/views/entry-form.scss';
+@import '@/assets/scss/views/entry-form.scss';
 </style>

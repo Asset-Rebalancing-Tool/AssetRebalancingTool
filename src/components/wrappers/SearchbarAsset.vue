@@ -33,13 +33,13 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import { computed } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
-import { mapCurrency} from '@/composables/currency'
+import { mapCurrency } from '@/composables/currency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
   showGraph,
   getDataValues,
   getDataLabels,
-  isPositiveChart
+  isPositiveChart,
 } from '@/composables/smallLineChart'
 
 const props = defineProps({

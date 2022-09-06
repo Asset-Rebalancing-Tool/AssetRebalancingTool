@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import type { IPublicAsset } from '@/models/IPublicAsset'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type { IPublicAssetHolding } from "@/models/IPublicAssetHolding";
-import type { IAssetHoldingGroup } from "@/models/IAssetHoldingGroup";
-
+import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
+import type { IPrivateAssetHolding } from '@/models/IPrivateAssetHolding'
+import type { IAssetHoldingGroup } from '@/models/IAssetHoldingGroup'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -15,6 +15,7 @@ export type RootState = {
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
   publicAssetHoldings: IPublicAssetHolding[]
+  privateAssetHoldings: IPrivateAssetHolding[]
   assetHoldingGroups: IAssetHoldingGroup[]
   selectedAssetCount: number
   showGroupWrapper: boolean
@@ -31,6 +32,7 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarLoadingFlag: false,
       /** Reactive list objects */
       publicAssetHoldings: [],
+      privateAssetHoldings: [],
       assetHoldingGroups: [],
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
@@ -39,6 +41,9 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
+    updatePublicAssetHolding(publicAssetHolding: IPublicAssetHolding) {
+      const uuid = publicAssetHolding
+    },
 
     /**
      * Iterate over the searchbar assets and check if the uuid matches the passed uuid
@@ -46,7 +51,6 @@ export const useAssetStore = defineStore('assetStore', {
      * @param uuid
      */
     getSearchbarAsset(uuid: string): IPublicAsset {
-
       // Ensure that the searchbar assets array is not empty
       if (this.searchbarAssets.length === 0) {
         return {} as IPublicAsset

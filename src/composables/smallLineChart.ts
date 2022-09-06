@@ -7,7 +7,8 @@ import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
  * @param allPriceRecords string
  */
 export function getDataValues(allPriceRecords: IPriceRecord[]): number[] {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords).reverse()
+  const priceRecords: IPriceRecord[] =
+    getFirstCurrencyPriceRecords(allPriceRecords).reverse()
   const dataValues: number[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
@@ -24,7 +25,8 @@ export function getDataValues(allPriceRecords: IPriceRecord[]): number[] {
  * @param allPriceRecords string
  */
 export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
+  const priceRecords: IPriceRecord[] =
+    getFirstCurrencyPriceRecords(allPriceRecords)
   const dataLabels: string[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
@@ -41,7 +43,8 @@ export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
  * @param allPriceRecords IPriceRecord[]
  */
 export function isPositiveChart(allPriceRecords: IPriceRecord[]) {
-  const priceRecords: IPriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
+  const priceRecords: IPriceRecord[] =
+    getFirstCurrencyPriceRecords(allPriceRecords)
   const firstRecord = priceRecords[0].price
   const lastRecord = priceRecords[priceRecords.length - 1].price
   return firstRecord > lastRecord
@@ -53,7 +56,6 @@ export function isPositiveChart(allPriceRecords: IPriceRecord[]) {
  * @param allPriceRecords string
  */
 export function showGraph(allPriceRecords: IPriceRecord[]): boolean {
-  const priceRecords: number[] = getDataValues(allPriceRecords);
-  return (priceRecords.length > 0)
+  const priceRecords: number[] = getDataValues(allPriceRecords)
+  return priceRecords.length > 0
 }
-

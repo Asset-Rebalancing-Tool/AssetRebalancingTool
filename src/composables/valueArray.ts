@@ -1,13 +1,18 @@
-import { CurrencyEnum } from "@/models/enums/CurrencyEnum";
-import type {IPriceRecord} from '@/models/nested/IPriceRecord'
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import type { IPriceRecord } from '@/models/nested/IPriceRecord'
 
 /**
  * Get the first price records array (EUR records)
  *
  * @param priceRecords IPriceRecord[]
  */
-export function getFirstCurrencyPriceRecords(priceRecords: IPriceRecord[]): IPriceRecord[] {
-  const currencyPriceRecordMap: Record<CurrencyEnum, IPriceRecord[]> = groupBy(priceRecords, i => i.currency)
+export function getFirstCurrencyPriceRecords(
+  priceRecords: IPriceRecord[]
+): IPriceRecord[] {
+  const currencyPriceRecordMap: Record<CurrencyEnum, IPriceRecord[]> = groupBy(
+    priceRecords,
+    (i) => i.currency
+  )
   return currencyPriceRecordMap[CurrencyEnum.EUR]
 }
 
@@ -18,16 +23,14 @@ export function getFirstCurrencyPriceRecords(priceRecords: IPriceRecord[]): IPri
  * @param key CurrencyEnum
  */
 const groupBy = <T, K extends keyof any>(array: T[], key: (i: T) => K) =>
-    array.reduce((groups, item) => {
-      (groups[key(item)] ||= []).push(item);
-      return groups;
-    }, {} as Record<K, T[]>
-);
-
+  array.reduce((groups, item) => {
+    ;(groups[key(item)] ||= []).push(item)
+    return groups
+  }, {} as Record<K, T[]>)
 
 export function getNewestPriceRecord(allPriceRecords: IPriceRecord[]): number {
   // Get the currency price records map along with the euro perice records
-  const currencyPriceRecordMap = groupBy(allPriceRecords, i => i.currency)
+  const currencyPriceRecordMap = groupBy(allPriceRecords, (i) => i.currency)
   let priceRecords = currencyPriceRecordMap[CurrencyEnum.EUR]
 
   // Check if the price records are undefined and if not get the first price records array by the first key
@@ -36,22 +39,20 @@ export function getNewestPriceRecord(allPriceRecords: IPriceRecord[]): number {
     const firstKey = currencyKeys[0] as CurrencyEnum
     priceRecords = currencyPriceRecordMap[firstKey]
 
-    return (priceRecords[0] !== undefined)
-        ? priceRecords[0]['price']
-        : 0
+    return priceRecords[0] !== undefined ? priceRecords[0]['price'] : 0
   }
 }
-
-
 
 /**
  * Get the newest price record of an asset, and format it as array, that can be accessed in single value components
  *
  * @param allPriceRecords string
  */
-export function getNewestPriceRecordFormatted(allPriceRecords: IPriceRecord[]): string[] {
+export function getNewestPriceRecordFormatted(
+  allPriceRecords: IPriceRecord[]
+): string[] {
   // Get the currency price records map along with the euro perice records
-  const currencyPriceRecordMap = groupBy(allPriceRecords, i => i.currency)
+  const currencyPriceRecordMap = groupBy(allPriceRecords, (i) => i.currency)
   let priceRecords = currencyPriceRecordMap[CurrencyEnum.EUR]
 
   // Check if the price records are undefined and if not get the first price records array by the first key
@@ -60,7 +61,7 @@ export function getNewestPriceRecordFormatted(allPriceRecords: IPriceRecord[]): 
     const firstKey = currencyKeys[0] as CurrencyEnum
     priceRecords = currencyPriceRecordMap[firstKey]
 
-    return (priceRecords[0] !== undefined)
+    return priceRecords[0] !== undefined
       ? formatValueArray(priceRecords[0].price)
       : ['00', '00', '0']
   }
