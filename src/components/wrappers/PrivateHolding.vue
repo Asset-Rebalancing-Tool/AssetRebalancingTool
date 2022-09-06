@@ -64,7 +64,8 @@ import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { computed, ref, Ref } from 'vue'
+import { computed, ref } from 'vue'
+import type { Ref } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
 
 const testDeviation = ['08', '62', '1']
