@@ -1,6 +1,6 @@
 <template>
   <slot name="label"></slot>
-  <div class="input-container">
+  <div class="input-container" :class="customContainerClass">
     <div class="input-wrapper">
       <input
         v-bind="$attrs"
@@ -24,15 +24,25 @@ const props = defineProps({
     type: [String, Number],
     default: '',
   },
+  customContainerClass: {
+    type: String,
+    required: false,
+  }
 })
 </script>
 
 <style lang="scss">
 .input-container {
   @include flex-center-xy;
-  column-gap: $medium-column-gap;
+  column-gap: $small-column-gap;
   width: 100%;
   height: 100%;
+}
+
+.input-container.quantity-input {
+  width: calc(100% + 58px);
+  margin-left: -29px;
+  //margin: 0 -29px;
 }
 
 .input-wrapper {
