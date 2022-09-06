@@ -44,7 +44,7 @@ async function newPrivateHoldingAction() {
         request
       )
       .then((result) => {
-        store.privateAssetHoldings.push(result.data)
+        store.privateHoldings.push(result.data)
       })
       .catch((error) => {
         console.log(error)

@@ -3,7 +3,7 @@
     class="searchbar-content-wrapper"
     :class="{ active: store.activeModalUnderlay }"
   >
-    <div class="searchbar-asset-container">
+    <div class="public-asset-container">
       <div class="searchbar-label-grid">
         <p>Ergebnisse ({{ store.searchbarResultCount }})</p>
         <p v-show="showPriceLabel">Kurswert (YTD)</p>
@@ -56,7 +56,7 @@ async function newPublicHoldingAction(uuid: string) {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => {
-        store.publicAssetHoldings.push(result.data)
+        store.publicHoldings.push(result.data)
       })
       .catch((error) => {
         console.log(error)

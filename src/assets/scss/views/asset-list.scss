@@ -10,7 +10,7 @@
     column-gap: $base-column-gap;
   }
 
-  .asset-container {
+  .holding-container {
     width: calc(100% - (2 * $base-padding));
     margin: 0 $base-padding;
     column-gap: $base-column-gap;
@@ -25,7 +25,7 @@
     @import 'src/assets/scss/wrappers/searchbar-content.scss';
   }
 
-  footer:not(.asset-container footer) {
+  footer:not(.holding-container footer) {
     @include asset-row-grid;
     height: $outer-asset-row-height;
     background-color: $tertiary-background-color;
@@ -68,7 +68,7 @@
     }
   }
 
-  .asset-container {
+  .holding-container {
     flex: 1;
 
     input {

@@ -3,8 +3,8 @@ import type { PrivateHolding } from '@/models/PrivateHolding'
 
 export interface HoldingGroup {
   groupName: string
-  publicAssetHoldings: PublicHolding[]
-  privateAssetHoldings: PrivateHolding[]
+  publicHoldings: PublicHolding[]
+  privateHoldings: PrivateHolding[]
   targetPercentage: number
   targetPercentagesAddUp: boolean
   uuid: string

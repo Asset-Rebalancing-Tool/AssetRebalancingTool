@@ -14,8 +14,8 @@ export type RootState = {
   searchbarAssets: PublicAsset[]
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
-  publicAssetHoldings: PublicHolding[]
-  privateAssetHoldings: PrivateHolding[]
+  publicHoldings: PublicHolding[]
+  privateHoldings: PrivateHolding[]
   assetHoldingGroups: HoldingGroup[]
   selectedAssetCount: number
   showGroupWrapper: boolean
@@ -31,8 +31,8 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarResultCount: 0,
       searchbarLoadingFlag: false,
       /** Reactive list objects */
-      publicAssetHoldings: [],
-      privateAssetHoldings: [],
+      publicHoldings: [],
+      privateHoldings: [],
       assetHoldingGroups: [],
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
