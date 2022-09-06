@@ -25,6 +25,7 @@ input {
   border-radius: 5px;
   border: 1px solid #3C444D;
   text-align: center;
+  cursor: pointer;
 }
 
 input:focus,
@@ -58,9 +59,40 @@ label {
   color: #FFFFFF;
 }
 
-/***************************************************************/
-/* ------------------ General App Styles --------------------- */
-/***************************************************************/
+/*******************************************************/
+/* -------------- Theme Select Styles ---------------- */
+/*******************************************************/
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 32px;
+  background-color: #1A1E21;
+  color: #FFFFFF;
+  outline: #3C444D;
+  border-radius: 5px;
+  border: 1px solid #3C444D;
+  cursor: pointer;
+  text-align: left;
+  padding-left: 6px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select option {
+  color: #FFFFFF;
+}
+
+select:focus::-ms-value {
+  background-color: transparent;
+}
+
+/*******************************************************/
+/* --------------- General App Styles ---------------- */
+/*******************************************************/
 body {
   margin: 0;
   padding: 0;
