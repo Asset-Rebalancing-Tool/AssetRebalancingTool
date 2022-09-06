@@ -56,5 +56,5 @@ function submitForm() {}
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/views/entry-form.scss';
+@import '@/assets/scss/views/authorization-form.scss';
 </style>
