@@ -15,7 +15,8 @@
     >
       <template #unit>
         <BaseSelect
-            :options="Object.values(CurrencyEnum)"
+            class="currency"
+            :options="currencyOptions"
             :default-selection="CurrencyEnum.EUR"
             @change="
               PatchAssetService.patchPrivateHolding(
@@ -29,6 +30,7 @@
     </BaseInput>
 
     <BaseInput
+        custom-container-class="quantity-input"
         type="number"
         :modelValue="'0'"
         @input="
@@ -41,8 +43,9 @@
     >
       <template #unit>
         <BaseSelect
-            :options="Object.values(UnitTypeEnum)"
-            :default-selection="UnitTypeEnum.PIECE"
+            class="quantity"
+            :options="unitTypeOptions"
+            :default-selection="defaultUnitType"
             @change="
               PatchAssetService.patchPrivateHolding(
                 $event.target.value,
@@ -50,7 +53,8 @@
                 abortController
               )
             "
-        />
+        >
+        </BaseSelect>
       </template>
     </BaseInput>
 
@@ -97,6 +101,7 @@ import type { Ref } from 'vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum';
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum';
 import { mapAssetType } from '@/composables/assetType'
+import { mapUnitTypeArray, mapUnitType } from '@/composables/unitType'
 
 const testDeviation = ['08', '62', '1']
 
@@ -113,4 +118,22 @@ const abortController: Ref<AbortController | null> = ref(new AbortController())
 const assetType = computed((): string => {
   return mapAssetType(props.assetHolding.assetType)
 })
+
+const unitTypeOptions = computed(() => {
+  return mapUnitTypeArray(Object.values(UnitTypeEnum))
+})
+
+const defaultUnitType = computed(() => {
+  return mapUnitType(UnitTypeEnum.PIECE)
+})
+
+const currencyOptions = computed(() => {
+  let currencies = []
+  for (let currency of Object.values(CurrencyEnum)) {
+    if (currency == 'UNSUPPORTED') continue
+    currencies.push(currency)
+  }
+  return currencies
+})
+
 </script>
