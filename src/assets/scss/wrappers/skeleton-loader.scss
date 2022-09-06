@@ -1,13 +1,13 @@
 .searchbar-asset-skeleton {
   @include searchbar-asset-grid;
-  grid-template-columns: $inner-asset-row-height auto $current-price-column;;
-  height: $inner-asset-row-height + 12px;
+  grid-template-columns: $inner-holding-row-height auto $current-price-column;;
+  height: $inner-holding-row-height + 12px;
   padding: 6px;
 
   .skeleton-logo {
     @include background-image-contain;
-    height: $inner-asset-row-height;
-    width: $inner-asset-row-height;
+    height: $inner-holding-row-height;
+    width: $inner-holding-row-height;
     background-color: $tertiary-background-color;
     border-radius: $secondary-border-radius;
   }

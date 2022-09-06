@@ -40,7 +40,7 @@
 
     .searchbar-asset {
       @include searchbar-asset-grid;
-      height: $inner-asset-row-height + 12px;
+      height: $inner-holding-row-height + 12px;
       cursor: pointer;
       padding: 6px;
       border-radius: 5px;

@@ -1,11 +1,11 @@
 .asset-info {
   @include asset-information-grid;
-  height: $inner-asset-row-height;
+  height: $inner-holding-row-height;
 
   .asset-logo {
     @include background-image-contain;
-    height: $inner-asset-row-height;
-    width: $inner-asset-row-height;
+    height: $inner-holding-row-height;
+    width: $inner-holding-row-height;
     border-radius: $secondary-border-radius;
     background-color: #f2f2f2;
   }

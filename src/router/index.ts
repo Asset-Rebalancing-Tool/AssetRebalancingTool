@@ -40,7 +40,7 @@ const router = createRouter({
       component: EditAsset,
     },
     {
-      path: '/edit-asset-group/:groupId',
+      path: '/edit-holding-group/:groupId',
       name: 'EditAssetGroup',
       props: true,
       component: EditAssetGroup,

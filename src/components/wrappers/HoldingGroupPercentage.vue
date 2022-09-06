@@ -19,10 +19,10 @@ const dimensions: Ref<IDimensions | {}> = ref({})
 
 onMounted(() => {
   const assetRow: Element | null = document.querySelector(
-    '.asset-group .asset-row'
+    '.holding-group .holding-row'
   )
   const input: Element | null = document.querySelector(
-    '.asset-group footer input'
+    '.holding-group footer input'
   )
   const groupAssetCount = 2
 

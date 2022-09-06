@@ -21,7 +21,7 @@
   transform: translate(0, 0);
 }
 
-@mixin asset-row-reset {
+@mixin holding-row-reset {
   margin: 0;
   box-shadow: none;
   border: none;
@@ -151,10 +151,10 @@
 /*******************************************************/
 
 // Asset row
-$asset-row-padding: 8px;
-$outer-asset-row-height: 65px;
-$inner-asset-row-height: calc($outer-asset-row-height - ($asset-row-padding * 2));
-$asset-row-column-gap: 70px;
+$holding-row-padding: 8px;
+$outer-holding-row-height: 65px;
+$inner-holding-row-height: calc($outer-holding-row-height - ($holding-row-padding * 2));
+$holding-row-column-gap: 70px;
 
 // Asset row columns
 $current-price-column: 140px;
@@ -162,7 +162,7 @@ $owned-quantity-column: 110px;
 $current-value-column: 165px;
 $target-percentage-column: 110px;
 $deviation-column: 65px;
-$asset-row-template-columns: auto $current-price-column $owned-quantity-column $current-value-column $target-percentage-column $deviation-column;
+$holding-row-template-columns: auto $current-price-column $owned-quantity-column $current-value-column $target-percentage-column $deviation-column;
 
 // Asset info
 $asset-info-gap: 10px;
@@ -172,7 +172,7 @@ $three-digit-height: 30px;
 $three-digit-column-gap: 3px;
 
 // Searchbar asset
-$searchbar-asset-row-columns: auto $current-price-column;
+$searchbar-holding-row-columns: auto $current-price-column;
 
 // Table filters
 $table-filter-grid-height: 50px;
@@ -181,42 +181,42 @@ $table-filter-grid-height: 50px;
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: $searchbar-asset-row-columns;
-  grid-template-rows: $inner-asset-row-height;
-  grid-column-gap: $asset-row-column-gap;
-  padding: $asset-row-padding;
+  grid-template-columns: $searchbar-holding-row-columns;
+  grid-template-rows: $inner-holding-row-height;
+  grid-column-gap: $holding-row-column-gap;
+  padding: $holding-row-padding;
 }
 
 @mixin searchbar-asset-label-grid {
   width: 100%;
   height: 20px;
   display: grid;
-  grid-template-columns: $searchbar-asset-row-columns;
+  grid-template-columns: $searchbar-holding-row-columns;
   grid-template-rows: 20px;
-  grid-column-gap: $asset-row-column-gap;
-  padding: $asset-row-padding;
+  grid-column-gap: $holding-row-column-gap;
+  padding: $holding-row-padding;
 }
 
-@mixin asset-row-grid {
+@mixin holding-row-grid {
   @include base-grid;
   /* asset information, price, shares, value, target, deviation */
-  grid-template-columns: $asset-row-template-columns;
-  grid-template-rows: $inner-asset-row-height;
-  grid-column-gap: $asset-row-column-gap;
-  padding: $asset-row-padding 20px $asset-row-padding $asset-row-padding;
+  grid-template-columns: $holding-row-template-columns;
+  grid-template-rows: $inner-holding-row-height;
+  grid-column-gap: $holding-row-column-gap;
+  padding: $holding-row-padding 20px $holding-row-padding $holding-row-padding;
 }
 
 @mixin asset-information-grid {
   @include base-grid;
-  grid-template-columns: $inner-asset-row-height auto;
-  grid-template-rows: repeat(2, calc($inner-asset-row-height / 2));
+  grid-template-columns: $inner-holding-row-height auto;
+  grid-template-rows: repeat(2, calc($inner-holding-row-height / 2));
   grid-column-gap: $asset-info-gap;
 }
 
 @mixin asset-footer-grid {
   @include base-grid;
-  grid-template-columns: $asset-row-template-columns;
-  grid-template-rows: $inner-asset-row-height;
-  grid-column-gap: $asset-row-column-gap;
-  padding: 0 20px 0 $asset-row-padding;
+  grid-template-columns: $holding-row-template-columns;
+  grid-template-rows: $inner-holding-row-height;
+  grid-column-gap: $holding-row-column-gap;
+  padding: 0 20px 0 $holding-row-padding;
 }

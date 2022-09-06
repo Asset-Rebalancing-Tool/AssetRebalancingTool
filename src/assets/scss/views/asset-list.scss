@@ -26,8 +26,8 @@
   }
 
   footer:not(.holding-container footer) {
-    @include asset-row-grid;
-    height: $outer-asset-row-height;
+    @include holding-row-grid;
+    height: $outer-holding-row-height;
     background-color: $tertiary-background-color;
     padding-left: 33px;
     padding-right: 40px;
@@ -88,10 +88,10 @@
     /* --------------- Asset Row Component --------------- */
     /*******************************************************/
 
-    .asset-row {
+    .holding-row {
       @include base-wrapper;
-      @include asset-row-grid;
-      height: $outer-asset-row-height;
+      @include holding-row-grid;
+      height: $outer-holding-row-height;
       cursor: pointer;
       margin-bottom: 15px;
 
@@ -108,7 +108,7 @@
     /* ------------- Asset group Component --------------- */
     /*******************************************************/
 
-    .asset-group {
+    .holding-group {
       @include base-wrapper;
       height: auto;
       margin-bottom: 15px;
@@ -117,7 +117,7 @@
       footer {
         @include asset-footer-grid;
         width: 100%;
-        height: $inner-asset-row-height;
+        height: $inner-holding-row-height;
         background-color: $tertiary-background-color;
         border-radius: 0 0 $primary-border-radius $primary-border-radius;
         cursor: pointer;
@@ -125,19 +125,19 @@
         @import 'src/assets/scss/data/_three-digit-value.scss';
 
         h4 {
-          line-height: $inner-asset-row-height;
+          line-height: $inner-holding-row-height;
           font-weight: $bold-font-weight;
           padding-left: 5px;
         }
       }
 
-      .asset-row {
-        @include asset-row-reset;
+      .holding-row {
+        @include holding-row-reset;
         margin-bottom: 0;
         border-top: 1px solid $passive-border-color;
       }
 
-      .asset-row:first-child {
+      .holding-row:first-child {
         border-top: none;
       }
 
@@ -145,7 +145,7 @@
         @include flex-align-start;
         position: absolute;
         top: -8px;
-        right: calc($deviation-column + $asset-row-column-gap + 43px);
+        right: calc($deviation-column + $holding-row-column-gap + 43px);
         width: $target-percentage-column;
         border: 3px solid #19B399;
         border-radius: 5px;

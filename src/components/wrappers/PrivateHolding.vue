@@ -1,5 +1,5 @@
 <template>
-  <div class="asset-row">
+  <div class="holding-row">
     <AssetInfo :asset-name="assetHolding.title" :type="assetType" />
 
     <BaseInput
