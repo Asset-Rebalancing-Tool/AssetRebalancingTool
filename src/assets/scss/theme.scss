@@ -82,6 +82,38 @@ $medium-column-gap: 10px;
 $base-margin: $base-padding;
 
 /*******************************************************/
+/* ------------ Theme Button Variables --------------- */
+/*******************************************************/
+
+@mixin primary-base-button {
+    border: none;
+    background-color: $main-color;
+    color: $primary-text-color;
+    border-radius: $primary-border-radius;
+}
+
+@mixin secondary-base-button {
+    border: 1px solid $passive-border-color;
+    background-color: $secondary-infill-color;
+    border-radius: $primary-border-radius;
+}
+
+@mixin button-wrapper-flex {
+    @include flex-center-xy;
+    position: relative;
+}
+
+@mixin flex-button {
+    @include full-reset;
+    @include secondary-base-button;
+    @include flex-center-xy;
+    column-gap: $primary-button-gap;
+}
+
+$primary-button-padding: 12px 16px;
+$primary-button-gap: 6px;
+
+/*******************************************************/
 /* -------------- Theme Input Styles ----------------- */
 /*******************************************************/
 
@@ -114,43 +146,23 @@ textarea::placeholder
     color: $tertiary-text-color;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 label {
     position: relative;
     width: 100%;
     color: $primary-text-color;
 }
-
-/*******************************************************/
-/* ------------ Theme Button Variables --------------- */
-/*******************************************************/
-
-@mixin primary-base-button {
-    border: none;
-    background-color: $main-color;
-    color: $primary-text-color;
-    border-radius: $primary-border-radius;
-}
-
-@mixin secondary-base-button {
-    border: 1px solid $passive-border-color;
-    background-color: $secondary-infill-color;
-    border-radius: $primary-border-radius;
-}
-
-@mixin button-wrapper-flex {
-    @include flex-center-xy;
-    position: relative;
-}
-
-@mixin flex-button {
-    @include full-reset;
-    @include secondary-base-button;
-    @include flex-center-xy;
-    column-gap: $primary-button-gap;
-}
-
-$primary-button-padding: 12px 16px;
-$primary-button-gap: 6px;
 
 /***************************************************************/
 /* ------------------ General App Styles --------------------- */
