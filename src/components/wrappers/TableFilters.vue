@@ -23,17 +23,8 @@
 
 <script lang="ts" setup>
 import IconFilterArrow from '@/assets/icons/IconFilterArrow.vue'
-
-const filters = [
-  { columnClass: 'info-column', label: 'Asset Bezeichnung' },
-  { columnClass: 'price', label: 'Kurswert' },
-  { columnClass: 'owned-quantity', label: 'gehaltene Anteile' },
-  { columnClass: 'actual-value', label: 'aktueller Ist-Wert' },
-  { columnClass: 'targetPercentage', label: 'Soll-Wert' },
-  { columnClass: 'deviation', label: 'Abweichung' },
-]
 </script>
 
-<style lang="scss" scoped>
-@import 'src/assets/scss/wrappers/table-filters.scss';
+<style lang="scss">
+@import '@/assets/scss/wrappers/table-filters.scss';
 </style>
