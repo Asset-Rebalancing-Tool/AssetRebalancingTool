@@ -14,16 +14,43 @@
       "
     >
       <template #unit>
-        <BaseSelect />
+        <BaseSelect
+            :options="Object.values(CurrencyEnum)"
+            :default-selection="CurrencyEnum.EUR"
+            @change="
+              PatchAssetService.patchPrivateHolding(
+                $event.target.value,
+                assetHolding.holdingUuid,
+                abortController
+              )
+            "
+        />
       </template>
     </BaseInput>
 
     <BaseInput
-      :modelValue="assetHolding.targetPercentage"
-      @input="$emit('update:modelValue', $event.target.value)"
+        type="number"
+        :modelValue="'0'"
+        @input="
+        PatchAssetService.patchPublicHolding(
+          $event.target.value,
+          assetHolding.holdingUuid,
+          abortController
+        )
+      "
     >
       <template #unit>
-        <span>%</span>
+        <BaseSelect
+            :options="Object.values(UnitTypeEnum)"
+            :default-selection="UnitTypeEnum.PIECE"
+            @change="
+              PatchAssetService.patchPrivateHolding(
+                $event.target.value,
+                assetHolding.holdingUuid,
+                abortController
+              )
+            "
+        />
       </template>
     </BaseInput>
 
@@ -63,9 +90,12 @@ import type { PrivateHolding } from '@/models/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
+import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum';
+import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum';
 import { mapAssetType } from '@/composables/assetType'
 
 const testDeviation = ['08', '62', '1']
