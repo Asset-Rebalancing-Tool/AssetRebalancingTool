@@ -3,9 +3,19 @@
     <AssetInfo :asset-name="assetHolding.title" :type="assetType" />
 
     <BaseInput
-      :modelValue="assetHolding.currentPrice"
-      @input="patchCurrentPrice($event.target.value)"
+        type="number"
+        :modelValue="assetHolding.currentPrice"
+        @input="
+        PatchAssetService.patchPrivateHolding(
+          $event.target.value,
+          assetHolding.holdingUuid,
+          abortController
+        )
+      "
     >
+      <template #unit>
+        <BaseSelect />
+      </template>
     </BaseInput>
 
     <BaseInput
@@ -23,8 +33,15 @@
     </div>
 
     <BaseInput
+        type="number"
         :modelValue="assetHolding.targetPercentage"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="
+        PatchAssetService.patchPrivateHolding(
+          $event.target.value,
+          assetHolding.holdingUuid,
+          abortController
+        )
+      "
     >
       <template #unit>
         <span>%</span>
@@ -41,26 +58,14 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { PublicHolding } from '@/models/PublicHolding'
+import PatchAssetService from '@/services/PatchAssetService'
 import type { PrivateHolding } from '@/models/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { computed } from 'vue'
+import {computed, ref, Ref} from 'vue'
 import { mapAssetType } from '@/composables/assetType'
-import {
-  getNewestPriceRecord,
-  getNewestPriceRecordFormatted,
-} from '@/composables/valueArray'
-import { mapCurrency } from '@/composables/currency'
-import LineChart from '@/components/charts/LineChart.vue'
-import {
-  showGraph,
-  getDataValues,
-  getDataLabels,
-  isPositiveChart,
-} from '@/composables/smallLineChart'
 
 const testDeviation = ['08', '62', '1']
 
@@ -71,22 +76,10 @@ const props = defineProps({
   },
 })
 
-function patchCurrentPrice(currentPrice: string): void {
-  // Parse the
-  const quantity: number = +currentPrice
-}
+const abortController: Ref<AbortController | null> = ref(new AbortController())
 
 // Get the mapped asset type
 const assetType = computed((): string => {
   return mapAssetType(props.assetHolding.assetType)
-})
-
-// Get the currency of the newest price record
-const currency = computed((): string => {
-  return mapCurrency(props.assetHolding.publicAsset.availableCurrencies[0])
-})
-
-const currentValuePercentage = computed(() => {
-  return new Intl.NumberFormat('de-DE').format(66.84) + ' %'
 })
 </script>

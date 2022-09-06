@@ -26,10 +26,11 @@
     </ThreeDigitValue>
 
     <BaseInput
+      type="number"
       :modelValue="assetHolding.ownedQuantity"
       @input="
-        PatchAssetService.patchPublicAssetsHolding(
-          ownedQuantityRequest($event.target.value),
+        PatchAssetService.patchPublicHolding(
+          $event.target.value,
           assetHolding.holdingUuid,
           abortController
         )
@@ -46,8 +47,15 @@
     </div>
 
     <BaseInput
-      :modelValue="assetHolding.targetPercentage"
-      @input="$emit('update:modelValue', $event.target.value)"
+        type="number"
+        :modelValue="assetHolding.targetPercentage"
+        @input="
+        PatchAssetService.patchPublicHolding(
+          $event.target.value,
+          assetHolding.holdingUuid,
+          abortController
+        )
+      "
     >
       <template #unit>
         <span>%</span>
@@ -65,9 +73,6 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { PublicHolding } from '@/models/PublicHolding'
-import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import type { PrivateHolding } from '@/models/PrivateHolding'
 import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -88,7 +93,6 @@ import {
   getDataLabels,
   isPositiveChart,
 } from '@/composables/smallLineChart'
-import AssetService from '@/services/FetchAssetService'
 import { useAssetStore } from '@/stores/AssetStore'
 
 //temp
@@ -105,25 +109,6 @@ const props = defineProps({
 
 // reactive variables needed in order fetch assets properly
 const abortController: Ref<AbortController | null> = ref(new AbortController())
-const timer: Ref<ReturnType<typeof setTimeout> | null> = ref(null)
-
-/**
- * Abort the previous fetch and reset the asset store state variables
- *
- * @return void
- */
-function resetFetch(): void {
-  // Always abort previous requests
-  if (abortController.value) {
-    abortController.value.abort()
-    abortController.value = null
-  }
-}
-
-function ownedQuantityRequest(quantity: string) {
-  const ownedQuantity: number = +quantity
-  return { ownedQuantity } as PublicHoldingRequest
-}
 
 const priceRecords = computed(() => {
   return props.assetHolding.publicAsset.assetPriceRecords
