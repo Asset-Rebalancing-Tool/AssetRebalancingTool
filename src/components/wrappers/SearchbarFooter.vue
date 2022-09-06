@@ -22,7 +22,7 @@ import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import { getAuthorizedInstance } from '@/services/TokenService'
 import axios, { AxiosResponse } from 'axios'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
-import type { PrivateAssetHoldingRequest } from '@/requests/PrivateAssetHoldingRequest'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 
 const store = useAssetStore()
 
@@ -35,11 +35,11 @@ async function newPrivateHoldingAction() {
     currentPrice: 0.0,
     title: 'Neues Privates Asset',
     targetPercentage: 0.0,
-  } as PrivateAssetHoldingRequest
+  } as PrivateHoldingRequest
 
   await getAuthorizedInstance().then((instance) => {
     return instance
-      .post<PrivateAssetHoldingRequest, AxiosResponse>(
+      .post<PrivateHoldingRequest, AxiosResponse>(
         '/holding_api/asset_holding/private',
         request
       )

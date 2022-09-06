@@ -1,19 +1,19 @@
 import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import type { UnitType } from '@/models/enums/UnitTypeEnum'
-import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicAsset } from '@/models/PublicAsset'
 
 export enum HoldingOriginEnum {
   MANUAL_ENTRY = 'ManualEntry',
   SCALABLE_CAPITAL = 'ScalableCapital',
 }
 
-export interface IPublicAssetHolding {
+export interface PublicHolding {
   customName: string
   displayCustomName: boolean
   holdingOrigin: HoldingOriginEnum
   holdingUuid: string
   ownedQuantity: number
-  publicAsset: IPublicAsset
+  publicAsset: PublicAsset
   targetPercentage: number
   currency: CurrencyEnum
   unitType: UnitType

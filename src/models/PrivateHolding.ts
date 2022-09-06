@@ -1,6 +1,6 @@
 import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 
-export interface IPrivateAssetHolding {
+export interface PrivateHolding {
   assetType: AssetTypeEnum
   currentPrice: number
   holdingUuid: string

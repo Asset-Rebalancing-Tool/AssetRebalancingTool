@@ -30,7 +30,7 @@ import InfoColumn from '@/components/asset-list/row/column/InfoColumn.vue'
 import SingleValue from '@/components/asset-list/row/column/SingleValue.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { computed } from 'vue';
-import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicAsset } from '@/models/PublicAsset'
 import { getNewestPriceRecordFormatted } from '@/composables/valueArray'
 import { mapAssetCurrencyByUuid } from '@/composables/currency'
 
@@ -44,7 +44,7 @@ const props = defineProps({
 })
 
 // Get the asset from the asset stores searchbar asset array based on the passed uuid
-const asset = computed<IPublicAsset>(() => {
+const asset = computed<PublicAsset>(() => {
   return assetStore.getSearchbarAsset(props.uuid)
 })
 

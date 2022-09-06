@@ -1,18 +1,18 @@
 import type { AxiosResponse } from 'axios'
 import axios from 'axios'
-import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
-import type { IPrivateAssetHolding } from '@/models/IPrivateAssetHolding'
-import type { PrivateAssetHoldingRequest } from '@/requests/PrivateAssetHoldingRequest'
-import type { IAssetHoldingGroup } from '@/models/IAssetHoldingGroup'
-import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicHolding } from '@/models/PublicHolding'
+import type { PrivateHolding } from '@/models/PrivateHolding'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import type { HoldingGroup } from '@/models/HoldingGroup'
+import type { PublicAsset } from '@/models/PublicAsset'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
-import type { PublicAssetHoldingRequest } from '@/requests/PublicAssetHoldingRequest'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 
 export default {
   // Asset Holdings
 
-  async fetchPublicAssetHoldings(): Promise<IPublicAssetHolding[]> {
+  async fetchPublicAssetHoldings(): Promise<PublicHolding[]> {
     await login('sclaes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
@@ -23,7 +23,7 @@ export default {
       })
   },
 
-  async fetchPrivateAssetHoldings(): Promise<IPrivateAssetHolding[]> {
+  async fetchPrivateAssetHoldings(): Promise<PrivateHolding[]> {
     await login('sclaes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
@@ -34,7 +34,7 @@ export default {
       })
   },
 
-  async fetchAssetHoldingGroups(): Promise<IAssetHoldingGroup[]> {
+  async fetchAssetHoldingGroups(): Promise<HoldingGroup[]> {
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/group')
@@ -47,7 +47,7 @@ export default {
   fetchPublicAssets(
     searchValue: string,
     abortController: AbortController
-  ): Promise<IPublicAsset[]> {
+  ): Promise<PublicAsset[]> {
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.post(
@@ -61,7 +61,7 @@ export default {
         if (response.data !== '') {
           return response.data
         }
-        return [] as IPublicAsset[]
+        return [] as PublicAsset[]
       })
   },
 }

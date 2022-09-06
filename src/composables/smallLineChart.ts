@@ -1,4 +1,4 @@
-import type { IPriceRecord } from '@/models/nested/IPriceRecord'
+import type { PriceRecord } from '@/models/nested/PriceRecord'
 import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
 
 /**
@@ -6,13 +6,13 @@ import { getFirstCurrencyPriceRecords } from '@/composables/valueArray'
  *
  * @param allPriceRecords string
  */
-export function getDataValues(allPriceRecords: IPriceRecord[]): number[] {
-  const priceRecords: IPriceRecord[] =
+export function getDataValues(allPriceRecords: PriceRecord[]): number[] {
+  const priceRecords: PriceRecord[] =
     getFirstCurrencyPriceRecords(allPriceRecords).reverse()
   const dataValues: number[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
-      const record = item as IPriceRecord
+      const record = item as PriceRecord
       dataValues.push(record.price)
     }
   }
@@ -24,13 +24,13 @@ export function getDataValues(allPriceRecords: IPriceRecord[]): number[] {
  *
  * @param allPriceRecords string
  */
-export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
-  const priceRecords: IPriceRecord[] =
+export function getDataLabels(allPriceRecords: PriceRecord[]): string[] {
+  const priceRecords: PriceRecord[] =
     getFirstCurrencyPriceRecords(allPriceRecords)
   const dataLabels: string[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
-      const record = item as IPriceRecord
+      const record = item as PriceRecord
       dataLabels.push(record.tsPrice)
     }
   }
@@ -40,10 +40,10 @@ export function getDataLabels(allPriceRecords: IPriceRecord[]): string[] {
 /**
  * Determine if the first price record is greater than the last and therefore the chart is positive
  *
- * @param allPriceRecords IPriceRecord[]
+ * @param allPriceRecords PriceRecord[]
  */
-export function isPositiveChart(allPriceRecords: IPriceRecord[]) {
-  const priceRecords: IPriceRecord[] =
+export function isPositiveChart(allPriceRecords: PriceRecord[]) {
+  const priceRecords: PriceRecord[] =
     getFirstCurrencyPriceRecords(allPriceRecords)
   const firstRecord = priceRecords[0].price
   const lastRecord = priceRecords[priceRecords.length - 1].price
@@ -55,7 +55,7 @@ export function isPositiveChart(allPriceRecords: IPriceRecord[]) {
  *
  * @param allPriceRecords string
  */
-export function showGraph(allPriceRecords: IPriceRecord[]): boolean {
+export function showGraph(allPriceRecords: PriceRecord[]): boolean {
   const priceRecords: number[] = getDataValues(allPriceRecords)
   return priceRecords.length > 0
 }

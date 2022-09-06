@@ -64,10 +64,10 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
-import type { PrivateAssetHoldingRequest } from '@/requests/PrivateAssetHoldingRequest'
-import type { PublicAssetHoldingRequest } from '@/requests/PublicAssetHoldingRequest'
-import type { IPrivateAssetHolding } from '@/models/IPrivateAssetHolding'
+import type { PublicHolding } from '@/models/PublicHolding'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PrivateHolding } from '@/models/PrivateHolding'
 import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -98,7 +98,7 @@ const store = useAssetStore()
 
 const props = defineProps({
   assetHolding: {
-    type: Object as PropType<IPublicAssetHolding>,
+    type: Object as PropType<PublicHolding>,
     required: true,
   },
 })
@@ -122,7 +122,7 @@ function resetFetch(): void {
 
 function ownedQuantityRequest(quantity: string) {
   const ownedQuantity: number = +quantity
-  return { ownedQuantity } as PublicAssetHoldingRequest
+  return { ownedQuantity } as PublicHoldingRequest
 }
 
 const priceRecords = computed(() => {

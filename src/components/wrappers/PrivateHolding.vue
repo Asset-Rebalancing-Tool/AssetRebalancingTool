@@ -29,8 +29,8 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
-import type { IPrivateAssetHolding } from '@/models/IPrivateAssetHolding'
+import type { PublicHolding } from '@/models/PublicHolding'
+import type { PrivateHolding } from '@/models/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
@@ -54,7 +54,7 @@ const testDeviation = ['08', '62', '1']
 
 const props = defineProps({
   assetHolding: {
-    type: Object as PropType<IPrivateAssetHolding>,
+    type: Object as PropType<PrivateHolding>,
     required: true,
   },
 })

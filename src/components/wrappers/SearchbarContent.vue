@@ -30,15 +30,15 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import SearchbarAsset from '@/components/wrappers/SearchbarAsset.vue'
+import SearchbarAsset from '@/components/wrappers/PublicAsset.vue'
 import SearchbarSkeleton from '@/components/wrappers/SearchbarSkeleton.vue'
 import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
-import type { IPublicAsset } from '@/models/IPublicAsset'
-import type { PublicAssetHoldingRequest } from '@/requests/PublicAssetHoldingRequest'
+import type { PublicAsset } from '@/models/PublicAsset'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import { getAuthorizedInstance } from '@/services/TokenService'
 import axios from 'axios'
-import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
+import type { PublicHolding } from '@/models/PublicHolding'
 
 const store = useAssetStore()
 
@@ -49,12 +49,12 @@ const showPriceLabel = computed(() => {
 async function newPublicHoldingAction(uuid: string) {
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
-  const asset: IPublicAsset = store.getSearchbarAsset(uuid)
-  const request = { publicAssetUuid: asset.uuid } as PublicAssetHoldingRequest
+  const asset: PublicAsset = store.getSearchbarAsset(uuid)
+  const request = { publicAssetUuid: asset.uuid } as PublicHoldingRequest
 
   await getAuthorizedInstance().then((instance) => {
     instance
-      .post<IPublicAssetHolding>('/holding_api/asset_holding/public', request)
+      .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => {
         store.publicAssetHoldings.push(result.data)
       })

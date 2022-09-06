@@ -1,15 +1,15 @@
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type { IPriceRecord } from '@/models/nested/IPriceRecord'
+import type { PriceRecord } from '@/models/nested/PriceRecord'
 
 /**
  * Get the first price records array (EUR records)
  *
- * @param priceRecords IPriceRecord[]
+ * @param priceRecords PriceRecord[]
  */
 export function getFirstCurrencyPriceRecords(
-  priceRecords: IPriceRecord[]
-): IPriceRecord[] {
-  const currencyPriceRecordMap: Record<CurrencyEnum, IPriceRecord[]> = groupBy(
+  priceRecords: PriceRecord[]
+): PriceRecord[] {
+  const currencyPriceRecordMap: Record<CurrencyEnum, PriceRecord[]> = groupBy(
     priceRecords,
     (i) => i.currency
   )
@@ -19,7 +19,7 @@ export function getFirstCurrencyPriceRecords(
 /**
  * Group the price records based on their currency
  *
- * @param array IPriceRecord[]
+ * @param array PriceRecord[]
  * @param key CurrencyEnum
  */
 const groupBy = <T, K extends keyof any>(array: T[], key: (i: T) => K) =>
@@ -28,7 +28,7 @@ const groupBy = <T, K extends keyof any>(array: T[], key: (i: T) => K) =>
     return groups
   }, {} as Record<K, T[]>)
 
-export function getNewestPriceRecord(allPriceRecords: IPriceRecord[]): number {
+export function getNewestPriceRecord(allPriceRecords: PriceRecord[]): number {
   // Get the currency price records map along with the euro perice records
   const currencyPriceRecordMap = groupBy(allPriceRecords, (i) => i.currency)
   let priceRecords = currencyPriceRecordMap[CurrencyEnum.EUR]
@@ -49,7 +49,7 @@ export function getNewestPriceRecord(allPriceRecords: IPriceRecord[]): number {
  * @param allPriceRecords string
  */
 export function getNewestPriceRecordFormatted(
-  allPriceRecords: IPriceRecord[]
+  allPriceRecords: PriceRecord[]
 ): string[] {
   // Get the currency price records map along with the euro perice records
   const currencyPriceRecordMap = groupBy(allPriceRecords, (i) => i.currency)

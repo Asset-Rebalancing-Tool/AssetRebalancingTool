@@ -41,7 +41,6 @@
 <script setup>
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
-import AssetRow from '@/components/wrappers/PublicAssetRow.vue'
 import AssetGroup from '@/components/wrappers/AssetGroup.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
@@ -50,8 +49,8 @@ import { computed, onMounted } from 'vue'
 import AssetService from '@/services/FetchAssetService'
 import { useAssetStore } from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
-import PublicAssetRow from '@/components/wrappers/PublicAssetRow.vue'
-import PrivateAssetRow from '@/components/wrappers/PrivateAssetRow.vue'
+import PublicAssetRow from '@/components/wrappers/PublicHolding.vue'
+import PrivateAssetRow from '@/components/wrappers/PrivateHolding.vue'
 
 const store = useAssetStore()
 

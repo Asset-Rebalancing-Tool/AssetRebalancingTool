@@ -1,6 +1,6 @@
 import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 
-export interface IPriceRecord {
+export interface PriceRecord {
   price: number
   tsPrice: string
   currency: CurrencyEnum

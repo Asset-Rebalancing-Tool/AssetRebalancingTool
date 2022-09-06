@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicAsset } from '@/models/PublicAsset'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import { computed } from 'vue'
@@ -44,7 +44,7 @@ import {
 
 const props = defineProps({
   thisAsset: {
-    type: Object as PropType<IPublicAsset>,
+    type: Object as PropType<PublicAsset>,
     required: true,
   },
 })

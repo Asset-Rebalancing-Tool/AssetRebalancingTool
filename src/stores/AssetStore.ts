@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
-import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicAsset } from '@/models/PublicAsset'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
-import type { IPrivateAssetHolding } from '@/models/IPrivateAssetHolding'
-import type { IAssetHoldingGroup } from '@/models/IAssetHoldingGroup'
+import type { PublicHolding } from '@/models/PublicHolding'
+import type { PrivateHolding } from '@/models/PrivateHolding'
+import type { HoldingGroup } from '@/models/HoldingGroup'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -11,12 +11,12 @@ import type { IAssetHoldingGroup } from '@/models/IAssetHoldingGroup'
 
 export type RootState = {
   searchString: string
-  searchbarAssets: IPublicAsset[]
+  searchbarAssets: PublicAsset[]
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
-  publicAssetHoldings: IPublicAssetHolding[]
-  privateAssetHoldings: IPrivateAssetHolding[]
-  assetHoldingGroups: IAssetHoldingGroup[]
+  publicAssetHoldings: PublicHolding[]
+  privateAssetHoldings: PrivateHolding[]
+  assetHoldingGroups: HoldingGroup[]
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -41,7 +41,7 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
-    updatePublicAssetHolding(publicAssetHolding: IPublicAssetHolding) {
+    updatePublicAssetHolding(publicAssetHolding: PublicHolding) {
       const uuid = publicAssetHolding
     },
 
@@ -50,17 +50,17 @@ export const useAssetStore = defineStore('assetStore', {
      *
      * @param uuid
      */
-    getSearchbarAsset(uuid: string): IPublicAsset {
+    getSearchbarAsset(uuid: string): PublicAsset {
       // Ensure that the searchbar assets array is not empty
       if (this.searchbarAssets.length === 0) {
-        return {} as IPublicAsset
+        return {} as PublicAsset
       }
       // Loop over the searchbar assets and check if the uuid matches the passed uuid
       for (const asset of this.searchbarAssets) {
         if (asset.uuid === uuid) return asset
       }
       // If there is no asset with the passed uuid, return an empty object
-      return {} as IPublicAsset
+      return {} as PublicAsset
     },
 
     /**

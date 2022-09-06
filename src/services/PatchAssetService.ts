@@ -1,15 +1,15 @@
-import type { PublicAssetHoldingRequest } from '@/requests/PublicAssetHoldingRequest'
-import type { IPublicAssetHolding } from '@/models/IPublicAssetHolding'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PublicHolding } from '@/models/PublicHolding'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
 import axios from 'axios'
 import type { AxiosResponse } from 'axios'
 
 export default {
   async patchPublicAssetsHolding(
-    publicAssetHoldingRequest: PublicAssetHoldingRequest,
+    publicAssetHoldingRequest: PublicHoldingRequest,
     holdingUuid: string,
     abortController: AbortController
-  ): Promise<IPublicAssetHolding> {
+  ): Promise<PublicHolding> {
     await login('sclaes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {

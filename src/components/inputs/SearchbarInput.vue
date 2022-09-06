@@ -20,7 +20,7 @@
 import { ref } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { showModalUnderlay } from '@/composables/UseModalUnderlay'
-import type { IPublicAsset } from '@/models/IPublicAsset'
+import type { PublicAsset } from '@/models/PublicAsset'
 import type { Ref } from 'vue'
 import AssetService from '@/services/FetchAssetService'
 import BaseInput from '@/components/inputs/BaseInput.vue'
@@ -108,7 +108,7 @@ function resetFetch(): void {
   }
 
   // Always reset the reactive state object properties
-  store.searchbarAssets = [] as IPublicAsset[]
+  store.searchbarAssets = [] as PublicAsset[]
   store.searchbarResultCount = 0
   store.searchbarLoadingFlag = true
 }

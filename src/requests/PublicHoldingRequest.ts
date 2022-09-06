@@ -1,7 +1,7 @@
 import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import type { UnitType } from '@/models/enums/UnitTypeEnum'
 
-export interface PublicAssetHoldingRequest {
+export interface PublicHoldingRequest {
   currency: CurrencyEnum
   customName: string
   ownedQuantity: number
