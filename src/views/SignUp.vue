@@ -52,6 +52,6 @@ import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
 function submitForm() {}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 @import '@/assets/scss/views/authorization-form.scss';
 </style>
