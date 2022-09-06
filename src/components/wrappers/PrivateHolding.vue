@@ -8,11 +8,23 @@
     >
     </BaseInput>
 
-    <span></span>
-
     <BaseInput
       :modelValue="assetHolding.targetPercentage"
       @input="$emit('update:modelValue', $event.target.value)"
+    >
+      <template #unit>
+        <span>%</span>
+      </template>
+    </BaseInput>
+
+    <div class="current-value-wrapper">
+      <p>4.658,13 €</p>
+      <p>32,25 %</p>
+    </div>
+
+    <BaseInput
+        :modelValue="assetHolding.targetPercentage"
+        @input="$emit('update:modelValue', $event.target.value)"
     >
       <template #unit>
         <span>%</span>
@@ -69,26 +81,9 @@ const assetType = computed((): string => {
   return mapAssetType(props.assetHolding.assetType)
 })
 
-// Get an array that contains the exploded strings of a price record
-const priceArray = computed((): string[] => {
-  return getNewestPriceRecordFormatted(
-    props.assetHolding.publicAsset.assetPriceRecords
-  )
-})
-
 // Get the currency of the newest price record
 const currency = computed((): string => {
   return mapCurrency(props.assetHolding.publicAsset.availableCurrencies[0])
-})
-
-const currentValue = computed(() => {
-  const value =
-    props.assetHolding.ownedQuantity *
-    getNewestPriceRecord(props.assetHolding.publicAsset.assetPriceRecords)
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(value)
 })
 
 const currentValuePercentage = computed(() => {
