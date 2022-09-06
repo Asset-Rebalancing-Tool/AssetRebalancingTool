@@ -130,6 +130,7 @@ input {
     border-radius: $primary-border-radius;
     border: 1px solid $passive-border-color;
     text-align: center;
+    cursor: pointer;
 }
 
 input:focus,
@@ -164,9 +165,42 @@ label {
     color: $primary-text-color;
 }
 
-/***************************************************************/
-/* ------------------ General App Styles --------------------- */
-/***************************************************************/
+/*******************************************************/
+/* -------------- Theme Select Styles ---------------- */
+/*******************************************************/
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: $secondary-input-height;
+    background-color: $primary-infill-color;
+    color: $primary-text-color;
+    outline: $passive-border-color;
+    border-radius: $primary-border-radius;
+    border: 1px solid $passive-border-color;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 6px;
+}
+
+
+select::-ms-expand {
+    display: none;
+}
+
+select option {
+    color: $primary-text-color;
+}
+
+select:focus::-ms-value {
+    background-color: transparent;
+}
+
+/*******************************************************/
+/* --------------- General App Styles ---------------- */
+/*******************************************************/
 
 body {
     margin: 0;
