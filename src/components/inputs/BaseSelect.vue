@@ -1,35 +1,40 @@
 <template>
-  <select
-      class="field"
-      :value="selectedValue"
-      v-bind="{
-      ...$attrs,
-      onChange: ($event) => { $emit('update:modelValue', $event.target.value) }
-    }"
-  >
-    <option
-        v-for="option in options"
-        :value="option"
-        :key="option"
-        :selected="option === modelValue"
-    >{{ option }}</option>
-  </select>
+  <div class="select-container">
+    <select
+        :value="selectedValue"
+        v-bind="{
+        ...$attrs,
+        onChange: ($event) => { $emit('update:modelValue', $event.target.value) }
+      }"
+    >
+      <option
+          v-for="option in options"
+          :value="option"
+          :key="option"
+          :selected="option === modelValue"
+      >{{ option }}</option>
+    </select>
+
+    <slot name="icon">
+      <IconSelectArrow />
+    </slot>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { CurrencyEnum } from "@/models/enums/CurrencyEnum";
 import type { CurrencyEnum as CurrencyType } from "@/models/enums/CurrencyEnum";
 import type { UnitTypeEnum } from "@/models/enums/UnitTypeEnum";
-import {computed} from "vue";
+import { computed } from "vue";
+import IconSelectArrow from '@/assets/icons/inputs/IconSelectArrow.vue';
 
 const props = defineProps({
   modelValue: {
-    type: String as PropType<CurrencyType | UnitTypeEnum>,
+    type: String,
     default: true
   },
   defaultSelection: {
-    type: String as PropType<CurrencyType | UnitTypeEnum>,
+    type: String,
     required: false
   },
   options: {
@@ -45,20 +50,23 @@ const selectedValue = computed(() => {
 </script>
 
 <style lang="scss">
-.input-container {
-  @include flex-center-xy;
-  column-gap: $medium-column-gap;
-  width: 100%;
-  height: 100%;
+.select-container {
+  position: relative;
+
+  select.currency { width: 60px }
+  select.quantity { width: 85px; }
+
+  svg {
+    @include absolute-right-center-y;
+    transform: translate(0, -50%);
+    right: 6px;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+  }
 }
 
-.input-wrapper {
-  width: 100%;
-}
-
-.input-container.locked {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
+.select-container.price {
+  min-width: 90px;
 }
 </style>
