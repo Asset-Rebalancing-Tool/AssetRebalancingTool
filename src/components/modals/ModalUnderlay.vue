@@ -12,7 +12,7 @@ import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 const store = useAssetStore()
 </script>
 
-<style>
+<style lang="scss">
 .modal-underlay {
   position: absolute;
   top: 0;
