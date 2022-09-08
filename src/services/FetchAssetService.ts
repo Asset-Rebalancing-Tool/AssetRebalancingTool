@@ -16,7 +16,9 @@ export default {
     await login('sclaes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.get('/holding_api/asset_holding/public')
+        return instance.get('/holding_api/asset_holding/public', {
+          params: { groupLess: true }
+        })
       })
       .then((response: AxiosResponse) => {
         return response.data
@@ -27,7 +29,9 @@ export default {
     await login('sclaes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.get('/holding_api/asset_holding/private')
+        return instance.get('/holding_api/asset_holding/private', {
+          params: { groupLess: true }
+        })
       })
       .then((response: AxiosResponse) => {
         return response.data
