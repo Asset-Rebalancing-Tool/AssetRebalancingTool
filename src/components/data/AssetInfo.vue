@@ -8,13 +8,15 @@
     ></div>
     <h4 v-html="assetNameWithWordMatches"></h4>
     <div class="additional-info">
-      <div class="asset-type">{{ type }}</div>
-      <div class="isin-wrapper">
-        <span class="label">ISIN</span>
-        <span class="isin" @click.prevent="copyISIN($event)">
+      <slot name="additional-info">
+        <div class="asset-type">{{ type }}</div>
+        <div class="isin-wrapper">
+          <span class="label">ISIN</span>
+          <span class="isin" @click.prevent="copyISIN($event)">
           {{ isin }} <IconCopy />
         </span>
-      </div>
+        </div>
+      </slot>
     </div>
   </div>
 </template>

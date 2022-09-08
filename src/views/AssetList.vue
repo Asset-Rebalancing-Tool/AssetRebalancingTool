@@ -8,6 +8,22 @@
     <TableFilters />
 
     <div class="holding-container">
+
+      <HoldingGroup v-for="group in store.assetHoldingGroups" :key="group.uuid">
+        <template #assets>
+          <PublicHolding
+              v-for="holding in group.publicHoldings"
+              :key="holding.holdingUuid"
+              :asset-holding="holding"
+          />
+          <PrivateHolding
+              v-for="holding in group.privateHoldings"
+              :key="holding.holdingUuid"
+              :asset-holding="holding"
+          />
+        </template>
+      </HoldingGroup>
+
       <PublicHolding
         v-if="publicHoldingsExist"
         v-for="assetHolding in store.publicHoldings"
@@ -50,6 +66,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import PublicHolding from '@/components/wrappers/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
+import HoldingGroup from '@/components/wrappers/HoldingGroup.vue'
 
 const store = useAssetStore()
 

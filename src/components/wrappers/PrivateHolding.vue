@@ -1,6 +1,10 @@
 <template>
   <div class="holding-row">
-    <AssetInfo :asset-name="assetHolding.title" :type="assetType" />
+    <AssetInfo :asset-name="assetHolding.title" :type="assetType" >
+      <template #additional-info>
+        <div class="asset-type">Privat</div>
+      </template>
+    </AssetInfo>
 
     <BaseInput
       type="number"
