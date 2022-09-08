@@ -1,6 +1,6 @@
 <template>
   <div class="holding-row">
-    <AssetInfo :asset-name="assetHolding.title" :type="assetType" >
+    <AssetInfo :asset-name="holding.title" :type="assetType" >
       <template #additional-info>
         <div class="asset-type">Privat</div>
       </template>
@@ -8,11 +8,11 @@
 
     <BaseInput
       type="number"
-      :modelValue="assetHolding.currentPrice"
+      :modelValue="holding.currentPrice"
       @input="
         PatchAssetService.patchPrivateHolding(
           $event.target.value,
-          assetHolding.holdingUuid,
+          holding.holdingUuid,
           abortController
         )
       "
@@ -25,7 +25,7 @@
             @change="
               PatchAssetService.patchPrivateHolding(
                 $event.target.value,
-                assetHolding.holdingUuid,
+                holding.holdingUuid,
                 abortController
               )
             "
@@ -40,7 +40,7 @@
         @input="
         PatchAssetService.patchPublicHolding(
           $event.target.value,
-          assetHolding.holdingUuid,
+          holding.holdingUuid,
           abortController
         )
       "
@@ -53,7 +53,7 @@
             @change="
               PatchAssetService.patchPrivateHolding(
                 $event.target.value,
-                assetHolding.holdingUuid,
+                holding.holdingUuid,
                 abortController
               )
             "
@@ -69,11 +69,11 @@
 
     <BaseInput
       type="number"
-      :modelValue="assetHolding.targetPercentage"
+      :modelValue="holding.targetPercentage"
       @input="
         PatchAssetService.patchPrivateHolding(
           $event.target.value,
-          assetHolding.holdingUuid,
+          holding.holdingUuid,
           abortController
         )
       "
@@ -110,7 +110,7 @@ import { mapUnitTypeArray, mapUnitType } from '@/composables/unitType'
 const testDeviation = ['08', '62', '1']
 
 const props = defineProps({
-  assetHolding: {
+  holding: {
     type: Object as PropType<PrivateHolding>,
     required: true,
   },
@@ -120,7 +120,7 @@ const abortController: Ref<AbortController | null> = ref(new AbortController())
 
 // Get the mapped asset type
 const assetType = computed((): string => {
-  return mapAssetType(props.assetHolding.assetType)
+  return mapAssetType(props.holding.assetType)
 })
 
 const unitTypeOptions = computed(() => {

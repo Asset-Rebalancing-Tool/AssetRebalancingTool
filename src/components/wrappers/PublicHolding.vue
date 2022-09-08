@@ -1,10 +1,10 @@
 <template>
   <div class="holding-row">
     <AssetInfo
-      :asset-name="assetHolding.publicAsset.assetName"
+      :asset-name="holding.publicAsset.assetName"
       :type="assetType"
-      :isin="assetHolding.publicAsset.isin"
-      :logo="assetHolding.publicAsset.iconBase64"
+      :isin="holding.publicAsset.isin"
+      :logo="holding.publicAsset.iconBase64"
     />
 
     <ThreeDigitValue
@@ -19,7 +19,7 @@
           :data-labels="getDataLabels(priceRecords)"
           :border-width="'0.8'"
           :is-positive="
-            isPositiveChart(props.assetHolding.publicAsset.assetPriceRecords)
+            isPositiveChart(props.holding.publicAsset.assetPriceRecords)
           "
         />
       </template>
@@ -27,11 +27,11 @@
 
     <BaseInput
       type="number"
-      :modelValue="assetHolding.ownedQuantity"
+      :modelValue="holding.ownedQuantity"
       @input="
         PatchAssetService.patchPublicHolding(
           $event.target.value,
-          assetHolding.holdingUuid,
+          holding.holdingUuid,
           abortController
         )
       "
@@ -48,11 +48,11 @@
 
     <BaseInput
       type="number"
-      :modelValue="assetHolding.targetPercentage"
+      :modelValue="holding.targetPercentage"
       @input="
         PatchAssetService.patchPublicHolding(
           $event.target.value,
-          assetHolding.holdingUuid,
+          holding.holdingUuid,
           abortController
         )
       "
@@ -101,7 +101,7 @@ const testDeviation = ['08', '62', '1']
 const store = useAssetStore()
 
 const props = defineProps({
-  assetHolding: {
+  holding: {
     type: Object as PropType<PublicHolding>,
     required: true,
   },
@@ -111,30 +111,30 @@ const props = defineProps({
 const abortController: Ref<AbortController | null> = ref(new AbortController())
 
 const priceRecords = computed(() => {
-  return props.assetHolding.publicAsset.assetPriceRecords
+  return props.holding.publicAsset.assetPriceRecords
 })
 
 // Get the mapped asset type
 const assetType = computed((): string => {
-  return mapAssetType(props.assetHolding.publicAsset.assetType)
+  return mapAssetType(props.holding.publicAsset.assetType)
 })
 
 // Get an array that contains the exploded strings of a price record
 const priceArray = computed((): string[] => {
   return getNewestPriceRecordFormatted(
-    props.assetHolding.publicAsset.assetPriceRecords
+    props.holding.publicAsset.assetPriceRecords
   )
 })
 
 // Get the currency of the newest price record
 const currency = computed((): string => {
-  return mapCurrency(props.assetHolding.publicAsset.availableCurrencies[0])
+  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
 })
 
 const currentValue = computed(() => {
   const value =
-    props.assetHolding.ownedQuantity *
-    getNewestPriceRecord(props.assetHolding.publicAsset.assetPriceRecords)
+    props.holding.ownedQuantity *
+    getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',

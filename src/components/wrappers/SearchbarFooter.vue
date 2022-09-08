@@ -74,7 +74,7 @@ async function newHoldingGroup() {
             request
         )
         .then((result) => {
-          store.assetHoldingGroups.push(result.data)
+          store.holdingGroups.push(result.data)
         })
         .catch((error) => {
           console.log(error)

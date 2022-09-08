@@ -16,7 +16,7 @@ export type RootState = {
   searchbarLoadingFlag: boolean
   publicHoldings: PublicHolding[]
   privateHoldings: PrivateHolding[]
-  assetHoldingGroups: HoldingGroup[]
+  holdingGroups: HoldingGroup[]
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -33,7 +33,7 @@ export const useAssetStore = defineStore('assetStore', {
       /** Reactive list objects */
       publicHoldings: [],
       privateHoldings: [],
-      assetHoldingGroups: [],
+      holdingGroups: [],
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
       showGroupWrapper: false,

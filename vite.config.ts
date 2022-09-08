@@ -16,18 +16,18 @@ export default defineConfig({
   server: {
     proxy: {
       '/asset_api': {
-        //target: 'http://192.168.1.52:8080',
-        target: 'http://localhost:8080',
+        target: 'http://192.168.1.52:8080',
+        //target: 'http://localhost:8080',
         changeOrigin: true,
         secure: false,
       },
       '/auth_api': {
-        target: 'http://localhost:8080',
+        target: 'http://192.168.1.52:8080',
         changeOrigin: true,
         secure: false,
       },
       '/holding_api': {
-        target: 'http://localhost:8080',
+        target: 'http://192.168.1.52:8080',
         changeOrigin: true,
         secure: false,
       },

@@ -9,33 +9,33 @@
 
     <div class="holding-container">
 
-      <HoldingGroup v-for="group in store.assetHoldingGroups" :key="group.uuid">
+      <HoldingGroup v-for="group in store.holdingGroups" :key="group.uuid">
         <template #assets>
           <PublicHolding
               v-for="holding in group.publicHoldings"
               :key="holding.holdingUuid"
-              :asset-holding="holding"
+              :holding="holding"
           />
           <PrivateHolding
               v-for="holding in group.privateHoldings"
               :key="holding.holdingUuid"
-              :asset-holding="holding"
+              :holding="holding"
           />
         </template>
       </HoldingGroup>
 
       <PublicHolding
         v-if="publicHoldingsExist"
-        v-for="assetHolding in store.publicHoldings"
-        :asset-holding="assetHolding"
-        :key="assetHolding.holdingUuid"
+        v-for="holding in store.publicHoldings"
+        :holding="holding"
+        :key="holding.holdingUuid"
       />
 
       <PrivateHolding
         v-if="privateHoldingsExist"
-        v-for="assetHolding in store.privateHoldings"
-        :asset-holding="assetHolding"
-        :key="assetHolding.holdingUuid"
+        v-for="holding in store.privateHoldings"
+        :holding="holding"
+        :key="holding.holdingUuid"
       />
     </div>
 
@@ -75,7 +75,7 @@ const testDeviation = ['08', '62', '1']
 onMounted(async () => {
   store.publicHoldings = await AssetService.fetchPublicAssetHoldings()
   store.privateHoldings = await AssetService.fetchPrivateAssetHoldings()
-  store.assetHoldingGroups = await AssetService.fetchAssetHoldingGroups()
+  store.holdingGroups = await AssetService.fetchAssetHoldingGroups()
 })
 
 const publicHoldingsExist = computed(() => {
