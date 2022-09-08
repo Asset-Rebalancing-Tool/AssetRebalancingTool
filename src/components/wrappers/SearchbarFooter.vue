@@ -25,8 +25,8 @@ import { getAuthorizedInstance } from '@/services/TokenService'
 import { AxiosResponse } from 'axios'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
-import type { HoldingGroup } from "@/models/HoldingGroup";
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import type { HoldingGroup } from '@/models/HoldingGroup'
 
 const store = useAssetStore()
 
@@ -64,21 +64,18 @@ async function newHoldingGroup() {
     publicHoldingUuids: [],
     privateHoldingUuids: [],
     groupName: 'Meine Gruppe 1',
-    targetPercentage: 0
+    targetPercentage: 0,
   } as HoldingGroupRequest
 
   await getAuthorizedInstance().then((instance) => {
     return instance
-        .post<HoldingGroup>(
-            '/holding_api/asset_holding/group',
-            request
-        )
-        .then((result) => {
-          store.holdingGroups.push(result.data)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      .post<HoldingGroup>('/holding_api/asset_holding/group', request)
+      .then((result) => {
+        store.holdingGroups.push(result.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   })
 }
 </script>

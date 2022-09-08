@@ -1,18 +1,22 @@
 <template>
   <div class="select-container">
     <select
-        :value="selectedValue"
-        v-bind="{
+      :value="selectedValue"
+      v-bind="{
         ...$attrs,
-        onChange: ($event) => { $emit('update:modelValue', $event.target.value) }
+        onChange: ($event) => {
+          $emit('update:modelValue', $event.target.value)
+        },
       }"
     >
       <option
-          v-for="option in options"
-          :value="option"
-          :key="option"
-          :selected="option === modelValue"
-      >{{ option }}</option>
+        v-for="option in options"
+        :value="option"
+        :key="option"
+        :selected="option === modelValue"
+      >
+        {{ option }}
+      </option>
     </select>
 
     <slot name="icon">
@@ -23,38 +27,41 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { CurrencyEnum as CurrencyType } from "@/models/enums/CurrencyEnum";
-import type { UnitTypeEnum } from "@/models/enums/UnitTypeEnum";
-import { computed } from "vue";
-import IconSelectArrow from '@/assets/icons/inputs/IconSelectArrow.vue';
+import type { CurrencyEnum as CurrencyType } from '@/models/enums/CurrencyEnum'
+import type { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
+import { computed } from 'vue'
+import IconSelectArrow from '@/assets/icons/inputs/IconSelectArrow.vue'
 
 const props = defineProps({
   modelValue: {
     type: String,
-    default: true
+    default: true,
   },
   defaultSelection: {
     type: String,
-    required: false
+    required: false,
   },
   options: {
     type: Array,
-    required: true
-  }
+    required: true,
+  },
 })
 
 const selectedValue = computed(() => {
-  return (props.defaultSelection) ? props.defaultSelection : props.modelValue
+  return props.defaultSelection ? props.defaultSelection : props.modelValue
 })
-
 </script>
 
 <style lang="scss">
 .select-container {
   position: relative;
 
-  select.currency { width: 60px }
-  select.quantity { width: 85px; }
+  select.currency {
+    width: 60px;
+  }
+  select.quantity {
+    width: 85px;
+  }
 
   svg {
     @include absolute-right-center-y;

@@ -13,8 +13,8 @@
         <div class="isin-wrapper">
           <span class="label">ISIN</span>
           <span class="isin" @click.prevent="copyISIN($event)">
-          {{ isin }} <IconCopy />
-        </span>
+            {{ isin }} <IconCopy />
+          </span>
         </div>
       </slot>
     </div>

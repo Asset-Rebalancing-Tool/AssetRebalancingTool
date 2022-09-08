@@ -6,8 +6,8 @@ import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
  * @param currencyArray CurrencyEnum[]
  */
 export function mapCurrencyArray(currencyArray: CurrencyEnum[]) {
-  let tempArray = []
-  for (let currency of currencyArray) {
+  const tempArray = []
+  for (const currency of currencyArray) {
     tempArray.push(mapCurrency(currency))
   }
   return tempArray

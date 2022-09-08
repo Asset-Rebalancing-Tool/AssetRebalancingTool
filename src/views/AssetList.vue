@@ -8,18 +8,17 @@
     <TableFilters />
 
     <div class="holding-container">
-
       <HoldingGroup v-for="group in store.holdingGroups" :key="group.uuid">
         <template #assets>
           <PublicHolding
-              v-for="holding in group.publicHoldings"
-              :key="holding.holdingUuid"
-              :holding="holding"
+            v-for="holding in group.publicHoldings"
+            :key="holding.holdingUuid"
+            :holding="holding"
           />
           <PrivateHolding
-              v-for="holding in group.privateHoldings"
-              :key="holding.holdingUuid"
-              :holding="holding"
+            v-for="holding in group.privateHoldings"
+            :key="holding.holdingUuid"
+            :holding="holding"
           />
         </template>
       </HoldingGroup>

@@ -17,7 +17,7 @@ export default {
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/public', {
-          params: { groupLess: true }
+          params: { groupLess: true },
         })
       })
       .then((response: AxiosResponse) => {
@@ -30,7 +30,7 @@ export default {
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/private', {
-          params: { groupLess: true }
+          params: { groupLess: true },
         })
       })
       .then((response: AxiosResponse) => {

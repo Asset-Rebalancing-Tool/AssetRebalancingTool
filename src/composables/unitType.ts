@@ -1,5 +1,5 @@
-import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum';
-import type { UnitTypeEnum as UnitType } from '@/models/enums/UnitTypeEnum';
+import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
+import type { UnitTypeEnum as UnitType } from '@/models/enums/UnitTypeEnum'
 
 /**
  * Map an array of unit types
@@ -7,8 +7,8 @@ import type { UnitTypeEnum as UnitType } from '@/models/enums/UnitTypeEnum';
  * @param unitTypeArray UnitTypeEnum[]
  */
 export function mapUnitTypeArray(unitTypeArray: UnitType[]) {
-  let tempArray = []
-  for (let unitType of unitTypeArray) {
+  const tempArray = []
+  for (const unitType of unitTypeArray) {
     if (unitType === UnitTypeEnum.UNKNOWN) continue
     tempArray.push(mapUnitType(unitType))
   }

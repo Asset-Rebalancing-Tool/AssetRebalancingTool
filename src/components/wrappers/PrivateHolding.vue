@@ -1,6 +1,6 @@
 <template>
   <div class="holding-row">
-    <AssetInfo :asset-name="holding.title" :type="assetType" >
+    <AssetInfo :asset-name="holding.title" :type="assetType">
       <template #additional-info>
         <div class="asset-type">Privat</div>
       </template>
@@ -19,25 +19,25 @@
     >
       <template #unit>
         <BaseSelect
-            class="currency"
-            :options="currencyOptions"
-            :default-selection="CurrencyEnum.EUR"
-            @change="
-              PatchAssetService.patchPrivateHolding(
-                $event.target.value,
-                holding.holdingUuid,
-                abortController
-              )
-            "
+          class="currency"
+          :options="currencyOptions"
+          :default-selection="CurrencyEnum.EUR"
+          @change="
+            PatchAssetService.patchPrivateHolding(
+              $event.target.value,
+              holding.holdingUuid,
+              abortController
+            )
+          "
         />
       </template>
     </BaseInput>
 
     <BaseInput
-        custom-container-class="quantity-input"
-        type="number"
-        :modelValue="'0'"
-        @input="
+      custom-container-class="quantity-input"
+      type="number"
+      :modelValue="'0'"
+      @input="
         PatchAssetService.patchPublicHolding(
           $event.target.value,
           holding.holdingUuid,
@@ -47,16 +47,16 @@
     >
       <template #unit>
         <BaseSelect
-            class="quantity"
-            :options="unitTypeOptions"
-            :default-selection="defaultUnitType"
-            @change="
-              PatchAssetService.patchPrivateHolding(
-                $event.target.value,
-                holding.holdingUuid,
-                abortController
-              )
-            "
+          class="quantity"
+          :options="unitTypeOptions"
+          :default-selection="defaultUnitType"
+          @change="
+            PatchAssetService.patchPrivateHolding(
+              $event.target.value,
+              holding.holdingUuid,
+              abortController
+            )
+          "
         >
         </BaseSelect>
       </template>
@@ -102,8 +102,8 @@ import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
-import { CurrencyEnum } from '@/models/enums/CurrencyEnum';
-import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum';
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/assetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/unitType'
 
@@ -132,12 +132,11 @@ const defaultUnitType = computed(() => {
 })
 
 const currencyOptions = computed(() => {
-  let currencies = []
-  for (let currency of Object.values(CurrencyEnum)) {
+  const currencies = []
+  for (const currency of Object.values(CurrencyEnum)) {
     if (currency == 'UNSUPPORTED') continue
     currencies.push(currency)
   }
   return currencies
 })
-
 </script>

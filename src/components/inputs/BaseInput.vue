@@ -27,7 +27,7 @@ const props = defineProps({
   customContainerClass: {
     type: String,
     required: false,
-  }
+  },
 })
 </script>
 

@@ -38,7 +38,6 @@ export default {
     holdingUuid: string,
     abortController: AbortController
   ): Promise<void> {
-
     // Only fetch if the input value is numeric
     if (+inputValue) return
 
@@ -71,7 +70,6 @@ export default {
     holdingUuid: string,
     abortController: AbortController
   ): Promise<void> {
-
     // Only fetch if the input value is numeric
     if (+inputValue) return
 
