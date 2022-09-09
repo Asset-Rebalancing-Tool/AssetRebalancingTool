@@ -30,8 +30,8 @@
       :modelValue="holding.ownedQuantity"
       @input="
         PatchAssetService.patchPublicHolding(
-          publicHoldingPatchRequest($event.target.value),
-          holding.holdingUuid
+          patchOwnedQuantityRequest($event.target.value),
+          holding.uuid
         )
       "
     >
@@ -50,8 +50,8 @@
       :modelValue="holding.targetPercentage"
       @input="
         PatchAssetService.patchPublicHolding(
-          publicHoldingPatchRequest($event.target.value),
-          holding.holdingUuid
+          patchTargetPercentageRequest($event.target.value),
+          holding.uuid
         )
       "
     >
@@ -107,6 +107,14 @@ const props = defineProps({
   },
 })
 
+function patchOwnedQuantityRequest(quantity: number) {
+  return { ownedQuantity: quantity } as PublicHoldingRequest
+}
+
+function patchTargetPercentageRequest(percentage: number) {
+  return { targetPercentage: percentage } as PublicHoldingRequest
+}
+
 const priceRecords = computed(() => {
   return props.holding.publicAsset.assetPriceRecords
 })
@@ -141,14 +149,4 @@ const currentValue = computed(() => {
 const currentValuePercentage = computed(() => {
   return new Intl.NumberFormat('de-DE').format(66.84) + ' %'
 })
-
-/**
- * Build the request body for the public holding patch
- *
- * @param inputValue string
- */
-function publicHoldingPatchRequest(inputValue: string): PublicHoldingRequest {
-  const data: number = +inputValue
-  return { data } as unknown as PublicHoldingRequest
-}
 </script>

@@ -51,6 +51,7 @@
 
 import { Container, Draggable } from 'vue-dndrop';
 import { applyDrag } from '@/composables/dndDrop';
+import { onMounted } from 'vue';
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -73,8 +74,10 @@ const store = useAssetStore()
 
 const testDeviation = ['08', '62', '1']
 
+onMounted(async () => {
+  store.assetListEntries = await generateHoldingRow()
+})
 
-store.assetListEntries = await generateHoldingRow()
 
 
 
@@ -96,7 +99,7 @@ async function generateHoldingRow() {
 
   publicHoldings.forEach(holding => {
     genericHoldingRows.push({
-      uuid: holding.holdingUuid,
+      uuid: holding.uuid,
       entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
       publicHolding: holding
     } as AssetListEntry)
@@ -104,7 +107,7 @@ async function generateHoldingRow() {
 
   privateHoldings.forEach(holding => {
     genericHoldingRows.push({
-      uuid: holding.holdingUuid,
+      uuid: holding.uuid,
       entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
       privateHolding: holding
     } as AssetListEntry)
@@ -119,11 +122,11 @@ function onDrop(dropResult: any) {
     switch (holding.entryType) {
       case AssetListEntryTypeEnum.PUBLIC_HOLDING:
         let publicHoldingRequest = { publicHolding: PublicHolding } as unknown as PublicHoldingRequest
-        PatchAssetService.patchPublicHolding(publicHoldingRequest, holding.publicHolding!.holdingUuid)
+        PatchAssetService.patchPublicHolding(publicHoldingRequest, holding.publicHolding!.uuid)
         break;
       case AssetListEntryTypeEnum.PRIVATE_HOLDING:
         let privateHoldingRequest = { privateHolding: PrivateHolding } as unknown as PrivateHoldingRequest
-        PatchAssetService.patchPrivateHolding(privateHoldingRequest, holding.privateHolding!.holdingUuid)
+        PatchAssetService.patchPrivateHolding(privateHoldingRequest, holding.privateHolding!.uuid)
         break;
       case AssetListEntryTypeEnum.HOLDING_GROUP:
         let holdingGroupRequest = { holdingGroup: HoldingGroup } as unknown as HoldingGroupRequest

@@ -12,16 +12,16 @@ export default {
    * Patch a public holding based on its uuid
    *
    * @param request PublicHoldingRequest
-   * @param holdingUuid string
+   * @param uuid string
    */
   async patchPublicHolding(
     request: PublicHoldingRequest,
-    holdingUuid: string,
+    uuid: string,
   ): Promise<void> {
     await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.patch(`/holding_api/asset_holding/public/${holdingUuid}`, request)
+        return instance.patch(`/holding_api/asset_holding/public/${uuid}`, request)
       })
       .then((response: AxiosResponse) => {
         useAssetStore().updateAssetListEntry(response.data)

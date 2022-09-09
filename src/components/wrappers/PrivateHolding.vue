@@ -11,8 +11,8 @@
       :modelValue="holding.currentPrice"
       @input="
         PatchAssetService.patchPrivateHolding(
-          privateHoldingPatchRequest($event.target.value),
-          holding.holdingUuid
+          patchCurrentPriceRequest($event.target.value),
+          holding.uuid
         )
       "
     >
@@ -23,8 +23,8 @@
           :default-selection="CurrencyEnum.EUR"
           @change="
             PatchAssetService.patchPrivateHolding(
-              privateHoldingPatchRequest($event.target.value),
-              holding.holdingUuid
+              patchCurrencyRequest($event.target.value),
+              holding.uuid
             )
           "
         />
@@ -37,8 +37,8 @@
       :modelValue="'0'"
       @input="
         PatchAssetService.patchPrivateHolding(
-          privateHoldingPatchRequest($event.target.value),
-          holding.holdingUuid
+          patchOwnedQuantityRequest($event.target.value),
+          holding.uuid
         )
       "
     >
@@ -49,8 +49,8 @@
           :default-selection="defaultUnitType"
           @change="
             PatchAssetService.patchPrivateHolding(
-              privateHoldingPatchRequest($event.target.value),
-              holding.holdingUuid
+              patchUnitTypeRequest($event.target.value),
+              holding.uuid
             )
           "
         >
@@ -68,8 +68,8 @@
       :modelValue="holding.targetPercentage"
       @input="
         PatchAssetService.patchPrivateHolding(
-          privateHoldingPatchRequest($event.target.value),
-          holding.holdingUuid
+          patchTargetPercentageRequest($event.target.value),
+          holding.uuid
         )
       "
     >
@@ -111,6 +111,26 @@ const props = defineProps({
   },
 })
 
+function patchPricePerUnitRequest(price: number) {
+  return { pricePerUnit: price } as PrivateHoldingRequest
+}
+
+function patchCurrencyRequest(currency: CurrencyEnum) {
+  return { currency: currency } as PrivateHoldingRequest
+}
+
+function patchOwnedQuantityRequest(quantity: number) {
+  return { ownedQuantity: quantity } as PrivateHoldingRequest
+}
+
+function patchUnitTypeRequest(unit: UnitTypeEnum) {
+  return { unitType: unit } as PrivateHoldingRequest
+}
+
+function patchTargetPercentageRequest(percentage: number) {
+  return { targetPercentage: percentage } as PrivateHoldingRequest
+}
+
 // Get the mapped asset type
 const assetType = computed((): string => {
   return mapAssetType(props.holding.assetType)
@@ -132,14 +152,4 @@ const currencyOptions = computed(() => {
   }
   return currencies
 })
-
-/**
- * Build the request body for the private holding patch
- *
- * @param inputValue string
- */
-function privateHoldingPatchRequest(inputValue: string): PrivateHoldingRequest {
-  const data: number = +inputValue
-  return { data } as unknown as PrivateHoldingRequest
-}
 </script>
