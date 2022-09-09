@@ -11,7 +11,7 @@
       :modelValue="holding.currentPrice"
       @input="
         PatchAssetService.patchPrivateHolding(
-          patchCurrentPriceRequest($event.target.value),
+          patchPricePerUnitRequest($event.target.value),
           holding.uuid
         )
       "
