@@ -88,12 +88,21 @@
     /* --------------- Asset Row Component --------------- */
     /*******************************************************/
 
+
+    .dndrop-draggable-wrapper {
+      margin-bottom: 15px;
+      overflow: visible;
+    }
+
+    .dndrop-draggable-wrapper:first-child {
+      border-top: none;
+    }
+
     .holding-row {
       @include base-wrapper;
       @include holding-row-grid;
       height: $outer-holding-row-height;
       cursor: pointer;
-      margin-bottom: 15px;
 
       @import 'src/assets/scss/data/_asset-info.scss';
       @import 'src/assets/scss/data/_three-digit-value.scss';
