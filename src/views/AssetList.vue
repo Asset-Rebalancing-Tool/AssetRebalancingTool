@@ -12,15 +12,17 @@
       <Container @drop="onDrop">
         <Draggable v-for="holding in store.genericHoldingRow" :key="holding.uuid">
           <HoldingGroup
-              v-if="holding.type === GenericRowType.PRIVATE_HOLDING"
+              v-if="holding.type === GenericRowType.HOLDING_GROUP"
               :key="holding.uuid"
               :holding="holding.holdingGroup"
           ></HoldingGroup>
+
           <PublicHolding
               v-if="holding.type === GenericRowType.PUBLIC_HOLDING"
               :key="holding.uuid"
               :holding="holding.publicHolding"
           />
+
           <PrivateHolding
               v-if="holding.type === GenericRowType.PRIVATE_HOLDING"
               :key="holding.uuid"
