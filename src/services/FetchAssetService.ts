@@ -2,17 +2,12 @@ import type { AxiosResponse } from 'axios'
 import axios from 'axios'
 import type { PublicHolding } from '@/models/PublicHolding'
 import type { PrivateHolding } from '@/models/PrivateHolding'
-import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import type { HoldingGroup } from '@/models/HoldingGroup'
 import type { PublicAsset } from '@/models/PublicAsset'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
-import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
-import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-
 export default {
-  // Asset Holdings
 
-  async fetchPublicAssetHoldings(): Promise<PublicHolding[]> {
+  async fetchPublicHoldings(): Promise<PublicHolding[]> {
     await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
@@ -21,11 +16,12 @@ export default {
         })
       })
       .then((response: AxiosResponse) => {
+        console.log(response.data)
         return response.data
       })
   },
 
-  async fetchPrivateAssetHoldings(): Promise<PrivateHolding[]> {
+  async fetchPrivateHoldings(): Promise<PrivateHolding[]> {
     await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
@@ -38,7 +34,7 @@ export default {
       })
   },
 
-  async fetchAssetHoldingGroups(): Promise<HoldingGroup[]> {
+  async fetchHoldingGroups(): Promise<HoldingGroup[]> {
     await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {

@@ -10,7 +10,7 @@
     <div class="holding-container">
 
       <Container @drop="onDrop">
-        <Draggable v-for="holding in store.genericHoldingRow" :key="holding.uuid">
+        <Draggable v-for="holding in store.genericHoldingRows" :key="holding.uuid">
           <HoldingGroup
               v-if="holding.type === GenericRowType.HOLDING_GROUP"
               :key="holding.uuid"
@@ -74,49 +74,45 @@ const store = useAssetStore()
 const testDeviation = ['08', '62', '1']
 
 onMounted(async () => {
-  store.genericHoldingRow = await generateHoldingRow()
+  store.genericHoldingRows = await generateHoldingRow()
+  console.log(store.genericHoldingRows)
 })
 
 async function generateHoldingRow() {
-  let tempArray: GenericHoldingRow[] = []
+  let genericHoldingRows: GenericHoldingRow[] = []
+  let holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
+  let publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
+  let privateHoldings: PrivateHolding[] = await AssetService.fetchPrivateHoldings()
 
-  store.holdingGroups = await AssetService.fetchAssetHoldingGroups()
-  store.publicHoldings = await AssetService.fetchPublicAssetHoldings()
-  store.privateHoldings = await AssetService.fetchPrivateAssetHoldings()
-
-  store.holdingGroups.forEach(group => {
-    tempArray.push({
+  holdingGroups.forEach(group => {
+    genericHoldingRows.push({
       uuid: group.uuid,
       type: GenericRowType.HOLDING_GROUP,
       holdingGroup: group
     } as GenericHoldingRow)
   })
 
-  store.publicHoldings.forEach(holding => {
-    tempArray.push({
+  publicHoldings.forEach(holding => {
+    genericHoldingRows.push({
       uuid: holding.holdingUuid,
       type: GenericRowType.PUBLIC_HOLDING,
       publicHolding: holding
     } as GenericHoldingRow)
   })
 
-  store.privateHoldings.forEach(holding => {
-    tempArray.push({
+  privateHoldings.forEach(holding => {
+    genericHoldingRows.push({
       uuid: holding.holdingUuid,
       type: GenericRowType.PRIVATE_HOLDING,
       privateHolding: holding
     } as GenericHoldingRow)
   })
 
-  return tempArray
+  return genericHoldingRows
 }
 
 function onDrop(dropResult: any) {
-  let sortedHoldingRows: GenericHoldingRow[] = applyDrag(store.genericHoldingRow, dropResult);
-
-
-
-  // patch each generic holding based on its type
+  let sortedHoldingRows: GenericHoldingRow[] = applyDrag(store.genericHoldingRows, dropResult);
   sortedHoldingRows.forEach(holding => {
     switch (holding.type) {
       case GenericRowType.PUBLIC_HOLDING:
@@ -134,26 +130,7 @@ function onDrop(dropResult: any) {
     }
   })
 
-  store.genericHoldingRow = sortedHoldingRows
-}
-
-/**
- * Build the request body for the public holding patch
- *
- * @param holding PublicHolding
- */
-function publicHoldingPatchRequest(holding: PublicHolding): PublicHoldingRequest {
-  return { PublicHolding } as unknown as PublicHoldingRequest
-}
-
-/**
- * Build the request body for the private holding patch
- *
- * @param inputValue string
- */
-function privateHoldingPatchRequest(inputValue: string): PublicHoldingRequest {
-  const data: number = +inputValue
-  return { data } as unknown as PublicHoldingRequest
+  store.genericHoldingRows = sortedHoldingRows
 }
 </script>
 

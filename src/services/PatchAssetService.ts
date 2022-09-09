@@ -3,6 +3,9 @@ import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
+import { useAssetStore } from '@/stores/AssetStore';
+
+
 
 export default {
 
@@ -22,8 +25,7 @@ export default {
         return instance.patch(`/holding_api/asset_holding/public/${holdingUuid}`, request)
       })
       .then((response: AxiosResponse) => {
-        // TODO: Find holding in asset store and replace it
-        //return response.data
+        useAssetStore().updatePublicHolding(response.data)
       })
   },
 
@@ -43,8 +45,7 @@ export default {
         return instance.patch(`/holding_api/asset_holding/private/${holdingUuid}`, request)
       })
       .then((response: AxiosResponse) => {
-        // TODO: Find holding in asset store and replace it
-        //return response.data
+        useAssetStore().updatePrivateHolding(response.data)
       })
   },
 
@@ -64,8 +65,7 @@ export default {
         return instance.patch(`/holding_api/asset_holding/group/${holdingUuid}`, request)
       })
       .then((response: AxiosResponse) => {
-        // TODO: Find holding in asset store and replace it
-        //return response.data
+        useAssetStore().updateHoldingGroup(response.data)
       })
   },
 }

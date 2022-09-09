@@ -3,8 +3,8 @@ import type { PublicAsset } from '@/models/PublicAsset'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import type { GenericHoldingRow } from '@/models/GenericHoldingRow'
 import type { PublicHolding } from '@/models/PublicHolding'
-import type { PrivateHolding } from '@/models/PrivateHolding'
-import type { HoldingGroup } from '@/models/HoldingGroup'
+import type {PrivateHolding} from "@/models/PrivateHolding";
+import type {HoldingGroup} from "@/models/HoldingGroup";
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -15,10 +15,7 @@ export type RootState = {
   searchbarAssets: PublicAsset[]
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
-  genericHoldingRow: GenericHoldingRow[]
-  publicHoldings: PublicHolding[]
-  privateHoldings: PrivateHolding[]
-  holdingGroups: HoldingGroup[]
+  genericHoldingRows: GenericHoldingRow[]
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -32,11 +29,8 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarAssets: [],
       searchbarResultCount: 0,
       searchbarLoadingFlag: false,
-      /** Reactive list objects */
-      genericHoldingRow: [],
-      publicHoldings: [],
-      privateHoldings: [],
-      holdingGroups: [],
+      /** Reactive list object */
+      genericHoldingRows: [],
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
       showGroupWrapper: false,
@@ -44,11 +38,57 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
-    updatePublicAssetHolding(publicAssetHolding: PublicHolding) {
-      const uuid = publicAssetHolding
-    },
 
     /**
+     * Update an entry of the genericHoldingRows
+     *
+     * @param patchedHolding PublicHolding
+     */
+    updatePublicHolding(patchedHolding: PublicHolding) {
+        this.genericHoldingRows.forEach((value, key) => {
+            if (value.publicHolding !== undefined) {
+                if (value.publicHolding!.holdingUuid === patchedHolding.holdingUuid) {
+                    // Update the public holding entry
+                    this.genericHoldingRows[key].publicHolding = patchedHolding
+                }
+            }
+        })
+    },
+
+      /**
+       * Update an entry of the genericHoldingRows
+       *
+       * @param patchedHolding PrivateHolding
+       */
+      updatePrivateHolding(patchedHolding: PrivateHolding) {
+          this.genericHoldingRows.forEach((value, key) => {
+              if (value.privateHolding !== undefined) {
+                  if (value.privateHolding!.holdingUuid === patchedHolding.holdingUuid) {
+                      // Update the public holding entry
+                      this.genericHoldingRows[key].privateHolding = patchedHolding
+                  }
+              }
+          })
+      },
+
+      /**
+       * Update an entry of the genericHoldingRows
+       *
+       * @param patchedHolding PublicHolding
+       */
+      updateHoldingGroup(patchedHolding: HoldingGroup) {
+          this.genericHoldingRows.forEach((value, key) => {
+              if (value.holdingGroup !== undefined) {
+                  if (value.holdingGroup!.uuid === patchedHolding.uuid) {
+                      // Update the public holding entry
+                      this.genericHoldingRows[key].holdingGroup = patchedHolding
+                  }
+              }
+          })
+      },
+
+
+      /**
      * Iterate over the searchbar assets and check if the uuid matches the passed uuid
      *
      * @param uuid
