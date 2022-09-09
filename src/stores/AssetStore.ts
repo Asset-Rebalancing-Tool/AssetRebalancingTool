@@ -1,10 +1,12 @@
-import { defineStore } from 'pinia'
-import type { PublicAsset } from '@/models/PublicAsset'
-import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import type { GenericHolding } from '@/models/holdings/GenericHolding'
-import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import {defineStore} from 'pinia'
+import type {PublicAsset} from '@/models/PublicAsset'
+import {CurrencyEnum} from '@/models/enums/CurrencyEnum'
+import type {AssetListEntry} from '@/models/holdings/AssetListEntry'
+import type {PublicHolding} from '@/models/holdings/PublicHolding'
 import type {PrivateHolding} from "@/models/holdings/PrivateHolding";
 import type {HoldingGroup} from "@/models/holdings/HoldingGroup";
+import type {BaseEntity} from "@/models/holdings/BaseEntity";
+import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -15,7 +17,7 @@ export type RootState = {
   searchbarAssets: PublicAsset[]
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
-  genericHoldingRows: GenericHolding[]
+  assetListEntries: AssetListEntry[]
   selectedAssetCount: number
   showGroupWrapper: boolean
   activeModalUnderlay: boolean
@@ -30,7 +32,7 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarResultCount: 0,
       searchbarLoadingFlag: false,
       /** Reactive list object */
-      genericHoldingRows: [],
+      assetListEntries: [],
       /** Count that is used, to determine what action buttons should be active */
       selectedAssetCount: 0,
       showGroupWrapper: false,
@@ -42,53 +44,27 @@ export const useAssetStore = defineStore('assetStore', {
     /**
      * Update an entry of the genericHoldingRows
      *
-     * @param patchedHolding PublicHolding
+     * @param patchedEntry PublicHolding
      */
-    updatePublicHolding(patchedHolding: PublicHolding) {
-        this.genericHoldingRows.forEach((value, key) => {
-            if (value.publicHolding !== undefined) {
-                if (value.publicHolding!.holdingUuid === patchedHolding.holdingUuid) {
-                    // Update the public holding entry
-                    this.genericHoldingRows[key].publicHolding = patchedHolding
+    updateAssetListEntry(patchedEntry: BaseEntity) {
+        this.assetListEntries.forEach((value, key) => {
+            if (value.uuid == patchedEntry.uuid) {
+                switch (value.entryType) {
+                    case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+                        this.assetListEntries[key].publicHolding = patchedEntry as PublicHolding
+                        break;
+                    case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+                        this.assetListEntries[key].privateHolding = patchedEntry as PrivateHolding
+                        break;
+                    case AssetListEntryTypeEnum.HOLDING_GROUP:
+                        this.assetListEntries[key].holdingGroup = patchedEntry as HoldingGroup
+                        break;
                 }
             }
         })
     },
 
-      /**
-       * Update an entry of the genericHoldingRows
-       *
-       * @param patchedHolding PrivateHolding
-       */
-      updatePrivateHolding(patchedHolding: PrivateHolding) {
-          this.genericHoldingRows.forEach((value, key) => {
-              if (value.privateHolding !== undefined) {
-                  if (value.privateHolding!.holdingUuid === patchedHolding.holdingUuid) {
-                      // Update the public holding entry
-                      this.genericHoldingRows[key].privateHolding = patchedHolding
-                  }
-              }
-          })
-      },
-
-      /**
-       * Update an entry of the genericHoldingRows
-       *
-       * @param patchedHolding PublicHolding
-       */
-      updateHoldingGroup(patchedHolding: HoldingGroup) {
-          this.genericHoldingRows.forEach((value, key) => {
-              if (value.holdingGroup !== undefined) {
-                  if (value.holdingGroup!.uuid === patchedHolding.uuid) {
-                      // Update the public holding entry
-                      this.genericHoldingRows[key].holdingGroup = patchedHolding
-                  }
-              }
-          })
-      },
-
-
-      /**
+    /**
      * Iterate over the searchbar assets and check if the uuid matches the passed uuid
      *
      * @param uuid

@@ -10,21 +10,21 @@
     <div class="holding-container">
 
       <Container @drop="onDrop">
-        <Draggable v-for="holding in store.genericHoldingRows" :key="holding.uuid">
+        <Draggable v-for="holding in store.assetListEntries" :key="holding.uuid">
           <HoldingGroup
-              v-if="holding.type === GenericRowType.HOLDING_GROUP"
+              v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
               :key="holding.uuid"
               :holding="holding.holdingGroup"
           ></HoldingGroup>
 
           <PublicHolding
-              v-if="holding.type === GenericRowType.PUBLIC_HOLDING"
+              v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
               :key="holding.uuid"
               :holding="holding.publicHolding"
           />
 
           <PrivateHolding
-              v-if="holding.type === GenericRowType.PRIVATE_HOLDING"
+              v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
               :key="holding.uuid"
               :holding="holding.privateHolding"
           />
@@ -48,6 +48,7 @@
 </template>
 
 <script lang="ts" setup>
+
 import { Container, Draggable } from 'vue-dndrop';
 import { applyDrag } from '@/composables/dndDrop';
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
@@ -55,14 +56,13 @@ import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import { onMounted } from 'vue'
 import AssetService from '@/services/FetchAssetService'
 import {useAssetStore} from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import PublicHolding from '@/components/wrappers/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
-import type {GenericHolding} from '@/models/holdings/GenericHolding';
-import { GenericRowType } from "@/models/enums/GenericRowType";
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry';
+import { AssetListEntryTypeEnum } from "@/models/enums/AssetListEntryTypeEnum";
 import HoldingGroup from "@/components/wrappers/HoldingGroup.vue";
 import PatchAssetService from "@/services/PatchAssetService";
 import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
@@ -73,13 +73,15 @@ const store = useAssetStore()
 
 const testDeviation = ['08', '62', '1']
 
-onMounted(async () => {
-  store.genericHoldingRows = await generateHoldingRow()
-  console.log(store.genericHoldingRows)
-})
+
+store.assetListEntries = await generateHoldingRow()
+
+
 
 async function generateHoldingRow() {
-  let genericHoldingRows: GenericHolding[] = []
+  console.log('hey')
+
+  let genericHoldingRows: AssetListEntry[] = []
   let holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
   let publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
   let privateHoldings: PrivateHolding[] = await AssetService.fetchPrivateHoldings()
@@ -87,50 +89,50 @@ async function generateHoldingRow() {
   holdingGroups.forEach(group => {
     genericHoldingRows.push({
       uuid: group.uuid,
-      type: GenericRowType.HOLDING_GROUP,
+      entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
       holdingGroup: group
-    } as GenericHolding)
+    } as AssetListEntry)
   })
 
   publicHoldings.forEach(holding => {
     genericHoldingRows.push({
       uuid: holding.holdingUuid,
-      type: GenericRowType.PUBLIC_HOLDING,
+      entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
       publicHolding: holding
-    } as GenericHolding)
+    } as AssetListEntry)
   })
 
   privateHoldings.forEach(holding => {
     genericHoldingRows.push({
       uuid: holding.holdingUuid,
-      type: GenericRowType.PRIVATE_HOLDING,
+      entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
       privateHolding: holding
-    } as GenericHolding)
+    } as AssetListEntry)
   })
 
   return genericHoldingRows
 }
 
 function onDrop(dropResult: any) {
-  let sortedHoldingRows: GenericHolding[] = applyDrag(store.genericHoldingRows, dropResult);
+  let sortedHoldingRows: AssetListEntry[] = applyDrag(store.assetListEntries, dropResult);
   sortedHoldingRows.forEach(holding => {
-    switch (holding.type) {
-      case GenericRowType.PUBLIC_HOLDING:
+    switch (holding.entryType) {
+      case AssetListEntryTypeEnum.PUBLIC_HOLDING:
         let publicHoldingRequest = { publicHolding: PublicHolding } as unknown as PublicHoldingRequest
         PatchAssetService.patchPublicHolding(publicHoldingRequest, holding.publicHolding!.holdingUuid)
         break;
-      case GenericRowType.PRIVATE_HOLDING:
+      case AssetListEntryTypeEnum.PRIVATE_HOLDING:
         let privateHoldingRequest = { privateHolding: PrivateHolding } as unknown as PrivateHoldingRequest
         PatchAssetService.patchPrivateHolding(privateHoldingRequest, holding.privateHolding!.holdingUuid)
         break;
-      case GenericRowType.HOLDING_GROUP:
+      case AssetListEntryTypeEnum.HOLDING_GROUP:
         let holdingGroupRequest = { holdingGroup: HoldingGroup } as unknown as HoldingGroupRequest
         PatchAssetService.patchHoldingGroup(holdingGroupRequest, holding.holdingGroup!.uuid)
         break;
     }
   })
 
-  store.genericHoldingRows = sortedHoldingRows
+  store.assetListEntries = sortedHoldingRows
 }
 </script>
 

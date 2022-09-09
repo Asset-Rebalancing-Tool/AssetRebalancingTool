@@ -1,7 +1,7 @@
-import type {GenericHolding} from "@/models/holdings/GenericHolding";
-import {GenericRowType} from "@/models/enums/GenericRowType";
+import type {AssetListEntry} from "@/models/holdings/AssetListEntry";
+import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
 
-export function applyDrag(arr: GenericHolding[], dragResult: any) {
+export function applyDrag(arr: AssetListEntry[], dragResult: any) {
     const { removedIndex, addedIndex, payload } = dragResult;
 
     if (removedIndex === null && addedIndex === null) return arr;

@@ -1,9 +1,9 @@
 import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
+import type { BaseEntity } from '@/models/holdings/BaseEntity'
 
-export interface PrivateHolding {
+export interface PrivateHolding extends BaseEntity {
   assetType: AssetTypeEnum
   currentPrice: number
-  holdingUuid: string
   title: string
   targetPercentage: number
 }
