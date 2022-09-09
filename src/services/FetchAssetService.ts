@@ -1,8 +1,8 @@
 import type { AxiosResponse } from 'axios'
 import axios from 'axios'
-import type { PublicHolding } from '@/models/PublicHolding'
-import type { PrivateHolding } from '@/models/PrivateHolding'
-import type { HoldingGroup } from '@/models/HoldingGroup'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicAsset } from '@/models/PublicAsset'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
 export default {

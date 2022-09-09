@@ -70,7 +70,7 @@
 
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import type { PublicHolding } from '@/models/PublicHolding'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'

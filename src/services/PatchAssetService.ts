@@ -1,10 +1,10 @@
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import type { GenericHolding } from '@/models/holdings/GenericHolding'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
 import { useAssetStore } from '@/stores/AssetStore';
-
 
 
 export default {
@@ -67,5 +67,27 @@ export default {
       .then((response: AxiosResponse) => {
         useAssetStore().updateHoldingGroup(response.data)
       })
+  },
+
+  async deletePublicHolding(holdingUuid: string) {
+    await login('claes', 'pw')
+    return getAuthorizedInstance()
+        .then((instance) => {
+          return instance.delete(`/holding_api/asset_holding/public/${holdingUuid}`)
+        })
+        .then((response: AxiosResponse) => {
+          useAssetStore().updatePrivateHolding(response.data)
+        })
+  },
+
+  async deletePrivateHolding(holdingUuid: string) {
+    await login('claes', 'pw')
+    return getAuthorizedInstance()
+        .then((instance) => {
+          return instance.delete(`/holding_api/asset_holding/private/${holdingUuid}`)
+        })
+        .then((response: AxiosResponse) => {
+          useAssetStore().updatePrivateHolding(response.data)
+        })
   },
 }

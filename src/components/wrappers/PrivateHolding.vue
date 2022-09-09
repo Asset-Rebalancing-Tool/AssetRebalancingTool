@@ -89,7 +89,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
-import type { PrivateHolding } from '@/models/PrivateHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'

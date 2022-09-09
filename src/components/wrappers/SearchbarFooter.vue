@@ -26,7 +26,7 @@ import { AxiosResponse } from 'axios'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import type { HoldingGroup } from '@/models/HoldingGroup'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 
 const store = useAssetStore()
 

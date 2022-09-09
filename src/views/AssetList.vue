@@ -61,7 +61,7 @@ import {useAssetStore} from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import PublicHolding from '@/components/wrappers/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
-import type {GenericHoldingRow} from '@/models/GenericHoldingRow';
+import type {GenericHolding} from '@/models/holdings/GenericHolding';
 import { GenericRowType } from "@/models/enums/GenericRowType";
 import HoldingGroup from "@/components/wrappers/HoldingGroup.vue";
 import PatchAssetService from "@/services/PatchAssetService";
@@ -79,7 +79,7 @@ onMounted(async () => {
 })
 
 async function generateHoldingRow() {
-  let genericHoldingRows: GenericHoldingRow[] = []
+  let genericHoldingRows: GenericHolding[] = []
   let holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
   let publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
   let privateHoldings: PrivateHolding[] = await AssetService.fetchPrivateHoldings()
@@ -89,7 +89,7 @@ async function generateHoldingRow() {
       uuid: group.uuid,
       type: GenericRowType.HOLDING_GROUP,
       holdingGroup: group
-    } as GenericHoldingRow)
+    } as GenericHolding)
   })
 
   publicHoldings.forEach(holding => {
@@ -97,7 +97,7 @@ async function generateHoldingRow() {
       uuid: holding.holdingUuid,
       type: GenericRowType.PUBLIC_HOLDING,
       publicHolding: holding
-    } as GenericHoldingRow)
+    } as GenericHolding)
   })
 
   privateHoldings.forEach(holding => {
@@ -105,14 +105,14 @@ async function generateHoldingRow() {
       uuid: holding.holdingUuid,
       type: GenericRowType.PRIVATE_HOLDING,
       privateHolding: holding
-    } as GenericHoldingRow)
+    } as GenericHolding)
   })
 
   return genericHoldingRows
 }
 
 function onDrop(dropResult: any) {
-  let sortedHoldingRows: GenericHoldingRow[] = applyDrag(store.genericHoldingRows, dropResult);
+  let sortedHoldingRows: GenericHolding[] = applyDrag(store.genericHoldingRows, dropResult);
   sortedHoldingRows.forEach(holding => {
     switch (holding.type) {
       case GenericRowType.PUBLIC_HOLDING:

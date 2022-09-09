@@ -1,5 +1,5 @@
-import type { PublicHolding } from '@/models/PublicHolding'
-import type { PrivateHolding } from '@/models/PrivateHolding'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 
 export interface HoldingGroup {
   groupName: string

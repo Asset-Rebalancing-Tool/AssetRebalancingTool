@@ -38,7 +38,7 @@ import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import {getAuthorizedInstance, login} from '@/services/TokenService'
 import axios from 'axios'
-import type { PublicHolding } from '@/models/PublicHolding'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
 
 const store = useAssetStore()
 
