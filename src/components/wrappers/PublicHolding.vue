@@ -30,9 +30,8 @@
       :modelValue="holding.ownedQuantity"
       @input="
         PatchAssetService.patchPublicHolding(
-          $event.target.value,
-          holding.holdingUuid,
-          abortController
+          publicHoldingPatchRequest($event.target.value),
+          holding.holdingUuid
         )
       "
     >
@@ -51,9 +50,8 @@
       :modelValue="holding.targetPercentage"
       @input="
         PatchAssetService.patchPublicHolding(
-          $event.target.value,
-          holding.holdingUuid,
-          abortController
+          publicHoldingPatchRequest($event.target.value),
+          holding.holdingUuid
         )
       "
     >
@@ -94,6 +92,8 @@ import {
   isPositiveChart,
 } from '@/composables/smallLineChart'
 import { useAssetStore } from '@/stores/AssetStore'
+import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
+import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
 
 //temp
 const testDeviation = ['08', '62', '1']
@@ -106,9 +106,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-// reactive variables needed in order fetch assets properly
-const abortController: Ref<AbortController | null> = ref(new AbortController())
 
 const priceRecords = computed(() => {
   return props.holding.publicAsset.assetPriceRecords
@@ -144,4 +141,14 @@ const currentValue = computed(() => {
 const currentValuePercentage = computed(() => {
   return new Intl.NumberFormat('de-DE').format(66.84) + ' %'
 })
+
+/**
+ * Build the request body for the public holding patch
+ *
+ * @param inputValue string
+ */
+function publicHoldingPatchRequest(inputValue: string): PublicHoldingRequest {
+  const data: number = +inputValue
+  return { data } as unknown as PublicHoldingRequest
+}
 </script>

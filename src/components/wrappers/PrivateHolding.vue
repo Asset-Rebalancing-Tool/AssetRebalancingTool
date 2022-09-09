@@ -11,9 +11,8 @@
       :modelValue="holding.currentPrice"
       @input="
         PatchAssetService.patchPrivateHolding(
-          $event.target.value,
-          holding.holdingUuid,
-          abortController
+          privateHoldingPatchRequest($event.target.value),
+          holding.holdingUuid
         )
       "
     >
@@ -24,9 +23,8 @@
           :default-selection="CurrencyEnum.EUR"
           @change="
             PatchAssetService.patchPrivateHolding(
-              $event.target.value,
-              holding.holdingUuid,
-              abortController
+              privateHoldingPatchRequest($event.target.value),
+              holding.holdingUuid
             )
           "
         />
@@ -38,10 +36,9 @@
       type="number"
       :modelValue="'0'"
       @input="
-        PatchAssetService.patchPublicHolding(
-          $event.target.value,
-          holding.holdingUuid,
-          abortController
+        PatchAssetService.patchPrivateHolding(
+          privateHoldingPatchRequest($event.target.value),
+          holding.holdingUuid
         )
       "
     >
@@ -52,9 +49,8 @@
           :default-selection="defaultUnitType"
           @change="
             PatchAssetService.patchPrivateHolding(
-              $event.target.value,
-              holding.holdingUuid,
-              abortController
+              privateHoldingPatchRequest($event.target.value),
+              holding.holdingUuid
             )
           "
         >
@@ -72,9 +68,8 @@
       :modelValue="holding.targetPercentage"
       @input="
         PatchAssetService.patchPrivateHolding(
-          $event.target.value,
-          holding.holdingUuid,
-          abortController
+          privateHoldingPatchRequest($event.target.value),
+          holding.holdingUuid
         )
       "
     >
@@ -101,11 +96,11 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
-import type { Ref } from 'vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/assetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/unitType'
+import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
 
 const testDeviation = ['08', '62', '1']
 
@@ -115,8 +110,6 @@ const props = defineProps({
     required: true,
   },
 })
-
-const abortController: Ref<AbortController | null> = ref(new AbortController())
 
 // Get the mapped asset type
 const assetType = computed((): string => {
@@ -139,4 +132,14 @@ const currencyOptions = computed(() => {
   }
   return currencies
 })
+
+/**
+ * Build the request body for the private holding patch
+ *
+ * @param inputValue string
+ */
+function privateHoldingPatchRequest(inputValue: string): PrivateHoldingRequest {
+  const data: number = +inputValue
+  return { data } as unknown as PrivateHoldingRequest
+}
 </script>

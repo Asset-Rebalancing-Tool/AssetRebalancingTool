@@ -36,7 +36,7 @@ import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import { getAuthorizedInstance } from '@/services/TokenService'
+import {getAuthorizedInstance, login} from '@/services/TokenService'
 import axios from 'axios'
 import type { PublicHolding } from '@/models/PublicHolding'
 
@@ -51,7 +51,7 @@ async function newPublicHoldingAction(uuid: string) {
   hideModalUnderlay()
   const asset: PublicAsset = store.getSearchbarAsset(uuid)
   const request = { publicAssetUuid: asset.uuid } as PublicHoldingRequest
-
+  await login('claes', 'pw')
   await getAuthorizedInstance().then((instance) => {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)

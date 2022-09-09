@@ -1,56 +1,25 @@
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import type { PublicHolding } from '@/models/PublicHolding'
-import type { PrivateHolding } from '@/models/PrivateHolding'
 import { login, getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
+import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
 
 export default {
-  /**
-   * Build the request body for the public holding patch
-   *
-   * @param inputValue string
-   */
-  publicHoldingPatchRequest(inputValue: string): PublicHoldingRequest {
-    const data: number = +inputValue
-    return { data } as unknown as PublicHoldingRequest
-  },
-
-  /**
-   * Build the request body for the private holding patch
-   *
-   * @param inputValue string
-   */
-  privateHoldingPatchRequest(inputValue: string): PrivateHoldingRequest {
-    const data: number = +inputValue
-    return { data } as unknown as PrivateHoldingRequest
-  },
 
   /**
    * Patch a public holding based on its uuid
    *
-   * @param inputValue string
+   * @param request PublicHoldingRequest
    * @param holdingUuid string
-   * @param abortController AbortController
    */
   async patchPublicHolding(
-    inputValue: string,
+    request: PublicHoldingRequest,
     holdingUuid: string,
-    abortController: AbortController
   ): Promise<void> {
-    // Only fetch if the input value is numeric
-    if (+inputValue) return
-
-    await login('sclaes', 'pw')
+    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.patch(
-          `/holding_api/asset_holding/public/${holdingUuid}`,
-          this.publicHoldingPatchRequest(inputValue),
-          {
-            signal: abortController.signal as AbortSignal,
-          }
-        )
+        return instance.patch(`/holding_api/asset_holding/public/${holdingUuid}`, request)
       })
       .then((response: AxiosResponse) => {
         // TODO: Find holding in asset store and replace it
@@ -61,28 +30,38 @@ export default {
   /**
    * Patch a private holding based on its uuid
    *
-   * @param inputValue string
+   * @param request PrivateHoldingRequest
    * @param holdingUuid string
-   * @param abortController AbortController
    */
   async patchPrivateHolding(
-    inputValue: string,
+    request: PrivateHoldingRequest,
     holdingUuid: string,
-    abortController: AbortController
   ): Promise<void> {
-    // Only fetch if the input value is numeric
-    if (+inputValue) return
-
-    await login('sclaes', 'pw')
+    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.patch(
-          `/holding_api/asset_holding/private/${holdingUuid}`,
-          this.privateHoldingPatchRequest(inputValue),
-          {
-            signal: abortController.signal as AbortSignal,
-          }
-        )
+        return instance.patch(`/holding_api/asset_holding/private/${holdingUuid}`, request)
+      })
+      .then((response: AxiosResponse) => {
+        // TODO: Find holding in asset store and replace it
+        //return response.data
+      })
+  },
+
+  /**
+   * Patch a holding group based on its uuid
+   *
+   * @param request PrivateHoldingRequest
+   * @param holdingUuid string
+   */
+  async patchHoldingGroup(
+      request: HoldingGroupRequest,
+      holdingUuid: string,
+  ): Promise<void> {
+    await login('claes', 'pw')
+    return getAuthorizedInstance()
+      .then((instance) => {
+        return instance.patch(`/holding_api/asset_holding/group/${holdingUuid}`, request)
       })
       .then((response: AxiosResponse) => {
         // TODO: Find holding in asset store and replace it

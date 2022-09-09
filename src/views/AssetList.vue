@@ -8,34 +8,26 @@
     <TableFilters />
 
     <div class="holding-container">
-      <HoldingGroup v-for="group in store.holdingGroups" :key="group.uuid">
-        <template #assets>
+
+      <Container @drop="onDrop">
+        <Draggable v-for="holding in store.genericHoldingRow" :key="holding.uuid">
+          <HoldingGroup
+              v-if="holding.type === GenericRowType.PRIVATE_HOLDING"
+              :key="holding.uuid"
+              :holding="holding.holdingGroup"
+          ></HoldingGroup>
           <PublicHolding
-            v-for="holding in group.publicHoldings"
-            :key="holding.holdingUuid"
-            :holding="holding"
+              v-if="holding.type === GenericRowType.PUBLIC_HOLDING"
+              :key="holding.uuid"
+              :holding="holding.publicHolding"
           />
           <PrivateHolding
-            v-for="holding in group.privateHoldings"
-            :key="holding.holdingUuid"
-            :holding="holding"
+              v-if="holding.type === GenericRowType.PRIVATE_HOLDING"
+              :key="holding.uuid"
+              :holding="holding.privateHolding"
           />
-        </template>
-      </HoldingGroup>
-
-      <PublicHolding
-        v-if="publicHoldingsExist"
-        v-for="holding in store.publicHoldings"
-        :holding="holding"
-        :key="holding.holdingUuid"
-      />
-
-      <PrivateHolding
-        v-if="privateHoldingsExist"
-        v-for="holding in store.privateHoldings"
-        :holding="holding"
-        :key="holding.holdingUuid"
-      />
+        </Draggable>
+      </Container>
     </div>
 
     <footer>
@@ -53,37 +45,114 @@
   </section>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import { Container, Draggable } from 'vue-dndrop';
+import { applyDrag } from '@/composables/dndDrop';
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import { computed, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import AssetService from '@/services/FetchAssetService'
-import { useAssetStore } from '@/stores/AssetStore'
+import {useAssetStore} from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import PublicHolding from '@/components/wrappers/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
-import HoldingGroup from '@/components/wrappers/HoldingGroup.vue'
+import type {GenericHoldingRow} from '@/models/GenericHoldingRow';
+import { GenericRowType } from "@/models/enums/GenericRowType";
+import HoldingGroup from "@/components/wrappers/HoldingGroup.vue";
+import PatchAssetService from "@/services/PatchAssetService";
+import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
+import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
+import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
 
 const store = useAssetStore()
 
 const testDeviation = ['08', '62', '1']
 
 onMounted(async () => {
+  store.genericHoldingRow = await generateHoldingRow()
+})
+
+async function generateHoldingRow() {
+  let tempArray: GenericHoldingRow[] = []
+
+  store.holdingGroups = await AssetService.fetchAssetHoldingGroups()
   store.publicHoldings = await AssetService.fetchPublicAssetHoldings()
   store.privateHoldings = await AssetService.fetchPrivateAssetHoldings()
-  store.holdingGroups = await AssetService.fetchAssetHoldingGroups()
-})
 
-const publicHoldingsExist = computed(() => {
-  return store.publicHoldings.length !== 0
-})
+  store.holdingGroups.forEach(group => {
+    tempArray.push({
+      uuid: group.uuid,
+      type: GenericRowType.HOLDING_GROUP,
+      holdingGroup: group
+    } as GenericHoldingRow)
+  })
 
-const privateHoldingsExist = computed(() => {
-  return store.privateHoldings.length !== 0
-})
+  store.publicHoldings.forEach(holding => {
+    tempArray.push({
+      uuid: holding.holdingUuid,
+      type: GenericRowType.PUBLIC_HOLDING,
+      publicHolding: holding
+    } as GenericHoldingRow)
+  })
+
+  store.privateHoldings.forEach(holding => {
+    tempArray.push({
+      uuid: holding.holdingUuid,
+      type: GenericRowType.PRIVATE_HOLDING,
+      privateHolding: holding
+    } as GenericHoldingRow)
+  })
+
+  return tempArray
+}
+
+function onDrop(dropResult: any) {
+  let sortedHoldingRows: GenericHoldingRow[] = applyDrag(store.genericHoldingRow, dropResult);
+
+
+
+  // patch each generic holding based on its type
+  sortedHoldingRows.forEach(holding => {
+    switch (holding.type) {
+      case GenericRowType.PUBLIC_HOLDING:
+        let publicHoldingRequest = { publicHolding: PublicHolding } as unknown as PublicHoldingRequest
+        PatchAssetService.patchPublicHolding(publicHoldingRequest, holding.publicHolding!.holdingUuid)
+        break;
+      case GenericRowType.PRIVATE_HOLDING:
+        let privateHoldingRequest = { privateHolding: PrivateHolding } as unknown as PrivateHoldingRequest
+        PatchAssetService.patchPrivateHolding(privateHoldingRequest, holding.privateHolding!.holdingUuid)
+        break;
+      case GenericRowType.HOLDING_GROUP:
+        let holdingGroupRequest = { holdingGroup: HoldingGroup } as unknown as HoldingGroupRequest
+        PatchAssetService.patchHoldingGroup(holdingGroupRequest, holding.holdingGroup!.uuid)
+        break;
+    }
+  })
+
+  store.genericHoldingRow = sortedHoldingRows
+}
+
+/**
+ * Build the request body for the public holding patch
+ *
+ * @param holding PublicHolding
+ */
+function publicHoldingPatchRequest(holding: PublicHolding): PublicHoldingRequest {
+  return { PublicHolding } as unknown as PublicHoldingRequest
+}
+
+/**
+ * Build the request body for the private holding patch
+ *
+ * @param inputValue string
+ */
+function privateHoldingPatchRequest(inputValue: string): PublicHoldingRequest {
+  const data: number = +inputValue
+  return { data } as unknown as PublicHoldingRequest
+}
 </script>
 
 <style lang="scss">

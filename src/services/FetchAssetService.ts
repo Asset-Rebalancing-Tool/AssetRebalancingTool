@@ -13,7 +13,7 @@ export default {
   // Asset Holdings
 
   async fetchPublicAssetHoldings(): Promise<PublicHolding[]> {
-    await login('sclaes', 'pw')
+    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/public', {
@@ -26,7 +26,7 @@ export default {
   },
 
   async fetchPrivateAssetHoldings(): Promise<PrivateHolding[]> {
-    await login('sclaes', 'pw')
+    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/private', {
@@ -39,6 +39,7 @@ export default {
   },
 
   async fetchAssetHoldingGroups(): Promise<HoldingGroup[]> {
+    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/group')
@@ -48,10 +49,11 @@ export default {
       })
   },
 
-  fetchPublicAssets(
+  async fetchPublicAssets(
     searchValue: string,
     abortController: AbortController
   ): Promise<PublicAsset[]> {
+    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.post(

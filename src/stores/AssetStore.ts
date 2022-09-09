@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { PublicAsset } from '@/models/PublicAsset'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import type { GenericHoldingRow } from '@/models/GenericHoldingRow'
 import type { PublicHolding } from '@/models/PublicHolding'
 import type { PrivateHolding } from '@/models/PrivateHolding'
 import type { HoldingGroup } from '@/models/HoldingGroup'
@@ -14,6 +15,7 @@ export type RootState = {
   searchbarAssets: PublicAsset[]
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
+  genericHoldingRow: GenericHoldingRow[]
   publicHoldings: PublicHolding[]
   privateHoldings: PrivateHolding[]
   holdingGroups: HoldingGroup[]
@@ -31,6 +33,7 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarResultCount: 0,
       searchbarLoadingFlag: false,
       /** Reactive list objects */
+      genericHoldingRow: [],
       publicHoldings: [],
       privateHoldings: [],
       holdingGroups: [],
