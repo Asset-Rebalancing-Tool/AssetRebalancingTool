@@ -78,12 +78,7 @@ onMounted(async () => {
   store.assetListEntries = await generateHoldingRow()
 })
 
-
-
-
 async function generateHoldingRow() {
-  console.log('hey')
-
   let genericHoldingRows: AssetListEntry[] = []
   let holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
   let publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
