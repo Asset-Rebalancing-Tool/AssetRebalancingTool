@@ -13,7 +13,6 @@
   }
 
   .skeleton-info-wrapper {
-    margin-left: -20px;
 
     .name  {
       width: 240px;
@@ -32,9 +31,8 @@
 
   .skeleton-price {
     grid-column: 3 / 4;
-    width: 120px;
+    width: 100%;
     height: 34px;
-    margin-left: 18px;
     margin-top: 7px;
     background-color: $tertiary-background-color;
   }

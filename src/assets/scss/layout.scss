@@ -183,7 +183,7 @@ $table-filter-grid-height: 50px;
   display: grid;
   grid-template-columns: $searchbar-holding-row-columns;
   grid-template-rows: $inner-holding-row-height;
-  grid-column-gap: $holding-row-column-gap;
+  grid-column-gap: 10px;
   padding: $holding-row-padding;
 }
 
