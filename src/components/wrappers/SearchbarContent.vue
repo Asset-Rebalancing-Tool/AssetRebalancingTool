@@ -36,9 +36,10 @@ import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import {getAuthorizedInstance, login} from '@/services/TokenService'
-import axios from 'axios'
+import { getAuthorizedInstance, login} from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import { AssetListEntryTypeEnum } from "@/models/enums/AssetListEntryTypeEnum";
+import type { AssetListEntry } from "@/models/holdings/AssetListEntry";
 
 const store = useAssetStore()
 
@@ -56,7 +57,11 @@ async function newPublicHoldingAction(uuid: string) {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => {
-        store.publicHoldings.push(result.data)
+        store.assetListEntries.push({
+          uuid: result.data.uuid,
+          entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
+          publicHolding: result.data
+        } as AssetListEntry)
       })
       .catch((error) => {
         console.log(error)
