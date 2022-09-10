@@ -41,6 +41,7 @@ export function getNewestPriceRecord(allPriceRecords: PriceRecord[]): number {
 
     return priceRecords[0] !== undefined ? priceRecords[0]['price'] : 0
   }
+  return 0
 }
 
 /**
