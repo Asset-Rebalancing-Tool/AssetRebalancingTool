@@ -36,9 +36,9 @@
       <h4>Portfoliowert</h4>
       <span></span>
       <span></span>
-      <span class="total-value">16.802,36 €</span>
-      <span class="total-percentage">100,00 % <IconCheck /></span>
-      <ThreeDigitValue :value-array="testDeviation" :unit="'%'" :arrow="'up'">
+      <span class="total-value">{{ totalValue }} &nbsp; 100,00%</span>
+      <span class="total-percentage">{{ totalPercentage }}<IconCheck /></span>
+      <ThreeDigitValue :value-array="totalDeviation" :unit="'%'" :arrow="'up'">
         <template #arrow>
           <IconAssetRowArrow />
         </template>
@@ -51,7 +51,7 @@
 
 import { Container, Draggable } from 'vue-dndrop';
 import { applyDrag } from '@/composables/dndDrop';
-import { onMounted } from 'vue';
+import {computed, onMounted} from 'vue';
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -69,13 +69,14 @@ import PatchAssetService from "@/services/PatchAssetService";
 import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
 import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
 import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
+import { formatValueArray } from "@/composables/valueArray";
 
 const store = useAssetStore()
 
-const testDeviation = ['08', '62', '1']
-
 onMounted(async () => {
   store.assetListEntries = await generateHoldingRow()
+  store.updateTotalValue()
+  store.updateTotalTargetPercentage()
 })
 
 async function generateHoldingRow() {
@@ -132,6 +133,23 @@ function onDrop(dropResult: any) {
 
   store.assetListEntries = sortedHoldingRows
 }
+
+const totalValue = computed(() => {
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(store.totalAssetListValue)
+})
+
+const totalPercentage = computed(() => {
+  return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(store.totalAssetListPercentage) + ' %'
+})
+
+const showPercentageCheckIcon = computed(() => store.totalAssetListPercentage === 100)
+
+const totalDeviation = computed(() => {
+  return formatValueArray(store.totalAssetListDeviation)
+})
 </script>
 
 <style lang="scss">

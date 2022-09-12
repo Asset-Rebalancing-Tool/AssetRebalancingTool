@@ -50,7 +50,7 @@ export function getNewestPriceRecord(allPriceRecords: PriceRecord[]): number {
  * @param allPriceRecords string
  */
 export function getNewestPriceRecordFormatted(
-  allPriceRecords: PriceRecord[]
+  allPriceRecords: PriceRecord[],
 ): string[] {
   // Get the currency price records map along with the euro perice records
   const currencyPriceRecordMap = groupBy(allPriceRecords, (i) => i.currency)
@@ -76,6 +76,11 @@ export function getNewestPriceRecordFormatted(
  * @param assetValue float
  */
 export function formatValueArray(assetValue: number): string[] {
+
+  if (assetValue === 0) {
+    return ['00', '00', '0']
+  }
+
   // Parse the value of the asset to string
   const valueString: string = assetValue.toString()
 

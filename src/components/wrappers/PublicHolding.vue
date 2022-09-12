@@ -8,7 +8,7 @@
     />
 
     <ThreeDigitValue
-      :value-array="priceArray"
+      :value-array="formattedPriceDigits"
       :unit="currency"
       :show-graph="showGraph(priceRecords)"
     >
@@ -60,7 +60,7 @@
       </template>
     </BaseInput>
 
-    <ThreeDigitValue :value-array="testDeviation" :unit="'%'" :arrow="'up'">
+    <ThreeDigitValue :value-array="deviation" :unit="'%'" :arrow="'up'">
       <template #arrow>
         <IconAssetRowArrow />
       </template>
@@ -80,6 +80,7 @@ import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { mapAssetType } from '@/composables/assetType'
 import {
+  formatValueArray,
   getNewestPriceRecord,
   getNewestPriceRecordFormatted,
 } from '@/composables/valueArray'
@@ -93,10 +94,11 @@ import {
 } from '@/composables/smallLineChart'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
-import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
+import type { PriceRecord } from "@/models/nested/PriceRecord";
 
-//temp
-const testDeviation = ['08', '62', '1']
+/**-***************************************************-**/
+/** ----------- Props And Store Declaration ----------- **/
+/**-***************************************************-**/
 
 const store = useAssetStore()
 
@@ -107,46 +109,65 @@ const props = defineProps({
   },
 })
 
-function patchOwnedQuantityRequest(quantity: number) {
-  return { ownedQuantity: quantity } as PublicHoldingRequest
-}
-
-function patchTargetPercentageRequest(percentage: number) {
-  return { targetPercentage: percentage } as PublicHoldingRequest
-}
-
-const priceRecords = computed(() => {
-  return props.holding.publicAsset.assetPriceRecords
-})
+/**-***************************************************-**/
+/** ---------- Computed Template Properties ----------- **/
+/**-***************************************************-**/
 
 // Get the mapped asset type
 const assetType = computed((): string => {
   return mapAssetType(props.holding.publicAsset.assetType)
 })
 
-// Get an array that contains the exploded strings of a price record
-const priceArray = computed((): string[] => {
+// Get the array that contains all price records
+const priceRecords = computed((): PriceRecord[] => {
+  return props.holding.publicAsset.assetPriceRecords
+})
+
+// Get an array that contains the exploded strings values of the newest price record
+const formattedPriceDigits = computed((): string[] => {
   return getNewestPriceRecordFormatted(
-    props.holding.publicAsset.assetPriceRecords
+      props.holding.publicAsset.assetPriceRecords
   )
 })
 
-// Get the currency of the newest price record
-const currency = computed((): string => {
-  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
-})
-
-const currentValue = computed(() => {
-  const value =
-    props.holding.ownedQuantity *
-    getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)
+// Get the current value formatted by german pattern
+const currentValue = computed(() :string => {
+  let value =
+      props.holding.ownedQuantity *
+      getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
   }).format(value)
 })
 
+// Get the current value percentage formatted by german pattern
 const currentValuePercentage = computed(() => {
-  return new Intl.NumberFormat('de-DE').format(66.84) + ' %'
+  let percentage = props.holding.ownedQuantity * getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords) / store.totalAssetListValue * 100
+  return new Intl.NumberFormat('de-DE').format(percentage) + ' %'
+})
+
+const deviation = computed(() => {
+  let deviation: number = +currentValuePercentage - props.holding.targetPercentage
+  return (deviation) ? formatValueArray(deviation) : ['00', '00', '0']
+})
+
+/**-***************************************************-**/
+/** -------------- Input Patch Requests --------------- **/
+/**-***************************************************-**/
+
+// The owned quantity request body
+function patchOwnedQuantityRequest(quantity: number) {
+  return { ownedQuantity: quantity } as PublicHoldingRequest
+}
+
+// The target percentage request body
+function patchTargetPercentageRequest(percentage: number) {
+  return { targetPercentage: percentage } as PublicHoldingRequest
+}
+
+// Get the mapped currency of the newest price record
+const currency = computed((): string => {
+  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
 })
 </script>

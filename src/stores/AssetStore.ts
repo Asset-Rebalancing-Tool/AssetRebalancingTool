@@ -7,6 +7,7 @@ import type {PrivateHolding} from "@/models/holdings/PrivateHolding";
 import type {HoldingGroup} from "@/models/holdings/HoldingGroup";
 import type {BaseEntity} from "@/models/holdings/BaseEntity";
 import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
+import {getNewestPriceRecord, getNewestPriceRecordFormatted} from "@/composables/valueArray";
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -18,8 +19,9 @@ export type RootState = {
   searchbarResultCount: number
   searchbarLoadingFlag: boolean
   assetListEntries: AssetListEntry[]
-  selectedAssetCount: number
-  showGroupWrapper: boolean
+  totalAssetListValue: number
+  totalAssetListPercentage: number
+  totalAssetListDeviation: number
   activeModalUnderlay: boolean
 }
 
@@ -33,9 +35,9 @@ export const useAssetStore = defineStore('assetStore', {
       searchbarLoadingFlag: false,
       /** Reactive list object */
       assetListEntries: [],
-      /** Count that is used, to determine what action buttons should be active */
-      selectedAssetCount: 0,
-      showGroupWrapper: false,
+      totalAssetListValue: 0,
+      totalAssetListPercentage: 0,
+      totalAssetListDeviation: 0,
       activeModalUnderlay: false,
     } as RootState),
 
@@ -62,6 +64,54 @@ export const useAssetStore = defineStore('assetStore', {
                 }
             }
         })
+        this.updateTotalValue()
+        this.updateTotalTargetPercentage()
+    },
+
+      updateTotalValue() {
+        let totalValue: number = 0
+        this.assetListEntries.forEach((value, key) => {
+            switch (value.entryType) {
+                case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+                    totalValue = totalValue + (value.publicHolding!.ownedQuantity * getNewestPriceRecord(value.publicHolding!.publicAsset.assetPriceRecords))
+                    break;
+                case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+                    totalValue = totalValue + (value.privateHolding!.ownedQuantity * value.privateHolding!.pricePerUnit)
+                    break;
+                case AssetListEntryTypeEnum.HOLDING_GROUP:
+                    this.assetListEntries[key].holdingGroup!.publicHoldings.forEach((value) => {
+                        totalValue = totalValue + (value.ownedQuantity * getNewestPriceRecord(value.publicAsset.assetPriceRecords))
+                    })
+                    this.assetListEntries[key].holdingGroup!.privateHoldings.forEach((value) => {
+                        totalValue = totalValue + value.ownedQuantity *  value.pricePerUnit
+                    })
+                    break;
+            }
+        })
+        this.totalAssetListValue = totalValue
+    },
+
+    updateTotalTargetPercentage() {
+        let totalTargetPercentage: number = 0
+        this.assetListEntries.forEach((value, key) => {
+            switch (value.entryType) {
+                case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+                    totalTargetPercentage = totalTargetPercentage + value.publicHolding!.targetPercentage
+                    break;
+                case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+                    totalTargetPercentage = totalTargetPercentage + value.privateHolding!.targetPercentage
+                    break;
+                case AssetListEntryTypeEnum.HOLDING_GROUP:
+                    this.assetListEntries[key].holdingGroup!.publicHoldings.forEach((value) => {
+                        totalTargetPercentage = totalTargetPercentage + value.targetPercentage
+                    })
+                    this.assetListEntries[key].holdingGroup!.privateHoldings.forEach((value) => {
+                        totalTargetPercentage = totalTargetPercentage + value.targetPercentage
+                    })
+                    break;
+            }
+        })
+        this.totalAssetListPercentage = totalTargetPercentage
     },
 
     /**
