@@ -37,7 +37,7 @@
       <span></span>
       <span></span>
       <span class="total-value">{{ totalValue }} &nbsp; 100,00%</span>
-      <span class="total-percentage">{{ totalPercentage }}<IconCheck /></span>
+      <span class="total-percentage">{{ totalPercentage }}<IconCheck v-show="showPercentageCheckIcon" /></span>
       <ThreeDigitValue :value-array="totalDeviation" :unit="'%'" :arrow="'up'">
         <template #arrow>
           <IconAssetRowArrow />

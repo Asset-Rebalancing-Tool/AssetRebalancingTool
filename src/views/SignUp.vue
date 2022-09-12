@@ -1,5 +1,5 @@
 <template>
-  <section id="sign-in">
+  <section id="sign-up">
     <div class="left-wrapper">
       <div class="app-logo"></div>
     </div>
@@ -20,7 +20,15 @@
             <IconHidePassword v-show="false" />
           </template>
         </BaseInput>
-        <div class="form-spacing-wrapper"></div>
+        <div class="form-spacing-wrapper">
+          <div class="password-strength-wrapper">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
         <button type="submit" @click.prevent="submitForm"></button>
         <span class="change-entry-view"
           >Du hast schon ein Konto?
