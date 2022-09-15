@@ -33,6 +33,13 @@
       <IconSidebarSettings />
       <span>Einstellungen</span>
     </RouterLink>
+
+    <footer>
+      <RouterLink :to="{ name: 'AppSettings' }" @click="logout">
+        <IconSidebarLogout />
+        <span>Abmelden</span>
+      </RouterLink>
+    </footer>
   </section>
 </template>
 
@@ -43,6 +50,8 @@ import IconSidebarAssets from '@/assets/icons/sidebar/IconSidebarAssets.vue'
 import IconSidebarSchedule from '@/assets/icons/sidebar/IconSidebarSchedule.vue'
 import IconSidebarHistory from '@/assets/icons/sidebar/IconSidebarTransactions.vue'
 import IconSidebarSettings from '@/assets/icons/sidebar/IconSidebarSettings.vue'
+import IconSidebarLogout from "@/assets/icons/sidebar/IconSidebarLogout.vue";
+import { logout } from "@/services/TokenService";
 </script>
 
 <style lang="scss">

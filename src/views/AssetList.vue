@@ -58,7 +58,7 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
 import AssetService from '@/services/FetchAssetService'
-import {useAssetStore} from '@/stores/AssetStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import PublicHolding from '@/components/wrappers/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
@@ -74,6 +74,7 @@ import { formatValueArray } from "@/composables/valueArray";
 const store = useAssetStore()
 
 onMounted(async () => {
+  console.log(localStorage.getItem('token'))
   store.assetListEntries = await generateHoldingRow()
   store.updateTotalValue()
   store.updateTotalTargetPercentage()

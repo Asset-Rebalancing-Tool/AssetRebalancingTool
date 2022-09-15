@@ -3,11 +3,10 @@ import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicAsset } from '@/models/PublicAsset'
-import { login, getAuthorizedInstance } from '@/services/TokenService'
+import { getAuthorizedInstance } from '@/services/TokenService'
 export default {
 
   async fetchPublicHoldings(): Promise<PublicHolding[]> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/public', {
@@ -20,7 +19,6 @@ export default {
   },
 
   async fetchPrivateHoldings(): Promise<PrivateHolding[]> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/private', {
@@ -33,7 +31,6 @@ export default {
   },
 
   async fetchHoldingGroups(): Promise<HoldingGroup[]> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/group')
@@ -47,7 +44,6 @@ export default {
     searchValue: string,
     abortController: AbortController
   ): Promise<PublicAsset[]> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.post(

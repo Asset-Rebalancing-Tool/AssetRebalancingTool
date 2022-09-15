@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { useAssetStore } from '@/stores/AssetStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
-import {getAuthorizedInstance, login} from '@/services/TokenService'
+import {getAuthorizedInstance} from '@/services/TokenService'
 import { AxiosResponse } from 'axios'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
@@ -48,7 +48,6 @@ async function newPrivateHoldingAction() {
     title: 'Neues Privates Asset'
   } as PrivateHoldingRequest
 
-  await login('claes', 'pw')
   await getAuthorizedInstance().then((instance) => {
     return instance
       .post<PrivateHoldingRequest, AxiosResponse>(
@@ -79,7 +78,6 @@ async function newHoldingGroup() {
     targetPercentage: 0,
   } as HoldingGroupRequest
 
-  await login('claes', 'pw')
   await getAuthorizedInstance().then((instance) => {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)

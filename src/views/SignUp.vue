@@ -4,14 +4,25 @@
       <div class="app-logo"></div>
     </div>
     <div class="right-wrapper">
-      <form class="sign-in-form">
+      <form class="sign-in-form" @submit.prevent="onSubmit">
         <h1>Kostenlos Registrieren</h1>
-        <BaseInput :placeholder="'name@gmail.com'">
+        <BaseInput
+            :placeholder="'name@gmail.com'"
+            type="email"
+            v-model="email"
+            :error="emailError"
+            required
+        >
           <template #label>
             <label>E-Mail-Adresse</label>
           </template>
         </BaseInput>
-        <BaseInput :placeholder="'********'">
+        <BaseInput
+            :placeholder="'********'"
+            type="password"
+            v-model="password"
+            required
+        >
           <template #label>
             <label>Passwort</label>
           </template>
@@ -29,7 +40,7 @@
             <span></span>
           </div>
         </div>
-        <button type="submit" @click.prevent="submitForm"></button>
+        <button type="submit">Kostenlos Registrieren</button>
         <span class="change-entry-view"
           >Du hast schon ein Konto?
           <RouterLink class="link" :to="{ name: 'SignIn' }"
@@ -41,7 +52,7 @@
           <span>oder</span>
           <span></span>
         </div>
-        <button class="third-party-button" @click.prevent="submitForm">
+        <button class="third-party-button">
           <IconGoogle />
           <span>Registrieren mit Google</span>
         </button>
@@ -55,9 +66,30 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
-import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
+import type { AuthRequest } from '@/requests/AuthRequest'
+import { registerUser } from "@/services/TokenService";
+import { ref } from "vue";
+import type { Ref } from "vue";
 
-function submitForm() {}
+/*const { value: email, errorMessage: emailError } = useField('email', function (inputValue: string) {
+  if (!inputValue) return 'This field is required'
+  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if (!regex.test(String(inputValue).toLowerCase())) {
+    return 'Please enter a valid email address'
+  }
+  return true
+})*/
+
+const email: Ref<string> = ref('')
+const password: Ref<string> = ref('')
+
+function onSubmit() {
+  const authRequest: AuthRequest = {
+    email: email.value,
+    password: password.value
+  }
+  registerUser(authRequest)
+}
 </script>
 
 <style lang="scss" scoped>
