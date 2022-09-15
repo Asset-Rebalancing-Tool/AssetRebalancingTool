@@ -28,7 +28,7 @@ import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
-import {AssetListEntry} from "@/models/holdings/AssetListEntry";
+import type {AssetListEntry} from "@/models/holdings/AssetListEntry";
 import {CurrencyEnum} from "@/models/enums/CurrencyEnum";
 import {UnitTypeEnum} from "@/models/enums/UnitTypeEnum";
 
