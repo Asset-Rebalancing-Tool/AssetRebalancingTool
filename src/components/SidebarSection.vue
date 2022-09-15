@@ -35,10 +35,10 @@
     </RouterLink>
 
     <footer>
-      <div class="logout-button">
+      <RouterLink :to="{ name: 'AppSettings' }" @click="logout">
         <IconSidebarLogout />
         <span>Abmelden</span>
-      </div>
+      </RouterLink>
     </footer>
   </section>
 </template>
