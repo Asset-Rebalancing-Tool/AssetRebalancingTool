@@ -29,6 +29,8 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
 import {AssetListEntry} from "@/models/holdings/AssetListEntry";
+import {CurrencyEnum} from "@/models/enums/CurrencyEnum";
+import {UnitTypeEnum} from "@/models/enums/UnitTypeEnum";
 
 const store = useAssetStore()
 
@@ -38,10 +40,13 @@ async function newPrivateHoldingAction() {
 
   const request = {
     assetType: AssetTypeEnum.STOCK,
-    currentPrice: 0.0,
-    title: 'Neues Privates Asset',
+    pricePerUnit: 0.00,
+    currency: CurrencyEnum.EUR,
+    ownedQuantity: 0,
+    unitType: UnitTypeEnum.PIECE,
     targetPercentage: 0.0,
-  } as unknown as PrivateHoldingRequest
+    title: 'Neues Privates Asset'
+  } as PrivateHoldingRequest
 
   await login('claes', 'pw')
   await getAuthorizedInstance().then((instance) => {
@@ -79,7 +84,11 @@ async function newHoldingGroup() {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)
       .then((result) => {
-        store.holdingGroups.push(result.data)
+        store.assetListEntries.push({
+          uuid: result.data.uuid,
+          entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
+          holdingGroup: result.data
+        } as AssetListEntry)
       })
       .catch((error) => {
         console.log(error)
