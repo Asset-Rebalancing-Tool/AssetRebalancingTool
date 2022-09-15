@@ -2,12 +2,13 @@ import axios from 'axios'
 import type { AxiosResponse } from 'axios'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import type { AxiosInstance } from 'axios'
+import router from "@/router";
+import { useAssetStore } from '@/stores/AssetStore'
 
-let token: string
 let lastFetched: Date = new Date()
 
 export function getAuthorizedInstance(): Promise<AxiosInstance> {
-  if (!token) {
+  if (localStorage.getItem('token') === null) {
     return Promise.reject(new Error('should call login first'))
   }
 
@@ -16,32 +17,44 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
     return axios
       .get('/auth_api/renew', {
         headers: {
-          Authorization: 'Bearer ' + token,
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
         },
       })
-      .then((resp) => {
+      .then((response) => {
         const instance = axios.create()
-        token = resp.data
-        instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+        localStorage.setItem('token', response.data)
+        instance.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
         return instance
       })
   }
 
   const instance = axios.create()
 
-  instance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  instance.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
 
   return new Promise<AxiosInstance>((resolve) => resolve(instance))
 }
 
-export function login(email: string, password: string): Promise<string> {
-  return axios
-    .post<AuthRequest, AxiosResponse<string>>('/auth_api/login', {
-      email: email,
-      password: password,
-    } as AuthRequest)
-    .then((resp) => {
-      token = resp.data
-      return resp.data
+export function loginUser(request: AuthRequest): Promise<void> {
+  return axios.post<AuthRequest, AxiosResponse<string>>('/auth_api/login', request)
+    .then((response) => {
+      lastFetched = new Date()
+      localStorage.setItem('token', response.data)
+      useAssetStore().showSidebar = true
+      router.push('/asset-list')
     })
+}
+
+export function logout(): void {
+    localStorage.removeItem('token');
+    useAssetStore().showSidebar = false
+}
+
+export function registerUser(request: AuthRequest): Promise<void> {
+  return axios.post('/auth_api/register', request)
+      .then((response: AxiosResponse) => {
+        localStorage.setItem('token', response.data)
+        lastFetched = new Date()
+        router.push('/asset-list')
+      })
 }

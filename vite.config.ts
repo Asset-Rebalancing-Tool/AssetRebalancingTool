@@ -22,7 +22,7 @@ export default defineConfig({
         secure: false,
       },
       '/auth_api': {
-        target: 'http://192.168.1.52:8080',
+        target: 'http://192.168.1.52:8081',
         changeOrigin: true,
         secure: false,
       },

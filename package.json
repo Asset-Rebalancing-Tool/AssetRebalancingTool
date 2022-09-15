@@ -15,6 +15,7 @@
     "pinia": "^2.0.16",
     "sass": "^1.54.0",
     "swagger-typescript-api": "^9.3.1",
+    "vee-validate": "^4.5.8",
     "vue": "^3.2.37",
     "vue-chart-3": "^3.1.8",
     "vue-dndrop": "^1.2.13",

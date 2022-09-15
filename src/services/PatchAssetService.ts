@@ -1,10 +1,9 @@
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { login, getAuthorizedInstance } from '@/services/TokenService'
+import { getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
 import { useAssetStore } from '@/stores/AssetStore';
-
 
 export default {
 
@@ -18,7 +17,6 @@ export default {
     request: PublicHoldingRequest,
     uuid: string,
   ): Promise<void> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.patch(`/holding_api/asset_holding/public/${uuid}`, request)
@@ -38,7 +36,6 @@ export default {
     request: PrivateHoldingRequest,
     holdingUuid: string,
   ): Promise<void> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.patch(`/holding_api/asset_holding/private/${holdingUuid}`, request)
@@ -58,7 +55,6 @@ export default {
       request: HoldingGroupRequest,
       groupUuid: string,
   ): Promise<void> {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.patch(`/holding_api/asset_holding/group/${groupUuid}`, request)
@@ -69,7 +65,6 @@ export default {
   },
 
   async deletePublicHolding(holdingUuid: string) {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
         .then((instance) => {
           return instance.delete(`/holding_api/asset_holding/public/${holdingUuid}`)
@@ -80,7 +75,6 @@ export default {
   },
 
   async deletePrivateHolding(holdingUuid: string) {
-    await login('claes', 'pw')
     return getAuthorizedInstance()
         .then((instance) => {
           return instance.delete(`/holding_api/asset_holding/private/${holdingUuid}`)

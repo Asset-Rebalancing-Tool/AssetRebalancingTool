@@ -14,6 +14,7 @@ import {getNewestPriceRecord, getNewestPriceRecordFormatted} from "@/composables
 /***********************************************************************************/
 
 export type RootState = {
+  showSidebar: boolean
   searchString: string
   searchbarAssets: PublicAsset[]
   searchbarResultCount: number
@@ -28,6 +29,7 @@ export type RootState = {
 export const useAssetStore = defineStore('assetStore', {
   state: () =>
     ({
+      showSidebar: localStorage.getItem('token') !== null,
       /** Reactive asset searchbar */
       searchString: '',
       searchbarAssets: [],

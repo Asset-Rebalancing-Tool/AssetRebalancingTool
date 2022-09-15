@@ -4,14 +4,24 @@
       <div class="app-logo"></div>
     </div>
     <div class="right-wrapper">
-      <form class="sign-in-form">
+      <form class="sign-in-form" @submit.prevent="onSubmit">
         <h1>Anmelden</h1>
-        <BaseInput :placeholder="'name@gmail.com'">
+        <BaseInput
+            :placeholder="'name@gmail.com'"
+            type="email"
+            v-model="email"
+            :error="emailError"
+            required
+        >
           <template #label>
             <label>E-Mail-Adresse</label>
           </template>
         </BaseInput>
-        <BaseInput :placeholder="'********'">
+        <BaseInput
+            :placeholder="'********'"
+            type="password"
+            v-model="password"
+            required>
           <template #label>
             <label>Passwort</label>
           </template>
@@ -24,7 +34,7 @@
           <BaseCheckbox label="Angemeldet bleiben für 30 Tage" />
           <RouterLink class="link" to="">Passwort vergessen?</RouterLink>
         </div>
-        <button type="submit" @click.prevent="submitForm">Anmelden</button>
+        <button type="submit">Anmelden</button>
         <span class="change-entry-view"
           >Noch kein Konto?
           <RouterLink class="link" :to="{ name: 'SignUp' }"
@@ -51,8 +61,22 @@ import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
+import { ref } from "vue";
+import type { Ref } from "vue";
+import type { AuthRequest } from "@/requests/AuthRequest";
+import { loginUser } from "@/services/TokenService";
 
-function submitForm() {}
+
+const email: Ref<string> = ref('')
+const password: Ref<string> = ref('')
+
+function onSubmit() {
+  const authRequest: AuthRequest = {
+    email: email.value,
+    password: password.value
+  }
+  loginUser(authRequest)
+}
 </script>
 
 <style lang="scss">

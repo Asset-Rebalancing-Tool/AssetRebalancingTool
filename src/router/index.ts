@@ -27,45 +27,87 @@ const router = createRouter({
       path: '/',
       name: 'PortfolioOverview',
       component: PortfolioOverview,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/asset-list',
       name: 'AssetList',
       component: AssetList,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/edit-asset/:uuid',
       name: 'EditAsset',
       props: true,
       component: EditAsset,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/edit-holding-group/:groupId',
       name: 'EditAssetGroup',
       props: true,
       component: EditAssetGroup,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/connect-broker',
       name: 'ConnectBroker',
       component: ConnectBroker,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/transaction-history',
       name: 'TransactionHistory',
       component: TransactionHistory,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/investitionen-planen',
       name: 'ScheduleInvestments',
       component: ScheduleInvestments,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/app-einstellungen',
       name: 'AppSettings',
       component: AppSettings,
+      meta: {
+        requiresAuth: true
+      }
     },
   ],
 })
+
+router.beforeEach(async (toRout) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = [
+      '/sign-in',
+      '/sign-up'
+  ];
+  const tokenRequired = !publicPages.includes(toRout.path);
+
+  if (tokenRequired && localStorage.getItem('token') === null) {
+    return '/sign-in';
+  }
+
+  if (!tokenRequired && localStorage.getItem('token') !== null) {
+    return '/asset-list';
+  }
+
+});
 
 export default router
