@@ -1,6 +1,6 @@
 <template>
   <div class="holding-group">
-    <slot name="assets"></slot>
+    <slot name="holdings"></slot>
     <HoldingGroupPercentage />
     <HoldingGroupFooter />
   </div>
