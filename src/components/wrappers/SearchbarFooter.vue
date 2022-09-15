@@ -27,6 +27,8 @@ import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
+import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
+import {AssetListEntry} from "@/models/holdings/AssetListEntry";
 
 const store = useAssetStore()
 
@@ -39,7 +41,7 @@ async function newPrivateHoldingAction() {
     currentPrice: 0.0,
     title: 'Neues Privates Asset',
     targetPercentage: 0.0,
-  } as PrivateHoldingRequest
+  } as unknown as PrivateHoldingRequest
 
   await login('claes', 'pw')
   await getAuthorizedInstance().then((instance) => {
@@ -49,7 +51,11 @@ async function newPrivateHoldingAction() {
         request
       )
       .then((result) => {
-        store.privateHoldings.push(result.data)
+        store.assetListEntries.push({
+          uuid: result.data.uuid,
+          entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
+          privateHolding: result.data
+        } as AssetListEntry)
       })
       .catch((error) => {
         console.log(error)
