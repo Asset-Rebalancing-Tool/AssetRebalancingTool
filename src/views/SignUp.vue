@@ -73,35 +73,40 @@ import { registerUser } from "@/services/TokenService";
 import {computed, ref} from "vue";
 import type { Ref } from "vue";
 
-/*const { value: email, errorMessage: emailError } = useField('email', function (inputValue: string) {
-  if (!inputValue) return 'This field is required'
-  const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  if (!regex.test(String(inputValue).toLowerCase())) {
-    return 'Please enter a valid email address'
-  }
-  return true
-})*/
-
+// input models
 const email: Ref<string> = ref('')
 const password: Ref<string> = ref('')
-
 const showPassword: Ref<boolean> = ref(false)
 
+// Render the input type in order to show or hide the input value
 const passwordType = computed((): string => {
   return (showPassword.value) ? 'text' : 'password'
 })
 
+// On click show or hide password
 function toggleVisibility() {
   showPassword.value = !showPassword.value
 }
 
-
+// Password strength indicator
 const passwordStrength: Ref<number> = ref(0)
 
+/**
+ * Check the strength of the password input value
+ *
+ * @param passwordInput string
+ */
 function checkPasswordStrength(passwordInput: string) {
   passwordStrength.value = requirementsFulfilled(passwordInput)
 }
 
+/**
+ * Check how many requirements are fulfilled
+ *
+ * @param passwordInput string
+ *
+ * @return number
+ */
 function requirementsFulfilled(passwordInput: string): number {
   let containsUpper = (/[A-Z]/.test(passwordInput))
   let length = passwordInput.length
@@ -117,6 +122,9 @@ function requirementsFulfilled(passwordInput: string): number {
   return 0
 }
 
+/**
+ * Registration form submit
+ */
 function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
