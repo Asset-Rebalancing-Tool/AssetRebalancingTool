@@ -19,7 +19,7 @@
         </BaseInput>
         <BaseInput
             :placeholder="'********'"
-            type="password"
+            :type="passwordType"
             v-model="password"
             :error="passwordError"
             required
@@ -28,8 +28,8 @@
             <label>Passwort</label>
           </template>
           <template #inputIcon>
-            <IconShowPassword v-show="true" />
-            <IconHidePassword v-show="false" />
+            <IconShowPassword @click="toggleVisibility" v-show="!showPassword" />
+            <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
         <div class="form-spacing-wrapper">
@@ -66,6 +66,8 @@ import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
 import type { AuthRequest } from "@/requests/AuthRequest";
 import { loginUser } from "@/services/TokenService";
 import { useField, useForm  } from 'vee-validate'
+import { computed, ref } from 'vue'
+import type { Ref } from 'vue'
 
 
 const validations = {
@@ -87,8 +89,20 @@ const validations = {
 useForm({
   validationSchema: validations
 })
+
 const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
+
+const showPassword: Ref<boolean> = ref(false)
+
+const passwordType = computed((): string => {
+  return (showPassword.value) ? 'text' : 'password'
+})
+
+function toggleVisibility() {
+  showPassword.value = !showPassword.value
+}
+
 function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
