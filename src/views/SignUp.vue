@@ -19,7 +19,7 @@
         </BaseInput>
         <BaseInput
             :placeholder="'********'"
-            type="password"
+            :type="passwordType"
             v-model="password"
             required
         >
@@ -27,8 +27,8 @@
             <label>Passwort</label>
           </template>
           <template #inputIcon>
-            <IconShowPassword v-show="true" />
-            <IconHidePassword v-show="false" />
+            <IconShowPassword @click="toggleVisibility" v-show="!showPassword" />
+            <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
         <div class="form-spacing-wrapper">
@@ -68,7 +68,7 @@ import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import { registerUser } from "@/services/TokenService";
-import { ref } from "vue";
+import {computed, ref} from "vue";
 import type { Ref } from "vue";
 
 /*const { value: email, errorMessage: emailError } = useField('email', function (inputValue: string) {
@@ -82,6 +82,16 @@ import type { Ref } from "vue";
 
 const email: Ref<string> = ref('')
 const password: Ref<string> = ref('')
+
+const showPassword: Ref<boolean> = ref(false)
+
+const passwordType = computed((): string => {
+  return (showPassword.value) ? 'text' : 'password'
+})
+
+function toggleVisibility() {
+  showPassword.value = !showPassword.value
+}
 
 function onSubmit() {
   const authRequest: AuthRequest = {
