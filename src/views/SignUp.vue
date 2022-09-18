@@ -21,6 +21,7 @@
             :placeholder="'********'"
             :type="passwordType"
             v-model="password"
+            @input="checkPasswordStrength($event.target.value)"
             required
         >
           <template #label>
@@ -33,12 +34,13 @@
         </BaseInput>
         <div class="form-spacing-wrapper">
           <div class="password-strength-wrapper">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span :class="{ 'strong' : passwordStrength >= 1 }"></span>
+            <span :class="{ 'strong' : passwordStrength >= 2 }"></span>
+            <span :class="{ 'strong' : passwordStrength >= 3 }"></span>
+            <span :class="{ 'strong' : passwordStrength >= 4 }"></span>
+            <span :class="{ 'strong' : passwordStrength >= 5 }"></span>
           </div>
+          <span class="requirements">Mindestens 8 Zeichen und 1 Großbuchstabe</span>
         </div>
         <button type="submit">Kostenlos Registrieren</button>
         <span class="change-entry-view"
@@ -91,6 +93,28 @@ const passwordType = computed((): string => {
 
 function toggleVisibility() {
   showPassword.value = !showPassword.value
+}
+
+
+const passwordStrength: Ref<number> = ref(0)
+
+function checkPasswordStrength(passwordInput: string) {
+  passwordStrength.value = requirementsFulfilled(passwordInput)
+}
+
+function requirementsFulfilled(passwordInput: string): number {
+  let containsUpper = (/[A-Z]/.test(passwordInput))
+  let length = passwordInput.length
+  if (passwordInput === '') return 0
+  if (containsUpper && length >= 14) return 5
+  if (length >= 14) return 4
+  if (containsUpper && length >= 12) return 4
+  if (length >= 12) return 3
+  if (containsUpper && length >= 10) return 3
+  if (length >= 10) return 2
+  if (containsUpper && length >= 8) return 2
+  if (containsUpper || length >= 8) return 1
+  return 0
 }
 
 function onSubmit() {
