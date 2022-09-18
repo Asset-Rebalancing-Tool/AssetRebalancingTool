@@ -40,8 +40,8 @@ export function loginUser(request: AuthRequest): Promise<void> {
     .then((response) => {
       lastFetched = new Date()
       localStorage.setItem('token', response.data)
-      useAssetStore().showSidebar = true
       router.push('/asset-list')
+      useAssetStore().showSidebar = true
     })
 }
 
@@ -53,8 +53,8 @@ export function logout(): void {
 export function registerUser(request: AuthRequest): Promise<void> {
   return axios.post('/auth_api/register', request)
       .then((response: AxiosResponse) => {
-        localStorage.setItem('token', response.data)
         lastFetched = new Date()
+        localStorage.setItem('token', response.data)
         router.push('/asset-list')
       })
 }
