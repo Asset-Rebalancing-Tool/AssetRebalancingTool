@@ -98,16 +98,19 @@ router.beforeEach(async (toRout) => {
       '/sign-in',
       '/sign-up'
   ];
+
+  // Bool that indicates if target rout require a token
   const tokenRequired = !publicPages.includes(toRout.path);
 
+  // Redirect if route require token, but there is no token in local storage
   if (tokenRequired && localStorage.getItem('token') === null) {
     return '/sign-in';
   }
 
+  // Redirect if route that does not require token, but token is set
   if (!tokenRequired && localStorage.getItem('token') !== null) {
     return '/asset-list';
   }
-
 });
 
 export default router

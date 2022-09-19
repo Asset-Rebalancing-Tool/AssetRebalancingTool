@@ -1,6 +1,6 @@
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { getAuthorizedInstance } from '@/services/TokenService'
+import  {getAuthorizedInstance, handleErrorResponseStatus } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
 import { useAssetStore } from '@/stores/AssetStore';
@@ -23,7 +23,7 @@ export default {
       })
       .then((response: AxiosResponse) => {
         useAssetStore().updateAssetListEntry(response.data)
-      })
+      }).catch(error => handleErrorResponseStatus(error.response.status))
   },
 
   /**
@@ -43,6 +43,7 @@ export default {
       .then((response: AxiosResponse) => {
         useAssetStore().updateAssetListEntry(response.data)
       })
+      .catch(error => handleErrorResponseStatus(error.response.status))
   },
 
   /**
@@ -61,7 +62,7 @@ export default {
       })
       .then((response: AxiosResponse) => {
         useAssetStore().updateAssetListEntry(response.data)
-      })
+      }).catch(error => handleErrorResponseStatus(error.response.status))
   },
 
   async deletePublicHolding(holdingUuid: string) {
@@ -71,7 +72,7 @@ export default {
         })
         .then((response: AxiosResponse) => {
 
-        })
+        }).catch(error => handleErrorResponseStatus(error.response.status))
   },
 
   async deletePrivateHolding(holdingUuid: string) {
@@ -81,6 +82,6 @@ export default {
         })
         .then((response: AxiosResponse) => {
 
-        })
+        }).catch(error => handleErrorResponseStatus(error.response.status))
   },
 }

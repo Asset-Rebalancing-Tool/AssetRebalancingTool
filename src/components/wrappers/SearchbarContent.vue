@@ -36,7 +36,7 @@ import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import { getAuthorizedInstance } from '@/services/TokenService'
+import {getAuthorizedInstance, handleErrorResponseStatus} from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import { AssetListEntryTypeEnum } from "@/models/enums/AssetListEntryTypeEnum";
 import type { AssetListEntry } from "@/models/holdings/AssetListEntry";
@@ -62,9 +62,7 @@ async function newPublicHoldingAction(uuid: string) {
           publicHolding: result.data
         } as AssetListEntry)
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => handleErrorResponseStatus(error.response.status))
   })
 }
 </script>

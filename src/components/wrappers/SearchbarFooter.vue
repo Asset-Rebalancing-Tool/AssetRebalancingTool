@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { useAssetStore } from '@/stores/AssetStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
-import {getAuthorizedInstance} from '@/services/TokenService'
+import {getAuthorizedInstance, handleErrorResponseStatus} from '@/services/TokenService'
 import { AxiosResponse } from 'axios'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
@@ -61,9 +61,7 @@ async function newPrivateHoldingAction() {
           privateHolding: result.data
         } as AssetListEntry)
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => handleErrorResponseStatus(error.response.status))
   })
 }
 
@@ -88,9 +86,7 @@ async function newHoldingGroup() {
           holdingGroup: result.data
         } as AssetListEntry)
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch(error => handleErrorResponseStatus(error.response.status))
   })
 }
 </script>
