@@ -10,13 +10,14 @@
         )"
       >Speichern</button>
 
-      <h4 v-show="!editGroupEntries">{{ holding.groupName }}</h4>
+      <h4 v-show="!editGroupEntries">{{ groupName }}</h4>
 
       <input
           class="group-name-input"
           v-show="editGroupEntries"
           type="text"
-          :value="holding.groupName"
+          v-model="groupName"
+          @input="writeGroupName($event.target.value)"
       />
     </div>
 
@@ -26,17 +27,26 @@
     <span></span>
 
     <div class="current-value-wrapper">
-      <p>10.642,59 €</p>
-      <p>66,84 %</p>
+      <p>{{ totalGroupValue }}</p>
+      <p>{{ totalGroupPercentage }}</p>
     </div>
 
-    <BaseInput ref="footerInput">
+    <BaseInput
+        ref="footerInput"
+        :modelValue="holding.targetPercentage"
+        @input="
+        PatchAssetService.patchHoldingGroup(
+          patchGroupTargetPercentageRequest($event.target.value),
+          holding.uuid
+        )
+      "
+    >
       <template #unit>
         <span>%</span>
       </template>
     </BaseInput>
 
-    <ThreeDigitValue :value-array="testDeviation" :unit="'%'">
+    <ThreeDigitValue :value-array="totalGroupDeviation" :unit="'%'">
       <template #arrow>
         <IconAssetRowArrow />
       </template>
@@ -48,14 +58,13 @@
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { useAssetStore } from '@/stores/AssetStore';
-import { ref, computed } from 'vue';
-import type { Ref, PropType } from 'vue';
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
-import PatchAssetService from "@/services/PatchAssetService";
-import type { HoldingGroup } from "@/models/holdings/HoldingGroup";
-
-const testDeviation = ['08', '16', '0']
+import { useAssetStore } from '@/stores/AssetStore'
+import { ref, computed } from 'vue'
+import type { Ref, PropType } from 'vue'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import PatchAssetService from '@/services/PatchAssetService'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
+import { formatValueArray } from '@/composables/UsePriceRecords'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -70,20 +79,62 @@ const props = defineProps({
   },
 })
 
+// reactive group name model value
+const groupName: Ref<string> = ref(props.holding.groupName)
+
+// bool that indicates if the group is currently editable or not
+const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
+
+/**-***************************************************-**/
+/** -------------- Request Post Header ----------------- **/
+/**-***************************************************-**/
+
+// Patch the whole holding group
+function patchHoldingGroupRequest(): HoldingGroupRequest {
+  store.selectionState.editGroupEntries = false
+  return { groupName: groupName.value } as HoldingGroupRequest
+}
+
+// Patch the groups target percentage
+function patchGroupTargetPercentageRequest(percentage: number): HoldingGroupRequest {
+  store.selectionState.editGroupEntries = false
+  return { targetPercentage: percentage } as HoldingGroupRequest
+}
+
 /**-***************************************************-**/
 /** ------- Computed Properties And Methods ----------- **/
 /**-***************************************************-**/
 
-const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
 
+// Start editing a group
 function editGroup(this: any): void {
   store.selectionState.editGroupEntries = true
 }
 
-// The owned quantity request body
-function patchHoldingGroupRequest(): HoldingGroupRequest {
-  store.selectionState.editGroupEntries = false
-  return { groupName: props.holding.groupName } as HoldingGroupRequest
+// Update the groupName value on each keyup
+function writeGroupName(name: string) {
+  groupName.value = name
 }
 
+// Get the total asset list value
+const totalGroupValue = computed(() => {
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(store.listState.totalAssetListValue)
+})
+
+// Get the total asset list percentage
+const totalGroupPercentage = computed(() => {
+  return (
+      new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
+          store.listState.totalAssetListPercentage
+      ) + ' %'
+  )
+})
+
+// Get the total asset list deviation
+const totalGroupDeviation = computed(() => {
+  return formatValueArray(store.listState.totalAssetListDeviation)
+})
 </script>
