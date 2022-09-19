@@ -8,30 +8,23 @@
     <TableFilters />
 
     <div class="holding-container">
-      <Container @drop="onDrop">
-        <Draggable
-          v-for="holding in store.assetListEntries"
+        <HoldingGroup
+          v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
           :key="holding.uuid"
-        >
-          <HoldingGroup
-            v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
-            :key="holding.uuid"
-            :holding="holding.holdingGroup"
-          ></HoldingGroup>
+          :holding="holding.holdingGroup"
+        ></HoldingGroup>
 
-          <PublicHolding
-            v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
-            :key="holding.uuid"
-            :holding="holding.publicHolding"
-          />
+        <PublicHolding
+          v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
+          :key="holding.uuid"
+          :holding="holding.publicHolding"
+        />
 
-          <PrivateHolding
-            v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
-            :key="holding.uuid"
-            :holding="holding.privateHolding"
-          />
-        </Draggable>
-      </Container>
+        <PrivateHolding
+          v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
+          :key="holding.uuid"
+          :holding="holding.privateHolding"
+        />
     </div>
 
     <footer>
@@ -52,8 +45,6 @@
 </template>
 
 <script lang="ts" setup>
-import { Container, Draggable } from 'vue-dndrop'
-import { applyDrag } from '@/composables/dndDrop'
 import { computed, onMounted } from 'vue'
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'

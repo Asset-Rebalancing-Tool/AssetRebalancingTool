@@ -37,7 +37,7 @@ export const useAssetStore = defineStore('assetStore', {
       searchString: '',
       searchbarAssets: [],
       searchbarResultCount: 0,
-      searchbarLoadingFlag: false,
+      searchbarLoadingFlag: true,
       /** Reactive list object */
       assetListEntries: [],
       totalAssetListValue: 0,
