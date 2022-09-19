@@ -1,11 +1,12 @@
-import type { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import type { CurrencyEnum as CurrencyEnumType } from '@/models/enums/CurrencyEnum'
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 
 /**
- * Map an array of currencies
+ * Get an array of mapped currencies
  *
  * @param currencyArray CurrencyEnum[]
  */
-export function mapCurrencyArray(currencyArray: CurrencyEnum[]) {
+export function mapCurrencyArray(currencyArray: CurrencyEnumType[]) {
   const tempArray = []
   for (const currency of currencyArray) {
     tempArray.push(mapCurrency(currency))
@@ -14,19 +15,19 @@ export function mapCurrencyArray(currencyArray: CurrencyEnum[]) {
 }
 
 /**
- * Map the currency of an assets to its symbol
- * TODO: user configurable
+ * Map the currency of a list entry to its symbol
  *
- * @param currency CurrencyEnum
+ * @param currency string
  */
-export function mapCurrency(currency: CurrencyEnum): string {
+export function mapCurrency(currency: CurrencyEnumType): string {
   switch (currency) {
     default:
-    case 'UNSUPPORTED':
+    case CurrencyEnum.UNSUPPORTED:
       return '?'
-    case 'EUR':
+    case CurrencyEnum.EUR:
       return '€'
-    case 'USD':
+    case CurrencyEnum.USD:
       return '$'
   }
 }
+
