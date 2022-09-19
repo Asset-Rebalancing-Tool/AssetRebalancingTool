@@ -40,12 +40,12 @@ const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
 
 // Clear the search string if the user click the remove icon and reset the store's asset state variables
 function removeUserInput() {
-  if (store.searchString.length > 0) {
+  if (store.searchbarState.searchString.length > 0) {
     resetFetch()
-    store.searchString = ''
+    store.searchbarState.searchString = ''
     userInput.value = ''
     inputIcon.value = IconInputSearch
-    store.searchbarLoadingFlag = false
+    store.searchbarState.searchbarLoadingFlag = false
   }
 }
 
@@ -63,13 +63,13 @@ function searchAsset(searchValue: string): void {
   resetFetch()
 
   // Always update the search string of the asset store
-  store.searchString = searchValue
+  store.searchbarState.searchString = searchValue
 
   inputIcon.value = searchValue.length > 0 ? IconRemoveValue : IconInputSearch
 
   // Ensure to only make request, if the user input is greater than three characters
   if (searchValue.length < 3) {
-    store.searchbarLoadingFlag = false
+    store.searchbarState.searchbarLoadingFlag = false
     return
   }
 
@@ -86,9 +86,9 @@ function searchAsset(searchValue: string): void {
     abortController.value = new AbortController()
     await AssetService.fetchPublicAssets(searchValue, abortController.value)
       .then((results) => {
-        store.searchbarLoadingFlag = false
-        store.searchbarResultCount = results.length
-        store.searchbarAssets = results
+        store.searchbarState.searchbarLoadingFlag = false
+        store.searchbarState.searchbarResultCount = results.length
+        store.searchbarState.searchbarAssets = results
       })
       .catch((error) => handleErrorResponseStatus(error.response.status))
   }, 500)
@@ -107,9 +107,9 @@ function resetFetch(): void {
   }
 
   // Always reset the reactive state object properties
-  store.searchbarAssets = [] as PublicAsset[]
-  store.searchbarResultCount = 0
-  store.searchbarLoadingFlag = true
+  store.searchbarState.searchbarAssets = [] as PublicAsset[]
+  store.searchbarState.searchbarResultCount = 0
+  store.searchbarState.searchbarLoadingFlag = true
 }
 </script>
 

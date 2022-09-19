@@ -1,15 +1,19 @@
 <template>
   <div
     class="modal-underlay"
-    :class="{ active: store.activeModalUnderlay }"
+    :class="{ active: activeModalUnderlay }"
     @click="hideModalUnderlay"
   ></div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
+
 const store = useAssetStore()
+
+const activeModalUnderlay = computed(() => store.searchbarState.activeModalUnderlay)
 </script>
 
 <style lang="scss">

@@ -58,7 +58,7 @@ async function newPrivateHoldingAction() {
         request
       )
       .then((result) => {
-        store.assetListEntries.push({
+        store.listState.assetListEntries.push({
           uuid: result.data.uuid,
           entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
           privateHolding: result.data,
@@ -83,7 +83,7 @@ async function newHoldingGroup() {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)
       .then((result) => {
-        store.assetListEntries.push({
+        store.listState.assetListEntries.push({
           uuid: result.data.uuid,
           entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
           holdingGroup: result.data,

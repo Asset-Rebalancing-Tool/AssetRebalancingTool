@@ -1,23 +1,23 @@
 <template>
   <div
     class="searchbar-content-wrapper"
-    :class="{ active: store.activeModalUnderlay }"
+    :class="{ active: showContentWrapper }"
   >
     <div class="public-asset-container">
       <div class="searchbar-label-grid">
-        <p>Ergebnisse ({{ store.searchbarResultCount }})</p>
+        <p>Ergebnisse ({{ searchbarResults }})</p>
         <p v-show="showPriceLabel">Kurswert (YTD)</p>
       </div>
 
       <SearchbarAsset
-        v-for="asset in store.searchbarAssets"
+        v-for="asset in searchbarAssets"
         :key="asset.uuid"
         :this-asset="asset"
         @click="newPublicHoldingAction(asset.uuid)"
       />
 
       <SearchbarSkeleton
-        v-show="store.searchbarLoadingFlag"
+        v-show="showSkeletonAnimation"
         v-for="index in 5"
         :key="index"
       />
@@ -46,8 +46,13 @@ import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 
 const store = useAssetStore()
 
+const showContentWrapper = computed(() => store.searchbarState.activeModalUnderlay)
+const searchbarResults = computed(() => store.searchbarState.searchbarResultCount)
+const searchbarAssets = computed(() => store.searchbarState.searchbarAssets)
+const showSkeletonAnimation = computed(() => store.searchbarState.searchbarLoadingFlag)
+
 const showPriceLabel = computed(() => {
-  return store.searchbarLoadingFlag || store.searchbarAssets.length > 0
+  return store.searchbarState.searchbarLoadingFlag || store.searchbarState.searchbarAssets.length > 0
 })
 
 async function newPublicHoldingAction(uuid: string) {
@@ -59,7 +64,7 @@ async function newPublicHoldingAction(uuid: string) {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => {
-        store.assetListEntries.push({
+        store.listState.assetListEntries.push({
           uuid: result.data.uuid,
           entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
           publicHolding: result.data,

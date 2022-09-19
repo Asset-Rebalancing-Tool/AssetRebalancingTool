@@ -30,26 +30,26 @@ const totalValue = computed(() => {
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
-  }).format(store.totalAssetListValue)
+  }).format(store.listState.totalAssetListValue)
 })
 
 // Get the total asset list percentage
 const totalPercentage = computed(() => {
   return (
       new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-          store.totalAssetListPercentage
+          store.listState.totalAssetListPercentage
       ) + ' %'
   )
 })
 
 // Get the total asset list deviation
 const totalDeviation = computed(() => {
-  return formatValueArray(store.totalAssetListDeviation)
+  return formatValueArray(store.listState.totalAssetListDeviation)
 })
 
 // Bool that indicates if the percentage check icon should be rendered
 const showPercentageCheckIcon = computed(
-    () => store.totalAssetListPercentage === 100
+    () => store.listState.totalAssetListPercentage === 100
 )
 
 </script>

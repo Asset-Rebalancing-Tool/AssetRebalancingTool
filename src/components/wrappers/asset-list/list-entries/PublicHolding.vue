@@ -146,7 +146,7 @@ const currentValuePercentage = computed(() => {
   const percentage =
     ((props.holding.ownedQuantity *
       getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)) /
-      store.totalAssetListValue) *
+      store.listState.totalAssetListValue) *
     100
   return new Intl.NumberFormat('de-DE').format(percentage) + ' %'
 })

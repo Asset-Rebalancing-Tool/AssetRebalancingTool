@@ -63,7 +63,7 @@ const copyISIN = (event: Event) => {
 
 // Highlight the parts of the asset name that matches the user input
 const assetNameWithWordMatches = computed((): string => {
-  const input: string = store.searchString.toLowerCase()
+  const input: string = store.searchbarState.searchString.toLowerCase()
   const assetName: string = props.assetName.toLowerCase()
   if (assetName.includes(input)) {
     const indexStart: number = assetName.indexOf(input)

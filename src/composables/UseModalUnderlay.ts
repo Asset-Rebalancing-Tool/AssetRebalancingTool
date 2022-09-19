@@ -5,7 +5,7 @@ import { useAssetStore } from '@/stores/AssetStore'
  */
 export function showModalUnderlay(): void {
   const assetStore = useAssetStore()
-  assetStore.activeModalUnderlay = true
+  assetStore.searchbarState.activeModalUnderlay = true
 }
 
 /**
@@ -13,5 +13,5 @@ export function showModalUnderlay(): void {
  */
 export function hideModalUnderlay(): void {
   const assetStore = useAssetStore()
-  assetStore.activeModalUnderlay = false
+  assetStore.searchbarState.activeModalUnderlay = false
 }

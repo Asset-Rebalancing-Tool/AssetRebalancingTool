@@ -8,7 +8,7 @@ import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
-import {getNewestPriceRecord} from "@/composables/UsePriceRecords";
+import { getNewestPriceRecord } from "@/composables/UsePriceRecords";
 
 export const useAssetStore = defineStore('assetStore', () => {
 
@@ -43,7 +43,7 @@ export const useAssetStore = defineStore('assetStore', () => {
         searchString: '',
         searchbarAssets: [],
         searchbarResultCount: 0,
-        searchbarLoadingFlag: true,
+        searchbarLoadingFlag: false,
         activeModalUnderlay: false
     })
 

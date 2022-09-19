@@ -33,7 +33,7 @@ const store = useAssetStore()
 
 onMounted(async () => {
   // Fetch and merge all groups, private and public holdings
-  store.assetListEntries = await generateListEntries()
+  store.listState.assetListEntries = await generateListEntries()
   // Update the total list values
   store.updateTotalValue()
   store.updateTotalTargetPercentage()
