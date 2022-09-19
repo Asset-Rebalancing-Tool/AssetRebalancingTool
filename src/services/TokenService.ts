@@ -9,6 +9,8 @@ import { useAssetStore } from '@/stores/AssetStore'
 /**---------------------- Authorize Axios Instance --------------------**/
 /**-******************************************************************-**/
 
+const store = useAssetStore()
+
 // The token Datetime
 let lastFetched: Date = new Date()
 
@@ -107,7 +109,7 @@ function redirectToLogin(): void {
   lastFetched = new Date('0000-00-00')
   localStorage.removeItem('token')
   router.push('/sign-in')
-  useAssetStore().showSidebar = false
+  store.showSidebar = false
 }
 
 /**
@@ -121,7 +123,7 @@ function redirectToDashboard(token: string): void {
   lastFetched = new Date()
   localStorage.setItem('token', token)
   router.push('/asset-list')
-  useAssetStore().showSidebar = true
+  store.showSidebar = true
 }
 
 /**-******************************************************************-**/
