@@ -7,28 +7,31 @@
       <form class="sign-in-form" @submit.prevent="onSubmit">
         <h1>Anmelden</h1>
         <BaseInput
-            :placeholder="'name@gmail.com'"
-            type="email"
-            v-model="email"
-            :error="emailError"
-            required
+          :placeholder="'name@gmail.com'"
+          type="email"
+          v-model="email"
+          :error="emailError"
+          required
         >
           <template #label>
             <label>E-Mail-Adresse</label>
           </template>
         </BaseInput>
         <BaseInput
-            :placeholder="'********'"
-            :type="passwordType"
-            v-model="password"
-            :error="passwordError"
-            required
+          :placeholder="'********'"
+          :type="passwordType"
+          v-model="password"
+          :error="passwordError"
+          required
         >
           <template #label>
             <label>Passwort</label>
           </template>
           <template #inputIcon>
-            <IconShowPassword @click="toggleVisibility" v-show="!showPassword" />
+            <IconShowPassword
+              @click="toggleVisibility"
+              v-show="!showPassword"
+            />
             <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
@@ -63,17 +66,17 @@ import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
-import type { AuthRequest } from "@/requests/AuthRequest";
-import { loginUser } from "@/services/TokenService";
-import { useField, useForm  } from 'vee-validate'
+import type { AuthRequest } from '@/requests/AuthRequest'
+import { loginUser } from '@/services/TokenService'
+import { useField, useForm } from 'vee-validate'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
-
 
 const validations = {
   email: (value: any) => {
     if (!value) return 'This field is required'
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if (!regex.test(String(value).toLowerCase())) {
       return 'Please enter a valid email address'
     }
@@ -84,10 +87,10 @@ const validations = {
     if (value === undefined || value === null) return requiredMessage
     if (!String(value).length) return requiredMessage
     return true
-  }
+  },
 }
 useForm({
-  validationSchema: validations
+  validationSchema: validations,
 })
 
 const { value: email, errorMessage: emailError } = useField('email')
@@ -96,7 +99,7 @@ const { value: password, errorMessage: passwordError } = useField('password')
 const showPassword: Ref<boolean> = ref(false)
 
 const passwordType = computed((): string => {
-  return (showPassword.value) ? 'text' : 'password'
+  return showPassword.value ? 'text' : 'password'
 })
 
 function toggleVisibility() {
@@ -106,7 +109,7 @@ function toggleVisibility() {
 function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
-    password: password.value
+    password: password.value,
   }
   loginUser(authRequest)
 }

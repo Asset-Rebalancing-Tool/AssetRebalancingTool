@@ -50,8 +50,8 @@ import IconSidebarAssets from '@/assets/icons/sidebar/IconSidebarAssets.vue'
 import IconSidebarSchedule from '@/assets/icons/sidebar/IconSidebarSchedule.vue'
 import IconSidebarHistory from '@/assets/icons/sidebar/IconSidebarTransactions.vue'
 import IconSidebarSettings from '@/assets/icons/sidebar/IconSidebarSettings.vue'
-import IconSidebarLogout from "@/assets/icons/sidebar/IconSidebarLogout.vue";
-import { logoutUser } from "@/services/TokenService";
+import IconSidebarLogout from '@/assets/icons/sidebar/IconSidebarLogout.vue'
+import { logoutUser } from '@/services/TokenService'
 </script>
 
 <style lang="scss">

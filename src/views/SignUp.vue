@@ -7,40 +7,45 @@
       <form class="sign-in-form" @submit.prevent="onSubmit">
         <h1>Kostenlos Registrieren</h1>
         <BaseInput
-            :placeholder="'name@gmail.com'"
-            type="email"
-            v-model="email"
-            :error="emailError"
-            required
+          :placeholder="'name@gmail.com'"
+          type="email"
+          v-model="email"
+          :error="emailError"
+          required
         >
           <template #label>
             <label>E-Mail-Adresse</label>
           </template>
         </BaseInput>
         <BaseInput
-            :placeholder="'********'"
-            :type="passwordType"
-            v-model="password"
-            @input="checkPasswordStrength($event.target.value)"
-            required
+          :placeholder="'********'"
+          :type="passwordType"
+          v-model="password"
+          @input="checkPasswordStrength($event.target.value)"
+          required
         >
           <template #label>
             <label>Passwort</label>
           </template>
           <template #inputIcon>
-            <IconShowPassword @click="toggleVisibility" v-show="!showPassword" />
+            <IconShowPassword
+              @click="toggleVisibility"
+              v-show="!showPassword"
+            />
             <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
         <div class="form-spacing-wrapper">
           <div class="password-strength-wrapper">
-            <span :class="{ 'strong' : passwordStrength >= 1 }"></span>
-            <span :class="{ 'strong' : passwordStrength >= 2 }"></span>
-            <span :class="{ 'strong' : passwordStrength >= 3 }"></span>
-            <span :class="{ 'strong' : passwordStrength >= 4 }"></span>
-            <span :class="{ 'strong' : passwordStrength >= 5 }"></span>
+            <span :class="{ strong: passwordStrength >= 1 }"></span>
+            <span :class="{ strong: passwordStrength >= 2 }"></span>
+            <span :class="{ strong: passwordStrength >= 3 }"></span>
+            <span :class="{ strong: passwordStrength >= 4 }"></span>
+            <span :class="{ strong: passwordStrength >= 5 }"></span>
           </div>
-          <span class="requirements">Mindestens 8 Zeichen und 1 Großbuchstabe</span>
+          <span class="requirements"
+            >Mindestens 8 Zeichen und 1 Großbuchstabe</span
+          >
         </div>
         <button type="submit">Kostenlos Registrieren</button>
         <span class="change-entry-view"
@@ -69,9 +74,9 @@ import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
-import { registerUser } from "@/services/TokenService";
-import {computed, ref} from "vue";
-import type { Ref } from "vue";
+import { registerUser } from '@/services/TokenService'
+import { computed, ref } from 'vue'
+import type { Ref } from 'vue'
 
 // input models
 const email: Ref<string> = ref('')
@@ -80,7 +85,7 @@ const showPassword: Ref<boolean> = ref(false)
 
 // Render the input type in order to show or hide the input value
 const passwordType = computed((): string => {
-  return (showPassword.value) ? 'text' : 'password'
+  return showPassword.value ? 'text' : 'password'
 })
 
 // On click show or hide password
@@ -108,8 +113,8 @@ function checkPasswordStrength(passwordInput: string) {
  * @return number
  */
 function requirementsFulfilled(passwordInput: string): number {
-  let containsUpper = (/[A-Z]/.test(passwordInput))
-  let length = passwordInput.length
+  const containsUpper = /[A-Z]/.test(passwordInput)
+  const length = passwordInput.length
   if (passwordInput === '') return 0
   if (containsUpper && length >= 14) return 5
   if (length >= 14) return 4
@@ -128,7 +133,7 @@ function requirementsFulfilled(passwordInput: string): number {
 function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
-    password: password.value
+    password: password.value,
   }
   registerUser(authRequest)
 }

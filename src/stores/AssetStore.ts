@@ -1,13 +1,16 @@
-import {defineStore} from 'pinia'
-import type {PublicAsset} from '@/models/PublicAsset'
-import {CurrencyEnum} from '@/models/enums/CurrencyEnum'
-import type {AssetListEntry} from '@/models/holdings/AssetListEntry'
-import type {PublicHolding} from '@/models/holdings/PublicHolding'
-import type {PrivateHolding} from "@/models/holdings/PrivateHolding";
-import type {HoldingGroup} from "@/models/holdings/HoldingGroup";
-import type {BaseEntity} from "@/models/holdings/BaseEntity";
-import {AssetListEntryTypeEnum} from "@/models/enums/AssetListEntryTypeEnum";
-import {getNewestPriceRecord, getNewestPriceRecordFormatted} from "@/composables/valueArray";
+import { defineStore } from 'pinia'
+import type { PublicAsset } from '@/models/PublicAsset'
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
+import type { BaseEntity } from '@/models/holdings/BaseEntity'
+import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import {
+  getNewestPriceRecord,
+  getNewestPriceRecordFormatted,
+} from '@/composables/valueArray'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/
@@ -44,76 +47,102 @@ export const useAssetStore = defineStore('assetStore', {
     } as RootState),
 
   actions: {
-
     /**
      * Update an entry of the genericHoldingRows
      *
      * @param patchedEntry PublicHolding
      */
     updateAssetListEntry(patchedEntry: BaseEntity) {
-        this.assetListEntries.forEach((value, key) => {
-            if (value.uuid == patchedEntry.uuid) {
-                switch (value.entryType) {
-                    case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-                        this.assetListEntries[key].publicHolding = patchedEntry as PublicHolding
-                        break;
-                    case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-                        this.assetListEntries[key].privateHolding = patchedEntry as PrivateHolding
-                        break;
-                    case AssetListEntryTypeEnum.HOLDING_GROUP:
-                        this.assetListEntries[key].holdingGroup = patchedEntry as HoldingGroup
-                        break;
-                }
-            }
-        })
-        this.updateTotalValue()
-        this.updateTotalTargetPercentage()
+      this.assetListEntries.forEach((value, key) => {
+        if (value.uuid == patchedEntry.uuid) {
+          switch (value.entryType) {
+            case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+              this.assetListEntries[key].publicHolding =
+                patchedEntry as PublicHolding
+              break
+            case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+              this.assetListEntries[key].privateHolding =
+                patchedEntry as PrivateHolding
+              break
+            case AssetListEntryTypeEnum.HOLDING_GROUP:
+              this.assetListEntries[key].holdingGroup =
+                patchedEntry as HoldingGroup
+              break
+          }
+        }
+      })
+      this.updateTotalValue()
+      this.updateTotalTargetPercentage()
     },
 
-      updateTotalValue() {
-        let totalValue: number = 0
-        this.assetListEntries.forEach((value, key) => {
-            switch (value.entryType) {
-                case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-                    totalValue = totalValue + (value.publicHolding!.ownedQuantity * getNewestPriceRecord(value.publicHolding!.publicAsset.assetPriceRecords))
-                    break;
-                case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-                    totalValue = totalValue + (value.privateHolding!.ownedQuantity * value.privateHolding!.pricePerUnit)
-                    break;
-                case AssetListEntryTypeEnum.HOLDING_GROUP:
-                    this.assetListEntries[key].holdingGroup!.publicHoldings.forEach((value) => {
-                        totalValue = totalValue + (value.ownedQuantity * getNewestPriceRecord(value.publicAsset.assetPriceRecords))
-                    })
-                    this.assetListEntries[key].holdingGroup!.privateHoldings.forEach((value) => {
-                        totalValue = totalValue + value.ownedQuantity *  value.pricePerUnit
-                    })
-                    break;
-            }
-        })
-        this.totalAssetListValue = totalValue
+    updateTotalValue() {
+      let totalValue = 0
+      this.assetListEntries.forEach((value, key) => {
+        switch (value.entryType) {
+          case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+            totalValue =
+              totalValue +
+              value.publicHolding!.ownedQuantity *
+                getNewestPriceRecord(
+                  value.publicHolding!.publicAsset.assetPriceRecords
+                )
+            break
+          case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+            totalValue =
+              totalValue +
+              value.privateHolding!.ownedQuantity *
+                value.privateHolding!.pricePerUnit
+            break
+          case AssetListEntryTypeEnum.HOLDING_GROUP:
+            this.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
+              (value) => {
+                totalValue =
+                  totalValue +
+                  value.ownedQuantity *
+                    getNewestPriceRecord(value.publicAsset.assetPriceRecords)
+              }
+            )
+            this.assetListEntries[key].holdingGroup!.privateHoldings.forEach(
+              (value) => {
+                totalValue =
+                  totalValue + value.ownedQuantity * value.pricePerUnit
+              }
+            )
+            break
+        }
+      })
+      this.totalAssetListValue = totalValue
     },
 
     updateTotalTargetPercentage() {
-        let totalTargetPercentage: number = 0
-        this.assetListEntries.forEach((value, key) => {
-            switch (value.entryType) {
-                case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-                    totalTargetPercentage = totalTargetPercentage + value.publicHolding!.targetPercentage
-                    break;
-                case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-                    totalTargetPercentage = totalTargetPercentage + value.privateHolding!.targetPercentage
-                    break;
-                case AssetListEntryTypeEnum.HOLDING_GROUP:
-                    this.assetListEntries[key].holdingGroup!.publicHoldings.forEach((value) => {
-                        totalTargetPercentage = totalTargetPercentage + value.targetPercentage
-                    })
-                    this.assetListEntries[key].holdingGroup!.privateHoldings.forEach((value) => {
-                        totalTargetPercentage = totalTargetPercentage + value.targetPercentage
-                    })
-                    break;
-            }
-        })
-        this.totalAssetListPercentage = totalTargetPercentage
+      let totalTargetPercentage = 0
+      this.assetListEntries.forEach((value, key) => {
+        switch (value.entryType) {
+          case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+            totalTargetPercentage =
+              totalTargetPercentage + value.publicHolding!.targetPercentage
+            break
+          case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+            totalTargetPercentage =
+              totalTargetPercentage + value.privateHolding!.targetPercentage
+            break
+          case AssetListEntryTypeEnum.HOLDING_GROUP:
+            this.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
+              (value) => {
+                totalTargetPercentage =
+                  totalTargetPercentage + value.targetPercentage
+              }
+            )
+            this.assetListEntries[key].holdingGroup!.privateHoldings.forEach(
+              (value) => {
+                totalTargetPercentage =
+                  totalTargetPercentage + value.targetPercentage
+              }
+            )
+            break
+        }
+      })
+      this.totalAssetListPercentage = totalTargetPercentage
     },
 
     /**

@@ -36,10 +36,13 @@ import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import {getAuthorizedInstance, handleErrorResponseStatus} from '@/services/TokenService'
+import {
+  getAuthorizedInstance,
+  handleErrorResponseStatus,
+} from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import { AssetListEntryTypeEnum } from "@/models/enums/AssetListEntryTypeEnum";
-import type { AssetListEntry } from "@/models/holdings/AssetListEntry";
+import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 
 const store = useAssetStore()
 
@@ -59,10 +62,10 @@ async function newPublicHoldingAction(uuid: string) {
         store.assetListEntries.push({
           uuid: result.data.uuid,
           entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
-          publicHolding: result.data
+          publicHolding: result.data,
         } as AssetListEntry)
       })
-      .catch(error => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   })
 }
 </script>

@@ -2,14 +2,12 @@ import axios from 'axios'
 import type { AxiosResponse } from 'axios'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import type { AxiosInstance } from 'axios'
-import router from "@/router";
+import router from '@/router'
 import { useAssetStore } from '@/stores/AssetStore'
-
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
 /**-******************************************************************-**/
-
 
 // The token Datetime
 let lastFetched: Date = new Date()
@@ -20,7 +18,6 @@ let lastFetched: Date = new Date()
  * @return Promise<AxiosInstance>
  */
 export function getAuthorizedInstance(): Promise<AxiosInstance> {
-
   // Check if there is a token deposited
   if (localStorage.getItem('token') === null) {
     return Promise.reject(new Error('should call login first'))
@@ -39,24 +36,24 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
       .then((response) => {
         const instance = axios.create()
         localStorage.setItem('token', response.data)
-        instance.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+        instance.defaults.headers.common['Authorization'] =
+          'Bearer ' + localStorage.getItem('token')
         return instance
       })
   }
 
   // Create the axios instance and set the token as header
   const instance = axios.create()
-  instance.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token')
+  instance.defaults.headers.common['Authorization'] =
+    'Bearer ' + localStorage.getItem('token')
 
   // Return the authorized instance
   return new Promise<AxiosInstance>((resolve) => resolve(instance))
 }
 
-
 /**-******************************************************************-**/
 /**---------------------- Token Based User Actions --------------------**/
 /**-******************************************************************-**/
-
 
 /**
  * Create a new user account, based on the email and password
@@ -66,9 +63,10 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
  * @return Promise<void>
  */
 export function registerUser(request: AuthRequest): Promise<void> {
-    return axios.post('/auth_api/register', request)
-        .then((response: AxiosResponse) => redirectToDashboard(response.data))
-        .catch(error => handleErrorResponseStatus(error.response.status))
+  return axios
+    .post('/auth_api/register', request)
+    .then((response: AxiosResponse) => redirectToDashboard(response.data))
+    .catch((error) => handleErrorResponseStatus(error.response.status))
 }
 
 /**
@@ -79,9 +77,10 @@ export function registerUser(request: AuthRequest): Promise<void> {
  * @return Promise<void>
  */
 export function loginUser(request: AuthRequest): Promise<void> {
-  return axios.post<AuthRequest, AxiosResponse<string>>('/auth_api/login', request)
-    .then((response) =>  redirectToDashboard(response.data))
-    .catch(error => handleErrorResponseStatus(error.response.status))
+  return axios
+    .post<AuthRequest, AxiosResponse<string>>('/auth_api/login', request)
+    .then((response) => redirectToDashboard(response.data))
+    .catch((error) => handleErrorResponseStatus(error.response.status))
 }
 
 /**
@@ -90,9 +89,8 @@ export function loginUser(request: AuthRequest): Promise<void> {
  * @return void
  */
 export function logoutUser(): void {
-    redirectToLogin()
+  redirectToLogin()
 }
-
 
 /**-******************************************************************-**/
 /**--------------------- Router Redirect Functions --------------------**/
@@ -106,10 +104,10 @@ export function logoutUser(): void {
  * @return void
  */
 function redirectToLogin(): void {
-    lastFetched = new Date('0000-00-00')
-    localStorage.removeItem('token');
-    router.push('/sign-in')
-    useAssetStore().showSidebar = false
+  lastFetched = new Date('0000-00-00')
+  localStorage.removeItem('token')
+  router.push('/sign-in')
+  useAssetStore().showSidebar = false
 }
 
 /**
@@ -120,10 +118,10 @@ function redirectToLogin(): void {
  * @return void
  */
 function redirectToDashboard(token: string): void {
-    lastFetched = new Date()
-    localStorage.setItem('token', token);
-    router.push('/asset-list')
-    useAssetStore().showSidebar = true
+  lastFetched = new Date()
+  localStorage.setItem('token', token)
+  router.push('/asset-list')
+  useAssetStore().showSidebar = true
 }
 
 /**-******************************************************************-**/
@@ -141,15 +139,13 @@ function redirectToDashboard(token: string): void {
  * @return void
  */
 export function handleErrorResponseStatus(errorStatus: number): void {
-    switch (errorStatus) {
-        case 401:
-            redirectToLogin()
-            console.log('401 error thrown')
-            break;
-        case 500:
-            console.log('500 error thrown')
-            break;
-    }
+  switch (errorStatus) {
+    case 401:
+      redirectToLogin()
+      console.log('401 error thrown')
+      break
+    case 500:
+      console.log('500 error thrown')
+      break
+  }
 }
-
-

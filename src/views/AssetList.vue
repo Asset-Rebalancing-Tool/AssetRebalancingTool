@@ -8,25 +8,27 @@
     <TableFilters />
 
     <div class="holding-container">
-
       <Container @drop="onDrop">
-        <Draggable v-for="holding in store.assetListEntries" :key="holding.uuid">
+        <Draggable
+          v-for="holding in store.assetListEntries"
+          :key="holding.uuid"
+        >
           <HoldingGroup
-              v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
-              :key="holding.uuid"
-              :holding="holding.holdingGroup"
+            v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
+            :key="holding.uuid"
+            :holding="holding.holdingGroup"
           ></HoldingGroup>
 
           <PublicHolding
-              v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
-              :key="holding.uuid"
-              :holding="holding.publicHolding"
+            v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
+            :key="holding.uuid"
+            :holding="holding.publicHolding"
           />
 
           <PrivateHolding
-              v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
-              :key="holding.uuid"
-              :holding="holding.privateHolding"
+            v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
+            :key="holding.uuid"
+            :holding="holding.privateHolding"
           />
         </Draggable>
       </Container>
@@ -37,7 +39,9 @@
       <span></span>
       <span></span>
       <span class="total-value">{{ totalValue }} &nbsp; 100,00%</span>
-      <span class="total-percentage">{{ totalPercentage }}<IconCheck v-show="showPercentageCheckIcon" /></span>
+      <span class="total-percentage"
+        >{{ totalPercentage }}<IconCheck v-show="showPercentageCheckIcon"
+      /></span>
       <ThreeDigitValue :value-array="totalDeviation" :unit="'%'" :arrow="'up'">
         <template #arrow>
           <IconAssetRowArrow />
@@ -48,10 +52,9 @@
 </template>
 
 <script lang="ts" setup>
-
-import { Container, Draggable } from 'vue-dndrop';
-import { applyDrag } from '@/composables/dndDrop';
-import {computed, onMounted} from 'vue';
+import { Container, Draggable } from 'vue-dndrop'
+import { applyDrag } from '@/composables/dndDrop'
+import { computed, onMounted } from 'vue'
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -62,14 +65,14 @@ import { useAssetStore } from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import PublicHolding from '@/components/wrappers/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry';
-import { AssetListEntryTypeEnum } from "@/models/enums/AssetListEntryTypeEnum";
-import HoldingGroup from "@/components/wrappers/HoldingGroup.vue";
-import PatchAssetService from "@/services/PatchAssetService";
-import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
-import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
-import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
-import { formatValueArray } from "@/composables/valueArray";
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import HoldingGroup from '@/components/wrappers/HoldingGroup.vue'
+import PatchAssetService from '@/services/PatchAssetService'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import { formatValueArray } from '@/composables/valueArray'
 
 const store = useAssetStore()
 
@@ -81,32 +84,34 @@ onMounted(async () => {
 })
 
 async function generateHoldingRow() {
-  let genericHoldingRows: AssetListEntry[] = []
-  let holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
-  let publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
-  let privateHoldings: PrivateHolding[] = await AssetService.fetchPrivateHoldings()
+  const genericHoldingRows: AssetListEntry[] = []
+  const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
+  const publicHoldings: PublicHolding[] =
+    await AssetService.fetchPublicHoldings()
+  const privateHoldings: PrivateHolding[] =
+    await AssetService.fetchPrivateHoldings()
 
-  holdingGroups.forEach(group => {
+  holdingGroups.forEach((group) => {
     genericHoldingRows.push({
       uuid: group.uuid,
       entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
-      holdingGroup: group
+      holdingGroup: group,
     } as AssetListEntry)
   })
 
-  publicHoldings.forEach(holding => {
+  publicHoldings.forEach((holding) => {
     genericHoldingRows.push({
       uuid: holding.uuid,
       entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
-      publicHolding: holding
+      publicHolding: holding,
     } as AssetListEntry)
   })
 
-  privateHoldings.forEach(holding => {
+  privateHoldings.forEach((holding) => {
     genericHoldingRows.push({
       uuid: holding.uuid,
       entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
-      privateHolding: holding
+      privateHolding: holding,
     } as AssetListEntry)
   })
 
@@ -114,21 +119,39 @@ async function generateHoldingRow() {
 }
 
 function onDrop(dropResult: any) {
-  let sortedHoldingRows: AssetListEntry[] = applyDrag(store.assetListEntries, dropResult);
-  sortedHoldingRows.forEach(holding => {
+  const sortedHoldingRows: AssetListEntry[] = applyDrag(
+    store.assetListEntries,
+    dropResult
+  )
+  sortedHoldingRows.forEach((holding) => {
     switch (holding.entryType) {
       case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-        let publicHoldingRequest = { publicHolding: PublicHolding } as unknown as PublicHoldingRequest
-        PatchAssetService.patchPublicHolding(publicHoldingRequest, holding.publicHolding!.uuid)
-        break;
+        const publicHoldingRequest = {
+          publicHolding: PublicHolding,
+        } as unknown as PublicHoldingRequest
+        PatchAssetService.patchPublicHolding(
+          publicHoldingRequest,
+          holding.publicHolding!.uuid
+        )
+        break
       case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-        let privateHoldingRequest = { privateHolding: PrivateHolding } as unknown as PrivateHoldingRequest
-        PatchAssetService.patchPrivateHolding(privateHoldingRequest, holding.privateHolding!.uuid)
-        break;
+        const privateHoldingRequest = {
+          privateHolding: PrivateHolding,
+        } as unknown as PrivateHoldingRequest
+        PatchAssetService.patchPrivateHolding(
+          privateHoldingRequest,
+          holding.privateHolding!.uuid
+        )
+        break
       case AssetListEntryTypeEnum.HOLDING_GROUP:
-        let holdingGroupRequest = { holdingGroup: HoldingGroup } as unknown as HoldingGroupRequest
-        PatchAssetService.patchHoldingGroup(holdingGroupRequest, holding.holdingGroup!.uuid)
-        break;
+        const holdingGroupRequest = {
+          holdingGroup: HoldingGroup,
+        } as unknown as HoldingGroupRequest
+        PatchAssetService.patchHoldingGroup(
+          holdingGroupRequest,
+          holding.holdingGroup!.uuid
+        )
+        break
     }
   })
 
@@ -143,10 +166,16 @@ const totalValue = computed(() => {
 })
 
 const totalPercentage = computed(() => {
-  return new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(store.totalAssetListPercentage) + ' %'
+  return (
+    new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
+      store.totalAssetListPercentage
+    ) + ' %'
+  )
 })
 
-const showPercentageCheckIcon = computed(() => store.totalAssetListPercentage === 100)
+const showPercentageCheckIcon = computed(
+  () => store.totalAssetListPercentage === 100
+)
 
 const totalDeviation = computed(() => {
   return formatValueArray(store.totalAssetListDeviation)
