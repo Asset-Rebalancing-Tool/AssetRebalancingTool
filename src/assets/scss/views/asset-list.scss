@@ -94,7 +94,6 @@
       @include holding-row-grid;
       margin-bottom: 15px;
       height: $outer-holding-row-height;
-      cursor: pointer;
 
       @import 'src/assets/scss/data/_asset-info.scss';
       @import 'src/assets/scss/data/_three-digit-value.scss';
@@ -113,7 +112,6 @@
       @include base-wrapper;
       height: auto;
       margin-bottom: 15px;
-      cursor: pointer;
 
       footer {
         @include asset-footer-grid;
@@ -121,15 +119,30 @@
         height: $inner-holding-row-height;
         background-color: $tertiary-background-color;
         border-radius: 0 0 $primary-border-radius $primary-border-radius;
-        cursor: pointer;
+
+        .footer-header {
+          @include flex-center-y;
+          column-gap: 5px;
+
+          button {
+            width: 30px;
+            height: 30px;
+            @include secondary-base-button;
+            cursor: pointer;
+          }
+
+          .minus {
+            font-size: 16px;
+          }
+
+          h4 {
+            line-height: $inner-holding-row-height;
+            font-weight: $bold-font-weight;
+            padding-left: 10px;
+          }
+        }
 
         @import 'src/assets/scss/data/_three-digit-value.scss';
-
-        h4 {
-          line-height: $inner-holding-row-height;
-          font-weight: $bold-font-weight;
-          padding-left: 5px;
-        }
       }
 
       .holding-row {

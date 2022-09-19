@@ -1,6 +1,12 @@
 <template>
   <footer>
-    <h4>Meine Gruppe 1</h4>
+
+    <div class="footer-header">
+      <button class="plus">+</button>
+      <button class="minus">-</button>
+      <h4>Meine Gruppe 1</h4>
+    </div>
+
 
     <!-- empty columns -->
     <span></span>

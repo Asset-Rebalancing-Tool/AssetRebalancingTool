@@ -94,8 +94,9 @@ $base-margin: $base-padding;
 
 @mixin secondary-base-button {
     border: 1px solid $passive-border-color;
-    background-color: $secondary-infill-color;
+    background-color: $primary-infill-color;
     border-radius: $primary-border-radius;
+    color: #FFFFFF;
 }
 
 @mixin button-wrapper-flex {
