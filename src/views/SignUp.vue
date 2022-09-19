@@ -4,7 +4,7 @@
       <div class="app-logo"></div>
     </div>
     <div class="right-wrapper">
-      <form class="sign-in-form" @submit.prevent="onSubmit" :validation-schema="schema">
+      <form class="sign-in-form" @submit.prevent="onSubmit" :validation-schema="validations">
         <h1>Kostenlos Registrieren</h1>
         <BaseInput
             :class="{ 'error' : emailError }"
