@@ -9,8 +9,6 @@ import { useAssetStore } from '@/stores/AssetStore'
 /**---------------------- Authorize Axios Instance --------------------**/
 /**-******************************************************************-**/
 
-const store = useAssetStore()
-
 // The token Datetime
 let lastFetched: Date = new Date()
 
@@ -109,7 +107,7 @@ function redirectToLogin(): void {
   lastFetched = new Date('0000-00-00')
   localStorage.removeItem('token')
   router.push('/sign-in')
-  store.showSidebar = false
+  useAssetStore().showSidebar = false
 }
 
 /**
@@ -123,7 +121,7 @@ function redirectToDashboard(token: string): void {
   lastFetched = new Date()
   localStorage.setItem('token', token)
   router.push('/asset-list')
-  store.showSidebar = true
+  useAssetStore().showSidebar = true
 }
 
 /**-******************************************************************-**/
@@ -145,6 +143,9 @@ export function handleErrorResponseStatus(errorStatus: number): void {
     case 401:
       redirectToLogin()
       console.log('401 error thrown')
+      break
+    case 409:
+      console.log('409 conflict with added list entry')
       break
     case 500:
       console.log('500 error thrown')
