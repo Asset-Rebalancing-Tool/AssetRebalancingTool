@@ -74,6 +74,7 @@ import { useField, useForm  } from 'vee-validate'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 
+
 const validations = {
   email: (inputValue: any): string | boolean => {
 
@@ -122,7 +123,7 @@ const activeSubmitButton = computed((): boolean => {
 const showPassword: Ref<boolean> = ref(false)
 
 const passwordType = computed((): string => {
-  return (showPassword.value) ? 'text' : 'password'
+  return showPassword.value ? 'text' : 'password'
 })
 
 function toggleVisibility() {

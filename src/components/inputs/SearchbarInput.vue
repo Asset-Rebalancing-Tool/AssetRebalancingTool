@@ -27,6 +27,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconInputSearch from '@/assets/icons/inputs/IconInputSearch.vue'
 import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
+import { handleErrorResponseStatus } from '@/services/TokenService'
 
 const store = useAssetStore()
 
@@ -89,9 +90,7 @@ function searchAsset(searchValue: string): void {
         store.searchbarResultCount = results.length
         store.searchbarAssets = results
       })
-      .catch((error) => {
-        console.log(error)
-      })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   }, 500)
 }
 

@@ -98,9 +98,9 @@ import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
-import { mapAssetType } from '@/composables/assetType'
-import { mapUnitTypeArray, mapUnitType } from '@/composables/unitType'
-import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
+import { mapAssetType } from '@/composables/UseAssetType'
+import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 
 const testDeviation = ['08', '62', '1']
 

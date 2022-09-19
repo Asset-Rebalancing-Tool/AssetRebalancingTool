@@ -1,12 +1,14 @@
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { getAuthorizedInstance } from '@/services/TokenService'
+import {
+  getAuthorizedInstance,
+  handleErrorResponseStatus,
+} from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
-import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
-import { useAssetStore } from '@/stores/AssetStore';
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import { useAssetStore } from '@/stores/AssetStore'
 
 export default {
-
   /**
    * Patch a public holding based on its uuid
    *
@@ -15,15 +17,19 @@ export default {
    */
   async patchPublicHolding(
     request: PublicHoldingRequest,
-    uuid: string,
+    uuid: string
   ): Promise<void> {
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.patch(`/holding_api/asset_holding/public/${uuid}`, request)
+        return instance.patch(
+          `/holding_api/asset_holding/public/${uuid}`,
+          request
+        )
       })
       .then((response: AxiosResponse) => {
-        useAssetStore().updateAssetListEntry(response.data)
+        useAssetStore().replaceListEntry(response.data)
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   /**
@@ -34,15 +40,19 @@ export default {
    */
   async patchPrivateHolding(
     request: PrivateHoldingRequest,
-    holdingUuid: string,
+    holdingUuid: string
   ): Promise<void> {
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.patch(`/holding_api/asset_holding/private/${holdingUuid}`, request)
+        return instance.patch(
+          `/holding_api/asset_holding/private/${holdingUuid}`,
+          request
+        )
       })
       .then((response: AxiosResponse) => {
-        useAssetStore().updateAssetListEntry(response.data)
+        useAssetStore().replaceListEntry(response.data)
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   /**
@@ -52,35 +62,41 @@ export default {
    * @param groupUuid string
    */
   async patchHoldingGroup(
-      request: HoldingGroupRequest,
-      groupUuid: string,
+    request: HoldingGroupRequest,
+    groupUuid: string
   ): Promise<void> {
     return getAuthorizedInstance()
       .then((instance) => {
-        return instance.patch(`/holding_api/asset_holding/group/${groupUuid}`, request)
+        return instance.patch(
+          `/holding_api/asset_holding/group/${groupUuid}`,
+          request
+        )
       })
       .then((response: AxiosResponse) => {
-        useAssetStore().updateAssetListEntry(response.data)
+        useAssetStore().replaceListEntry(response.data)
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   async deletePublicHolding(holdingUuid: string) {
     return getAuthorizedInstance()
-        .then((instance) => {
-          return instance.delete(`/holding_api/asset_holding/public/${holdingUuid}`)
-        })
-        .then((response: AxiosResponse) => {
-
-        })
+      .then((instance) => {
+        return instance.delete(
+          `/holding_api/asset_holding/public/${holdingUuid}`
+        )
+      })
+      .then((response: AxiosResponse) => {})
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   async deletePrivateHolding(holdingUuid: string) {
     return getAuthorizedInstance()
-        .then((instance) => {
-          return instance.delete(`/holding_api/asset_holding/private/${holdingUuid}`)
-        })
-        .then((response: AxiosResponse) => {
-
-        })
+      .then((instance) => {
+        return instance.delete(
+          `/holding_api/asset_holding/private/${holdingUuid}`
+        )
+      })
+      .then((response: AxiosResponse) => {})
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 }

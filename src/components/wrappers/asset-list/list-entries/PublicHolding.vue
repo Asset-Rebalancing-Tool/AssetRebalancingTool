@@ -78,23 +78,23 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
-import { mapAssetType } from '@/composables/assetType'
+import { mapAssetType } from '@/composables/UseAssetType'
 import {
   formatValueArray,
   getNewestPriceRecord,
   getNewestPriceRecordFormatted,
-} from '@/composables/valueArray'
-import { mapCurrency } from '@/composables/currency'
+} from '@/composables/UsePriceRecords'
+import { mapCurrency } from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
   showGraph,
   getDataValues,
   getDataLabels,
   isPositiveChart,
-} from '@/composables/smallLineChart'
+} from '@/composables/UsePreviewChart'
 import { useAssetStore } from '@/stores/AssetStore'
-import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
-import type { PriceRecord } from "@/models/nested/PriceRecord";
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PriceRecord } from '@/models/nested/PriceRecord'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -126,15 +126,15 @@ const priceRecords = computed((): PriceRecord[] => {
 // Get an array that contains the exploded strings values of the newest price record
 const formattedPriceDigits = computed((): string[] => {
   return getNewestPriceRecordFormatted(
-      props.holding.publicAsset.assetPriceRecords
+    props.holding.publicAsset.assetPriceRecords
   )
 })
 
 // Get the current value formatted by german pattern
-const currentValue = computed(() :string => {
-  let value =
-      props.holding.ownedQuantity *
-      getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)
+const currentValue = computed((): string => {
+  const value =
+    props.holding.ownedQuantity *
+    getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
@@ -143,13 +143,18 @@ const currentValue = computed(() :string => {
 
 // Get the current value percentage formatted by german pattern
 const currentValuePercentage = computed(() => {
-  let percentage = props.holding.ownedQuantity * getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords) / store.totalAssetListValue * 100
+  const percentage =
+    ((props.holding.ownedQuantity *
+      getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)) /
+      store.totalAssetListValue) *
+    100
   return new Intl.NumberFormat('de-DE').format(percentage) + ' %'
 })
 
 const deviation = computed(() => {
-  let deviation: number = +currentValuePercentage - props.holding.targetPercentage
-  return (deviation) ? formatValueArray(deviation) : ['00', '00', '0']
+  const deviation: number =
+    +currentValuePercentage.value - props.holding.targetPercentage
+  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 
 /**-***************************************************-**/

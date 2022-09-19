@@ -10,5 +10,5 @@
 </template>
 
 <style lang="scss">
-@import '@/assets/scss/wrappers/skeleton-loader.scss';
+@import '../../../../assets/scss/wrappers/skeleton-loader';
 </style>

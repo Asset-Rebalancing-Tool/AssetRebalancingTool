@@ -3,9 +3,11 @@ import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicAsset } from '@/models/PublicAsset'
-import { getAuthorizedInstance } from '@/services/TokenService'
+import {
+  getAuthorizedInstance,
+  handleErrorResponseStatus,
+} from '@/services/TokenService'
 export default {
-
   async fetchPublicHoldings(): Promise<PublicHolding[]> {
     return getAuthorizedInstance()
       .then((instance) => {
@@ -16,6 +18,7 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   async fetchPrivateHoldings(): Promise<PrivateHolding[]> {
@@ -28,6 +31,7 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   async fetchHoldingGroups(): Promise<HoldingGroup[]> {
@@ -38,6 +42,7 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   async fetchPublicAssets(
@@ -59,5 +64,6 @@ export default {
         }
         return [] as PublicAsset[]
       })
+      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 }

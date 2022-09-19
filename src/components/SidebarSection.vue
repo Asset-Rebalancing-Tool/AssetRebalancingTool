@@ -35,7 +35,7 @@
     </RouterLink>
 
     <footer>
-      <RouterLink :to="{ name: 'AppSettings' }" @click="logout">
+      <RouterLink :to="{ name: 'AppSettings' }" @click="logoutUser">
         <IconSidebarLogout />
         <span>Abmelden</span>
       </RouterLink>
@@ -50,8 +50,8 @@ import IconSidebarAssets from '@/assets/icons/sidebar/IconSidebarAssets.vue'
 import IconSidebarSchedule from '@/assets/icons/sidebar/IconSidebarSchedule.vue'
 import IconSidebarHistory from '@/assets/icons/sidebar/IconSidebarTransactions.vue'
 import IconSidebarSettings from '@/assets/icons/sidebar/IconSidebarSettings.vue'
-import IconSidebarLogout from "@/assets/icons/sidebar/IconSidebarLogout.vue";
-import { logout } from "@/services/TokenService";
+import IconSidebarLogout from '@/assets/icons/sidebar/IconSidebarLogout.vue'
+import { logoutUser } from '@/services/TokenService'
 </script>
 
 <style lang="scss">
