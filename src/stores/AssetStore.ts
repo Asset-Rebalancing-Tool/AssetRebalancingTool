@@ -161,55 +161,6 @@ export const useAssetStore = defineStore('assetStore', {
       }
       // If there is no asset with the passed uuid, return an empty object
       return {} as PublicAsset
-    },
-
-    /**
-     * Take a value and explode it into an array that can be used to access the single values
-     *
-     * @param assetValue
-     *
-     * @returns {string[]}
-     */
-    getValueArray(assetValue: number): string[] {
-      // Parse the value of the asset to string
-      const valueString: string = assetValue.toString()
-
-      // create the value array by splitting the float
-      const valueArray: string[] = valueString.split('.')
-
-      const firstDigit = valueArray[0]
-      let firstDecimal = valueArray[1]
-      let secondDecimal = ''
-
-      // If the first decimal is only one character long, add a zero to its end
-      if (firstDecimal.length === 1) {
-        firstDecimal = firstDecimal + '0'
-      }
-
-      // If the first decimal is greater than two characters, split it
-      if (firstDecimal.length > 2) {
-        secondDecimal = firstDecimal.slice(2, 3)
-        firstDecimal = firstDecimal.slice(0, 2)
-      }
-
-      return [firstDigit, firstDecimal, secondDecimal]
-    },
-
-    /**
-     * Map the currency of an assets to its symbol
-     *
-     * @param currency string
-     */
-    mapCurrency(currency: CurrencyEnum): string {
-      switch (currency) {
-        default:
-        case CurrencyEnum.UNSUPPORTED:
-          return '?'
-        case CurrencyEnum.EUR:
-          return '€'
-        case CurrencyEnum.USD:
-          return '$'
-      }
-    },
+    }
   },
 })
