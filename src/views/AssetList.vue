@@ -21,9 +21,9 @@
 
 <script lang="ts" setup>
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
-import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
+import SearchbarContent from '@/components/wrappers/asset-list/searchbar/SearchbarContent.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import ListEntry from "@/components/wrappers/ListEntry.vue";
+import ListEntry from "@/components/wrappers/asset-list/list-entries/ListEntry.vue";
 import {  onMounted } from 'vue'
 import { generateListEntries } from '@/composables/UseListEntries'
 import { useAssetStore } from '@/stores/AssetStore'

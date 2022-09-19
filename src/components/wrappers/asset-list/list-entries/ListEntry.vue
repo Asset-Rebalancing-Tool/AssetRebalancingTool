@@ -19,9 +19,9 @@
 </template>
 
 <script lang="ts" setup>
-import HoldingGroup  from '@/components/wrappers/HoldingGroup.vue'
-import PublicHolding from '@/components/wrappers/PublicHolding.vue'
-import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
+import HoldingGroup  from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue'
+import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
+import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
 import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import type { PropType } from 'vue'

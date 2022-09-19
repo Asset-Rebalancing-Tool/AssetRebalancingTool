@@ -30,9 +30,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import SearchbarAsset from '@/components/wrappers/PublicAsset.vue'
-import SearchbarSkeleton from '@/components/wrappers/SearchbarSkeleton.vue'
-import SearchbarFooter from '@/components/wrappers/SearchbarFooter.vue'
+import SearchbarAsset from '@/components/wrappers/asset-list/searchbar/PublicAsset.vue'
+import SearchbarSkeleton from '@/components/wrappers/asset-list/searchbar/SearchbarSkeleton.vue'
+import SearchbarFooter from '@/components/wrappers/asset-list/searchbar/SearchbarFooter.vue'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
