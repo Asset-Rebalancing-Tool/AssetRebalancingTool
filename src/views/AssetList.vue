@@ -38,60 +38,20 @@ import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import AssetService from '@/services/FetchAssetService'
 import IconCheck from '@/assets/icons/IconCheck.vue'
-import PublicHolding from '@/components/wrappers/PublicHolding.vue'
-import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
-import HoldingGroup from '@/components/wrappers/HoldingGroup.vue'
 import ListEntry from "@/components/wrappers/ListEntry.vue";
 import { computed, onMounted } from 'vue'
-import { formatValueArray } from '@/composables/UseValueArray'
+import { formatValueArray } from '@/composables/UsePriceRecords'
+import { mergeListEntries } from '@/composables/UseListEntries'
 import { useAssetStore } from '@/stores/AssetStore'
-import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 
 const store = useAssetStore()
 
 onMounted(async () => {
-  store.assetListEntries = await generateHoldingRow()
+  store.assetListEntries = await mergeListEntries()
   store.updateTotalValue()
   store.updateTotalTargetPercentage()
 })
-
-async function generateHoldingRow() {
-  const genericHoldingRows: AssetListEntry[] = []
-  const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
-  const publicHoldings: PublicHolding[] =
-    await AssetService.fetchPublicHoldings()
-  const privateHoldings: PrivateHolding[] =
-    await AssetService.fetchPrivateHoldings()
-
-  holdingGroups.forEach((group) => {
-    genericHoldingRows.push({
-      uuid: group.uuid,
-      entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
-      holdingGroup: group,
-    } as AssetListEntry)
-  })
-
-  publicHoldings.forEach((holding) => {
-    genericHoldingRows.push({
-      uuid: holding.uuid,
-      entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
-      publicHolding: holding,
-    } as AssetListEntry)
-  })
-
-  privateHoldings.forEach((holding) => {
-    genericHoldingRows.push({
-      uuid: holding.uuid,
-      entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
-      privateHolding: holding,
-    } as AssetListEntry)
-  })
-
-  return genericHoldingRows
-}
 
 const totalValue = computed(() => {
   return new Intl.NumberFormat('de-DE', {
