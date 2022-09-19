@@ -45,7 +45,7 @@ import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
 import HoldingGroup from '@/components/wrappers/HoldingGroup.vue'
 import ListEntry from "@/components/wrappers/ListEntry.vue";
 import { computed, onMounted } from 'vue'
-import { formatValueArray } from '@/composables/valueArray'
+import { formatValueArray } from '@/composables/UseValueArray'
 import { useAssetStore } from '@/stores/AssetStore'
 import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'

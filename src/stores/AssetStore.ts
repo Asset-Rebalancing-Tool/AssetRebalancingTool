@@ -10,7 +10,7 @@ import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
 import {
   getNewestPriceRecord,
   getNewestPriceRecordFormatted,
-} from '@/composables/valueArray'
+} from '@/composables/UseValueArray'
 
 /***********************************************************************************/
 /* --------------------------------- Asset Store ----------------------------------*/

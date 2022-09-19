@@ -78,20 +78,20 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
-import { mapAssetType } from '@/composables/assetType'
+import { mapAssetType } from '@/composables/UseAssetType'
 import {
   formatValueArray,
   getNewestPriceRecord,
   getNewestPriceRecordFormatted,
-} from '@/composables/valueArray'
-import { mapCurrency } from '@/composables/currency'
+} from '@/composables/UseValueArray'
+import { mapCurrency } from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
   showGraph,
   getDataValues,
   getDataLabels,
   isPositiveChart,
-} from '@/composables/smallLineChart'
+} from '@/composables/UsePreviewChart'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
