@@ -8,23 +8,11 @@
     <TableFilters />
 
     <div class="holding-container">
-        <HoldingGroup
-          v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
+      <ListEntry
+          v-for="holding in store.assetListEntries"
           :key="holding.uuid"
-          :holding="holding.holdingGroup"
-        ></HoldingGroup>
-
-        <PublicHolding
-          v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
-          :key="holding.uuid"
-          :holding="holding.publicHolding"
-        />
-
-        <PrivateHolding
-          v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
-          :key="holding.uuid"
-          :holding="holding.privateHolding"
-        />
+          :holding="holding"
+      />
     </div>
 
     <footer>
@@ -59,16 +47,12 @@ import PrivateHolding from '@/components/wrappers/PrivateHolding.vue'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
 import HoldingGroup from '@/components/wrappers/HoldingGroup.vue'
-import PatchAssetService from '@/services/PatchAssetService'
-import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import { formatValueArray } from '@/composables/valueArray'
+import ListEntry from "@/components/wrappers/ListEntry.vue";
 
 const store = useAssetStore()
 
 onMounted(async () => {
-  console.log(localStorage.getItem('token'))
   store.assetListEntries = await generateHoldingRow()
   store.updateTotalValue()
   store.updateTotalTargetPercentage()
@@ -107,46 +91,6 @@ async function generateHoldingRow() {
   })
 
   return genericHoldingRows
-}
-
-function onDrop(dropResult: any) {
-  const sortedHoldingRows: AssetListEntry[] = applyDrag(
-    store.assetListEntries,
-    dropResult
-  )
-  sortedHoldingRows.forEach((holding) => {
-    switch (holding.entryType) {
-      case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-        const publicHoldingRequest = {
-          publicHolding: PublicHolding,
-        } as unknown as PublicHoldingRequest
-        PatchAssetService.patchPublicHolding(
-          publicHoldingRequest,
-          holding.publicHolding!.uuid
-        )
-        break
-      case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-        const privateHoldingRequest = {
-          privateHolding: PrivateHolding,
-        } as unknown as PrivateHoldingRequest
-        PatchAssetService.patchPrivateHolding(
-          privateHoldingRequest,
-          holding.privateHolding!.uuid
-        )
-        break
-      case AssetListEntryTypeEnum.HOLDING_GROUP:
-        const holdingGroupRequest = {
-          holdingGroup: HoldingGroup,
-        } as unknown as HoldingGroupRequest
-        PatchAssetService.patchHoldingGroup(
-          holdingGroupRequest,
-          holding.holdingGroup!.uuid
-        )
-        break
-    }
-  })
-
-  store.assetListEntries = sortedHoldingRows
 }
 
 const totalValue = computed(() => {
