@@ -1,7 +1,9 @@
 <template>
   <div class="holding-group">
-    <slot name="holdings"></slot>
-    <HoldingGroupPercentage />
+    <slot name="holdings">
+      <div class="holding-placeholder">leere Gruppe</div>
+    </slot>
+    <HoldingGroupPercentage v-if="false" />
     <HoldingGroupFooter :holding="holding.holdingGroup"/>
   </div>
 </template>

@@ -165,6 +165,14 @@
         border-top: 1px solid $passive-border-color;
       }
 
+      .holding-placeholder {
+        @include flex-center-xy;
+        width: 100%;
+        height: $inner-holding-row-height;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 16px;
+      }
+
       .holding-row:first-child {
         border-top: none;
       }
@@ -173,7 +181,7 @@
         @include flex-align-start;
         position: absolute;
         top: -8px;
-        right: calc($deviation-column + $holding-row-column-gap + 43px);
+        right: calc($deviation-column + $holding-row-column-gap + 35px);
         width: $target-percentage-column;
         border: 3px solid #19B399;
         border-radius: 5px;
