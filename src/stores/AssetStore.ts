@@ -1,166 +1,209 @@
+import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
+import type { Ref } from 'vue'
 import type { PublicAsset } from '@/models/PublicAsset'
-import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import type { BaseEntity } from '@/models/holdings/BaseEntity'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
-import type { BaseEntity } from '@/models/holdings/BaseEntity'
 import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
-import {
-  getNewestPriceRecord,
-  getNewestPriceRecordFormatted,
-} from '@/composables/UsePriceRecords'
+import {getNewestPriceRecord} from "@/composables/UsePriceRecords";
 
-/***********************************************************************************/
-/* --------------------------------- Asset Store ----------------------------------*/
-/***********************************************************************************/
+export const useAssetStore = defineStore('assetStore', () => {
 
-export type RootState = {
-  showSidebar: boolean
-  searchString: string
-  searchbarAssets: PublicAsset[]
-  searchbarResultCount: number
-  searchbarLoadingFlag: boolean
-  assetListEntries: AssetListEntry[]
-  totalAssetListValue: number
-  totalAssetListPercentage: number
-  totalAssetListDeviation: number
-  activeModalUnderlay: boolean
-}
+    /**-******************************************************************-**/
+    /**-------------------- Asset List State Interfaces -------------------**/
+    /**-******************************************************************-**/
 
-export const useAssetStore = defineStore('assetStore', {
-  state: () =>
-    ({
-      showSidebar: localStorage.getItem('token') !== null,
-      /** Reactive asset searchbar */
-      searchString: '',
-      searchbarAssets: [],
-      searchbarResultCount: 0,
-      searchbarLoadingFlag: true,
-      /** Reactive list object */
-      assetListEntries: [],
-      totalAssetListValue: 0,
-      totalAssetListPercentage: 0,
-      totalAssetListDeviation: 0,
-      activeModalUnderlay: false,
-    } as RootState),
+    interface SearchbarState {
+        searchString: string
+        searchbarAssets: PublicAsset[]
+        searchbarResultCount: number
+        searchbarLoadingFlag: boolean
+        activeModalUnderlay: boolean
+    }
 
-  actions: {
-    /**
-     * Update an entry of the genericHoldingRows
-     *
-     * @param patchedEntry PublicHolding
-     */
-    updateAssetListEntry(patchedEntry: BaseEntity) {
-      this.assetListEntries.forEach((value, key) => {
-        if (value.uuid == patchedEntry.uuid) {
-          switch (value.entryType) {
-            case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-              this.assetListEntries[key].publicHolding =
-                patchedEntry as PublicHolding
-              break
-            case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-              this.assetListEntries[key].privateHolding =
-                patchedEntry as PrivateHolding
-              break
-            case AssetListEntryTypeEnum.HOLDING_GROUP:
-              this.assetListEntries[key].holdingGroup =
-                patchedEntry as HoldingGroup
-              break
-          }
-        }
-      })
-      this.updateTotalValue()
-      this.updateTotalTargetPercentage()
-    },
+    interface ListState {
+        assetListEntries: AssetListEntry[]
+        totalAssetListValue: number
+        totalAssetListPercentage: number
+        totalAssetListDeviation: number
+    }
 
-    updateTotalValue() {
-      let totalValue = 0
-      this.assetListEntries.forEach((value, key) => {
-        switch (value.entryType) {
-          case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-            totalValue =
-              totalValue +
-              value.publicHolding!.ownedQuantity *
-                getNewestPriceRecord(
-                  value.publicHolding!.publicAsset.assetPriceRecords
-                )
-            break
-          case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-            totalValue =
-              totalValue +
-              value.privateHolding!.ownedQuantity *
-                value.privateHolding!.pricePerUnit
-            break
-          case AssetListEntryTypeEnum.HOLDING_GROUP:
-            this.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
-              (value) => {
-                totalValue =
-                  totalValue +
-                  value.ownedQuantity *
-                    getNewestPriceRecord(value.publicAsset.assetPriceRecords)
-              }
-            )
-            this.assetListEntries[key].holdingGroup!.privateHoldings.forEach(
-              (value) => {
-                totalValue =
-                  totalValue + value.ownedQuantity * value.pricePerUnit
-              }
-            )
-            break
-        }
-      })
-      this.totalAssetListValue = totalValue
-    },
+    /**-******************************************************************-**/
+    /**-------------------- Asset List State Variables --------------------**/
+    /**-******************************************************************-**/
 
-    updateTotalTargetPercentage() {
-      let totalTargetPercentage = 0
-      this.assetListEntries.forEach((value, key) => {
-        switch (value.entryType) {
-          case AssetListEntryTypeEnum.PUBLIC_HOLDING:
-            totalTargetPercentage =
-              totalTargetPercentage + value.publicHolding!.targetPercentage
-            break
-          case AssetListEntryTypeEnum.PRIVATE_HOLDING:
-            totalTargetPercentage =
-              totalTargetPercentage + value.privateHolding!.targetPercentage
-            break
-          case AssetListEntryTypeEnum.HOLDING_GROUP:
-            this.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
-              (value) => {
-                totalTargetPercentage =
-                  totalTargetPercentage + value.targetPercentage
-              }
-            )
-            this.assetListEntries[key].holdingGroup!.privateHoldings.forEach(
-              (value) => {
-                totalTargetPercentage =
-                  totalTargetPercentage + value.targetPercentage
-              }
-            )
-            break
-        }
-      })
-      this.totalAssetListPercentage = totalTargetPercentage
-    },
+    // bool that indicates if the sidebar should be rendered
+    const showSidebar: Ref<boolean> = ref(localStorage.getItem('token') !== null)
+
+    // All reactive searchbar variables
+    const searchbarState: SearchbarState = reactive({
+        searchString: '',
+        searchbarAssets: [],
+        searchbarResultCount: 0,
+        searchbarLoadingFlag: true,
+        activeModalUnderlay: false
+    })
+
+    // All reactive list variables
+    const listState: ListState = reactive({
+        assetListEntries: [],
+        totalAssetListValue: 0,
+        totalAssetListPercentage: 0,
+        totalAssetListDeviation: 0,
+    })
+
+    /**-******************************************************************-**/
+    /**------------------------ Asset List Actions ------------------------**/
+    /**-******************************************************************-**/
 
     /**
      * Iterate over the searchbar assets and check if the uuid matches the passed uuid
      *
-     * @param uuid
+     * @param uuid string
+     *
+     * @return PublicAsset
      */
-    getSearchbarAsset(uuid: string): PublicAsset {
-      // Ensure that the searchbar assets array is not empty
-      if (this.searchbarAssets.length === 0) {
+    function getSearchbarAsset(uuid: string): PublicAsset {
+        // Ensure that the searchbar assets array is not empty
+        if (searchbarState.searchbarAssets.length === 0) {
+            return {} as PublicAsset
+        }
+        // Loop over the searchbar assets and check if the uuid matches the passed uuid
+        for (const asset of searchbarState.searchbarAssets) {
+            if (asset.uuid === uuid) return asset
+        }
+        // If there is no asset with the passed uuid, return an empty object
         return {} as PublicAsset
-      }
-      // Loop over the searchbar assets and check if the uuid matches the passed uuid
-      for (const asset of this.searchbarAssets) {
-        if (asset.uuid === uuid) return asset
-      }
-      // If there is no asset with the passed uuid, return an empty object
-      return {} as PublicAsset
     }
-  },
+
+    /**
+     * Replace an entry of the asset list entries array based on its uuid
+     * This method is mainly called in patch process
+     *
+     * @param patchedEntry BaseEntity
+     *
+     * @return void
+     */
+    function replaceListEntry(patchedEntry: BaseEntity): void {
+        // Iterate over each list entry
+        listState.assetListEntries.forEach((value, key) => {
+            // Check if the uuid of the entry matches the uuid of the patched entry
+            if (value.uuid == patchedEntry.uuid) {
+                // Replace the right list entry property entry with the patched entry based on the AssetListEntryTypeEnum
+                switch (value.entryType) {
+                    case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+                        listState.assetListEntries[key].publicHolding =
+                            patchedEntry as PublicHolding
+                        break
+                    case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+                        listState.assetListEntries[key].privateHolding =
+                            patchedEntry as PrivateHolding
+                        break
+                    case AssetListEntryTypeEnum.HOLDING_GROUP:
+                        listState.assetListEntries[key].holdingGroup =
+                            patchedEntry as HoldingGroup
+                        break
+                }
+            }
+        })
+
+        updateTotalValue()
+        updateTotalTargetPercentage()
+    }
+
+    /**
+     * Update the total list value
+     */
+    function updateTotalValue(): void {
+        let totalValue = 0
+        listState.assetListEntries.forEach((value, key) => {
+            switch (value.entryType) {
+                case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+                    totalValue =
+                        totalValue +
+                        value.publicHolding!.ownedQuantity *
+                        getNewestPriceRecord(
+                            value.publicHolding!.publicAsset.assetPriceRecords
+                        )
+                    break
+                case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+                    totalValue =
+                        totalValue +
+                        value.privateHolding!.ownedQuantity *
+                        value.privateHolding!.pricePerUnit
+                    break
+                case AssetListEntryTypeEnum.HOLDING_GROUP:
+                    listState.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
+                        (value) => {
+                            totalValue =
+                                totalValue +
+                                value.ownedQuantity *
+                                getNewestPriceRecord(value.publicAsset.assetPriceRecords)
+                        }
+                    )
+                    listState.assetListEntries[key].holdingGroup!.privateHoldings.forEach(
+                        (value) => {
+                            totalValue =
+                                totalValue + value.ownedQuantity * value.pricePerUnit
+                        }
+                    )
+                    break
+            }
+        })
+        listState.totalAssetListValue = totalValue
+    }
+
+    /**
+     * Update the total list target percentage
+     */
+    function updateTotalTargetPercentage(): void {
+        let totalTargetPercentage = 0
+        listState.assetListEntries.forEach((value, key) => {
+            switch (value.entryType) {
+                case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+                    totalTargetPercentage =
+                        totalTargetPercentage + value.publicHolding!.targetPercentage
+                    break
+                case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+                    totalTargetPercentage =
+                        totalTargetPercentage + value.privateHolding!.targetPercentage
+                    break
+                case AssetListEntryTypeEnum.HOLDING_GROUP:
+                    listState.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
+                        (value) => {
+                            totalTargetPercentage =
+                                totalTargetPercentage + value.targetPercentage
+                        }
+                    )
+                    listState.assetListEntries[key].holdingGroup!.privateHoldings.forEach(
+                        (value) => {
+                            totalTargetPercentage =
+                                totalTargetPercentage + value.targetPercentage
+                        }
+                    )
+                    break
+            }
+        })
+        listState.totalAssetListPercentage = totalTargetPercentage
+    }
+
+    /**-******************************************************************-**/
+    /**------------- Return All State Variables And Actions ---------------**/
+    /**-******************************************************************-**/
+
+    return {
+        // State variables
+        showSidebar,
+        searchbarState,
+        listState,
+
+        // Actions
+        getSearchbarAsset,
+        replaceListEntry,
+        updateTotalValue,
+        updateTotalTargetPercentage
+    }
 })

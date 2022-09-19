@@ -27,7 +27,7 @@ export default {
         )
       })
       .then((response: AxiosResponse) => {
-        useAssetStore().updateAssetListEntry(response.data)
+        useAssetStore().replaceListEntry(response.data)
       })
       .catch((error) => handleErrorResponseStatus(error.response.status))
   },
@@ -50,7 +50,7 @@ export default {
         )
       })
       .then((response: AxiosResponse) => {
-        useAssetStore().updateAssetListEntry(response.data)
+        useAssetStore().replaceListEntry(response.data)
       })
       .catch((error) => handleErrorResponseStatus(error.response.status))
   },
@@ -73,7 +73,7 @@ export default {
         )
       })
       .then((response: AxiosResponse) => {
-        useAssetStore().updateAssetListEntry(response.data)
+        useAssetStore().replaceListEntry(response.data)
       })
       .catch((error) => handleErrorResponseStatus(error.response.status))
   },
