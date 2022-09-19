@@ -4,9 +4,10 @@
       <div class="app-logo"></div>
     </div>
     <div class="right-wrapper">
-      <form class="sign-in-form" @submit.prevent="onSubmit">
+      <form class="sign-in-form" @submit.prevent="onSubmit" :validation-schema="schema">
         <h1>Kostenlos Registrieren</h1>
         <BaseInput
+            :class="{ 'error' : emailError }"
             :placeholder="'name@gmail.com'"
             type="email"
             v-model="email"
@@ -17,11 +18,14 @@
             <label>E-Mail-Adresse</label>
           </template>
         </BaseInput>
+        <div class="error">{{ emailError }}</div>
         <BaseInput
+            :class="{ 'error' : passwordError }"
             :placeholder="'********'"
             :type="passwordType"
-            v-model="password"
             @input="checkPasswordStrength($event.target.value)"
+            v-model="password"
+            :error="passwordError"
             required
         >
           <template #label>
@@ -32,6 +36,7 @@
             <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
+        <div class="error">{{ passwordError }}</div>
         <div class="form-spacing-wrapper">
           <div class="password-strength-wrapper">
             <span :class="{ 'strong' : passwordStrength >= 1 }"></span>
@@ -40,9 +45,8 @@
             <span :class="{ 'strong' : passwordStrength >= 4 }"></span>
             <span :class="{ 'strong' : passwordStrength >= 5 }"></span>
           </div>
-          <span class="requirements">Mindestens 8 Zeichen und 1 Großbuchstabe</span>
         </div>
-        <button type="submit">Kostenlos Registrieren</button>
+        <button type="submit" :class="{ show: activeSubmitButton }" >Kostenlos Registrieren</button>
         <span class="change-entry-view"
           >Du hast schon ein Konto?
           <RouterLink class="link" :to="{ name: 'SignIn' }"
@@ -70,12 +74,51 @@ import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import { registerUser } from "@/services/TokenService";
-import {computed, ref} from "vue";
+import { computed, ref } from "vue";
 import type { Ref } from "vue";
+import { useField, useForm } from 'vee-validate'
 
-// input models
-const email: Ref<string> = ref('')
-const password: Ref<string> = ref('')
+const validations = {
+  email: (inputValue: any): string | boolean => {
+
+    // Requirements
+    let isUndefined = inputValue === undefined || inputValue === null
+    let isEmptyString = !String(inputValue).length
+    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    let validEmail = regex.test(String(inputValue).toLowerCase())
+
+    // Check requirements and return error message
+    if (isUndefined || isEmptyString) return 'Bitte geben Sie eine E-Mail-Adresse an'
+    if (!validEmail) return 'Bitte geben Sie eine gültige E-Mail-Adresse an'
+
+    return true
+  },
+  password: (inputValue: any): string | boolean => {
+
+    // Requirements
+    let isUndefined = inputValue === undefined || inputValue === null
+    let isEmptyString = !String(inputValue).length
+    let containsUpper = (/[A-Z]/.test(inputValue))
+
+    // Check requirements and return error message
+    if (isUndefined || isEmptyString) return 'Bitte geben Sie ein Passworts an'
+    if (!containsUpper) return 'Ihr Passwort muss mindestens einen Großbuchstaben beinhalten'
+    if (String(inputValue).length < 8) return 'Ihr Passwort muss mindestens 8 Zeichen beinhalten'
+    return true
+  }
+}
+
+useForm({
+  validationSchema: validations
+})
+
+const { value: email, errorMessage: emailError } = useField('email')
+const { value: password, errorMessage: passwordError } = useField('password')
+
+const activeSubmitButton = computed(() => {
+  return passwordStrength.value >= 2
+})
+
 const showPassword: Ref<boolean> = ref(false)
 
 // Render the input type in order to show or hide the input value

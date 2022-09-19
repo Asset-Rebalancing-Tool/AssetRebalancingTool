@@ -121,6 +121,8 @@ $primary-button-gap: 6px;
 $primary-input-height: 52px;
 $secondary-input-height: 32px;
 
+$inputError: #ee5253;
+
 input {
     width: 100%;
     height: $primary-input-height;
@@ -136,6 +138,11 @@ input {
 input:focus,
 textarea:focus {
     border: 1px solid $active-border-color;
+}
+
+input.error:focus,
+textarea.error:focus {
+    border: 1px solid $inputError;
 }
 
 textarea::-webkit-input-placeholder,

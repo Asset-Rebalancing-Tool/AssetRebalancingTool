@@ -7,6 +7,7 @@
       <form class="sign-in-form" @submit.prevent="onSubmit">
         <h1>Anmelden</h1>
         <BaseInput
+            :class="{ 'error' : emailError }"
             :placeholder="'name@gmail.com'"
             type="email"
             v-model="email"
@@ -17,9 +18,12 @@
             <label>E-Mail-Adresse</label>
           </template>
         </BaseInput>
+        <div class="error">{{ emailError }}</div>
         <BaseInput
+            :class="{ 'error' : passwordError }"
             :placeholder="'********'"
             :type="passwordType"
+            @input="checkPasswordLength($event.target.value)"
             v-model="password"
             :error="passwordError"
             required
@@ -32,11 +36,12 @@
             <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
+        <div class="error">{{ passwordError }}</div>
         <div class="form-spacing-wrapper">
           <BaseCheckbox label="Angemeldet bleiben für 30 Tage" />
           <RouterLink class="link" to="">Passwort vergessen?</RouterLink>
         </div>
-        <button type="submit">Anmelden</button>
+        <button type="submit" :class="{ show: activeSubmitButton }">Anmelden</button>
         <span class="change-entry-view"
           >Noch kein Konto?
           <RouterLink class="link" :to="{ name: 'SignUp' }"
@@ -69,29 +74,50 @@ import { useField, useForm  } from 'vee-validate'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 
-
 const validations = {
-  email: (value: any) => {
-    if (!value) return 'This field is required'
+  email: (inputValue: any): string | boolean => {
+
+    // Requirements
+    let isUndefined = inputValue === undefined || inputValue === null
+    let isEmptyString = !String(inputValue).length
     const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    if (!regex.test(String(value).toLowerCase())) {
-      return 'Please enter a valid email address'
-    }
+    let validEmail = regex.test(String(inputValue).toLowerCase())
+
+    // Check requirements and return error message
+    if (isUndefined || isEmptyString) return 'Bitte geben Sie eine E-Mail-Adresse an'
+    if (!validEmail) return 'Bitte geben Sie eine gültige E-Mail-Adresse an'
+
     return true
   },
-  password: (value: any) => {
-    const requiredMessage = 'This field is required'
-    if (value === undefined || value === null) return requiredMessage
-    if (!String(value).length) return requiredMessage
+  password: (inputValue: any): string | boolean => {
+
+    // Requirements
+    let isUndefined = inputValue === undefined || inputValue === null
+    let isEmptyString = !String(inputValue).length
+
+    // Check requirements and return error message
+    if (isUndefined || isEmptyString) return 'Bitte geben Sie ein Passwort an'
     return true
   }
 }
+
 useForm({
   validationSchema: validations
 })
 
 const { value: email, errorMessage: emailError } = useField('email')
 const { value: password, errorMessage: passwordError } = useField('password')
+
+// Password length indicator
+const passwordLength: Ref<number> = ref(0)
+
+function checkPasswordLength(inputValue: string) {
+  return passwordLength.value = inputValue.length
+}
+
+const activeSubmitButton = computed((): boolean => {
+  return !emailError && passwordLength.value >= 0
+})
 
 const showPassword: Ref<boolean> = ref(false)
 

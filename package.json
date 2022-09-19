@@ -15,12 +15,13 @@
     "pinia": "^2.0.16",
     "sass": "^1.54.0",
     "swagger-typescript-api": "^9.3.1",
-    "vee-validate": "^4.5.8",
+    "vee-validate": "^4.6.7",
     "vue": "^3.2.37",
     "vue-chart-3": "^3.1.8",
     "vue-dndrop": "^1.2.13",
     "vue-draggable-next": "^2.1.1",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
