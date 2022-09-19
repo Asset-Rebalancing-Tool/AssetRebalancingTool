@@ -1,5 +1,5 @@
 import type { PriceRecord } from '@/models/nested/PriceRecord'
-import { getFirstCurrencyPriceRecords } from '@/composables/UseValueArray'
+import { getFirstCurrencyPriceRecords } from '@/composables/UsePriceRecords'
 
 /**
  * Get the data values for displaying a line chart based on the price records

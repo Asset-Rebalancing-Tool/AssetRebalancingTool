@@ -32,7 +32,7 @@ import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import { computed } from 'vue'
 import { mapAssetType } from '@/composables/UseAssetType'
-import { getNewestPriceRecordFormatted } from '@/composables/UseValueArray'
+import { getNewestPriceRecordFormatted } from '@/composables/UsePriceRecords'
 import { mapCurrency } from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {

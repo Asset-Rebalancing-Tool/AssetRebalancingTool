@@ -83,7 +83,7 @@ import {
   formatValueArray,
   getNewestPriceRecord,
   getNewestPriceRecordFormatted,
-} from '@/composables/UseValueArray'
+} from '@/composables/UsePriceRecords'
 import { mapCurrency } from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {
