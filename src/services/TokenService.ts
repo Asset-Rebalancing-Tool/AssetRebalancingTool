@@ -45,7 +45,7 @@ export function loginUser(request: AuthRequest): Promise<void> {
     })
 }
 
-export function logout(): void {
+export function logoutUser(): void {
     localStorage.removeItem('token');
     useAssetStore().showSidebar = false
 }
