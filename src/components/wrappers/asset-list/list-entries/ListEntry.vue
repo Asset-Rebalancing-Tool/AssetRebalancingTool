@@ -2,8 +2,12 @@
   <HoldingGroup
       v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
       :key="holding.uuid"
-      :holding="holding.holdingGroup"
-  ></HoldingGroup>
+      :holding="holding"
+  >
+    <template #holdings>
+
+    </template>
+  </HoldingGroup>
 
   <PublicHolding
       v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"

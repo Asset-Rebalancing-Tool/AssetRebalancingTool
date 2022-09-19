@@ -76,6 +76,16 @@
       height: $secondary-input-height;
       border-radius: $primary-border-radius;
     }
+    input.group-name-input {
+      max-width: 135px;
+      text-align: left;
+      line-height: 49px;
+      font-weight: 500;
+      font-size: 15px;
+      padding-left: 15px;
+      border: none;
+    }
+
 
     .current-value-wrapper {
       @include flex-center-xy;
