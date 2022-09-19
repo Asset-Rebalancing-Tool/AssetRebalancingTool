@@ -42,13 +42,13 @@ import IconCheck from '@/assets/icons/IconCheck.vue'
 import ListEntry from "@/components/wrappers/ListEntry.vue";
 import { computed, onMounted } from 'vue'
 import { formatValueArray } from '@/composables/UsePriceRecords'
-import { mergeListEntries } from '@/composables/UseListEntries'
+import { generateListEntries } from '@/composables/UseListEntries'
 import { useAssetStore } from '@/stores/AssetStore'
 
 const store = useAssetStore()
 
 onMounted(async () => {
-  store.assetListEntries = await mergeListEntries()
+  store.assetListEntries = await generateListEntries()
   store.updateTotalValue()
   store.updateTotalTargetPercentage()
 })

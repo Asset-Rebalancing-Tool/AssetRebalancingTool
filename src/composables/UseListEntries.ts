@@ -5,36 +5,46 @@ import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 
+/**
+ * Generate list entries
+ *
+ * This function will fetch groups, public and private holdings and merge them into the asset store's assetListEntries array
+ */
+export async function generateListEntries() {
+    // The List that is getting returned
+    const assetListEntries: AssetListEntry[] = []
 
-export async function mergeListEntries() {
-    const genericHoldingRows: AssetListEntry[] = []
+    // Fetch all groups, public and private holdings
     const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
     const publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
     const privateHoldings: PrivateHolding[] = await AssetService.fetchPrivateHoldings()
 
+    // Push each holding group
     holdingGroups.forEach((group) => {
-        genericHoldingRows.push({
+        assetListEntries.push({
             uuid: group.uuid,
             entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
             holdingGroup: group,
         } as AssetListEntry)
     })
 
+    // Push each public holding
     publicHoldings.forEach((holding) => {
-        genericHoldingRows.push({
+        assetListEntries.push({
             uuid: holding.uuid,
             entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
             publicHolding: holding,
         } as AssetListEntry)
     })
 
+    // Push each private holding
     privateHoldings.forEach((holding) => {
-        genericHoldingRows.push({
+        assetListEntries.push({
             uuid: holding.uuid,
             entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
             privateHolding: holding,
         } as AssetListEntry)
     })
 
-    return genericHoldingRows
+    return assetListEntries
 }
