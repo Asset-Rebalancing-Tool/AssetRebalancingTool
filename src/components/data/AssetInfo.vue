@@ -2,6 +2,7 @@
   <div class="asset-info">
     <div
       class="asset-logo"
+      :class="{ 'shake' : editGroupEntries }"
       v-bind:style="{
         'background-image': 'url(data:image/png;base64,' + logo + ')',
       }"
@@ -46,6 +47,8 @@ const props = defineProps({
     required: false,
   },
 })
+
+const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
 
 // Copy the isin of an asset into the clipboard
 const copyISIN = (event: Event) => {

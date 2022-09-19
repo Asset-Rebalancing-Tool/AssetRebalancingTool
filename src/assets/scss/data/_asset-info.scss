@@ -10,6 +10,53 @@
     background-color: #f2f2f2;
   }
 
+  .asset-logo.shake {
+    animation: shake 0.35s;
+    animation-iteration-count: infinite;
+    cursor: pointer;
+  }
+
+  .asset-logo.shake:before {
+    position: absolute;
+    left: -6px;
+    bottom: -6px;
+    content: '+';
+    font-size: 18px;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 19px;
+    width: 20px;
+    height: 20px;
+    //background-color: #ee5253;
+    background-color: $main-color;
+    border-radius: 50%;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  }
+
+  @keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-2deg); }
+    100% { transform: rotate(0deg); }
+  }
+  @keyframes horizontal-shaking {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(2px) }
+    50% { transform: translateX(-2px) }
+    75% { transform: translateX(2px) }
+    100% { transform: translateX(0) }
+  }
+
+  @keyframes both {
+    0% { transform: rotate(0deg) translateX(0); }
+    25% { transform: rotate(2deg) translateX(2px); }
+    50% { transform: rotate(0deg) translateX(-2px); }
+    75% { transform: rotate(-2deg) translateX(2px); }
+    100% { transform: rotate(0deg) translateX(0); }
+  }
+
+
   .additional-info {
     @include flex-center-y;
     column-gap: $asset-info-gap;
@@ -59,4 +106,9 @@
       height: 12px;
     }
   }
+}
+
+.holding-group .asset-logo.shake:before {
+  content: '-';
+  background-color: #ee5253;
 }

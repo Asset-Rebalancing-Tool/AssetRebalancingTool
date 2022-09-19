@@ -2,8 +2,8 @@
   <footer>
 
     <div class="footer-header">
-      <button class="plus">+</button>
-      <button class="minus">-</button>
+      <button v-show="!editGroupEntries" @click.prevent="editGroup">Bearbeiten</button>
+      <button v-show="editGroupEntries" @click.prevent="saveGroup" class="save">Speichern</button>
       <h4>Meine Gruppe 1</h4>
     </div>
 
@@ -35,6 +35,22 @@
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
+import { useAssetStore } from '@/stores/AssetStore';
+import {computed} from "vue";
 
 const testDeviation = ['08', '16', '0']
+
+const store = useAssetStore()
+
+const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
+
+function editGroup(): void {
+  store.selectionState.editGroupEntries = true
+}
+
+function saveGroup(): void {
+  store.selectionState.editGroupEntries = false
+}
+
+
 </script>

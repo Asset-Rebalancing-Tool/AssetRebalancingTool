@@ -31,6 +31,12 @@ export const useAssetStore = defineStore('assetStore', () => {
         totalAssetListDeviation: number
     }
 
+    interface SelectionState {
+        selectedListEntries: AssetListEntry[],
+        selectedGroupEntries: AssetListEntry[],
+        editGroupEntries: boolean,
+    }
+
     /**-******************************************************************-**/
     /**-------------------- Asset List State Variables --------------------**/
     /**-******************************************************************-**/
@@ -53,6 +59,13 @@ export const useAssetStore = defineStore('assetStore', () => {
         totalAssetListValue: 0,
         totalAssetListPercentage: 0,
         totalAssetListDeviation: 0,
+    })
+
+    // All reactive selection properties
+    const selectionState: SelectionState = reactive({
+        selectedListEntries: [],
+        selectedGroupEntries: [],
+        editGroupEntries: false,
     })
 
     /**-******************************************************************-**/
@@ -199,6 +212,7 @@ export const useAssetStore = defineStore('assetStore', () => {
         showSidebar,
         searchbarState,
         listState,
+        selectionState,
 
         // Actions
         getSearchbarAsset,
