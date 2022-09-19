@@ -15,65 +15,28 @@
       />
     </div>
 
-    <footer>
-      <h4>Portfoliowert</h4>
-      <span></span>
-      <span></span>
-      <span class="total-value">{{ totalValue }} &nbsp 100,00%</span>
-      <span class="total-percentage"
-        >{{ totalPercentage }}<IconCheck v-show="showPercentageCheckIcon"
-      /></span>
-      <ThreeDigitValue :value-array="totalDeviation" :unit="'%'" :arrow="'up'">
-        <template #arrow>
-          <IconAssetRowArrow />
-        </template>
-      </ThreeDigitValue>
-    </footer>
+    <ListFooter />
   </section>
 </template>
 
 <script lang="ts" setup>
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/SearchbarContent.vue'
-import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
-import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import IconCheck from '@/assets/icons/IconCheck.vue'
 import ListEntry from "@/components/wrappers/ListEntry.vue";
-import { computed, onMounted } from 'vue'
-import { formatValueArray } from '@/composables/UsePriceRecords'
+import {  onMounted } from 'vue'
 import { generateListEntries } from '@/composables/UseListEntries'
 import { useAssetStore } from '@/stores/AssetStore'
+import ListFooter from "@/components/wrappers/ListFooter.vue";
 
 const store = useAssetStore()
 
 onMounted(async () => {
+  // Fetch and merge all groups, private and public holdings
   store.assetListEntries = await generateListEntries()
+  // Update the total list values
   store.updateTotalValue()
   store.updateTotalTargetPercentage()
-})
-
-const totalValue = computed(() => {
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(store.totalAssetListValue)
-})
-
-const totalPercentage = computed(() => {
-  return (
-    new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      store.totalAssetListPercentage
-    ) + ' %'
-  )
-})
-
-const showPercentageCheckIcon = computed(
-  () => store.totalAssetListPercentage === 100
-)
-
-const totalDeviation = computed(() => {
-  return formatValueArray(store.totalAssetListDeviation)
 })
 </script>
 
