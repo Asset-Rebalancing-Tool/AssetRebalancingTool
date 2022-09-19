@@ -89,18 +89,10 @@
     /*******************************************************/
 
 
-    .dndrop-draggable-wrapper {
-      margin-bottom: 15px;
-      overflow: visible;
-    }
-
-    .dndrop-draggable-wrapper:first-child {
-      border-top: none;
-    }
-
     .holding-row {
       @include base-wrapper;
       @include holding-row-grid;
+      margin-bottom: 15px;
       height: $outer-holding-row-height;
       cursor: pointer;
 
