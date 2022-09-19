@@ -154,6 +154,10 @@ textarea::placeholder
     color: $tertiary-text-color;
 }
 
+input:autofill {
+    background: $primary-infill-color; /* or any other */
+}
+
 /* Chrome, Safari, Edge, Opera */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
