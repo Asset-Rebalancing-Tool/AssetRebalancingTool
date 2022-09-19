@@ -134,7 +134,7 @@ function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
     password: password.value
-  }
+  } as AuthRequest
   loginUser(authRequest)
 }
 </script>
