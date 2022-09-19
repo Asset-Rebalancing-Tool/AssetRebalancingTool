@@ -8,7 +8,7 @@
 
     <BaseInput
       type="number"
-      :modelValue="holding.currentPrice"
+      :modelValue="holding.pricePerUnit"
       @input="
         PatchAssetService.patchPrivateHolding(
           patchPricePerUnitRequest($event.target.value),
