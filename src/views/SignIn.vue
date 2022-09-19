@@ -117,7 +117,7 @@ function checkPasswordLength(inputValue: string) {
 }
 
 const activeSubmitButton = computed((): boolean => {
-  return !emailError && passwordLength.value >= 0
+  return !emailError.value && passwordLength.value > 0
 })
 
 const showPassword: Ref<boolean> = ref(false)
