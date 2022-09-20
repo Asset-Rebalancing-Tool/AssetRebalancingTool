@@ -232,6 +232,11 @@ export const useAssetStore = defineStore('assetStore', () => {
         // The select group
         if (entry.holdingGroup?.uuid === selectionState.groupUuid) {
 
+          listState.assetListEntries[entryKey].holdingGroup.publicHoldings.push(
+              listState.assetListEntries[index].privateHolding
+          )
+          // Remove the public holding from the entry list
+          listState.assetListEntries.splice(index, 1)
         }
       }
     })
@@ -283,6 +288,15 @@ export const useAssetStore = defineStore('assetStore', () => {
     })
   }
 
+  function getSelectedGroup() {
+    listState.assetListEntries.forEach((listEntry, key) => {
+      if (listEntry.uuid === selectionState.groupUuid) {
+        return listEntry.holdingGroup
+      }
+    })
+    return {} as HoldingGroup
+  }
+
   /**-******************************************************************-**/
   /**------------- Return All State Variables And Actions ---------------**/
   /**-******************************************************************-**/
@@ -295,9 +309,15 @@ export const useAssetStore = defineStore('assetStore', () => {
     selectionState,
 
     // Actions
+    addPublicEntryToGroup,
+    addPrivateEntryToGroup,
+    removePublicEntryFromGroup,
+    removePrivateEntryFromGroup,
+
     getSearchbarAsset,
     replaceListEntry,
     updateTotalValue,
     updateTotalTargetPercentage,
+    getSelectedGroup
   }
 })
