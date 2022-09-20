@@ -33,12 +33,22 @@ textarea:focus {
   border: 1px solid #19B399;
 }
 
+input.error:focus,
+textarea.error:focus {
+  border: 1px solid #ee5253;
+}
+
 textarea::-webkit-input-placeholder,
 textarea:-moz-placeholder,
 textarea::-moz-placeholder,
 textarea:-ms-input-placeholder,
 textarea::placeholder {
   color: #787878;
+}
+
+input:autofill {
+  background: #1A1E21;
+  /* or any other */
 }
 
 /* Chrome, Safari, Edge, Opera */
