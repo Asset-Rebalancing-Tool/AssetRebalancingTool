@@ -33,9 +33,8 @@ export const useAssetStore = defineStore('assetStore', () => {
   }
 
   interface SelectionState {
-    selectedListEntries: AssetListEntry[]
-    selectedGroupEntries: AssetListEntry[]
     editGroupEntries: boolean
+    groupUuid: string | null
   }
 
   /**-******************************************************************-**/
@@ -65,9 +64,8 @@ export const useAssetStore = defineStore('assetStore', () => {
 
   // All reactive selection properties
   const selectionState: SelectionState = reactive({
-    selectedListEntries: [],
-    selectedGroupEntries: [],
     editGroupEntries: false,
+    groupUuid: null
   })
 
   /**-******************************************************************-**/
@@ -202,6 +200,87 @@ export const useAssetStore = defineStore('assetStore', () => {
       }
     })
     listState.totalAssetListPercentage = totalTargetPercentage
+  }
+
+  /**-******************************************************************-**/
+  /**--------------- Add And Remove Holdings From Group -----------------**/
+  /**-******************************************************************-**/
+
+  function addPublicEntryToGroup(index: number, holdingUuid: string) {
+    listState.assetListEntries.forEach((entry, entryKey) => {
+      // Check for each group
+      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
+        // The select group
+        if (entry.holdingGroup?.uuid === selectionState.groupUuid) {
+          // Add the public holding to the group
+
+          listState.assetListEntries[entryKey].holdingGroup.publicHoldings.push(
+              listState.assetListEntries[index].publicHolding
+          )
+
+          // Remove the public holding from the entry list
+          listState.assetListEntries.splice(index, 1)
+        }
+      }
+    })
+  }
+
+  function addPrivateEntryToGroup(index: number, holdingUuid: string) {
+    listState.assetListEntries.forEach((entry, entryKey) => {
+      // Check for each group
+      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
+        // The select group
+        if (entry.holdingGroup?.uuid === selectionState.groupUuid) {
+
+        }
+      }
+    })
+  }
+
+  function removePublicEntryFromGroup(groupUuid: string, holdingUuid: string): void {
+    listState.assetListEntries.forEach((entry, entryKey) => {
+      // Check for each group
+      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
+        // The select group
+        if (entry.holdingGroup?.uuid === groupUuid) {
+          entry.holdingGroup.publicHoldings.forEach((publicHolding, holdingKey) => {
+            if (publicHolding.uuid === holdingUuid) {
+              // Remove the public holding from the group
+              listState.assetListEntries[entryKey].holdingGroup?.publicHoldings.splice(holdingKey, 1)
+              // Add the public holding as AssetListEntry to the assetListEntries
+              listState.assetListEntries.push({
+                uuid: publicHolding.uuid,
+                entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
+                publicHolding: publicHolding,
+              } as AssetListEntry)
+            }
+          })
+        }
+      }
+    })
+  }
+
+  function removePrivateEntryFromGroup(groupUuid: string, holdingUuid: string): void {
+    listState.assetListEntries.forEach((entry, entryKey) => {
+      // Check for each group
+      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
+        // The select group
+        if (entry.holdingGroup?.uuid === groupUuid) {
+          entry.holdingGroup.privateHoldings.forEach((privateHolding, holdingKey) => {
+            if (privateHolding.uuid === holdingUuid) {
+              // Remove the private holding from the group
+              listState.assetListEntries[entryKey].holdingGroup?.privateHoldings.splice(holdingKey, 1)
+              // Add the private holding as AssetListEntry to the assetListEntries
+              listState.assetListEntries.push({
+                uuid: privateHolding.uuid,
+                entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
+                privateHolding: privateHolding,
+              } as AssetListEntry)
+            }
+          })
+        }
+      }
+    })
   }
 
   /**-******************************************************************-**/

@@ -89,6 +89,9 @@ const props = defineProps({
   },
 })
 
+const publicHoldingUuids: Ref<string[]> = ref([])
+const privateHoldingUuids: Ref<string[]> = ref([])
+
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
 const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
 
@@ -129,8 +132,9 @@ const totalGroupDeviation = computed(() => {
 /**-***************************************************-**/
 
 // Start editing a group
-function editGroup(this: any): void {
+function editGroup(): void {
   store.selectionState.editGroupEntries = true
+  store.selectionState.groupUuid = props.holding.uuid
 }
 
 // Update the groupName value on each keyup
@@ -145,7 +149,12 @@ function writeGroupName(name: string) {
 // Patch the whole holding group
 function patchHoldingGroupRequest(): HoldingGroupRequest {
   store.selectionState.editGroupEntries = false
-  return { groupName: groupName.value } as HoldingGroupRequest
+  store.selectionState.groupUuid = null
+  return {
+    groupName: groupName.value,
+    publicHoldingUuids: publicHoldingUuids.value,
+    privateHoldingUuids: privateHoldingUuids.value
+  } as HoldingGroupRequest
 }
 
 // Patch the groups target percentage
@@ -153,6 +162,7 @@ function patchGroupTargetPercentageRequest(
   percentage: number
 ): HoldingGroupRequest {
   store.selectionState.editGroupEntries = false
+  store.selectionState.groupUuid = null
   return { targetPercentage: percentage } as HoldingGroupRequest
 }
 </script>

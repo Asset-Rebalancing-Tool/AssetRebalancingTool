@@ -44,7 +44,7 @@ export default {
             this.saveInputAnimation()
             useAssetStore().replaceListEntry(response.data)
           })
-          .catch((error) => handleErrorResponseStatus(error.response.status))
+          .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
       })
   },
 
