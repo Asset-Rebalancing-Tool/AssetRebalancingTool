@@ -39,7 +39,7 @@
 
     <BaseInput
       ref="footerInput"
-      :modelValue="holding.targetPercentage"
+      :modelValue="targetPercentage"
       @input="
         PatchAssetService.patchHoldingGroup(
           patchGroupTargetPercentageRequest($event.target.value),
@@ -89,7 +89,8 @@ const props = defineProps({
   },
 })
 
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
+const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
 
 // reactive group name model value
 const groupName: Ref<string> = ref(props.holding.groupName)
