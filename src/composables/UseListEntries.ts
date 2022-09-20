@@ -11,40 +11,42 @@ import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
  * This function will fetch groups, public and private holdings and merge them into the asset store's assetListEntries array
  */
 export async function generateListEntries() {
-    // The List that is getting returned
-    const assetListEntries: AssetListEntry[] = []
+  // The List that is getting returned
+  const assetListEntries: AssetListEntry[] = []
 
-    // Fetch all groups, public and private holdings
-    const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
-    const publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
-    const privateHoldings: PrivateHolding[] = await AssetService.fetchPrivateHoldings()
+  // Fetch all groups, public and private holdings
+  const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
+  const publicHoldings: PublicHolding[] =
+    await AssetService.fetchPublicHoldings()
+  const privateHoldings: PrivateHolding[] =
+    await AssetService.fetchPrivateHoldings()
 
-    // Push each holding group
-    holdingGroups.forEach((group) => {
-        assetListEntries.push({
-            uuid: group.uuid,
-            entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
-            holdingGroup: group,
-        } as AssetListEntry)
-    })
+  // Push each holding group
+  holdingGroups.forEach((group) => {
+    assetListEntries.push({
+      uuid: group.uuid,
+      entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
+      holdingGroup: group,
+    } as AssetListEntry)
+  })
 
-    // Push each public holding
-    publicHoldings.forEach((holding) => {
-        assetListEntries.push({
-            uuid: holding.uuid,
-            entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
-            publicHolding: holding,
-        } as AssetListEntry)
-    })
+  // Push each public holding
+  publicHoldings.forEach((holding) => {
+    assetListEntries.push({
+      uuid: holding.uuid,
+      entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
+      publicHolding: holding,
+    } as AssetListEntry)
+  })
 
-    // Push each private holding
-    privateHoldings.forEach((holding) => {
-        assetListEntries.push({
-            uuid: holding.uuid,
-            entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
-            privateHolding: holding,
-        } as AssetListEntry)
-    })
+  // Push each private holding
+  privateHoldings.forEach((holding) => {
+    assetListEntries.push({
+      uuid: holding.uuid,
+      entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
+      privateHolding: holding,
+    } as AssetListEntry)
+  })
 
-    return assetListEntries
+  return assetListEntries
 }

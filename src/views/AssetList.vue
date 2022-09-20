@@ -9,9 +9,9 @@
 
     <div class="holding-container">
       <ListEntry
-          v-for="holding in listEntries"
-          :key="holding.uuid"
-          :holding="holding"
+        v-for="holding in listEntries"
+        :key="holding.uuid"
+        :holding="holding"
       />
     </div>
 
@@ -23,11 +23,11 @@
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/asset-list/searchbar/SearchbarContent.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import ListEntry from "@/components/wrappers/asset-list/list-entries/ListEntry.vue";
-import {computed, onMounted} from 'vue'
+import ListEntry from '@/components/wrappers/asset-list/list-entries/ListEntry.vue'
+import { computed, onMounted } from 'vue'
 import { generateListEntries } from '@/composables/UseListEntries'
 import { useAssetStore } from '@/stores/AssetStore'
-import ListFooter from "@/components/wrappers/ListFooter.vue";
+import ListFooter from '@/components/wrappers/ListFooter.vue'
 
 const store = useAssetStore()
 

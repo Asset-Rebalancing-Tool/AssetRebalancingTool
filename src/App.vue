@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 import SidebarSection from '@/components/SidebarSection.vue'
 import ModalUnderlay from '@/components/modals/ModalUnderlay.vue'
 import { useAssetStore } from '@/stores/AssetStore'

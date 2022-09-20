@@ -13,7 +13,9 @@ import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 
 const store = useAssetStore()
 
-const activeModalUnderlay = computed(() => store.searchbarState.activeModalUnderlay)
+const activeModalUnderlay = computed(
+  () => store.searchbarState.activeModalUnderlay
+)
 </script>
 
 <style lang="scss">

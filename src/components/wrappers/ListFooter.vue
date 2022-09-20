@@ -5,7 +5,7 @@
     <span></span>
     <span class="total-value">{{ totalValue }} &nbsp 100,00%</span>
     <span class="total-percentage"
-    >{{ totalPercentage }}<IconCheck v-show="showPercentageCheckIcon"
+      >{{ totalPercentage }}<IconCheck v-show="showPercentageCheckIcon"
     /></span>
     <ThreeDigitValue :value-array="totalDeviation" :unit="'%'" :arrow="'up'">
       <template #arrow>
@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { formatValueArray } from '@/composables/UsePriceRecords';
-import { useAssetStore } from "@/stores/AssetStore";
+import { computed } from 'vue'
+import { formatValueArray } from '@/composables/UsePriceRecords'
+import { useAssetStore } from '@/stores/AssetStore'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import IconCheck from '@/assets/icons/IconCheck.vue'
@@ -36,9 +36,9 @@ const totalValue = computed(() => {
 // Get the total asset list percentage
 const totalPercentage = computed(() => {
   return (
-      new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-          store.listState.totalAssetListPercentage
-      ) + ' %'
+    new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
+      store.listState.totalAssetListPercentage
+    ) + ' %'
   )
 })
 
@@ -49,7 +49,6 @@ const totalDeviation = computed(() => {
 
 // Bool that indicates if the percentage check icon should be rendered
 const showPercentageCheckIcon = computed(
-    () => store.listState.totalAssetListPercentage === 100
+  () => store.listState.totalAssetListPercentage === 100
 )
-
 </script>

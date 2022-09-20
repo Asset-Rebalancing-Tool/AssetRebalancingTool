@@ -1,26 +1,32 @@
 <template>
   <footer>
-
     <div class="footer-header">
-      <button v-show="!editGroupEntries" @click.prevent="editGroup">Bearbeiten</button>
-      <button class="save" v-show="editGroupEntries" @click="
-        PatchAssetService.patchHoldingGroup(
-          patchHoldingGroupRequest(),
-          holding.uuid
-        )"
-      >Speichern</button>
+      <button v-show="!editGroupEntries" @click.prevent="editGroup">
+        Bearbeiten
+      </button>
+      <button
+        class="save"
+        v-show="editGroupEntries"
+        @click="
+          PatchAssetService.patchHoldingGroup(
+            patchHoldingGroupRequest(),
+            holding.uuid
+          )
+        "
+      >
+        Speichern
+      </button>
 
       <h4 v-show="!editGroupEntries">{{ groupName }}</h4>
 
       <input
-          class="group-name-input"
-          v-show="editGroupEntries"
-          type="text"
-          v-model="groupName"
-          @input="writeGroupName($event.target.value)"
+        class="group-name-input"
+        v-show="editGroupEntries"
+        type="text"
+        v-model="groupName"
+        @input="writeGroupName($event.target.value)"
       />
     </div>
-
 
     <!-- empty columns -->
     <span></span>
@@ -32,9 +38,9 @@
     </div>
 
     <BaseInput
-        ref="footerInput"
-        :modelValue="holding.targetPercentage"
-        @input="
+      ref="footerInput"
+      :modelValue="holding.targetPercentage"
+      @input="
         PatchAssetService.patchHoldingGroup(
           patchGroupTargetPercentageRequest($event.target.value),
           holding.uuid
@@ -68,7 +74,7 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { formatValueArray } from '@/composables/UsePriceRecords'
-import { InputStatusEnum } from "@/models/enums/InputStatusEnum";
+import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -106,9 +112,9 @@ const totalGroupValue = computed(() => {
 // Get the total asset list percentage
 const totalGroupPercentage = computed(() => {
   return (
-      new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-          store.listState.totalAssetListPercentage
-      ) + ' %'
+    new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
+      store.listState.totalAssetListPercentage
+    ) + ' %'
   )
 })
 
@@ -142,7 +148,9 @@ function patchHoldingGroupRequest(): HoldingGroupRequest {
 }
 
 // Patch the groups target percentage
-function patchGroupTargetPercentageRequest(percentage: number): HoldingGroupRequest {
+function patchGroupTargetPercentageRequest(
+  percentage: number
+): HoldingGroupRequest {
   store.selectionState.editGroupEntries = false
   return { targetPercentage: percentage } as HoldingGroupRequest
 }

@@ -47,15 +47,15 @@
       <template #unit>
         <InputAnimation :input-status="quantityStatus">
           <BaseSelect
-              class="quantity"
-              :options="unitTypeOptions"
-              :default-selection="defaultUnitType"
-              @change="
-            PatchAssetService.patchPrivateHolding(
-              patchUnitTypeRequest($event.target.value),
-              holding.uuid
-            )
-          "
+            class="quantity"
+            :options="unitTypeOptions"
+            :default-selection="defaultUnitType"
+            @change="
+              PatchAssetService.patchPrivateHolding(
+                patchUnitTypeRequest($event.target.value),
+                holding.uuid
+              )
+            "
           >
           </BaseSelect>
         </InputAnimation>
@@ -108,7 +108,7 @@ import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { InputStatusEnum } from "@/models/enums/InputStatusEnum";
+import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/

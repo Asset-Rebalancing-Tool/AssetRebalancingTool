@@ -46,13 +46,22 @@ import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 
 const store = useAssetStore()
 
-const showContentWrapper = computed(() => store.searchbarState.activeModalUnderlay)
-const searchbarResults = computed(() => store.searchbarState.searchbarResultCount)
+const showContentWrapper = computed(
+  () => store.searchbarState.activeModalUnderlay
+)
+const searchbarResults = computed(
+  () => store.searchbarState.searchbarResultCount
+)
 const searchbarAssets = computed(() => store.searchbarState.searchbarAssets)
-const showSkeletonAnimation = computed(() => store.searchbarState.searchbarLoadingFlag)
+const showSkeletonAnimation = computed(
+  () => store.searchbarState.searchbarLoadingFlag
+)
 
 const showPriceLabel = computed(() => {
-  return store.searchbarState.searchbarLoadingFlag || store.searchbarState.searchbarAssets.length > 0
+  return (
+    store.searchbarState.searchbarLoadingFlag ||
+    store.searchbarState.searchbarAssets.length > 0
+  )
 })
 
 async function newPublicHoldingAction(uuid: string) {

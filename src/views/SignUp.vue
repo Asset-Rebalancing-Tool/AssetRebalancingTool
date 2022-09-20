@@ -4,15 +4,19 @@
       <div class="app-logo"></div>
     </div>
     <div class="right-wrapper">
-      <form class="sign-in-form" @submit.prevent="onSubmit" :validation-schema="validations">
+      <form
+        class="sign-in-form"
+        @submit.prevent="onSubmit"
+        :validation-schema="validations"
+      >
         <h1>Kostenlos Registrieren</h1>
         <BaseInput
-            :class="{ 'error' : emailError }"
-            :placeholder="'name@gmail.com'"
-            type="email"
-            v-model="email"
-            :error="emailError"
-            required
+          :class="{ error: emailError }"
+          :placeholder="'name@gmail.com'"
+          type="email"
+          v-model="email"
+          :error="emailError"
+          required
         >
           <template #label>
             <label>E-Mail-Adresse</label>
@@ -20,33 +24,38 @@
         </BaseInput>
         <div class="error">{{ emailError }}</div>
         <BaseInput
-            :class="{ 'error' : passwordError }"
-            :placeholder="'********'"
-            :type="passwordType"
-            @input="checkPasswordStrength($event.target.value)"
-            v-model="password"
-            :error="passwordError"
-            required
+          :class="{ error: passwordError }"
+          :placeholder="'********'"
+          :type="passwordType"
+          @input="checkPasswordStrength($event.target.value)"
+          v-model="password"
+          :error="passwordError"
+          required
         >
           <template #label>
             <label>Passwort</label>
           </template>
           <template #inputIcon>
-            <IconShowPassword @click="toggleVisibility" v-show="!showPassword" />
+            <IconShowPassword
+              @click="toggleVisibility"
+              v-show="!showPassword"
+            />
             <IconHidePassword @click="toggleVisibility" v-show="showPassword" />
           </template>
         </BaseInput>
         <div class="error">{{ passwordError }}</div>
         <div class="form-spacing-wrapper">
           <div class="password-strength-wrapper">
-            <span :class="{ 'strong' : passwordStrength.value >= 1 }"></span>
-            <span :class="{ 'strong' : passwordStrength.value >= 2 }"></span>
-            <span :class="{ 'strong' : passwordStrength.value >= 3 }"></span>
-            <span :class="{ 'strong' : passwordStrength.value >= 4 }"></span>
-            <span :class="{ 'strong' : passwordStrength.value >= 5 }"></span>
+            <span :class="{ strong: passwordStrength.value >= 1 }"></span>
+            <span :class="{ strong: passwordStrength.value >= 2 }"></span>
+            <span :class="{ strong: passwordStrength.value >= 3 }"></span>
+            <span :class="{ strong: passwordStrength.value >= 4 }"></span>
+            <span :class="{ strong: passwordStrength.value >= 5 }"></span>
           </div>
         </div>
-        <button type="submit" :class="{ show: activeSubmitButton }" >Kostenlos Registrieren</button>
+        <button type="submit" :class="{ show: activeSubmitButton }">
+          Kostenlos Registrieren
+        </button>
         <span class="change-entry-view"
           >Du hast schon ein Konto?
           <RouterLink class="link" :to="{ name: 'SignIn' }"
@@ -73,43 +82,45 @@ import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
-import { registerUser } from "@/services/TokenService";
-import { computed, ref } from "vue";
-import type { Ref } from "vue";
+import { registerUser } from '@/services/TokenService'
+import { computed, ref } from 'vue'
+import type { Ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
 
 const validations = {
   email: (inputValue: any): string | boolean => {
-
     // Requirements
-    let isUndefined = inputValue === undefined || inputValue === null
-    let isEmptyString = !String(inputValue).length
-    const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    let validEmail = regex.test(String(inputValue).toLowerCase())
+    const isUndefined = inputValue === undefined || inputValue === null
+    const isEmptyString = !String(inputValue).length
+    const regex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    const validEmail = regex.test(String(inputValue).toLowerCase())
 
     // Check requirements and return error message
-    if (isUndefined || isEmptyString) return 'Bitte geben Sie eine E-Mail-Adresse an'
+    if (isUndefined || isEmptyString)
+      return 'Bitte geben Sie eine E-Mail-Adresse an'
     if (!validEmail) return 'Bitte geben Sie eine gültige E-Mail-Adresse an'
 
     return true
   },
   password: (inputValue: any): string | boolean => {
-
     // Requirements
-    let isUndefined = inputValue === undefined || inputValue === null
-    let isEmptyString = !String(inputValue).length
-    let containsUpper = (/[A-Z]/.test(inputValue))
+    const isUndefined = inputValue === undefined || inputValue === null
+    const isEmptyString = !String(inputValue).length
+    const containsUpper = /[A-Z]/.test(inputValue)
 
     // Check requirements and return error message
     if (isUndefined || isEmptyString) return 'Bitte geben Sie ein Passworts an'
-    if (!containsUpper) return 'Ihr Passwort muss mindestens einen Großbuchstaben beinhalten'
-    if (String(inputValue).length < 8) return 'Ihr Passwort muss mindestens 8 Zeichen beinhalten'
+    if (!containsUpper)
+      return 'Ihr Passwort muss mindestens einen Großbuchstaben beinhalten'
+    if (String(inputValue).length < 8)
+      return 'Ihr Passwort muss mindestens 8 Zeichen beinhalten'
     return true
-  }
+  },
 }
 
 useForm({
-  validationSchema: validations
+  validationSchema: validations,
 })
 
 const { value: email, errorMessage: emailError } = useField('email')
@@ -123,7 +134,7 @@ const showPassword: Ref<boolean> = ref(false)
 
 // Render the input type in order to show or hide the input value
 const passwordType = computed((): string => {
-  return (showPassword.value) ? 'text' : 'password'
+  return showPassword.value ? 'text' : 'password'
 })
 
 // On click show or hide password
@@ -151,8 +162,8 @@ function checkPasswordStrength(passwordInput: string) {
  * @return number
  */
 function requirementsFulfilled(passwordInput: string): number {
-  let containsUpper = (/[A-Z]/.test(passwordInput))
-  let length = passwordInput.length
+  const containsUpper = /[A-Z]/.test(passwordInput)
+  const length = passwordInput.length
   if (passwordInput === '') return 0
   if (containsUpper && length >= 14) return 5
   if (length >= 14) return 4
@@ -171,7 +182,7 @@ function requirementsFulfilled(passwordInput: string): number {
 function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
-    password: password.value
+    password: password.value,
   }
   registerUser(authRequest)
 }

@@ -30,4 +30,3 @@ export function mapCurrency(currency: CurrencyEnumType): string {
       return '$'
   }
 }
-

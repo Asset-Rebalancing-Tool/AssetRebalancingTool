@@ -2,7 +2,7 @@
   <div class="asset-info">
     <div
       class="asset-logo"
-      :class="{ 'shake' : editGroupEntries }"
+      :class="{ shake: editGroupEntries }"
       v-bind:style="{
         'background-image': 'url(data:image/png;base64,' + logo + ')',
       }"

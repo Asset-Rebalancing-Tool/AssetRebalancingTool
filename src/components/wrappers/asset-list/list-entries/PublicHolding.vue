@@ -59,7 +59,7 @@
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
-            <span>%</span>
+          <span>%</span>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -70,7 +70,6 @@
       </template>
     </ThreeDigitValue>
   </div>
-
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
@@ -100,7 +99,7 @@ import {
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
-import { InputStatusEnum } from "@/models/enums/InputStatusEnum";
+import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
