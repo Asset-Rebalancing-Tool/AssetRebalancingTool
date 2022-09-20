@@ -40,6 +40,7 @@
           <span>Stk.</span>
         </InputAnimation>
       </template>
+    </BaseInput>
 
     <div class="current-value-wrapper">
       <p>{{ currentValue }}</p>
@@ -69,6 +70,7 @@
       </template>
     </ThreeDigitValue>
   </div>
+
 </template>
 <script lang="ts" setup>
 import type { PropType } from 'vue'
