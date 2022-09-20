@@ -107,6 +107,10 @@ import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 
+/**-***************************************************-**/
+/** ----------- Props And Store Declaration ----------- **/
+/**-***************************************************-**/
+
 const testDeviation = ['08', '62', '1']
 
 const props = defineProps({
@@ -116,25 +120,9 @@ const props = defineProps({
   },
 })
 
-function patchPricePerUnitRequest(price: number) {
-  return { pricePerUnit: price } as PrivateHoldingRequest
-}
-
-function patchCurrencyRequest(currency: CurrencyEnum) {
-  return { currency: currency } as PrivateHoldingRequest
-}
-
-function patchOwnedQuantityRequest(quantity: number) {
-  return { ownedQuantity: quantity } as PrivateHoldingRequest
-}
-
-function patchUnitTypeRequest(unit: UnitTypeEnum) {
-  return { unitType: unit } as PrivateHoldingRequest
-}
-
-function patchTargetPercentageRequest(percentage: number) {
-  return { targetPercentage: percentage } as PrivateHoldingRequest
-}
+/**-***************************************************-**/
+/** ---------- Computed Template Properties ----------- **/
+/**-***************************************************-**/
 
 // Get the mapped asset type
 const assetType = computed((): string => {
@@ -157,4 +145,28 @@ const currencyOptions = computed(() => {
   }
   return currencies
 })
+
+/**-***************************************************-**/
+/** -------------- Input Patch Requests --------------- **/
+/**-***************************************************-**/
+
+function patchPricePerUnitRequest(price: number) {
+  return { pricePerUnit: price } as PrivateHoldingRequest
+}
+
+function patchCurrencyRequest(currency: CurrencyEnum) {
+  return { currency: currency } as PrivateHoldingRequest
+}
+
+function patchOwnedQuantityRequest(quantity: number) {
+  return { ownedQuantity: quantity } as PrivateHoldingRequest
+}
+
+function patchUnitTypeRequest(unit: UnitTypeEnum) {
+  return { unitType: unit } as PrivateHoldingRequest
+}
+
+function patchTargetPercentageRequest(percentage: number) {
+  return { targetPercentage: percentage } as PrivateHoldingRequest
+}
 </script>

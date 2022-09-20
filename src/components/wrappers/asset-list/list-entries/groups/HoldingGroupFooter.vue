@@ -89,35 +89,8 @@ const groupName: Ref<string> = ref(props.holding.groupName)
 const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
 
 /**-***************************************************-**/
-/** -------------- Request Post Header ----------------- **/
+/** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
-
-// Patch the whole holding group
-function patchHoldingGroupRequest(): HoldingGroupRequest {
-  store.selectionState.editGroupEntries = false
-  return { groupName: groupName.value } as HoldingGroupRequest
-}
-
-// Patch the groups target percentage
-function patchGroupTargetPercentageRequest(percentage: number): HoldingGroupRequest {
-  store.selectionState.editGroupEntries = false
-  return { targetPercentage: percentage } as HoldingGroupRequest
-}
-
-/**-***************************************************-**/
-/** ------- Computed Properties And Methods ----------- **/
-/**-***************************************************-**/
-
-
-// Start editing a group
-function editGroup(this: any): void {
-  store.selectionState.editGroupEntries = true
-}
-
-// Update the groupName value on each keyup
-function writeGroupName(name: string) {
-  groupName.value = name
-}
 
 // Get the total asset list value
 const totalGroupValue = computed(() => {
@@ -140,4 +113,34 @@ const totalGroupPercentage = computed(() => {
 const totalGroupDeviation = computed(() => {
   return formatValueArray(store.listState.totalAssetListDeviation)
 })
+
+/**-***************************************************-**/
+/** --------------- Template Actions ------------------ **/
+/**-***************************************************-**/
+
+// Start editing a group
+function editGroup(this: any): void {
+  store.selectionState.editGroupEntries = true
+}
+
+// Update the groupName value on each keyup
+function writeGroupName(name: string) {
+  groupName.value = name
+}
+
+/**-***************************************************-**/
+/** -------------- Input Patch Requests --------------- **/
+/**-***************************************************-**/
+
+// Patch the whole holding group
+function patchHoldingGroupRequest(): HoldingGroupRequest {
+  store.selectionState.editGroupEntries = false
+  return { groupName: groupName.value } as HoldingGroupRequest
+}
+
+// Patch the groups target percentage
+function patchGroupTargetPercentageRequest(percentage: number): HoldingGroupRequest {
+  store.selectionState.editGroupEntries = false
+  return { targetPercentage: percentage } as HoldingGroupRequest
+}
 </script>

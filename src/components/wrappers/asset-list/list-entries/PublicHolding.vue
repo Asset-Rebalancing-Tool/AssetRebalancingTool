@@ -160,6 +160,11 @@ const deviation = computed(() => {
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 
+// Get the mapped currency of the newest price record
+const currency = computed((): string => {
+  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
+})
+
 /**-***************************************************-**/
 /** -------------- Input Patch Requests --------------- **/
 /**-***************************************************-**/
@@ -173,9 +178,4 @@ function patchOwnedQuantityRequest(quantity: number) {
 function patchTargetPercentageRequest(percentage: number) {
   return { targetPercentage: percentage } as PublicHoldingRequest
 }
-
-// Get the mapped currency of the newest price record
-const currency = computed((): string => {
-  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
-})
 </script>
