@@ -46,7 +46,6 @@ export default {
           })
           .catch((error) => handleErrorResponseStatus(error.response.status))
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   /**
@@ -73,7 +72,6 @@ export default {
           })
           .catch((error) => handleErrorResponseStatus(error.response.status))
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   /**
@@ -100,7 +98,6 @@ export default {
           })
           .catch((error) => handleErrorResponseStatus(error.response.status))
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 
   /**-***********************************************************************-**/
