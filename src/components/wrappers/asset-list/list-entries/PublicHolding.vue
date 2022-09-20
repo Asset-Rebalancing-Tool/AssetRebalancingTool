@@ -27,7 +27,7 @@
 
     <BaseInput
       type="number"
-      :modelValue="holding.ownedQuantity"
+      :modelValue="ownedQuantity"
       @input="
         PatchAssetService.patchPublicHolding(
           patchOwnedQuantityRequest($event.target.value),
@@ -49,7 +49,7 @@
 
     <BaseInput
       type="number"
-      :modelValue="holding.targetPercentage"
+      :modelValue="targetPercentage"
       @input="
         PatchAssetService.patchPublicHolding(
           patchTargetPercentageRequest($event.target.value),
@@ -114,7 +114,10 @@ const props = defineProps({
   },
 })
 
+const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
 const quantityStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+
+const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
 const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
 
 /**-***************************************************-**/
