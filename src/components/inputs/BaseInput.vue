@@ -3,7 +3,6 @@
   <div class="input-container" :class="customContainerClass">
     <div class="input-wrapper">
       <input
-        ref="input"
         v-bind="$attrs"
         :value="modelValue"
         :placeholder="placeholder"
