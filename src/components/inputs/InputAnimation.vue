@@ -13,7 +13,7 @@ import inputValueSaved from '@/assets/animations/input-value-saved.json'
 const props = defineProps({
   inputStatus: {
     type: String,
-    required: true,
+    default: 'none',
   },
 })
 
