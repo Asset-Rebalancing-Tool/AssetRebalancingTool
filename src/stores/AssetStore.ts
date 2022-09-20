@@ -9,6 +9,7 @@ import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
 import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
+import {InputStatusEnum} from "@/models/enums/InputStatusEnum";
 
 export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
@@ -28,6 +29,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     totalAssetListValue: number
     totalAssetListPercentage: number
     totalAssetListDeviation: number
+    inputStatusIcon: InputStatusEnum
   }
 
   interface SelectionState {
@@ -58,6 +60,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     totalAssetListValue: 0,
     totalAssetListPercentage: 0,
     totalAssetListDeviation: 0,
+    inputStatusIcon: InputStatusEnum.NONE
   })
 
   // All reactive selection properties

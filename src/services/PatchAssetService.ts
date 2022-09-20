@@ -11,7 +11,6 @@ import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
-let inputStatus: InputStatusEnum = InputStatusEnum.NONE
 
 export default {
   /**-***********************************************************************-**/
@@ -135,13 +134,16 @@ export default {
   /**-***********************************************************************-**/
 
   requestRestrictionHandling(): Promise<void> {
+
+    const store = useAssetStore()
+
     // Always abort previous requests
     if (abortController) {
       abortController.abort()
       abortController = null
     }
     // Reset the input animation
-    inputStatus = InputStatusEnum.LOAD
+    store.listState.inputStatusIcon = InputStatusEnum.LOAD
 
     // If this method is called before the timer has expired, reset it
     // If there is no timer and therefore no request, set the isLoading flag to true
@@ -154,9 +156,10 @@ export default {
   },
 
   saveInputAnimation() {
-    inputStatus = InputStatusEnum.SAVE
+    const store = useAssetStore()
+    store.listState.inputStatusIcon = InputStatusEnum.SAVE
     setTimeout(() => {
-      inputStatus = InputStatusEnum.NONE
+      store.listState.inputStatusIcon = InputStatusEnum.NONE
     }, 500)
   },
 }

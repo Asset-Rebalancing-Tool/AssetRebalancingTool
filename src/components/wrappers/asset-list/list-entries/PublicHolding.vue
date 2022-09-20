@@ -114,8 +114,8 @@ const props = defineProps({
   },
 })
 
-const quantityStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
+const quantityStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
