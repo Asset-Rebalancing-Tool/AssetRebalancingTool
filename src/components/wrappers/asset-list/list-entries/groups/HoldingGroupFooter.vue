@@ -42,7 +42,9 @@
       "
     >
       <template #unit>
-        <span>%</span>
+        <InputAnimation :input-status="`save`">
+          <span>%</span>
+        </InputAnimation>
       </template>
     </BaseInput>
 
@@ -57,6 +59,7 @@
 <script lang="ts" setup>
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
+import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { ref, computed } from 'vue'

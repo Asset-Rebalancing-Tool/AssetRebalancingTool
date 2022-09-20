@@ -43,18 +43,20 @@
       "
     >
       <template #unit>
-        <BaseSelect
-          class="quantity"
-          :options="unitTypeOptions"
-          :default-selection="defaultUnitType"
-          @change="
+        <InputAnimation :input-status="`save`">
+          <BaseSelect
+              class="quantity"
+              :options="unitTypeOptions"
+              :default-selection="defaultUnitType"
+              @change="
             PatchAssetService.patchPrivateHolding(
               patchUnitTypeRequest($event.target.value),
               holding.uuid
             )
           "
-        >
-        </BaseSelect>
+          >
+          </BaseSelect>
+        </InputAnimation>
       </template>
     </BaseInput>
 
@@ -74,7 +76,9 @@
       "
     >
       <template #unit>
-        <span>%</span>
+        <InputAnimation :input-status="`save`">
+          <span>%</span>
+        </InputAnimation>
       </template>
     </BaseInput>
 
@@ -93,6 +97,7 @@ import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
+import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'

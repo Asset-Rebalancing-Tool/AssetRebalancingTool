@@ -36,9 +36,10 @@
       "
     >
       <template #unit>
-        <span>Stk.</span>
+        <InputAnimation :input-status="`save`">
+          <span>Stk.</span>
+        </InputAnimation>
       </template>
-    </BaseInput>
 
     <div class="current-value-wrapper">
       <p>{{ currentValue }}</p>
@@ -56,7 +57,9 @@
       "
     >
       <template #unit>
-        <span>%</span>
+        <InputAnimation :input-status="`save`">
+            <span>%</span>
+        </InputAnimation>
       </template>
     </BaseInput>
 
@@ -67,7 +70,6 @@
     </ThreeDigitValue>
   </div>
 </template>
-
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
@@ -75,6 +77,7 @@ import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
+import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
