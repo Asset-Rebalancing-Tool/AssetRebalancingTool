@@ -7,7 +7,7 @@
         :value="modelValue"
         :placeholder="placeholder"
         @input="$emit('update:modelValue', $event.target.value)"
-        @click="$event.target.select()"
+        @click="focusSelect($event.target)"
       />
       <slot name="inputIcon"></slot>
     </div>
@@ -29,7 +29,16 @@ const props = defineProps({
     type: String,
     required: false,
   },
+  selectOnFocus: {
+    type: Boolean,
+    default: true
+  }
 })
+
+// Select the input value on value focus if selectOnFocus bool is true
+function focusSelect(target: { select: () => void }): void {
+  if (props.selectOnFocus) target.select()
+}
 </script>
 
 <style lang="scss">
