@@ -8,7 +8,7 @@
 
     <BaseInput
       type="number"
-      :modelValue="holding.pricePerUnit"
+      :modelValue="pricePerUnit"
       @input="
         PatchAssetService.patchPrivateHolding(
           patchPricePerUnitRequest($event.target.value),
@@ -36,7 +36,7 @@
     <BaseInput
       custom-container-class="quantity-input"
       type="number"
-      :modelValue="'0'"
+      :modelValue="ownedQuantity"
       @input="
         PatchAssetService.patchPrivateHolding(
           patchOwnedQuantityRequest($event.target.value),
@@ -69,7 +69,7 @@
 
     <BaseInput
       type="number"
-      :modelValue="holding.targetPercentage"
+      :modelValue="targetPercentage"
       @input="
         PatchAssetService.patchPrivateHolding(
           patchTargetPercentageRequest($event.target.value),
@@ -109,10 +109,13 @@ import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
+import { useAssetStore } from "@/stores/AssetStore";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
+
+const store = useAssetStore()
 
 const props = defineProps({
   holding: {
@@ -121,9 +124,15 @@ const props = defineProps({
   },
 })
 
-const pricePerUnitStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
-const quantityStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
+const pricePerUnit: Ref<number> = ref(props.holding.pricePerUnit)
+const pricePerUnitStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+
+const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
+const quantityStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+
+const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
