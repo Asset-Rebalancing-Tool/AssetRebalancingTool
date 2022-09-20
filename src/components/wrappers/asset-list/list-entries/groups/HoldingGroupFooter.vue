@@ -42,7 +42,7 @@
       "
     >
       <template #unit>
-        <InputAnimation :input-status="`save`">
+        <InputAnimation :input-status="targetPercentageStatus">
           <span>%</span>
         </InputAnimation>
       </template>
@@ -68,6 +68,7 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { formatValueArray } from '@/composables/UsePriceRecords'
+import { InputStatusEnum } from "@/models/enums/InputStatusEnum";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -81,6 +82,8 @@ const props = defineProps({
     required: true,
   },
 })
+
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
 
 // reactive group name model value
 const groupName: Ref<string> = ref(props.holding.groupName)

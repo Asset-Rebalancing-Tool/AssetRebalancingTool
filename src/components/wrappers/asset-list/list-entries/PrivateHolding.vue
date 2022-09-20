@@ -17,17 +17,19 @@
       "
     >
       <template #unit>
-        <BaseSelect
-          class="currency"
-          :options="currencyOptions"
-          :default-selection="CurrencyEnum.EUR"
-          @change="
-            PatchAssetService.patchPrivateHolding(
-              patchCurrencyRequest($event.target.value),
-              holding.uuid
-            )
-          "
-        />
+        <InputAnimation :input-status="pricePerUnitStatus">
+          <BaseSelect
+            class="currency"
+            :options="currencyOptions"
+            :default-selection="CurrencyEnum.EUR"
+            @change="
+              PatchAssetService.patchPrivateHolding(
+                patchCurrencyRequest($event.target.value),
+                holding.uuid
+              )
+            "
+          />
+        </InputAnimation>
       </template>
     </BaseInput>
 
@@ -43,7 +45,7 @@
       "
     >
       <template #unit>
-        <InputAnimation :input-status="`save`">
+        <InputAnimation :input-status="quantityStatus">
           <BaseSelect
               class="quantity"
               :options="unitTypeOptions"
@@ -76,13 +78,13 @@
       "
     >
       <template #unit>
-        <InputAnimation :input-status="`save`">
+        <InputAnimation :input-status="targetPercentageStatus">
           <span>%</span>
         </InputAnimation>
       </template>
     </BaseInput>
 
-    <ThreeDigitValue :value-array="testDeviation" :unit="'%'" :arrow="'up'">
+    <ThreeDigitValue :value-array="['00', '00', '0']" :unit="'%'" :arrow="'up'">
       <template #arrow>
         <IconAssetRowArrow />
       </template>
@@ -91,7 +93,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
+import type { Ref, PropType } from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
@@ -106,12 +108,11 @@ import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import { InputStatusEnum } from "@/models/enums/InputStatusEnum";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
-
-const testDeviation = ['08', '62', '1']
 
 const props = defineProps({
   holding: {
@@ -119,6 +120,10 @@ const props = defineProps({
     required: true,
   },
 })
+
+const pricePerUnitStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
+const quantityStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/

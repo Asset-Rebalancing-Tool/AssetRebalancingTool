@@ -36,7 +36,7 @@
       "
     >
       <template #unit>
-        <InputAnimation :input-status="`save`">
+        <InputAnimation :input-status="quantityStatus">
           <span>Stk.</span>
         </InputAnimation>
       </template>
@@ -57,7 +57,7 @@
       "
     >
       <template #unit>
-        <InputAnimation :input-status="`save`">
+        <InputAnimation :input-status="targetPercentageStatus">
             <span>%</span>
         </InputAnimation>
       </template>
@@ -98,6 +98,7 @@ import {
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
+import { InputStatusEnum } from "@/models/enums/InputStatusEnum";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -111,6 +112,9 @@ const props = defineProps({
     required: true,
   },
 })
+
+const quantityStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(InputStatusEnum.NONE)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
