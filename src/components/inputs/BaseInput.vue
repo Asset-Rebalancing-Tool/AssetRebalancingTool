@@ -3,10 +3,12 @@
   <div class="input-container" :class="customContainerClass">
     <div class="input-wrapper">
       <input
+        ref="input"
         v-bind="$attrs"
         :value="modelValue"
         :placeholder="placeholder"
         @input="$emit('update:modelValue', $event.target.value)"
+        @click="$event.target.select()"
       />
       <slot name="inputIcon"></slot>
     </div>
