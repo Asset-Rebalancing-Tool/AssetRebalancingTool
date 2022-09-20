@@ -1,7 +1,6 @@
+import type { AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
-import type { AxiosResponse } from 'axios'
 import type { AuthRequest } from '@/requests/AuthRequest'
-import type { AxiosInstance } from 'axios'
 import router from '@/router'
 import { useAssetStore } from '@/stores/AssetStore'
 
