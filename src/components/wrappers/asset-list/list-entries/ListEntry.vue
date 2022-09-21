@@ -5,7 +5,12 @@
     :holding="listEntry"
   >
     <template #holdings>
-
+      <ListEntry
+          v-for="(entry, index) in mergeChildHoldings(listEntry.holdingGroup.uuid)"
+          :key="entry.uuid"
+          :index="index"
+          :list-entry="entry"
+      />
     </template>
   </HoldingGroup>
 
@@ -39,6 +44,7 @@ import { useAssetStore } from "@/stores/AssetStore";
 import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
 import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
 import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
+import {computed} from "vue";
 
 const store = useAssetStore()
 const props = defineProps({
@@ -52,12 +58,36 @@ const props = defineProps({
   }
 })
 
-function addListEntryToGroup() {
-  store.addListEntryToGroup(props.listEntry)
+/**
+ * Merge the public and private holdings of a holding group in order to iterate over one list
+ * This is needed to render the holdings in a specific order
+ *
+ * @param groupUuid string
+ *
+ * @return AssetListEntry[]
+ */
+function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
+  return store.mergePublicAndPrivateHoldings(groupUuid)
 }
 
-function removeHoldingFromGroup() {
-  store.removeHoldingFromGroup(props.listEntry)
+/**
+ * Add a public or private list entry to the selected holding group
+ */
+function addListEntryToGroup(): void {
+  let selectedGroupUuid: string | null = store.selectionState.groupUuid
+  if (selectedGroupUuid) {
+    store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
+  }
+}
+
+/**
+ * Remove a public or private list entry from the selected holding group
+ */
+function removeHoldingFromGroup(): void {
+  let selectedGroupUuid: string | null = store.selectionState.groupUuid
+  if (selectedGroupUuid) {
+    store.removeHoldingFromGroup(props.listEntry, selectedGroupUuid)
+  }
 }
 
 </script>

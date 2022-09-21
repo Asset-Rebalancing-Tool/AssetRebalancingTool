@@ -240,15 +240,15 @@ export const useAssetStore = defineStore('assetStore', () => {
 
 
   /**
-   * Add a list entry to the group that is currently edited
+   * Add a public or private list entry holding to a holding group
    *
    * @param listEntry AssetListEntry
+   * @param groupUuid string
    *
    * @return void
    */
-  function addListEntryToGroup(listEntry: AssetListEntry): void {
-    if (selectionState.groupUuid) {
-      let groupIndex: number = getListEntryIndexByUuid(selectionState.groupUuid)
+  function addListEntryToGroup(listEntry: AssetListEntry, groupUuid: string): void {
+      let groupIndex: number = getListEntryIndexByUuid(groupUuid)
 
       if (groupIndex === -1) {
         console.log('The selected group uuid was not found in the list entries')
@@ -280,13 +280,62 @@ export const useAssetStore = defineStore('assetStore', () => {
           }
           break;
       }
-    }
-
-    else { console.log('groupUuid of the selectionState is null') }
   }
 
-  function removeHoldingFromGroup() {
+  /**
+   * Remove a public or private list entry holding from a holding group
+   *
+   * @param listEntry AssetListEntry
+   * @param groupUuid string
+   */
+  function removeHoldingFromGroup(listEntry: AssetListEntry, groupUuid: string) : void {
+    let groupIndex: number = getListEntryIndexByUuid(groupUuid)
 
+    // Push the list entries holding based on the entry type
+    switch (listEntry.entryType) {
+      case EntryTypeEnum.PUBLIC_HOLDING:
+        let publicUuid: string = listEntry.publicHolding!.uuid
+        let publicIndex: number = getListEntryIndexByUuid(publicUuid)
+        listState.assetListEntries[groupIndex].holdingGroup?.publicHoldings.splice(publicIndex, 1)
+
+        break;
+      case EntryTypeEnum.PRIVATE_HOLDING:
+        let privateUuid = listEntry.privateHolding!.uuid
+        let privateIndex: number = getListEntryIndexByUuid(privateUuid)
+        listState.assetListEntries[groupIndex].holdingGroup?.privateHoldings.splice(privateIndex, 1)
+        break;
+    }
+  }
+
+  /**
+   * Merge the public and private holdings of a holding group in order to iterate over one list
+   * This is needed to render the holdings in a specific order
+   *
+   * @param groupUuid string
+   */
+  function mergePublicAndPrivateHoldings(groupUuid: string): AssetListEntry[] {
+      let mergedListEntries: AssetListEntry[] = []
+      let groupIndex: number = getListEntryIndexByUuid(groupUuid)
+
+      let publicHoldings: PublicHolding[] | undefined = listState.assetListEntries[groupIndex].holdingGroup?.publicHoldings
+      if (publicHoldings) {
+        publicHoldings.forEach(entry => mergedListEntries.push({
+          uuid: entry.uuid,
+          entryType: EntryTypeEnum.PUBLIC_HOLDING,
+          publicHolding: entry,
+        } as AssetListEntry))
+      }
+
+      let privateHoldings: PrivateHolding[] | undefined = listState.assetListEntries[groupIndex].holdingGroup?.privateHoldings
+      if (privateHoldings) {
+        privateHoldings.forEach(entry => mergedListEntries.push({
+          uuid: entry.uuid,
+          entryType: EntryTypeEnum.PRIVATE_HOLDING,
+          privateHolding: entry,
+        } as AssetListEntry))
+      }
+
+      return mergedListEntries
   }
 
   /**-******************************************************************-**/
@@ -303,6 +352,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     // Actions
     addListEntryToGroup,
     removeHoldingFromGroup,
+    mergePublicAndPrivateHoldings,
 
     getSearchbarAsset,
     replaceListEntry,
