@@ -1,37 +1,37 @@
 <template>
   <HoldingGroup
-    v-if="holding.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
-    :key="holding.uuid"
-    :holding="holding"
+    v-if="listEntry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP"
+    :key="listEntry.uuid"
+    :holding="listEntry"
   >
     <template #holdings>
         <PublicHolding
-            v-for="publicHolding in holding.publicHolding"
+            v-for="publicHolding in listEntry.publicHolding"
             :key="publicHolding.uuid"
             :holding="publicHolding"
-            @click="removePublicEntryFromGroup(holding, publicHolding)"
+            @click="removePublicEntryFromGroup(listEntry, publicHolding)"
         />
         <PrivateHolding
-            v-for="privateHolding in holding.privateHolding"
+            v-for="privateHolding in listEntry.privateHolding"
             :key="privateHolding.uuid"
             :holding="privateHolding"
-            @click="removePrivateEntryFromGroup(holding, privateHolding)"
+            @click="removePrivateEntryFromGroup(listEntry, privateHolding)"
         />
     </template>
   </HoldingGroup>
 
   <PublicHolding
-    v-if="holding.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
-    :key="holding.uuid"
+    v-if="listEntry.entryType === AssetListEntryTypeEnum.PUBLIC_HOLDING"
+    :key="listEntry.uuid"
     :holding="holding.publicHolding"
-    @click="addPublicEntryToGroup(index, holding)"
+    @click="addListEntryToGroup()"
   />
 
   <PrivateHolding
-    v-if="holding.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
-    :key="holding.uuid"
-    :holding="holding.privateHolding"
-    @click="addPrivateEntryToGroup(index, holding)"
+    v-if="listEntry.entryType === AssetListEntryTypeEnum.PRIVATE_HOLDING"
+    :key="listEntry.uuid"
+    :holding="listEntry.privateHolding"
+    @click="addListEntryToGroup()"
   />
 </template>
 
@@ -50,13 +50,11 @@ import { useAssetStore } from "@/stores/AssetStore";
 import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
 import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
 import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
-import {AssetTypeEnum} from "@/models/enums/AssetTypeEnum";
-import {CurrencyEnum} from "@/models/enums/CurrencyEnum";
-import {UnitTypeEnum} from "@/models/enums/UnitTypeEnum";
+import { addListEntryToGroup } from "@/composables/UseHoldingGroup";
 
 const store = useAssetStore()
 const props = defineProps({
-  holding: {
+  listEntry: {
     type: Object as PropType<AssetListEntry>,
     required: true,
   },
