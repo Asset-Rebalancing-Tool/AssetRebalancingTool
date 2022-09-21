@@ -152,7 +152,6 @@ const passwordStrength: Ref<number> = ref(0)
  */
 function checkPasswordStrength(passwordInput: string) {
   passwordStrength.value = requirementsFulfilled(passwordInput)
-  console.log(passwordStrength.value)
 }
 
 /**
