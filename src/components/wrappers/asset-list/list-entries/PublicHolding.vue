@@ -115,10 +115,14 @@ const props = defineProps({
 })
 
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
-const quantityStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+const quantityStatus: Ref<InputStatusEnum> = ref(
+  store.listState.inputStatusIcon
+)
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(
+  store.listState.inputStatusIcon
+)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/

@@ -1,15 +1,15 @@
-import type {Ref} from 'vue'
-import {reactive, ref} from 'vue'
-import {defineStore} from 'pinia'
-import type {PublicAsset} from '@/models/PublicAsset'
-import type {AssetListEntry} from '@/models/holdings/AssetListEntry'
-import type {BaseEntity} from '@/models/holdings/BaseEntity'
-import type {PublicHolding} from '@/models/holdings/PublicHolding'
-import type {PrivateHolding} from '@/models/holdings/PrivateHolding'
-import type {HoldingGroup} from '@/models/holdings/HoldingGroup'
-import {EntryTypeEnum} from '@/models/enums/EntryTypeEnum'
-import {getNewestPriceRecord} from '@/composables/UsePriceRecords'
-import {InputStatusEnum} from "@/models/enums/InputStatusEnum";
+import type { Ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { defineStore } from 'pinia'
+import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
+import type { PublicAsset } from '@/models/PublicAsset'
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import type { BaseEntity } from '@/models/holdings/BaseEntity'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
+import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 
 export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
@@ -59,13 +59,13 @@ export const useAssetStore = defineStore('assetStore', () => {
     totalAssetListValue: 0,
     totalAssetListPercentage: 0,
     totalAssetListDeviation: 0,
-    inputStatusIcon: InputStatusEnum.NONE
+    inputStatusIcon: InputStatusEnum.NONE,
   })
 
   // All reactive selection properties
   const selectionState: SelectionState = reactive({
     editGroupEntries: false,
-    groupUuid: null
+    groupUuid: null,
   })
 
   /**-******************************************************************-**/
@@ -129,6 +129,8 @@ export const useAssetStore = defineStore('assetStore', () => {
 
   /**
    * Update the total list value
+   *
+   * @return void
    */
   function updateTotalValue(): void {
     let totalValue = 0
@@ -170,6 +172,8 @@ export const useAssetStore = defineStore('assetStore', () => {
 
   /**
    * Update the total list target percentage
+   *
+   * @return void
    */
   function updateTotalTargetPercentage(): void {
     let totalTargetPercentage = 0
@@ -206,7 +210,6 @@ export const useAssetStore = defineStore('assetStore', () => {
   /**--------------- Add And Remove Holdings From Group -----------------**/
   /**-******************************************************************-**/
 
-
   /**
    * Get the index of the list state's assetListEntry array, by
    *
@@ -215,29 +218,29 @@ export const useAssetStore = defineStore('assetStore', () => {
    * @return number
    */
   function getListEntryIndexByUuid(uuid: string): number {
-    let listEntries = listState.assetListEntries
+    const listEntries = listState.assetListEntries
 
     // Iterate over each list entry from the store's list state
     for (let i = 0; i < listEntries.length; i++) {
-      let listEntry = listEntries[i]
+      const listEntry = listEntries[i]
 
       // Check the list entry's type and compare the uuid's
       switch (listEntry.entryType) {
-        default: return -1
+        default:
+          return -1
         case EntryTypeEnum.HOLDING_GROUP:
           if (listEntry.holdingGroup?.uuid === uuid) return i
-          break;
+          break
         case EntryTypeEnum.PUBLIC_HOLDING:
           if (listEntry.publicHolding?.uuid === uuid) return i
-          break;
+          break
         case EntryTypeEnum.PRIVATE_HOLDING:
           if (listEntry.privateHolding?.uuid === uuid) return i
-          break;
+          break
       }
     }
     return -1
   }
-
 
   /**
    * Add a public or private list entry holding to a holding group
@@ -247,39 +250,46 @@ export const useAssetStore = defineStore('assetStore', () => {
    *
    * @return void
    */
-  function addListEntryToGroup(listEntry: AssetListEntry, groupUuid: string): void {
-      let groupIndex: number = getListEntryIndexByUuid(groupUuid)
+  function addListEntryToGroup(
+    listEntry: AssetListEntry,
+    groupUuid: string
+  ): void {
+    const groupIndex: number = getListEntryIndexByUuid(groupUuid)
 
-      if (groupIndex === -1) {
-        console.log('The selected group uuid was not found in the list entries')
-        return
-      }
+    if (groupIndex === -1) {
+      console.log('The selected group uuid was not found in the list entries')
+      return
+    }
 
-      // Push the list entries holding based on the entry type
-      switch (listEntry.entryType) {
-        case EntryTypeEnum.PUBLIC_HOLDING:
-          if (listEntry.publicHolding) {
-            // Push the public holding that has been passed a parameter to the selected holding group
-            listState.assetListEntries[groupIndex].holdingGroup!.publicHoldings.push(
-                listEntry.publicHolding
-            )
-            // Remove the whole list entry of the pushed holding by its index
-            let holdingIndex = getListEntryIndexByUuid(listEntry.publicHolding.uuid)
-            listState.assetListEntries.splice(holdingIndex, 1)
-          }
-          break;
-        case EntryTypeEnum.PRIVATE_HOLDING:
-          if (listEntry.privateHolding) {
-            // Push the private holding that has been passed a parameter to the selected holding group
-            listState.assetListEntries[groupIndex].holdingGroup!.privateHoldings.push(
-                listEntry.privateHolding
-            )
-            // Remove the whole list entry of the pushed holding by its index
-            let holdingIndex = getListEntryIndexByUuid(listEntry.privateHolding.uuid)
-            listState.assetListEntries.splice(holdingIndex, 1)
-          }
-          break;
-      }
+    // Push the list entries holding based on the entry type
+    switch (listEntry.entryType) {
+      case EntryTypeEnum.PUBLIC_HOLDING:
+        if (listEntry.publicHolding) {
+          // Push the public holding that has been passed a parameter to the selected holding group
+          listState.assetListEntries[
+            groupIndex
+          ].holdingGroup!.publicHoldings.push(listEntry.publicHolding)
+          // Remove the whole list entry of the pushed holding by its index
+          const holdingIndex = getListEntryIndexByUuid(
+            listEntry.publicHolding.uuid
+          )
+          listState.assetListEntries.splice(holdingIndex, 1)
+        }
+        break
+      case EntryTypeEnum.PRIVATE_HOLDING:
+        if (listEntry.privateHolding) {
+          // Push the private holding that has been passed a parameter to the selected holding group
+          listState.assetListEntries[
+            groupIndex
+          ].holdingGroup!.privateHoldings.push(listEntry.privateHolding)
+          // Remove the whole list entry of the pushed holding by its index
+          const holdingIndex = getListEntryIndexByUuid(
+            listEntry.privateHolding.uuid
+          )
+          listState.assetListEntries.splice(holdingIndex, 1)
+        }
+        break
+    }
   }
 
   /**
@@ -288,22 +298,29 @@ export const useAssetStore = defineStore('assetStore', () => {
    * @param listEntry AssetListEntry
    * @param groupUuid string
    */
-  function removeHoldingFromGroup(listEntry: AssetListEntry, groupUuid: string) : void {
-    let groupIndex: number = getListEntryIndexByUuid(groupUuid)
+  function removeHoldingFromGroup(
+    listEntry: AssetListEntry,
+    groupUuid: string
+  ): void {
+    const groupIndex: number = getListEntryIndexByUuid(groupUuid)
 
     // Push the list entries holding based on the entry type
     switch (listEntry.entryType) {
       case EntryTypeEnum.PUBLIC_HOLDING:
-        let publicUuid: string = listEntry.publicHolding!.uuid
-        let publicIndex: number = getListEntryIndexByUuid(publicUuid)
-        listState.assetListEntries[groupIndex].holdingGroup?.publicHoldings.splice(publicIndex, 1)
+        const publicUuid: string = listEntry.publicHolding!.uuid
+        const publicIndex: number = getListEntryIndexByUuid(publicUuid)
+        listState.assetListEntries[
+          groupIndex
+        ].holdingGroup?.publicHoldings.splice(publicIndex, 1)
 
-        break;
+        break
       case EntryTypeEnum.PRIVATE_HOLDING:
-        let privateUuid = listEntry.privateHolding!.uuid
-        let privateIndex: number = getListEntryIndexByUuid(privateUuid)
-        listState.assetListEntries[groupIndex].holdingGroup?.privateHoldings.splice(privateIndex, 1)
-        break;
+        const privateUuid = listEntry.privateHolding!.uuid
+        const privateIndex: number = getListEntryIndexByUuid(privateUuid)
+        listState.assetListEntries[
+          groupIndex
+        ].holdingGroup?.privateHoldings.splice(privateIndex, 1)
+        break
     }
   }
 
@@ -314,28 +331,34 @@ export const useAssetStore = defineStore('assetStore', () => {
    * @param groupUuid string
    */
   function mergePublicAndPrivateHoldings(groupUuid: string): AssetListEntry[] {
-      let mergedListEntries: AssetListEntry[] = []
-      let groupIndex: number = getListEntryIndexByUuid(groupUuid)
+    const mergedListEntries: AssetListEntry[] = []
+    const groupIndex: number = getListEntryIndexByUuid(groupUuid)
 
-      let publicHoldings: PublicHolding[] | undefined = listState.assetListEntries[groupIndex].holdingGroup?.publicHoldings
-      if (publicHoldings) {
-        publicHoldings.forEach(entry => mergedListEntries.push({
+    const publicHoldings: PublicHolding[] | undefined =
+      listState.assetListEntries[groupIndex].holdingGroup?.publicHoldings
+    if (publicHoldings) {
+      publicHoldings.forEach((entry) =>
+        mergedListEntries.push({
           uuid: entry.uuid,
           entryType: EntryTypeEnum.PUBLIC_HOLDING,
           publicHolding: entry,
-        } as AssetListEntry))
-      }
+        } as AssetListEntry)
+      )
+    }
 
-      let privateHoldings: PrivateHolding[] | undefined = listState.assetListEntries[groupIndex].holdingGroup?.privateHoldings
-      if (privateHoldings) {
-        privateHoldings.forEach(entry => mergedListEntries.push({
+    const privateHoldings: PrivateHolding[] | undefined =
+      listState.assetListEntries[groupIndex].holdingGroup?.privateHoldings
+    if (privateHoldings) {
+      privateHoldings.forEach((entry) =>
+        mergedListEntries.push({
           uuid: entry.uuid,
           entryType: EntryTypeEnum.PRIVATE_HOLDING,
           privateHolding: entry,
-        } as AssetListEntry))
-      }
+        } as AssetListEntry)
+      )
+    }
 
-      return mergedListEntries
+    return mergedListEntries
   }
 
   /**-******************************************************************-**/
@@ -357,6 +380,6 @@ export const useAssetStore = defineStore('assetStore', () => {
     getSearchbarAsset,
     replaceListEntry,
     updateTotalValue,
-    updateTotalTargetPercentage
+    updateTotalTargetPercentage,
   }
 })

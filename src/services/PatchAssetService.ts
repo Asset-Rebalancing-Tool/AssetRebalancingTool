@@ -27,25 +27,24 @@ export default {
     request: PublicHoldingRequest,
     uuid: string
   ): Promise<void> {
-    this.requestRestrictionHandling()
-      .then(() => {
-        return getAuthorizedInstance()
-          .then((instance) => {
-            abortController = new AbortController()
-            return instance.patch(
-              `/holding_api/asset_holding/public/${uuid}`,
-              request,
-              {
-                signal: abortController.signal as AbortSignal,
-              }
-            )
-          })
-          .then((response: AxiosResponse) => {
-            this.saveInputAnimation()
-            useAssetStore().replaceListEntry(response.data)
-          })
-          .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
-      })
+    this.requestRestrictionHandling().then(() => {
+      return getAuthorizedInstance()
+        .then((instance) => {
+          abortController = new AbortController()
+          return instance.patch(
+            `/holding_api/asset_holding/public/${uuid}`,
+            request,
+            {
+              signal: abortController.signal as AbortSignal,
+            }
+          )
+        })
+        .then((response: AxiosResponse) => {
+          this.saveInputAnimation()
+          useAssetStore().replaceListEntry(response.data)
+        })
+        .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
+    })
   },
 
   /**
@@ -58,20 +57,19 @@ export default {
     request: PrivateHoldingRequest,
     holdingUuid: string
   ): Promise<void> {
-    this.requestRestrictionHandling()
-      .then(() => {
-        return getAuthorizedInstance()
-          .then((instance) => {
-            return instance.patch(
-              `/holding_api/asset_holding/private/${holdingUuid}`,
-              request
-            )
-          })
-          .then((response: AxiosResponse) => {
-            useAssetStore().replaceListEntry(response.data)
-          })
-          .catch((error) => handleErrorResponseStatus(error.response.status))
-      })
+    this.requestRestrictionHandling().then(() => {
+      return getAuthorizedInstance()
+        .then((instance) => {
+          return instance.patch(
+            `/holding_api/asset_holding/private/${holdingUuid}`,
+            request
+          )
+        })
+        .then((response: AxiosResponse) => {
+          useAssetStore().replaceListEntry(response.data)
+        })
+        .catch((error) => handleErrorResponseStatus(error.response.status))
+    })
   },
 
   /**
@@ -84,20 +82,19 @@ export default {
     request: HoldingGroupRequest,
     groupUuid: string
   ): Promise<void> {
-    this.requestRestrictionHandling()
-      .then(() => {
-        return getAuthorizedInstance()
-          .then((instance) => {
-            return instance.patch(
-              `/holding_api/asset_holding/group/${groupUuid}`,
-              request
-            )
-          })
-          .then((response: AxiosResponse) => {
-            useAssetStore().replaceListEntry(response.data)
-          })
-          .catch((error) => handleErrorResponseStatus(error.response.status))
-      })
+    this.requestRestrictionHandling().then(() => {
+      return getAuthorizedInstance()
+        .then((instance) => {
+          return instance.patch(
+            `/holding_api/asset_holding/group/${groupUuid}`,
+            request
+          )
+        })
+        .then((response: AxiosResponse) => {
+          useAssetStore().replaceListEntry(response.data)
+        })
+        .catch((error) => handleErrorResponseStatus(error.response.status))
+    })
   },
 
   /**-***********************************************************************-**/
@@ -131,7 +128,6 @@ export default {
   /**-***********************************************************************-**/
 
   requestRestrictionHandling(): Promise<void> {
-
     const store = useAssetStore()
 
     // Always abort previous requests

@@ -31,8 +31,8 @@ const props = defineProps({
   },
   selectOnFocus: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 })
 
 // Select the input value on value focus if selectOnFocus bool is true

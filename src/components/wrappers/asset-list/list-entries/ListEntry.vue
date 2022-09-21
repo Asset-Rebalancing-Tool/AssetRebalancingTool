@@ -6,11 +6,13 @@
   >
     <template #holdings>
       <ListEntry
-          v-for="(entry, index) in mergeChildHoldings(listEntry.holdingGroup.uuid)"
-          :key="entry.uuid"
-          :index="index"
-          :list-entry="entry"
-          @click="removeHoldingFromGroup"
+        v-for="(entry, index) in mergeChildHoldings(
+          listEntry.holdingGroup.uuid
+        )"
+        :key="entry.uuid"
+        :index="index"
+        :list-entry="entry"
+        @click="removeHoldingFromGroup"
       />
     </template>
   </HoldingGroup>
@@ -41,11 +43,11 @@ import type { PrivateHolding as PrivateHoldingType } from '@/models/holdings/Pri
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import type { PropType } from 'vue'
-import { useAssetStore } from "@/stores/AssetStore";
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
-import type { PublicHoldingRequest } from "@/requests/PublicHoldingRequest";
-import type { PrivateHoldingRequest } from "@/requests/PrivateHoldingRequest";
-import {computed} from "vue";
+import { useAssetStore } from '@/stores/AssetStore'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import { computed } from 'vue'
 
 const store = useAssetStore()
 const props = defineProps({
@@ -56,7 +58,7 @@ const props = defineProps({
   index: {
     type: Number,
     required: true,
-  }
+  },
 })
 
 /**
@@ -75,7 +77,7 @@ function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
  * Add a public or private list entry to the selected holding group
  */
 function addListEntryToGroup(): void {
-  let selectedGroupUuid: string | null = store.selectionState.groupUuid
+  const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
   }
@@ -85,10 +87,9 @@ function addListEntryToGroup(): void {
  * Remove a public or private list entry from the selected holding group
  */
 function removeHoldingFromGroup(): void {
-  let selectedGroupUuid: string | null = store.selectionState.groupUuid
+  const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.removeHoldingFromGroup(props.listEntry, selectedGroupUuid)
   }
 }
-
 </script>

@@ -93,7 +93,9 @@ const publicHoldingUuids: Ref<string[]> = ref([])
 const privateHoldingUuids: Ref<string[]> = ref([])
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(
+  store.listState.inputStatusIcon
+)
 
 // reactive group name model value
 const groupName: Ref<string> = ref(props.holding.groupName)
@@ -153,7 +155,7 @@ function patchHoldingGroupRequest(): HoldingGroupRequest {
   return {
     groupName: groupName.value,
     publicHoldingUuids: publicHoldingUuids.value,
-    privateHoldingUuids: privateHoldingUuids.value
+    privateHoldingUuids: privateHoldingUuids.value,
   } as HoldingGroupRequest
 }
 

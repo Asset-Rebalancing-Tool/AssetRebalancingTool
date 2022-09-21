@@ -109,7 +109,7 @@ import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
-import { useAssetStore } from "@/stores/AssetStore";
+import { useAssetStore } from '@/stores/AssetStore'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -125,14 +125,19 @@ const props = defineProps({
 })
 
 const pricePerUnit: Ref<number> = ref(props.holding.pricePerUnit)
-const pricePerUnitStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+const pricePerUnitStatus: Ref<InputStatusEnum> = ref(
+  store.listState.inputStatusIcon
+)
 
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
-const quantityStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
+const quantityStatus: Ref<InputStatusEnum> = ref(
+  store.listState.inputStatusIcon
+)
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(store.listState.inputStatusIcon)
-
+const targetPercentageStatus: Ref<InputStatusEnum> = ref(
+  store.listState.inputStatusIcon
+)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
