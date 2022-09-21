@@ -10,6 +10,7 @@
           :key="entry.uuid"
           :index="index"
           :list-entry="entry"
+          @click="removeHoldingFromGroup"
       />
     </template>
   </HoldingGroup>
