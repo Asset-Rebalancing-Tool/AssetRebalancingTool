@@ -46,11 +46,11 @@
         <div class="error">{{ passwordError }}</div>
         <div class="form-spacing-wrapper">
           <div class="password-strength-wrapper">
-            <span :class="{ strong: passwordStrength.value >= 1 }"></span>
-            <span :class="{ strong: passwordStrength.value >= 2 }"></span>
-            <span :class="{ strong: passwordStrength.value >= 3 }"></span>
-            <span :class="{ strong: passwordStrength.value >= 4 }"></span>
-            <span :class="{ strong: passwordStrength.value >= 5 }"></span>
+            <span :class="{ strong: passwordStrength >= 1 }"></span>
+            <span :class="{ strong: passwordStrength >= 2 }"></span>
+            <span :class="{ strong: passwordStrength >= 3 }"></span>
+            <span :class="{ strong: passwordStrength >= 4 }"></span>
+            <span :class="{ strong: passwordStrength >= 5 }"></span>
           </div>
         </div>
         <button type="submit" :class="{ show: activeSubmitButton }">
@@ -152,6 +152,7 @@ const passwordStrength: Ref<number> = ref(0)
  */
 function checkPasswordStrength(passwordInput: string) {
   passwordStrength.value = requirementsFulfilled(passwordInput)
+  console.log(passwordStrength.value)
 }
 
 /**
