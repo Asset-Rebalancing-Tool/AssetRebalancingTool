@@ -9,10 +9,10 @@
 
     <div class="holding-container">
       <ListEntry
-        v-for="(holding, index) in listEntries"
-        :key="holding.uuid"
+        v-for="(entry, index) in listEntries"
+        :key="entry.uuid"
         :index="index"
-        :holding="holding"
+        :list-entry="entry"
       />
     </div>
 
