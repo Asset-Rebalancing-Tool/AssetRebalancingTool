@@ -41,7 +41,7 @@ import {
   handleErrorResponseStatus,
 } from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 
 const store = useAssetStore()
@@ -75,7 +75,7 @@ async function newPublicHoldingAction(uuid: string) {
       .then((result) => {
         store.listState.assetListEntries.push({
           uuid: result.data.uuid,
-          entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
+          entryType: EntryTypeEnum.PUBLIC_HOLDING,
           publicHolding: result.data,
         } as AssetListEntry)
       })

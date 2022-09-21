@@ -13,7 +13,7 @@ import HoldingGroupFooter from '@/components/wrappers/asset-list/list-entries/gr
 import HoldingGroupPercentage from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupPercentage.vue'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import type { PropType } from 'vue'
-import type { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import type { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 
 const props = defineProps({
   holding: {

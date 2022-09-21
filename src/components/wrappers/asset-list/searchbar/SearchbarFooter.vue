@@ -30,7 +30,7 @@ import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
-import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
@@ -60,7 +60,7 @@ async function newPrivateHoldingAction() {
       .then((result) => {
         store.listState.assetListEntries.push({
           uuid: result.data.uuid,
-          entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
+          entryType: EntryTypeEnum.PRIVATE_HOLDING,
           privateHolding: result.data,
         } as AssetListEntry)
       })
@@ -85,7 +85,7 @@ async function newHoldingGroup() {
       .then((result) => {
         store.listState.assetListEntries.push({
           uuid: result.data.uuid,
-          entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
+          entryType: EntryTypeEnum.HOLDING_GROUP,
           holdingGroup: result.data,
         } as AssetListEntry)
       })

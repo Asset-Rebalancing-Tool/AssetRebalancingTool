@@ -1,14 +1,14 @@
-import { ref, reactive } from 'vue'
-import { defineStore } from 'pinia'
-import type { Ref } from 'vue'
-import type { PublicAsset } from '@/models/PublicAsset'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
-import type { BaseEntity } from '@/models/holdings/BaseEntity'
-import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
-import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
-import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
-import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
+import type {Ref} from 'vue'
+import {reactive, ref} from 'vue'
+import {defineStore} from 'pinia'
+import type {PublicAsset} from '@/models/PublicAsset'
+import type {AssetListEntry} from '@/models/holdings/AssetListEntry'
+import type {BaseEntity} from '@/models/holdings/BaseEntity'
+import type {PublicHolding} from '@/models/holdings/PublicHolding'
+import type {PrivateHolding} from '@/models/holdings/PrivateHolding'
+import type {HoldingGroup} from '@/models/holdings/HoldingGroup'
+import {EntryTypeEnum} from '@/models/enums/EntryTypeEnum'
+import {getNewestPriceRecord} from '@/composables/UsePriceRecords'
 import {InputStatusEnum} from "@/models/enums/InputStatusEnum";
 
 export const useAssetStore = defineStore('assetStore', () => {
@@ -107,15 +107,15 @@ export const useAssetStore = defineStore('assetStore', () => {
       if (value.uuid == patchedEntry.uuid) {
         // Replace the right list entry property entry with the patched entry based on the AssetListEntryTypeEnum
         switch (value.entryType) {
-          case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+          case EntryTypeEnum.PUBLIC_HOLDING:
             listState.assetListEntries[key].publicHolding =
               patchedEntry as PublicHolding
             break
-          case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+          case EntryTypeEnum.PRIVATE_HOLDING:
             listState.assetListEntries[key].privateHolding =
               patchedEntry as PrivateHolding
             break
-          case AssetListEntryTypeEnum.HOLDING_GROUP:
+          case EntryTypeEnum.HOLDING_GROUP:
             listState.assetListEntries[key].holdingGroup =
               patchedEntry as HoldingGroup
             break
@@ -134,7 +134,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     let totalValue = 0
     listState.assetListEntries.forEach((value, key) => {
       switch (value.entryType) {
-        case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+        case EntryTypeEnum.PUBLIC_HOLDING:
           totalValue =
             totalValue +
             value.publicHolding!.ownedQuantity *
@@ -142,13 +142,13 @@ export const useAssetStore = defineStore('assetStore', () => {
                 value.publicHolding!.publicAsset.assetPriceRecords
               )
           break
-        case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+        case EntryTypeEnum.PRIVATE_HOLDING:
           totalValue =
             totalValue +
             value.privateHolding!.ownedQuantity *
               value.privateHolding!.pricePerUnit
           break
-        case AssetListEntryTypeEnum.HOLDING_GROUP:
+        case EntryTypeEnum.HOLDING_GROUP:
           listState.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
             (value) => {
               totalValue =
@@ -175,15 +175,15 @@ export const useAssetStore = defineStore('assetStore', () => {
     let totalTargetPercentage = 0
     listState.assetListEntries.forEach((value, key) => {
       switch (value.entryType) {
-        case AssetListEntryTypeEnum.PUBLIC_HOLDING:
+        case EntryTypeEnum.PUBLIC_HOLDING:
           totalTargetPercentage =
             totalTargetPercentage + value.publicHolding!.targetPercentage
           break
-        case AssetListEntryTypeEnum.PRIVATE_HOLDING:
+        case EntryTypeEnum.PRIVATE_HOLDING:
           totalTargetPercentage =
             totalTargetPercentage + value.privateHolding!.targetPercentage
           break
-        case AssetListEntryTypeEnum.HOLDING_GROUP:
+        case EntryTypeEnum.HOLDING_GROUP:
           listState.assetListEntries[key].holdingGroup!.publicHoldings.forEach(
             (value) => {
               totalTargetPercentage =
@@ -206,95 +206,87 @@ export const useAssetStore = defineStore('assetStore', () => {
   /**--------------- Add And Remove Holdings From Group -----------------**/
   /**-******************************************************************-**/
 
-  function addPublicEntryToGroup(index: number, holdingUuid: string) {
-    listState.assetListEntries.forEach((entry, entryKey) => {
-      // Check for each group
-      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
-        // The select group
-        if (entry.holdingGroup?.uuid === selectionState.groupUuid) {
-          // Add the public holding to the group
 
-          listState.assetListEntries[entryKey].holdingGroup.publicHoldings.push(
-              listState.assetListEntries[index].publicHolding
-          )
+  /**
+   * Get the index of the list state's assetListEntry array, by
+   *
+   * @param uuid string
+   *
+   * @return number
+   */
+  function getListEntryIndexByUuid(uuid: string): number {
+    let listEntries = listState.assetListEntries
 
-          // Remove the public holding from the entry list
-          listState.assetListEntries.splice(index, 1)
-        }
+    // Iterate over each list entry from the store's list state
+    for (let i = 0; i < listEntries.length; i++) {
+      let listEntry = listEntries[i]
+
+      // Check the list entry's type and compare the uuid's
+      switch (listEntry.entryType) {
+        default: return -1
+        case EntryTypeEnum.HOLDING_GROUP:
+          if (listEntry.holdingGroup?.uuid === uuid) return i
+          break;
+        case EntryTypeEnum.PUBLIC_HOLDING:
+          if (listEntry.publicHolding?.uuid === uuid) return i
+          break;
+        case EntryTypeEnum.PRIVATE_HOLDING:
+          if (listEntry.privateHolding?.uuid === uuid) return i
+          break;
       }
-    })
+    }
+    return -1
   }
 
-  function addPrivateEntryToGroup(index: number, holdingUuid: string) {
-    listState.assetListEntries.forEach((entry, entryKey) => {
-      // Check for each group
-      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
-        // The select group
-        if (entry.holdingGroup?.uuid === selectionState.groupUuid) {
 
-          listState.assetListEntries[entryKey].holdingGroup.publicHoldings.push(
-              listState.assetListEntries[index].privateHolding
-          )
-          // Remove the public holding from the entry list
-          listState.assetListEntries.splice(index, 1)
-        }
+  /**
+   * Add a list entry to the group that is currently edited
+   *
+   * @param listEntry AssetListEntry
+   *
+   * @return void
+   */
+  function addListEntryToGroup(listEntry: AssetListEntry): void {
+    if (selectionState.groupUuid) {
+      let groupIndex: number = getListEntryIndexByUuid(selectionState.groupUuid)
+
+      if (groupIndex === -1) {
+        console.log('The selected group uuid was not found in the list entries')
+        return
       }
-    })
+
+      // Push the list entries holding based on the entry type
+      switch (listEntry.entryType) {
+        case EntryTypeEnum.PUBLIC_HOLDING:
+          if (listEntry.publicHolding) {
+            // Push the public holding that has been passed a parameter to the selected holding group
+            listState.assetListEntries[groupIndex].holdingGroup!.publicHoldings.push(
+                listEntry.publicHolding
+            )
+            // Remove the whole list entry of the pushed holding by its index
+            let holdingIndex = getListEntryIndexByUuid(listEntry.publicHolding.uuid)
+            listState.assetListEntries.splice(holdingIndex, 1)
+          }
+          break;
+        case EntryTypeEnum.PRIVATE_HOLDING:
+          if (listEntry.privateHolding) {
+            // Push the private holding that has been passed a parameter to the selected holding group
+            listState.assetListEntries[groupIndex].holdingGroup!.privateHoldings.push(
+                listEntry.privateHolding
+            )
+            // Remove the whole list entry of the pushed holding by its index
+            let holdingIndex = getListEntryIndexByUuid(listEntry.privateHolding.uuid)
+            listState.assetListEntries.splice(holdingIndex, 1)
+          }
+          break;
+      }
+    }
+
+    else { console.log('groupUuid of the selectionState is null') }
   }
 
-  function removePublicEntryFromGroup(groupUuid: string, holdingUuid: string): void {
-    listState.assetListEntries.forEach((entry, entryKey) => {
-      // Check for each group
-      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
-        // The select group
-        if (entry.holdingGroup?.uuid === groupUuid) {
-          entry.holdingGroup.publicHoldings.forEach((publicHolding, holdingKey) => {
-            if (publicHolding.uuid === holdingUuid) {
-              // Remove the public holding from the group
-              listState.assetListEntries[entryKey].holdingGroup?.publicHoldings.splice(holdingKey, 1)
-              // Add the public holding as AssetListEntry to the assetListEntries
-              listState.assetListEntries.push({
-                uuid: publicHolding.uuid,
-                entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
-                publicHolding: publicHolding,
-              } as AssetListEntry)
-            }
-          })
-        }
-      }
-    })
-  }
+  function removeHoldingFromGroup() {
 
-  function removePrivateEntryFromGroup(groupUuid: string, holdingUuid: string): void {
-    listState.assetListEntries.forEach((entry, entryKey) => {
-      // Check for each group
-      if (entry.entryType === AssetListEntryTypeEnum.HOLDING_GROUP) {
-        // The select group
-        if (entry.holdingGroup?.uuid === groupUuid) {
-          entry.holdingGroup.privateHoldings.forEach((privateHolding, holdingKey) => {
-            if (privateHolding.uuid === holdingUuid) {
-              // Remove the private holding from the group
-              listState.assetListEntries[entryKey].holdingGroup?.privateHoldings.splice(holdingKey, 1)
-              // Add the private holding as AssetListEntry to the assetListEntries
-              listState.assetListEntries.push({
-                uuid: privateHolding.uuid,
-                entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
-                privateHolding: privateHolding,
-              } as AssetListEntry)
-            }
-          })
-        }
-      }
-    })
-  }
-
-  function getSelectedGroup() {
-    listState.assetListEntries.forEach((listEntry, key) => {
-      if (listEntry.uuid === selectionState.groupUuid) {
-        return listEntry.holdingGroup
-      }
-    })
-    return {} as HoldingGroup
   }
 
   /**-******************************************************************-**/
@@ -309,15 +301,12 @@ export const useAssetStore = defineStore('assetStore', () => {
     selectionState,
 
     // Actions
-    addPublicEntryToGroup,
-    addPrivateEntryToGroup,
-    removePublicEntryFromGroup,
-    removePrivateEntryFromGroup,
+    addListEntryToGroup,
+    removeHoldingFromGroup,
 
     getSearchbarAsset,
     replaceListEntry,
     updateTotalValue,
-    updateTotalTargetPercentage,
-    getSelectedGroup
+    updateTotalTargetPercentage
   }
 })

@@ -1,5 +1,5 @@
 import AssetService from '@/services/FetchAssetService'
-import { AssetListEntryTypeEnum } from '@/models/enums/AssetListEntryTypeEnum'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
@@ -25,7 +25,7 @@ export async function generateListEntries() {
   holdingGroups.forEach((group) => {
     assetListEntries.push({
       uuid: group.uuid,
-      entryType: AssetListEntryTypeEnum.HOLDING_GROUP,
+      entryType: EntryTypeEnum.HOLDING_GROUP,
       holdingGroup: group,
     } as AssetListEntry)
   })
@@ -34,7 +34,7 @@ export async function generateListEntries() {
   publicHoldings.forEach((holding) => {
     assetListEntries.push({
       uuid: holding.uuid,
-      entryType: AssetListEntryTypeEnum.PUBLIC_HOLDING,
+      entryType: EntryTypeEnum.PUBLIC_HOLDING,
       publicHolding: holding,
     } as AssetListEntry)
   })
@@ -43,7 +43,7 @@ export async function generateListEntries() {
   privateHoldings.forEach((holding) => {
     assetListEntries.push({
       uuid: holding.uuid,
-      entryType: AssetListEntryTypeEnum.PRIVATE_HOLDING,
+      entryType: EntryTypeEnum.PRIVATE_HOLDING,
       privateHolding: holding,
     } as AssetListEntry)
   })
