@@ -40,12 +40,8 @@
     <BaseInput
       ref="footerInput"
       :modelValue="targetPercentage"
-      @input="
-        PatchAssetService.patchHoldingGroup(
-          patchGroupTargetPercentageRequest($event.target.value),
-          holding.uuid
-        )
-      "
+      :class="{ error: groupTargetPercentageError }"
+      @input="patchGroupTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
@@ -109,6 +105,15 @@ const groupName: Ref<string> = ref(props.holding.groupName)
 // bool that indicates if the group is currently editable or not
 const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
 
+let groupTargetPercentageError: Ref<boolean> = ref(false)
+
+function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
+  let request = patchGroupTargetPercentageRequest(inputValue)
+  if (!groupTargetPercentageError.value) {
+    PatchAssetService.patchHoldingGroup(request, groupUuid)
+  }
+}
+
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
@@ -167,10 +172,11 @@ function patchHoldingGroupRequest(): HoldingGroupRequest {
 
 // Patch the groups target percentage
 function patchGroupTargetPercentageRequest(
-  percentage: number
+  percentage: string
 ): HoldingGroupRequest {
+  groupTargetPercentageError.value = !+percentage
   store.selectionState.editGroupEntries = false
   store.selectionState.groupUuid = null
-  return { targetPercentage: percentage } as HoldingGroupRequest
+  return { targetPercentage: +percentage } as HoldingGroupRequest
 }
 </script>

@@ -28,12 +28,8 @@
     <BaseInput
       type="number"
       :modelValue="ownedQuantity"
-      @input="
-        PatchAssetService.patchPublicHolding(
-          patchOwnedQuantityRequest($event.target.value),
-          holding.uuid
-        )
-      "
+      :class="{ error: quantityError }"
+      @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
         <InputAnimation :input-status="quantityStatus">
@@ -52,12 +48,8 @@
     <BaseInput
       type="number"
       :modelValue="targetPercentage"
-      @input="
-        PatchAssetService.patchPublicHolding(
-          patchTargetPercentageRequest($event.target.value),
-          holding.uuid
-        )
-      "
+      :class="{ error: targetPercentageError }"
+      @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
@@ -104,6 +96,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
+import {bool} from "yup";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -137,6 +130,25 @@ watch(() => props.holding.targetPercentage, (percentage: number) => {
 // Check if the status of an input is none in order to show the unit slot
 function checkStatus(status: InputStatusEnum) {
   return status === InputStatusEnum.NONE
+}
+
+// render input error class if value is not numeric
+let quantityError: Ref<boolean> = ref(false)
+let targetPercentageError: Ref<boolean> = ref(false)
+
+
+function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
+  let request = patchOwnedQuantityRequest(inputValue)
+  if (!quantityError.value) {
+    PatchAssetService.patchPublicHolding(request, holdingUuid)
+  }
+}
+
+function patchTargetPercentage(inputValue: string, holdingUuid: string) {
+  let request = patchTargetPercentageRequest(inputValue)
+  if (!targetPercentageError.value) {
+    PatchAssetService.patchPublicHolding(request, holdingUuid)
+  }
 }
 
 /**-***************************************************-**/
@@ -182,8 +194,7 @@ const currentValuePercentage = computed(() => {
 })
 
 const deviation = computed(() => {
-  const deviation: number =
-    +currentValuePercentage.value - props.holding.targetPercentage
+  const deviation: number = +currentValuePercentage.value - props.holding.targetPercentage
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 
@@ -197,12 +208,14 @@ const currency = computed((): string => {
 /**-***************************************************-**/
 
 // The owned quantity request body
-function patchOwnedQuantityRequest(quantity: number) {
-  return { ownedQuantity: quantity } as PublicHoldingRequest
+function patchOwnedQuantityRequest(quantity: string) {
+  quantityError.value = !+quantity
+  return { ownedQuantity: +quantity } as PublicHoldingRequest
 }
 
 // The target percentage request body
-function patchTargetPercentageRequest(percentage: number) {
-  return { targetPercentage: percentage } as PublicHoldingRequest
+function patchTargetPercentageRequest(percentage: string) {
+  targetPercentageError.value = !+percentage
+  return { targetPercentage: +percentage } as PublicHoldingRequest
 }
 </script>

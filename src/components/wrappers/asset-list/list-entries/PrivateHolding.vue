@@ -9,12 +9,8 @@
     <BaseInput
       type="number"
       :modelValue="pricePerUnit"
-      @input="
-        PatchAssetService.patchPrivateHolding(
-          patchPricePerUnitRequest($event.target.value),
-          holding.uuid
-        )
-      "
+      :class="{ error: pricePerUnitError }"
+      @input="patchPricePerUnit($event.target.value, holding.uuid)"
     >
       <template #unit>
         <InputAnimation :input-status="pricePerUnitStatus">
@@ -24,12 +20,8 @@
                 class="currency"
                 :options="currencyOptions"
                 :default-selection="CurrencyEnum.EUR"
-                @change="
-              PatchAssetService.patchPrivateHolding(
-                patchCurrencyRequest($event.target.value),
-                holding.uuid
-              )
-            "
+                :modelValue="currency"
+                @change="patchCurrency($event.target.value, holding.uuid)"
             />
           </template>
         </InputAnimation>
@@ -40,12 +32,8 @@
       custom-container-class="quantity-input"
       type="number"
       :modelValue="ownedQuantity"
-      @input="
-        PatchAssetService.patchPrivateHolding(
-          patchOwnedQuantityRequest($event.target.value),
-          holding.uuid
-        )
-      "
+      :class="{ error: quantityError }"
+      @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
         <InputAnimation :input-status="quantityStatus">
@@ -54,12 +42,8 @@
                 class="quantity"
                 :options="unitTypeOptions"
                 :default-selection="defaultUnitType"
-                @change="
-              PatchAssetService.patchPrivateHolding(
-                patchUnitTypeRequest($event.target.value),
-                holding.uuid
-              )
-            "
+                :modelValue="unitType"
+                @change="patchUnitType($event.target.value, holding.uuid)"
             >
             </BaseSelect>
           </template>
@@ -75,12 +59,8 @@
     <BaseInput
       type="number"
       :modelValue="targetPercentage"
-      @input="
-        PatchAssetService.patchPrivateHolding(
-          patchTargetPercentageRequest($event.target.value),
-          holding.uuid
-        )
-      "
+      :class="{ error: targetPercentageError }"
+      @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
@@ -155,11 +135,50 @@ watch(() => props.holding.targetPercentage, (percentage: number) => {
   targetPercentage.value = percentage
 });
 
+const unitType: Ref<UnitTypeEnum> = ref(props.holding.unitType)
+const currency: Ref<CurrencyEnum> = ref(CurrencyEnum.EUR)
+
 // Check if the status of an input is none in order to show the unit slot
 function checkStatus(status: InputStatusEnum) {
   return status === InputStatusEnum.NONE
 }
 
+
+// render input error class if value is not numeric
+let pricePerUnitError: Ref<boolean> = ref(false)
+let quantityError: Ref<boolean> = ref(false)
+let targetPercentageError: Ref<boolean> = ref(false)
+
+function patchPricePerUnit(inputValue: string, holdingUuid: string) {
+  let request = patchPricePerUnitRequest(inputValue)
+  if (!pricePerUnitError.value) {
+    PatchAssetService.patchPrivateHolding(request, holdingUuid)
+  }
+}
+
+function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
+  let request = patchOwnedQuantityRequest(inputValue)
+  if (!quantityError.value) {
+    PatchAssetService.patchPrivateHolding(request, holdingUuid)
+  }
+}
+
+function patchTargetPercentage(inputValue: string, holdingUuid: string) {
+  let request = patchTargetPercentageRequest(inputValue)
+  if (!targetPercentageError.value) {
+    PatchAssetService.patchPrivateHolding(request, holdingUuid)
+  }
+}
+
+function patchUnitType(inputValue: UnitTypeEnum, holdingUuid: string) {
+  let request = patchUnitTypeRequest(inputValue)
+  PatchAssetService.patchPrivateHolding(request, holdingUuid)
+}
+
+function patchCurrency(inputValue: CurrencyEnum, holdingUuid: string) {
+  let request = patchCurrencyRequest(inputValue)
+  PatchAssetService.patchPrivateHolding(request, holdingUuid)
+}
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
@@ -191,23 +210,26 @@ const currencyOptions = computed(() => {
 /** -------------- Input Patch Requests --------------- **/
 /**-***************************************************-**/
 
-function patchPricePerUnitRequest(price: number) {
-  return { pricePerUnit: price } as PrivateHoldingRequest
+function patchPricePerUnitRequest(price: string) {
+  pricePerUnitError.value = !+price
+  return { pricePerUnit: +price } as PrivateHoldingRequest
 }
 
 function patchCurrencyRequest(currency: CurrencyEnum) {
   return { currency: currency } as PrivateHoldingRequest
 }
 
-function patchOwnedQuantityRequest(quantity: number) {
-  return { ownedQuantity: quantity } as PrivateHoldingRequest
+function patchOwnedQuantityRequest(quantity: string) {
+  quantityError.value = !+quantity
+  return { ownedQuantity: +quantity } as PrivateHoldingRequest
 }
 
 function patchUnitTypeRequest(unit: UnitTypeEnum) {
   return { unitType: unit } as PrivateHoldingRequest
 }
 
-function patchTargetPercentageRequest(percentage: number) {
-  return { targetPercentage: percentage } as PrivateHoldingRequest
+function patchTargetPercentageRequest(percentage: string) {
+  targetPercentageError.value = !+percentage
+  return { targetPercentage: +percentage } as PrivateHoldingRequest
 }
 </script>
