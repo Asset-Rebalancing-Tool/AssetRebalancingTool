@@ -92,7 +92,6 @@ function addOrRemoveHolding(): void {
  * Add a public or private list entry to the selected holding group
  */
 function addListEntryToGroup(): void {
-  console.log('add')
   const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
@@ -103,7 +102,6 @@ function addListEntryToGroup(): void {
  * Remove a public or private list entry from the selected holding group
  */
 function removeHoldingFromGroup(): void {
-  console.log('remove')
   const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.removeHoldingFromGroup(props.listEntry, selectedGroupUuid)
