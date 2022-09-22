@@ -123,6 +123,11 @@
       height: auto;
       margin-bottom: 15px;
 
+      .asset-info .asset-logo.shake:before {
+        content: '-';
+        background-color: #ee5253;
+      }
+
       footer {
         @include asset-footer-grid;
         width: 100%;
