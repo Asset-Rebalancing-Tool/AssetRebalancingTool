@@ -103,7 +103,6 @@ import {bool} from "yup";
 /**-***************************************************-**/
 
 const store = useAssetStore()
-
 const props = defineProps({
   holding: {
     type: Object as PropType<PublicHolding>,
@@ -111,39 +110,68 @@ const props = defineProps({
   },
 })
 
+/**-***************************************************-**/
+/** --------------- Input Model Values ---------------- **/
+/**-***************************************************-**/
+
+// The input model value itself
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
+const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+
+/**-***************************************************-**/
+/** ---------------- Error Class Flags ---------------- **/
+/**-***************************************************-**/
+
+// booleans that indicate if input error class should be rendered
+const quantityError: Ref<boolean> = ref(false)
+const targetPercentageError: Ref<boolean> = ref(false)
+
+/**-***************************************************-**/
+/** ------------- Input Animation Status -------------- **/
+/**-***************************************************-**/
+
+// The owned quantity patch status (needed for animation)
 const quantityStatus: Ref<InputStatusEnum> = computed(() =>{
   return store.listState.inputStatusIcon
 })
-watch(() => props.holding.ownedQuantity, (quantity: number) => {
-  ownedQuantity.value = quantity
-});
 
-const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+// The target percentage patch status (needed for animation)
 const targetPercentageStatus: Ref<InputStatusEnum> = computed(() =>{
   return store.listState.inputStatusIcon
 })
-watch(() => props.holding.targetPercentage, (percentage: number) => {
-  targetPercentage.value = percentage
-});
 
 // Check if the status of an input is none in order to show the unit slot
 function checkStatus(status: InputStatusEnum) {
   return status === InputStatusEnum.NONE
 }
 
-// render input error class if value is not numeric
-let quantityError: Ref<boolean> = ref(false)
-let targetPercentageError: Ref<boolean> = ref(false)
+/**-***************************************************-**/
+/** -------- Watch Props For Reactive Template -------- **/
+/**-***************************************************-**/
 
+// Watch the owned quantity prop in order to update the template after patch request response
+watch(() => props.holding.ownedQuantity, (quantity: number) => {
+  ownedQuantity.value = quantity
+});
 
-function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
+// Watch the target percentage prop in order to update the template after patch request response
+watch(() => props.holding.targetPercentage, (percentage: number) => {
+  targetPercentage.value = percentage
+});
+
+/**-***************************************************-**/
+/** -------------- Input Patch Methods ---------------- **/
+/**-***************************************************-**/
+
+// Patch the public holdings owned quantity percentage
+function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
   let request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
   }
 }
 
+// Patch the public holdings target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   let request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
@@ -152,13 +180,38 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
 }
 
 /**-***************************************************-**/
-/** ---------- Computed Template Properties ----------- **/
+/** ------------- Input Patch Requests ---------------- **/
 /**-***************************************************-**/
 
-// Get the mapped asset type
+// The patch owned quantity request body
+function patchOwnedQuantityRequest(quantity: string) {
+  quantityError.value = !+quantity
+  return { ownedQuantity: +quantity } as PublicHoldingRequest
+}
+
+// The patch target percentage request body
+function patchTargetPercentageRequest(percentage: string) {
+  targetPercentageError.value = !+percentage
+  return { targetPercentage: +percentage } as PublicHoldingRequest
+}
+
+/**-***************************************************-**/
+/** -------------- Select Value Mapping --------------- **/
+/**-***************************************************-**/
+
+// Get the mapped asset types of this holding
 const assetType = computed((): string => {
   return mapAssetType(props.holding.publicAsset.assetType)
 })
+
+// Get the mapped currencies of the newest price record
+const currency = computed((): string => {
+  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
+})
+
+/**-***************************************************-**/
+/** ---------- Computed Template Properties ----------- **/
+/**-***************************************************-**/
 
 // Get the array that contains all price records
 const priceRecords = computed((): PriceRecord[] => {
@@ -167,55 +220,34 @@ const priceRecords = computed((): PriceRecord[] => {
 
 // Get an array that contains the exploded strings values of the newest price record
 const formattedPriceDigits = computed((): string[] => {
-  return getNewestPriceRecordFormatted(
-    props.holding.publicAsset.assetPriceRecords
-  )
+  return getNewestPriceRecordFormatted(priceRecords.value)
 })
 
 // Get the current value formatted by german pattern
 const currentValue = computed((): string => {
-  const value =
-    props.holding.ownedQuantity *
-    getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)
+  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
+  const currentValue: number = props.holding.ownedQuantity * priceRecord
+
+  // Format the current value after german pattern
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
-  }).format(value)
+  }).format(currentValue)
 })
 
 // Get the current value percentage formatted by german pattern
-const currentValuePercentage = computed(() => {
-  const percentage =
-    ((props.holding.ownedQuantity *
-      getNewestPriceRecord(props.holding.publicAsset.assetPriceRecords)) /
-      store.listState.totalAssetListValue) *
-    100
-  return new Intl.NumberFormat('de-DE').format(percentage) + ' %'
+const currentValuePercentage = computed((): string => {
+  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
+  const currentValue: number = props.holding.ownedQuantity * priceRecord
+  const currentPercentage = (currentValue / store.listState.totalAssetListValue) * 100
+
+  // Format the current percentage value after german pattern
+  return new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
 })
 
+// Get the deviation of the desired target percentage
 const deviation = computed(() => {
   const deviation: number = +currentValuePercentage.value - props.holding.targetPercentage
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
-
-// Get the mapped currency of the newest price record
-const currency = computed((): string => {
-  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
-})
-
-/**-***************************************************-**/
-/** -------------- Input Patch Requests --------------- **/
-/**-***************************************************-**/
-
-// The owned quantity request body
-function patchOwnedQuantityRequest(quantity: string) {
-  quantityError.value = !+quantity
-  return { ownedQuantity: +quantity } as PublicHoldingRequest
-}
-
-// The target percentage request body
-function patchTargetPercentageRequest(percentage: string) {
-  targetPercentageError.value = !+percentage
-  return { targetPercentage: +percentage } as PublicHoldingRequest
-}
 </script>
