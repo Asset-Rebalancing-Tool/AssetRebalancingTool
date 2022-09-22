@@ -12,7 +12,7 @@
         :key="entry.uuid"
         :index="index"
         :list-entry="entry"
-        @click="removeHoldingFromGroup"
+        :nested-holding="true"
       />
     </template>
   </HoldingGroup>
@@ -21,14 +21,14 @@
     v-if="listEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
     :key="listEntry.uuid"
     :holding="listEntry.publicHolding"
-    @click="addListEntryToGroup"
+    @click="addOrRemoveHolding()"
   />
 
   <PrivateHolding
     v-if="listEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
     :key="listEntry.uuid"
     :holding="listEntry.privateHolding"
-    @click="addListEntryToGroup"
+    @click="addOrRemoveHolding()"
   />
 </template>
 
@@ -59,6 +59,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  nestedHolding: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 /**
@@ -74,9 +78,21 @@ function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
 }
 
 /**
+ * Check if the clicked row is nested in a group to determine if it should be added or removed
+ *
+ * @return void
+ */
+function addOrRemoveHolding(): void {
+  (props.nestedHolding)
+      ? removeHoldingFromGroup()
+      : addListEntryToGroup()
+}
+
+/**
  * Add a public or private list entry to the selected holding group
  */
 function addListEntryToGroup(): void {
+  console.log('add')
   const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
@@ -87,6 +103,7 @@ function addListEntryToGroup(): void {
  * Remove a public or private list entry from the selected holding group
  */
 function removeHoldingFromGroup(): void {
+  console.log('remove')
   const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.removeHoldingFromGroup(props.listEntry, selectedGroupUuid)
