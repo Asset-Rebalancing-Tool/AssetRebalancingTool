@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import type { Ref } from 'vue'
 
 const props = defineProps({
@@ -23,21 +23,19 @@ interface IDimensions {
 }
 
 const dimensions: Ref<IDimensions | {}> = ref({})
+const holdingCount: Ref<number> = ref(props.nestedHoldingCount)
 
 onMounted(() => {
-  const assetRow: Element | null = document.querySelector(
-    '.holding-group .holding-row'
-  )
-  const input: Element | null = document.querySelector(
-    '.holding-group footer input'
-  )
-
-  // Set the with and height of the dimensions object that is bindet to the style attribute
-  if (assetRow && input) {
-    dimensions.value = {
-      height: assetRow.clientHeight * props.nestedHoldingCount + 'px',
-      width: input.clientWidth + 16 + 'px', // + 16px padding
-    }
+  dimensions.value = {
+    height: 65 * holdingCount.value + 'px',
+    width: 98 + 'px',
   }
 })
+
+watch(() => props.nestedHoldingCount, (count: number) => {
+  dimensions.value = {
+    height: 65 * count + 'px',
+    width: 98 + 'px',
+  }
+});
 </script>
