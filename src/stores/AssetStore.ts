@@ -10,6 +10,7 @@ import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
+import type {GroupEntry} from "@/models/holdings/GroupEntry";
 
 export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
@@ -329,19 +330,19 @@ export const useAssetStore = defineStore('assetStore', () => {
   /**
    * Remove a public or private list entry holding from a holding group
    *
-   * @param listEntry AssetListEntry
+   * @param groupEntry AssetListEntry
    * @param groupUuid string
    */
   function removeHoldingFromGroup(
-    listEntry: AssetListEntry,
+      groupEntry: GroupEntry,
     groupUuid: string
   ): void {
     const groupIndex: number = getListEntryIndexByUuid(groupUuid)
 
     // Push the list entries holding based on the entry type
-    switch (listEntry.entryType) {
+    switch (groupEntry.entryType) {
       case EntryTypeEnum.PUBLIC_HOLDING:
-        const publicUuid: string = listEntry.publicHolding!.uuid
+        const publicUuid: string = groupEntry.publicHolding!.uuid
         const publicIndex: number = getGroupEntryIndexByUuid(
           groupIndex,
           publicUuid,
@@ -350,10 +351,10 @@ export const useAssetStore = defineStore('assetStore', () => {
         listState.assetListEntries[
           groupIndex
         ].holdingGroup?.publicHoldings.splice(publicIndex, 1)
-        listState.assetListEntries.push(listEntry)
+        listState.assetListEntries.push(groupEntry as AssetListEntry)
         break
       case EntryTypeEnum.PRIVATE_HOLDING:
-        const privateUuid = listEntry.privateHolding!.uuid
+        const privateUuid = groupEntry.privateHolding!.uuid
         const privateIndex: number = getGroupEntryIndexByUuid(
           groupIndex,
           privateUuid,
@@ -362,7 +363,7 @@ export const useAssetStore = defineStore('assetStore', () => {
         listState.assetListEntries[
           groupIndex
         ].holdingGroup?.privateHoldings.splice(privateIndex, 1)
-        listState.assetListEntries.push(listEntry)
+        listState.assetListEntries.push(groupEntry as AssetListEntry)
         break
     }
   }
