@@ -3,6 +3,7 @@
     v-if="listEntry.entryType === EntryTypeEnum.HOLDING_GROUP"
     :key="listEntry.uuid"
     :holding="listEntry"
+    :nested-holding-count="groupHoldingCount"
   >
     <template #holdings>
       <ListEntry
@@ -37,17 +38,17 @@ import PatchAssetService from '@/services/PatchAssetService'
 import HoldingGroup from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue'
 import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
 import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
+import { ref } from 'vue'
 import type { HoldingGroup as HoldingGroupType } from '@/models/holdings/HoldingGroup'
 import type { PublicHolding as PublicHoldingType } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding as PrivateHoldingType } from '@/models/holdings/PrivateHolding'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
-import type { PropType } from 'vue'
+import type { Ref, PropType } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { computed } from 'vue'
 
 const store = useAssetStore()
 const props = defineProps({
@@ -65,6 +66,8 @@ const props = defineProps({
   }
 })
 
+let groupHoldingCount: Ref<number> = ref(0)
+
 /**
  * Merge the public and private holdings of a holding group in order to iterate over one list
  * This is needed to render the holdings in a specific order
@@ -74,7 +77,10 @@ const props = defineProps({
  * @return AssetListEntry[]
  */
 function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
-  return store.mergePublicAndPrivateHoldings(groupUuid)
+  let mergedHoldings: AssetListEntry[] = store.mergePublicAndPrivateHoldings(groupUuid)
+  // Always set the group holding count
+  groupHoldingCount.value = mergedHoldings.length
+  return mergedHoldings
 }
 
 /**

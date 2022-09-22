@@ -37,7 +37,9 @@
     >
       <template #unit>
         <InputAnimation :input-status="quantityStatus">
-          <span>Stk.</span>
+          <template #unit>
+            <span v-show="checkStatus(quantityStatus)">Stk.</span>
+          </template>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -59,7 +61,9 @@
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
-          <span>%</span>
+          <template #unit>
+            <span v-show="checkStatus(targetPercentageStatus)">%</span>
+          </template>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -115,14 +119,19 @@ const props = defineProps({
 })
 
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
-const quantityStatus: Ref<InputStatusEnum> = ref(
-  store.listState.inputStatusIcon
-)
+const quantityStatus: Ref<InputStatusEnum> = computed(() =>{
+  return store.listState.inputStatusIcon
+})
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(
-  store.listState.inputStatusIcon
-)
+const targetPercentageStatus: Ref<InputStatusEnum> = computed(() =>{
+  return store.listState.inputStatusIcon
+})
+
+// Check if the status of an input is none in order to show the unit slot
+function checkStatus(status: InputStatusEnum) {
+  return status === InputStatusEnum.NONE
+}
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/

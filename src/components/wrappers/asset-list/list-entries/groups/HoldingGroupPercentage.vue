@@ -10,6 +10,13 @@
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
 
+const props = defineProps({
+  nestedHoldingCount: {
+    type: Number,
+    required: true,
+  },
+})
+
 interface IDimensions {
   height: number
   width: number
@@ -24,12 +31,11 @@ onMounted(() => {
   const input: Element | null = document.querySelector(
     '.holding-group footer input'
   )
-  const groupAssetCount = 2
 
   // Set the with and height of the dimensions object that is bindet to the style attribute
   if (assetRow && input) {
     dimensions.value = {
-      height: assetRow.clientHeight * groupAssetCount + 'px',
+      height: assetRow.clientHeight * props.nestedHoldingCount + 'px',
       width: input.clientWidth + 16 + 'px', // + 16px padding
     }
   }

@@ -1,7 +1,5 @@
 <template>
-  <div v-show="inputStatus === InputStatusEnum.NONE">
-    <slot name="unit"></slot>
-  </div>
+  <slot name="unit"></slot>
   <Vue3Lottie
     v-show="inputStatus === InputStatusEnum.LOAD"
     :animationData="inputLoading"

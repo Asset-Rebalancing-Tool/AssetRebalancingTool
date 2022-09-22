@@ -49,7 +49,9 @@
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
-          <span>%</span>
+          <template #unit>
+            <span v-show="checkStatus(targetPercentageStatus)">%</span>
+          </template>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -93,9 +95,13 @@ const publicHoldingUuids: Ref<string[]> = ref([])
 const privateHoldingUuids: Ref<string[]> = ref([])
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(
-  store.listState.inputStatusIcon
-)
+const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
+  return store.listState.inputStatusIcon
+})
+// Check if the status of an input is none in order to show the unit slot
+function checkStatus(status: InputStatusEnum) {
+  return status === InputStatusEnum.NONE
+}
 
 // reactive group name model value
 const groupName: Ref<string> = ref(props.holding.groupName)

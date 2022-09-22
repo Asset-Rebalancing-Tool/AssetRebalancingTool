@@ -18,17 +18,20 @@
     >
       <template #unit>
         <InputAnimation :input-status="pricePerUnitStatus">
-          <BaseSelect
-            class="currency"
-            :options="currencyOptions"
-            :default-selection="CurrencyEnum.EUR"
-            @change="
+          <template #unit>
+            <BaseSelect
+                v-show="checkStatus(pricePerUnitStatus)"
+                class="currency"
+                :options="currencyOptions"
+                :default-selection="CurrencyEnum.EUR"
+                @change="
               PatchAssetService.patchPrivateHolding(
                 patchCurrencyRequest($event.target.value),
                 holding.uuid
               )
             "
-          />
+            />
+          </template>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -46,18 +49,20 @@
     >
       <template #unit>
         <InputAnimation :input-status="quantityStatus">
-          <BaseSelect
-            class="quantity"
-            :options="unitTypeOptions"
-            :default-selection="defaultUnitType"
-            @change="
+          <template #unit>
+            <BaseSelect
+                class="quantity"
+                :options="unitTypeOptions"
+                :default-selection="defaultUnitType"
+                @change="
               PatchAssetService.patchPrivateHolding(
                 patchUnitTypeRequest($event.target.value),
                 holding.uuid
               )
             "
-          >
-          </BaseSelect>
+            >
+            </BaseSelect>
+          </template>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -79,7 +84,9 @@
     >
       <template #unit>
         <InputAnimation :input-status="targetPercentageStatus">
-          <span>%</span>
+          <template #unit>
+            <span v-show="checkStatus(targetPercentageStatus)">%</span>
+          </template>
         </InputAnimation>
       </template>
     </BaseInput>
@@ -125,19 +132,24 @@ const props = defineProps({
 })
 
 const pricePerUnit: Ref<number> = ref(props.holding.pricePerUnit)
-const pricePerUnitStatus: Ref<InputStatusEnum> = ref(
-  store.listState.inputStatusIcon
-)
+const pricePerUnitStatus: Ref<InputStatusEnum>  = computed(() => {
+  return store.listState.inputStatusIcon
+})
 
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
-const quantityStatus: Ref<InputStatusEnum> = ref(
-  store.listState.inputStatusIcon
-)
+const quantityStatus: Ref<InputStatusEnum> = computed(() =>{
+  return store.listState.inputStatusIcon
+})
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const targetPercentageStatus: Ref<InputStatusEnum> = ref(
-  store.listState.inputStatusIcon
-)
+const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
+  return store.listState.inputStatusIcon
+})
+// Check if the status of an input is none in order to show the unit slot
+function checkStatus(status: InputStatusEnum) {
+  return status === InputStatusEnum.NONE
+}
+
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
