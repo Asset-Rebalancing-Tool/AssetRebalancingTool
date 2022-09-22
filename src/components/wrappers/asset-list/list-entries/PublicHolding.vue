@@ -114,7 +114,7 @@ const props = defineProps({
 /** --------------- Input Model Values ---------------- **/
 /**-***************************************************-**/
 
-// The input model value itself
+// The input model values itself
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
 
@@ -163,7 +163,7 @@ watch(() => props.holding.targetPercentage, (percentage: number) => {
 /** -------------- Input Patch Methods ---------------- **/
 /**-***************************************************-**/
 
-// Patch the public holdings owned quantity percentage
+// Patch the public holdings owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
   let request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
