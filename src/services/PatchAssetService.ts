@@ -136,7 +136,7 @@ export default {
       abortController = null
     }
     // Reset the input animation
-    store.listState.inputStatusIcon = InputStatusEnum.LOAD
+    //store.listState.inputStatusIcon = InputStatusEnum.NONE
 
     // If this method is called before the timer has expired, reset it
     // If there is no timer and therefore no request, set the isLoading flag to true
@@ -153,6 +153,6 @@ export default {
     store.listState.inputStatusIcon = InputStatusEnum.SAVE
     setTimeout(() => {
       store.listState.inputStatusIcon = InputStatusEnum.NONE
-    }, 500)
+    }, 1000)
   },
 }

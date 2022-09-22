@@ -27,7 +27,7 @@ const holdingCount: Ref<number> = ref(props.nestedHoldingCount)
 
 onMounted(() => {
   dimensions.value = {
-    height: 65 * holdingCount.value + 'px',
+    height: 65 * holdingCount.value + 2 + 'px',
     width: 98 + 'px',
   }
 })
