@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
 import type { PublicAsset } from '@/models/PublicAsset'
@@ -101,27 +101,27 @@ export const useAssetStore = defineStore('assetStore', () => {
    * @return void
    */
   function replaceListEntry(patchedEntry: BaseEntity): void {
-    // Iterate over each list entry
-    listState.assetListEntries.forEach((value, key) => {
-      // Check if the uuid of the entry matches the uuid of the patched entry
-      if (value.uuid == patchedEntry.uuid) {
-        // Replace the right list entry property entry with the patched entry based on the AssetListEntryTypeEnum
-        switch (value.entryType) {
-          case EntryTypeEnum.PUBLIC_HOLDING:
-            listState.assetListEntries[key].publicHolding =
-              patchedEntry as PublicHolding
-            break
-          case EntryTypeEnum.PRIVATE_HOLDING:
-            listState.assetListEntries[key].privateHolding =
-              patchedEntry as PrivateHolding
-            break
-          case EntryTypeEnum.HOLDING_GROUP:
-            listState.assetListEntries[key].holdingGroup =
-              patchedEntry as HoldingGroup
-            break
-        }
-      }
-    })
+
+    const listIndex: number = getListEntryIndexByUuid(patchedEntry.uuid)
+    const listEntry: AssetListEntry = listState.assetListEntries[listIndex]
+
+    if (listIndex === -1) {
+      console.log('The patched entry index was not found')
+      return
+    }
+
+    // Replace the right list entry property entry with the patched entry based on the AssetListEntryTypeEnum
+    switch (listEntry.entryType) {
+      case EntryTypeEnum.PUBLIC_HOLDING:
+        listEntry.publicHolding = patchedEntry as PublicHolding
+        break
+      case EntryTypeEnum.PRIVATE_HOLDING:
+        listEntry.privateHolding = patchedEntry as PrivateHolding
+        break
+      case EntryTypeEnum.HOLDING_GROUP:
+        listEntry.holdingGroup = patchedEntry as HoldingGroup
+        break
+    }
 
     updateTotalValue()
     updateTotalTargetPercentage()

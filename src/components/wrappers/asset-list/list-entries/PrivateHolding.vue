@@ -109,7 +109,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { computed, ref } from 'vue'
+import {computed, ref, watch} from 'vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
@@ -135,16 +135,26 @@ const pricePerUnit: Ref<number> = ref(props.holding.pricePerUnit)
 const pricePerUnitStatus: Ref<InputStatusEnum>  = computed(() => {
   return store.listState.inputStatusIcon
 })
+watch(() => props.holding.pricePerUnit, (price: number) => {
+  pricePerUnit.value = price
+});
 
 const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
 const quantityStatus: Ref<InputStatusEnum> = computed(() =>{
   return store.listState.inputStatusIcon
 })
+watch(() => props.holding.ownedQuantity, (quantity: number) => {
+  ownedQuantity.value = quantity
+});
 
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
 const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
   return store.listState.inputStatusIcon
 })
+watch(() => props.holding.targetPercentage, (percentage: number) => {
+  targetPercentage.value = percentage
+});
+
 // Check if the status of an input is none in order to show the unit slot
 function checkStatus(status: InputStatusEnum) {
   return status === InputStatusEnum.NONE
