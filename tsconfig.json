@@ -11,7 +11,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "lib": ["esnext", "DOM"]
+    "lib": ["esnext", "DOM"],
+    "types": ["node","vitest/global"]
   },
 
   "references": [
