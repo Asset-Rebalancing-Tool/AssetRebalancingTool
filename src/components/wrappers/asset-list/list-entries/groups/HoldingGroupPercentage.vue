@@ -32,10 +32,13 @@ onMounted(() => {
   }
 })
 
-watch(() => props.nestedHoldingCount, (count: number) => {
-  dimensions.value = {
-    height: 65 * count + 'px',
-    width: 98 + 'px',
+watch(
+  () => props.nestedHoldingCount,
+  (count: number) => {
+    dimensions.value = {
+      height: 65 * count + 'px',
+      width: 98 + 'px',
+    }
   }
-});
+)
 </script>

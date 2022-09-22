@@ -31,21 +31,21 @@ export default {
       // Fetch each time the timer expires
       timer = setTimeout(async () => {
         return getAuthorizedInstance()
-            .then((instance) => {
-              abortController = new AbortController()
-              return instance.patch(
-                  `/holding_api/asset_holding/public/${uuid}`,
-                  request,
-                  {
-                    signal: abortController.signal as AbortSignal,
-                  }
-              )
-            })
-            .then((response: AxiosResponse) => {
-              this.saveInputAnimation()
-              useAssetStore().replaceListEntry(response.data)
-            })
-            .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
+          .then((instance) => {
+            abortController = new AbortController()
+            return instance.patch(
+              `/holding_api/asset_holding/public/${uuid}`,
+              request,
+              {
+                signal: abortController.signal as AbortSignal,
+              }
+            )
+          })
+          .then((response: AxiosResponse) => {
+            this.saveInputAnimation()
+            useAssetStore().replaceListEntry(response.data)
+          })
+          .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
       }, 500)
     })
   },

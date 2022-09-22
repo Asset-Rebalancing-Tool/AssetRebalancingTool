@@ -63,10 +63,10 @@ const props = defineProps({
   nestedHolding: {
     type: Boolean,
     default: false,
-  }
+  },
 })
 
-let groupHoldingCount: Ref<number> = ref(0)
+const groupHoldingCount: Ref<number> = ref(0)
 
 /**
  * Merge the public and private holdings of a holding group in order to iterate over one list
@@ -77,7 +77,8 @@ let groupHoldingCount: Ref<number> = ref(0)
  * @return AssetListEntry[]
  */
 function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
-  let mergedHoldings: AssetListEntry[] = store.mergePublicAndPrivateHoldings(groupUuid)
+  const mergedHoldings: AssetListEntry[] =
+    store.mergePublicAndPrivateHoldings(groupUuid)
   // Always set the group holding count
   groupHoldingCount.value = mergedHoldings.length
   return mergedHoldings
@@ -89,9 +90,7 @@ function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
  * @return void
  */
 function addOrRemoveHolding(): void {
-  (props.nestedHolding)
-      ? removeHoldingFromGroup()
-      : addListEntryToGroup()
+  props.nestedHolding ? removeHoldingFromGroup() : addListEntryToGroup()
 }
 
 /**

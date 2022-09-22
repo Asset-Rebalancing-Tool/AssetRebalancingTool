@@ -66,7 +66,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import {ref, computed, watch} from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { Ref, PropType } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
@@ -106,7 +106,7 @@ const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
 /**-***************************************************-**/
 
 // bool that indicates if input error class should be rendered
-let groupTargetPercentageError: Ref<boolean> = ref(false)
+const groupTargetPercentageError: Ref<boolean> = ref(false)
 
 /**-***************************************************-**/
 /** ------------- Input Animation Status -------------- **/
@@ -127,9 +127,12 @@ function checkStatus(status: InputStatusEnum) {
 /**-***************************************************-**/
 
 // Watch the target percentage prop in order to update the template after patch request response
-watch(() => props.holding.targetPercentage, (percentage: number) => {
-  targetPercentage.value = percentage
-});
+watch(
+  () => props.holding.targetPercentage,
+  (percentage: number) => {
+    targetPercentage.value = percentage
+  }
+)
 
 /**-***************************************************-**/
 /** --------------- Template Actions ------------------ **/
@@ -152,7 +155,7 @@ function writeGroupName(name: string) {
 
 // Patch the public holdings target percentage
 function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
-  let request = patchGroupTargetPercentageRequest(inputValue)
+  const request = patchGroupTargetPercentageRequest(inputValue)
   if (!groupTargetPercentageError.value) {
     PatchAssetService.patchHoldingGroup(request, groupUuid)
   }
@@ -173,7 +176,9 @@ function patchHoldingGroupRequest(): HoldingGroupRequest {
 }
 
 // Patch the groups target percentage
-function patchGroupTargetPercentageRequest(percentage: string): HoldingGroupRequest {
+function patchGroupTargetPercentageRequest(
+  percentage: string
+): HoldingGroupRequest {
   resetSelectionState()
   groupTargetPercentageError.value = !+percentage
   return { targetPercentage: +percentage } as HoldingGroupRequest

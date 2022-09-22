@@ -16,12 +16,12 @@
         <InputAnimation :input-status="pricePerUnitStatus">
           <template #unit>
             <BaseSelect
-                v-show="checkStatus(pricePerUnitStatus)"
-                class="currency"
-                :options="currencyOptions"
-                :default-selection="CurrencyEnum.EUR"
-                :modelValue="currency"
-                @change="patchCurrency($event.target.value, holding.uuid)"
+              v-show="checkStatus(pricePerUnitStatus)"
+              class="currency"
+              :options="currencyOptions"
+              :default-selection="CurrencyEnum.EUR"
+              :modelValue="currency"
+              @change="patchCurrency($event.target.value, holding.uuid)"
             />
           </template>
         </InputAnimation>
@@ -39,11 +39,11 @@
         <InputAnimation :input-status="quantityStatus">
           <template #unit>
             <BaseSelect
-                class="quantity"
-                :options="unitTypeOptions"
-                :default-selection="defaultUnitType"
-                :modelValue="unitType"
-                @change="patchUnitType($event.target.value, holding.uuid)"
+              class="quantity"
+              :options="unitTypeOptions"
+              :default-selection="defaultUnitType"
+              :modelValue="unitType"
+              @change="patchUnitType($event.target.value, holding.uuid)"
             >
             </BaseSelect>
           </template>
@@ -89,7 +89,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import {computed, ref, watch} from 'vue'
+import { computed, ref, watch } from 'vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
@@ -126,21 +126,21 @@ const currency: Ref<CurrencyEnum> = ref(CurrencyEnum.EUR)
 /**-***************************************************-**/
 
 // booleans that indicate if input error class should be rendered
-let pricePerUnitError: Ref<boolean> = ref(false)
-let quantityError: Ref<boolean> = ref(false)
-let targetPercentageError: Ref<boolean> = ref(false)
+const pricePerUnitError: Ref<boolean> = ref(false)
+const quantityError: Ref<boolean> = ref(false)
+const targetPercentageError: Ref<boolean> = ref(false)
 
 /**-***************************************************-**/
 /** ------------- Input Animation Status -------------- **/
 /**-***************************************************-**/
 
 // The price per unit patch status (needed for animation)
-const pricePerUnitStatus: Ref<InputStatusEnum>  = computed(() => {
+const pricePerUnitStatus: Ref<InputStatusEnum> = computed(() => {
   return store.listState.inputStatusIcon
 })
 
 // The owned quantity patch status (needed for animation)
-const quantityStatus: Ref<InputStatusEnum> = computed(() =>{
+const quantityStatus: Ref<InputStatusEnum> = computed(() => {
   return store.listState.inputStatusIcon
 })
 
@@ -159,19 +159,28 @@ function checkStatus(status: InputStatusEnum) {
 /**-***************************************************-**/
 
 // Watch the price per unit prop in order to update the template after patch request response
-watch(() => props.holding.pricePerUnit, (price: number) => {
-  pricePerUnit.value = price
-});
+watch(
+  () => props.holding.pricePerUnit,
+  (price: number) => {
+    pricePerUnit.value = price
+  }
+)
 
 // Watch the owned quantity prop in order to update the template after patch request response
-watch(() => props.holding.ownedQuantity, (quantity: number) => {
-  ownedQuantity.value = quantity
-});
+watch(
+  () => props.holding.ownedQuantity,
+  (quantity: number) => {
+    ownedQuantity.value = quantity
+  }
+)
 
 // Watch the target percentage prop in order to update the template after patch request response
-watch(() => props.holding.targetPercentage, (percentage: number) => {
-  targetPercentage.value = percentage
-});
+watch(
+  () => props.holding.targetPercentage,
+  (percentage: number) => {
+    targetPercentage.value = percentage
+  }
+)
 
 /**-***************************************************-**/
 /** -------------- Input Patch Methods ---------------- **/
@@ -179,7 +188,7 @@ watch(() => props.holding.targetPercentage, (percentage: number) => {
 
 // Patch the public holdings price per unit
 function patchPricePerUnit(inputValue: string, holdingUuid: string) {
-  let request = patchPricePerUnitRequest(inputValue)
+  const request = patchPricePerUnitRequest(inputValue)
   if (!pricePerUnitError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
   }
@@ -187,7 +196,7 @@ function patchPricePerUnit(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
-  let request = patchOwnedQuantityRequest(inputValue)
+  const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
   }
@@ -195,7 +204,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
-  let request = patchTargetPercentageRequest(inputValue)
+  const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
   }
@@ -203,13 +212,13 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings unit type
 function patchUnitType(inputValue: UnitTypeEnum, holdingUuid: string) {
-  let request = patchUnitTypeRequest(inputValue)
+  const request = patchUnitTypeRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
 
 // Patch the public currency
 function patchCurrency(inputValue: CurrencyEnum, holdingUuid: string) {
-  let request = patchCurrencyRequest(inputValue)
+  const request = patchCurrencyRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
 

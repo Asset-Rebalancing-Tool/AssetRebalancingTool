@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type{ Ref } from 'vue'
+import type { Ref } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import IconCopy from '@/assets/icons/IconCopy.vue'
 
@@ -49,7 +49,9 @@ const props = defineProps({
   },
 })
 
-const editGroupEntries: Ref<boolean> = computed(() => store.selectionState.editGroupEntries)
+const editGroupEntries: Ref<boolean> = computed(
+  () => store.selectionState.editGroupEntries
+)
 
 // Copy the isin of an asset into the clipboard
 const copyISIN = (event: Event) => {

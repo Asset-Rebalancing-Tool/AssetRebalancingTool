@@ -76,7 +76,7 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import {computed, ref, watch} from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { mapAssetType } from '@/composables/UseAssetType'
 import {
@@ -96,7 +96,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
-import {bool} from "yup";
+import { bool } from 'yup'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -131,12 +131,12 @@ const targetPercentageError: Ref<boolean> = ref(false)
 /**-***************************************************-**/
 
 // The owned quantity patch status (needed for animation)
-const quantityStatus: Ref<InputStatusEnum> = computed(() =>{
+const quantityStatus: Ref<InputStatusEnum> = computed(() => {
   return store.listState.inputStatusIcon
 })
 
 // The target percentage patch status (needed for animation)
-const targetPercentageStatus: Ref<InputStatusEnum> = computed(() =>{
+const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
   return store.listState.inputStatusIcon
 })
 
@@ -150,14 +150,20 @@ function checkStatus(status: InputStatusEnum) {
 /**-***************************************************-**/
 
 // Watch the owned quantity prop in order to update the template after patch request response
-watch(() => props.holding.ownedQuantity, (quantity: number) => {
-  ownedQuantity.value = quantity
-});
+watch(
+  () => props.holding.ownedQuantity,
+  (quantity: number) => {
+    ownedQuantity.value = quantity
+  }
+)
 
 // Watch the target percentage prop in order to update the template after patch request response
-watch(() => props.holding.targetPercentage, (percentage: number) => {
-  targetPercentage.value = percentage
-});
+watch(
+  () => props.holding.targetPercentage,
+  (percentage: number) => {
+    targetPercentage.value = percentage
+  }
+)
 
 /**-***************************************************-**/
 /** -------------- Input Patch Methods ---------------- **/
@@ -165,7 +171,7 @@ watch(() => props.holding.targetPercentage, (percentage: number) => {
 
 // Patch the public holdings owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
-  let request = patchOwnedQuantityRequest(inputValue)
+  const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
   }
@@ -173,7 +179,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
 
 // Patch the public holdings target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
-  let request = patchTargetPercentageRequest(inputValue)
+  const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
   }
@@ -239,7 +245,8 @@ const currentValue = computed((): string => {
 const currentValuePercentage = computed((): string => {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
   const currentValue: number = props.holding.ownedQuantity * priceRecord
-  const currentPercentage = (currentValue / store.listState.totalAssetListValue) * 100
+  const currentPercentage =
+    (currentValue / store.listState.totalAssetListValue) * 100
 
   // Format the current percentage value after german pattern
   return new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
@@ -247,7 +254,8 @@ const currentValuePercentage = computed((): string => {
 
 // Get the deviation of the desired target percentage
 const deviation = computed(() => {
-  const deviation: number = +currentValuePercentage.value - props.holding.targetPercentage
+  const deviation: number =
+    +currentValuePercentage.value - props.holding.targetPercentage
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 </script>
