@@ -66,7 +66,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import { ref, computed } from 'vue'
+import {ref, computed, watch} from 'vue'
 import type { Ref, PropType } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
@@ -79,7 +79,6 @@ import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 /**-***************************************************-**/
 
 const store = useAssetStore()
-
 const props = defineProps({
   holding: {
     type: Object as PropType<HoldingGroup>,
@@ -87,31 +86,103 @@ const props = defineProps({
   },
 })
 
+/**-***************************************************-**/
+/** --------------- Input Model Values ---------------- **/
+/**-***************************************************-**/
+
+// Group related holdings
 const publicHoldingUuids: Ref<string[]> = ref([])
 const privateHoldingUuids: Ref<string[]> = ref([])
 
+// The input model values itself
+const groupName: Ref<string> = ref(props.holding.groupName)
 const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+
+// bool that indicates if the group is currently editable or not
+const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
+
+/**-***************************************************-**/
+/** ---------------- Error Class Flags ---------------- **/
+/**-***************************************************-**/
+
+// bool that indicates if input error class should be rendered
+let groupTargetPercentageError: Ref<boolean> = ref(false)
+
+/**-***************************************************-**/
+/** ------------- Input Animation Status -------------- **/
+/**-***************************************************-**/
+
+// The groups target percentage patch status (needed for animation)
 const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
   return store.listState.inputStatusIcon
 })
+
 // Check if the status of an input is none in order to show the unit slot
 function checkStatus(status: InputStatusEnum) {
   return status === InputStatusEnum.NONE
 }
 
-// reactive group name model value
-const groupName: Ref<string> = ref(props.holding.groupName)
+/**-***************************************************-**/
+/** -------- Watch Props For Reactive Template -------- **/
+/**-***************************************************-**/
 
-// bool that indicates if the group is currently editable or not
-const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
+// Watch the target percentage prop in order to update the template after patch request response
+watch(() => props.holding.targetPercentage, (percentage: number) => {
+  targetPercentage.value = percentage
+});
 
-let groupTargetPercentageError: Ref<boolean> = ref(false)
+/**-***************************************************-**/
+/** --------------- Template Actions ------------------ **/
+/**-***************************************************-**/
 
+// Start editing a group
+function editGroup(): void {
+  store.selectionState.editGroupEntries = true
+  store.selectionState.groupUuid = props.holding.uuid
+}
+
+// Update the groupName value on each keyup
+function writeGroupName(name: string) {
+  groupName.value = name
+}
+
+/**-***************************************************-**/
+/** -------------- Input Patch Methods ---------------- **/
+/**-***************************************************-**/
+
+// Patch the public holdings target percentage
 function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
   let request = patchGroupTargetPercentageRequest(inputValue)
   if (!groupTargetPercentageError.value) {
     PatchAssetService.patchHoldingGroup(request, groupUuid)
   }
+}
+
+/**-***************************************************-**/
+/** ------------- Input Patch Requests ---------------- **/
+/**-***************************************************-**/
+
+// Patch the whole holding group
+function patchHoldingGroupRequest(): HoldingGroupRequest {
+  resetSelectionState()
+  return {
+    groupName: groupName.value,
+    publicHoldingUuids: publicHoldingUuids.value,
+    privateHoldingUuids: privateHoldingUuids.value,
+  } as HoldingGroupRequest
+}
+
+// Patch the groups target percentage
+function patchGroupTargetPercentageRequest(percentage: string): HoldingGroupRequest {
+  resetSelectionState()
+  groupTargetPercentageError.value = !+percentage
+  return { targetPercentage: +percentage } as HoldingGroupRequest
+}
+
+// Reset the store's selection state in order to deactivate group editing
+function resetSelectionState() {
+  store.selectionState.editGroupEntries = false
+  store.selectionState.groupUuid = null
 }
 
 /**-***************************************************-**/
@@ -139,44 +210,4 @@ const totalGroupPercentage = computed(() => {
 const totalGroupDeviation = computed(() => {
   return formatValueArray(store.listState.totalAssetListDeviation)
 })
-
-/**-***************************************************-**/
-/** --------------- Template Actions ------------------ **/
-/**-***************************************************-**/
-
-// Start editing a group
-function editGroup(): void {
-  store.selectionState.editGroupEntries = true
-  store.selectionState.groupUuid = props.holding.uuid
-}
-
-// Update the groupName value on each keyup
-function writeGroupName(name: string) {
-  groupName.value = name
-}
-
-/**-***************************************************-**/
-/** -------------- Input Patch Requests --------------- **/
-/**-***************************************************-**/
-
-// Patch the whole holding group
-function patchHoldingGroupRequest(): HoldingGroupRequest {
-  store.selectionState.editGroupEntries = false
-  store.selectionState.groupUuid = null
-  return {
-    groupName: groupName.value,
-    publicHoldingUuids: publicHoldingUuids.value,
-    privateHoldingUuids: privateHoldingUuids.value,
-  } as HoldingGroupRequest
-}
-
-// Patch the groups target percentage
-function patchGroupTargetPercentageRequest(
-  percentage: string
-): HoldingGroupRequest {
-  groupTargetPercentageError.value = !+percentage
-  store.selectionState.editGroupEntries = false
-  store.selectionState.groupUuid = null
-  return { targetPercentage: +percentage } as HoldingGroupRequest
-}
 </script>
