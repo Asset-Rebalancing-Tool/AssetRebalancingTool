@@ -13,10 +13,10 @@
       @input="patchPricePerUnit($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :input-status="pricePerUnitStatus">
+        <InputAnimation :execute-animation="showPricePerUnitAnim">
           <template #unit>
             <BaseSelect
-              v-show="checkStatus(pricePerUnitStatus)"
+              v-show="!showPricePerUnitAnim"
               class="currency"
               :options="currencyOptions"
               :default-selection="CurrencyEnum.EUR"
@@ -36,7 +36,7 @@
       @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :input-status="quantityStatus">
+        <InputAnimation :execute-animation="showOwnedQuantityAnim">
           <template #unit>
             <BaseSelect
               class="quantity"
@@ -63,9 +63,9 @@
       @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :input-status="targetPercentageStatus">
+        <InputAnimation :execute-animation="showTargetPercentageAnim">
           <template #unit>
-            <span v-show="checkStatus(targetPercentageStatus)">%</span>
+            <span v-show="!showTargetPercentageAnim">%</span>
           </template>
         </InputAnimation>
       </template>
@@ -134,24 +134,19 @@ const targetPercentageError: Ref<boolean> = ref(false)
 /** ------------- Input Animation Status -------------- **/
 /**-***************************************************-**/
 
-// The price per unit patch status (needed for animation)
-const pricePerUnitStatus: Ref<InputStatusEnum> = computed(() => {
-  return store.listState.inputStatusIcon
-})
-
 // The owned quantity patch status (needed for animation)
-const quantityStatus: Ref<InputStatusEnum> = computed(() => {
-  return store.listState.inputStatusIcon
-})
+const showPricePerUnitAnim: Ref<boolean> = ref(false)
+const showOwnedQuantityAnim: Ref<boolean> = ref(false)
+const showTargetPercentageAnim: Ref<boolean> = ref(false)
 
-// The target percentage patch status (needed for animation)
-const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
-  return store.listState.inputStatusIcon
-})
-
-// Check if the status of an input is none in order to show the unit slot
-function checkStatus(status: InputStatusEnum) {
-  return status === InputStatusEnum.NONE
+// Execute the input's check animation for a specified field
+function executeAnimation(field: Ref<boolean>) {
+  setTimeout(() => {
+    field.value = true
+    setTimeout(() => {
+      field.value = false
+    }, 1000)
+  }, 500)
 }
 
 /**-***************************************************-**/
@@ -191,6 +186,7 @@ function patchPricePerUnit(inputValue: string, holdingUuid: string) {
   const request = patchPricePerUnitRequest(inputValue)
   if (!pricePerUnitError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
+    executeAnimation(showPricePerUnitAnim)
   }
 }
 
@@ -199,6 +195,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
   const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
+    executeAnimation(showOwnedQuantityAnim)
   }
 }
 
@@ -207,6 +204,7 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
+    executeAnimation(showTargetPercentageAnim)
   }
 }
 

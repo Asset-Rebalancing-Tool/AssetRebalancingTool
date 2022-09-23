@@ -44,9 +44,9 @@
       @input="patchGroupTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :input-status="targetPercentageStatus">
+        <InputAnimation :execute-animation="showTargetPercentageAnim">
           <template #unit>
-            <span v-show="checkStatus(targetPercentageStatus)">%</span>
+            <span v-show="!showTargetPercentageAnim">%</span>
           </template>
         </InputAnimation>
       </template>
@@ -113,15 +113,17 @@ const groupTargetPercentageError: Ref<boolean> = ref(false)
 /**-***************************************************-**/
 
 // The groups target percentage patch status (needed for animation)
-const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
-  return store.listState.inputStatusIcon
-})
+const showTargetPercentageAnim: Ref<boolean> = ref(false)
 
-// Check if the status of an input is none in order to show the unit slot
-function checkStatus(status: InputStatusEnum) {
-  return status === InputStatusEnum.NONE
+// Execute the input's check animation for a specified field
+function executeAnimation(field: Ref<boolean>) {
+  setTimeout(() => {
+    field.value = true
+    setTimeout(() => {
+      field.value = false
+    }, 1000)
+  }, 500)
 }
-
 /**-***************************************************-**/
 /** -------- Watch Props For Reactive Template -------- **/
 /**-***************************************************-**/
@@ -158,6 +160,7 @@ function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
   const request = patchGroupTargetPercentageRequest(inputValue)
   if (!groupTargetPercentageError.value) {
     PatchAssetService.patchHoldingGroup(request, groupUuid)
+    executeAnimation(showTargetPercentageAnim)
   }
 }
 

@@ -130,9 +130,17 @@ const targetPercentageError: Ref<boolean> = ref(false)
 
 // The owned quantity patch status (needed for animation)
 const showOwnedQuantityAnim: Ref<boolean> = ref(false)
-
-// The target percentage patch status (needed for animation)
 const showTargetPercentageAnim: Ref<boolean> = ref(false)
+
+// Execute the input's check animation for a specified field
+function executeAnimation(field: Ref<boolean>) {
+  setTimeout(() => {
+    field.value = true
+    setTimeout(() => {
+      field.value = false
+    }, 1000)
+  }, 500)
+}
 
 /**-***************************************************-**/
 /** -------- Watch Props For Reactive Template -------- **/
@@ -163,12 +171,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
   const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
-    setTimeout(() => {
-      showOwnedQuantityAnim.value = true
-      setTimeout(() => {
-        showOwnedQuantityAnim.value = false
-      }, 1000)
-    }, 500)
+    executeAnimation(showOwnedQuantityAnim)
   }
 }
 
@@ -177,13 +180,7 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
-    setTimeout(() => {
-      showTargetPercentageAnim.value = true
-      setTimeout(() => {
-        showTargetPercentageAnim.value = false
-      }, 1000)
-    }, 500)
-
+    executeAnimation(showTargetPercentageAnim)
   }
 }
 
