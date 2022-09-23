@@ -50,7 +50,7 @@ const props = defineProps({
  * Remove a public or private list entry from the selected holding group
  */
 function removeHoldingFromGroup(): void {
-  const selectedGroupUuid: string | null = store.selectionState.groupUuid
+  const selectedGroupUuid: string | null = store.selectionState.group.uuid
   if (selectedGroupUuid) {
     store.removeHoldingFromGroup(props.groupEntry, selectedGroupUuid)
   }

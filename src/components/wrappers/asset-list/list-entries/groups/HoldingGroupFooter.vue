@@ -143,7 +143,7 @@ watch(
 // Start editing a group
 function editGroup(): void {
   store.selectionState.editGroupEntries = true
-  store.selectionState.groupUuid = props.holding.uuid
+  store.selectionState.group = props.holding
 }
 
 // Update the groupName value on each keyup
@@ -190,7 +190,7 @@ function patchGroupTargetPercentageRequest(
 // Reset the store's selection state in order to deactivate group editing
 function resetSelectionState() {
   store.selectionState.editGroupEntries = false
-  store.selectionState.groupUuid = null
+  store.selectionState.group = null
 }
 
 /**-***************************************************-**/
