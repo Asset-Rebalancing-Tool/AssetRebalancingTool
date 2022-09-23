@@ -7,7 +7,6 @@ import {
 import type { AxiosResponse } from 'axios'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import { useAssetStore } from '@/stores/AssetStore'
-import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -42,7 +41,6 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            this.saveInputAnimation()
             useAssetStore().replaceListEntry(response.data)
           })
           .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
@@ -151,13 +149,5 @@ export default {
     }
 
     return new Promise<void>((resolve) => resolve())
-  },
-
-  saveInputAnimation() {
-    const store = useAssetStore()
-    store.listState.inputStatusIcon = InputStatusEnum.SAVE
-    setTimeout(() => {
-      store.listState.inputStatusIcon = InputStatusEnum.NONE
-    }, 1000)
-  },
+  }
 }

@@ -30,7 +30,6 @@ export const useAssetStore = defineStore('assetStore', () => {
     totalAssetListValue: number
     totalAssetListPercentage: number
     totalAssetListDeviation: number
-    inputStatusIcon: InputStatusEnum
   }
 
   interface SelectionState {
@@ -59,8 +58,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     assetListEntries: [],
     totalAssetListValue: 0,
     totalAssetListPercentage: 0,
-    totalAssetListDeviation: 0,
-    inputStatusIcon: InputStatusEnum.NONE,
+    totalAssetListDeviation: 0
   })
 
   // All reactive selection properties

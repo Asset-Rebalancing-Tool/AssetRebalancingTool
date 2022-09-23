@@ -32,9 +32,9 @@
       @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :input-status="quantityStatus">
+        <InputAnimation :execute-animation="showOwnedQuantityAnim">
           <template #unit>
-            <span v-show="checkStatus(quantityStatus)">Stk.</span>
+            <span v-show="!showOwnedQuantityAnim">Stk.</span>
           </template>
         </InputAnimation>
       </template>
@@ -52,9 +52,9 @@
       @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :input-status="targetPercentageStatus">
+        <InputAnimation :execute-animation="showTargetPercentageAnim">
           <template #unit>
-            <span v-show="checkStatus(targetPercentageStatus)">%</span>
+            <span v-show="!showTargetPercentageAnim">%</span>
           </template>
         </InputAnimation>
       </template>
@@ -95,8 +95,6 @@ import {
 import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
-import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
-import { bool } from 'yup'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -131,19 +129,10 @@ const targetPercentageError: Ref<boolean> = ref(false)
 /**-***************************************************-**/
 
 // The owned quantity patch status (needed for animation)
-const quantityStatus: Ref<InputStatusEnum> = computed(() => {
-  return store.listState.inputStatusIcon
-})
+const showOwnedQuantityAnim: Ref<boolean> = ref(false)
 
 // The target percentage patch status (needed for animation)
-const targetPercentageStatus: Ref<InputStatusEnum> = computed(() => {
-  return store.listState.inputStatusIcon
-})
-
-// Check if the status of an input is none in order to show the unit slot
-function checkStatus(status: InputStatusEnum) {
-  return status === InputStatusEnum.NONE
-}
+const showTargetPercentageAnim: Ref<boolean> = ref(false)
 
 /**-***************************************************-**/
 /** -------- Watch Props For Reactive Template -------- **/
@@ -174,6 +163,12 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
   const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
+    setTimeout(() => {
+      showOwnedQuantityAnim.value = true
+      setTimeout(() => {
+        showOwnedQuantityAnim.value = false
+      }, 1000)
+    }, 500)
   }
 }
 
@@ -182,6 +177,13 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
+    setTimeout(() => {
+      showTargetPercentageAnim.value = true
+      setTimeout(() => {
+        showTargetPercentageAnim.value = false
+      }, 1000)
+    }, 500)
+
   }
 }
 
