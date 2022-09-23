@@ -89,13 +89,15 @@ function mergeChildHoldings(groupUuid: string): AssetListEntry[] {
  * Add a public or private list entry to the selected holding group
  */
 function addListEntryToGroup(): void {
-  const selectedGroupUuid: string | null = store.selectionState.group.uuid
-  if (selectedGroupUuid) {
-    store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
-    PatchAssetService.patchHoldingGroup(
-        patchHoldingGroupRequest(),
-        selectedGroupUuid
-    )
+  if (store.selectionState.group) {
+    const selectedGroupUuid: string | null = store.selectionState.group.uuid
+    if (selectedGroupUuid) {
+      store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
+      PatchAssetService.patchHoldingGroup(
+          patchHoldingGroupRequest(),
+          selectedGroupUuid
+      )
+    }
   }
 }
 
