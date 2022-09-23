@@ -7,4 +7,5 @@ export interface GroupEntry {
   entryType: EntryTypeEnum
   publicHolding: PublicHolding | null
   privateHolding: PrivateHolding | null
+  order: number
 }

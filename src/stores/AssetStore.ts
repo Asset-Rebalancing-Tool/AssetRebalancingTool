@@ -10,7 +10,8 @@ import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
-import type {GroupEntry} from "@/models/holdings/GroupEntry";
+import type { GroupEntry } from "@/models/holdings/GroupEntry";
+import type { SortDirectionEnum } from "@/models/enums/SortPropertyEnum";
 
 export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
@@ -404,6 +405,32 @@ export const useAssetStore = defineStore('assetStore', () => {
   }
 
   /**-******************************************************************-**/
+  /**---------------- Sort Asset List Entry Functions -------------------**/
+  /**-******************************************************************-**/
+
+  /*function sortListEntries(property: SortPropertyEnum, direction: SortDirectionEnum) {
+    console.log(property)
+    console.log(direction)
+    listState.assetListEntries.forEach((entry, index) => {
+      switch (entry.entryType) {
+        case EntryTypeEnum.PUBLIC_HOLDING:
+          break
+        case EntryTypeEnum.PRIVATE_HOLDING:
+          break
+        case EntryTypeEnum.HOLDING_GROUP:
+          break
+      }
+    })
+  }
+
+  function test(property: SortPropertyEnum, listEntry: AssetListEntry) {
+    switch (property) {
+      case SortPropertyEnum.ENTRY_NAME:
+        break
+    }
+  }*/
+
+  /**-******************************************************************-**/
   /**------------- Return All State Variables And Actions ---------------**/
   /**-******************************************************************-**/
 
@@ -422,6 +449,6 @@ export const useAssetStore = defineStore('assetStore', () => {
     getSearchbarAsset,
     replaceListEntry,
     updateTotalValue,
-    updateTotalTargetPercentage,
+    updateTotalTargetPercentage
   }
 })

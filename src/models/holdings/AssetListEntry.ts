@@ -9,4 +9,5 @@ export interface AssetListEntry {
   publicHolding: PublicHolding | null
   privateHolding: PrivateHolding | null
   holdingGroup: HoldingGroup | null
+  order: number
 }
