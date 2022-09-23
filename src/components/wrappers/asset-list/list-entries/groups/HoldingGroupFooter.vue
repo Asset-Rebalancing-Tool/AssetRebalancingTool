@@ -14,7 +14,7 @@
           )
         "
       >
-        Speichern
+        Fertig
       </button>
 
       <h4 v-show="!editGroupEntries">{{ groupName }}</h4>
@@ -89,10 +89,6 @@ const props = defineProps({
 /**-***************************************************-**/
 /** --------------- Input Model Values ---------------- **/
 /**-***************************************************-**/
-
-// Group related holdings
-const publicHoldingUuids: Ref<string[]> = ref([])
-const privateHoldingUuids: Ref<string[]> = ref([])
 
 // The input model values itself
 const groupName: Ref<string> = ref(props.holding.groupName)
@@ -171,11 +167,7 @@ function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
 // Patch the whole holding group
 function patchHoldingGroupRequest(): HoldingGroupRequest {
   resetSelectionState()
-  return {
-    groupName: groupName.value,
-    publicHoldingUuids: publicHoldingUuids.value,
-    privateHoldingUuids: privateHoldingUuids.value,
-  } as HoldingGroupRequest
+  return { groupName: groupName.value } as HoldingGroupRequest
 }
 
 // Patch the groups target percentage
