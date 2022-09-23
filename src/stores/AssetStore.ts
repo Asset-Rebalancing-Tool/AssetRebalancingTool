@@ -35,6 +35,7 @@ export const useAssetStore = defineStore('assetStore', () => {
   interface SelectionState {
     editGroupEntries: boolean
     groupUuid: string | null
+    group: HoldingGroup | null
   }
 
   /**-******************************************************************-**/
@@ -65,6 +66,7 @@ export const useAssetStore = defineStore('assetStore', () => {
   const selectionState: SelectionState = reactive({
     editGroupEntries: false,
     groupUuid: null,
+    group: null
   })
 
   /**-******************************************************************-**/
