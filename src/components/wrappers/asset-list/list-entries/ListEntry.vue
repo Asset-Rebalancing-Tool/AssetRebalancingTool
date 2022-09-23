@@ -43,6 +43,8 @@ import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import type { Ref, PropType } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import GroupEntry from "@/components/wrappers/asset-list/list-entries/groups/GroupEntry.vue";
+import PatchAssetService from "@/services/PatchAssetService";
+import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -90,6 +92,27 @@ function addListEntryToGroup(): void {
   const selectedGroupUuid: string | null = store.selectionState.groupUuid
   if (selectedGroupUuid) {
     store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
+    PatchAssetService.patchHoldingGroup(
+        patchHoldingGroupRequest(),
+        selectedGroupUuid
+    )
   }
 }
+
+/**-***************************************************-**/
+/** ------------- Group Patch Requests ---------------- **/
+/**-***************************************************-**/
+
+// The patch owned quantity request body
+function patchHoldingGroupRequest(): HoldingGroupRequest {
+  let group = store.selectionState.group
+  if (group) {
+    return {
+      publicHoldingUuids: group.publicHoldings.map(publicHoldings => publicHoldings.uuid),
+      privateHoldingUuids: group.privateHoldings.map(privateHolding => privateHolding.uuid)
+    } as HoldingGroupRequest
+  }
+  return {} as HoldingGroupRequest
+}
+
 </script>
