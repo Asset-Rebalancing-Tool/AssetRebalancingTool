@@ -2,11 +2,10 @@ import type { Ref } from 'vue'
 import { reactive, ref, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import type { PublicAsset } from '@/models/PublicAsset'
-import type { SearchbarState } from "@/models/SearchbarState";
-import type { HoldingGroup } from "@/models/holdings/HoldingGroup";
+import type { SearchbarState } from '@/models/SearchbarState'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 
 export const useSearchbarStore = defineStore('searchbarStore', () => {
-
   /**-******************************************************************-**/
   /**-------------------- Asset List State Variables --------------------**/
   /**-******************************************************************-**/
@@ -47,7 +46,6 @@ export const useSearchbarStore = defineStore('searchbarStore', () => {
     return {} as PublicAsset
   }
 
-
   /**-******************************************************************-**/
   /**------------- Return All State Variables And Actions ---------------**/
   /**-******************************************************************-**/
@@ -55,6 +53,6 @@ export const useSearchbarStore = defineStore('searchbarStore', () => {
   return {
     showSidebar,
     searchbarState,
-    getSearchbarAsset
+    getSearchbarAsset,
   }
 })

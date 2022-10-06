@@ -8,15 +8,10 @@
     <TableFilters />
 
     <div class="holding-container">
-
-      <div
-          v-if="!isLoading"
-          v-for="[uuid, entry] in assetList"
-          :key="uuid"
-      >
+      <div v-if="!isLoading" v-for="[uuid, entry] in assetList" :key="uuid">
         <PublicHoldingN
-            v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
-            :uuid="uuid"
+          v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+          :uuid="uuid"
         />
       </div>
     </div>
@@ -34,14 +29,14 @@ import type { Ref } from 'vue'
 import { generateAssetMap } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/ListFooter.vue'
-import PublicHoldingN from "@/components/wrappers/asset-list/list-entries/PublicHoldingN.vue";
-import { EntryTypeEnum } from "@/models/enums/EntryTypeEnum";
-import type { AssetMapEntry } from "@/models/enums/AssetMapEntry"
-import type { AssetList } from "@/models/holdings/AssetList";
+import PublicHoldingN from '@/components/wrappers/asset-list/list-entries/PublicHoldingN.vue'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
+import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
+import type { AssetList } from '@/models/holdings/AssetList'
 
 const store = useAssetMapStore()
-let assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>)
-let isLoading: Ref<boolean> = ref(true)
+const assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>())
+const isLoading: Ref<boolean> = ref(true)
 
 onMounted(async () => {
   await generateAssetMap()
@@ -55,7 +50,6 @@ onMounted(async () => {
 function addAssetMapEntry(uuid: string, entry: AssetMapEntry): void {
   store.addAssetMapEntry(uuid, entry)
 }
-
 </script>
 
 <style lang="scss">

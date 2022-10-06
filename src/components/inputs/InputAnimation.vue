@@ -16,7 +16,7 @@ import inputChecked from '@/assets/animations/input-check.json'
 const props = defineProps({
   executeAnimation: {
     type: Boolean,
-    default: false
+    default: false,
   },
 })
 </script>

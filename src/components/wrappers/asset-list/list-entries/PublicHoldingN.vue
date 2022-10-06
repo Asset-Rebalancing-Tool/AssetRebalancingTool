@@ -18,9 +18,7 @@
           :data-values="getDataValues(priceRecords)"
           :data-labels="getDataLabels(priceRecords)"
           :border-width="'0.8'"
-          :is-positive="
-            isPositiveChart(holding.publicAsset.assetPriceRecords)
-          "
+          :is-positive="isPositiveChart(holding.publicAsset.assetPriceRecords)"
         />
       </template>
     </ThreeDigitValue>
@@ -94,7 +92,7 @@ import {
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
-import type { PublicHolding } from "@/models/holdings/PublicHolding";
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -108,7 +106,7 @@ const props = defineProps({
   },
 })
 
-let holding: ComputedRef<PublicHolding> = computed(() => {
+const holding: ComputedRef<PublicHolding> = computed(() => {
   return store.getAssetMapEntryByUuid(props.uuid) as PublicHolding
 })
 
@@ -117,7 +115,7 @@ let holding: ComputedRef<PublicHolding> = computed(() => {
 /**-***************************************************-**/
 
 // The input model values itself
-const ownedQuantity:  Ref<number> = ref(holding.value.ownedQuantity)
+const ownedQuantity: Ref<number> = ref(holding.value.ownedQuantity)
 const targetPercentage: Ref<number> = ref(holding.value.targetPercentage)
 
 /**-***************************************************-**/
@@ -153,13 +151,13 @@ function executeAnimation(field: Ref<boolean>) {
 // Watch the owned quantity prop in order to update the template after patch request response
 watch(
   () => holding.value.ownedQuantity,
-  (quantity: number) => ownedQuantity.value = quantity
+  (quantity: number) => (ownedQuantity.value = quantity)
 )
 
 // Watch the target percentage prop in order to update the template after patch request response
 watch(
   () => holding.value.targetPercentage,
-  (percentage: number) => targetPercentage.value = percentage
+  (percentage: number) => (targetPercentage.value = percentage)
 )
 
 /**-***************************************************-**/
@@ -253,9 +251,9 @@ function calcCurrentPercentage(): number {
 const currentPercentage = computed((): string => {
   const currentPercentage: number = calcCurrentPercentage()
   // Format the current percentage value after german pattern
-  return (currentPercentage)
-      ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
-      : '0,00 %'
+  return currentPercentage
+    ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
+    : '0,00 %'
 })
 
 // Get the current deviation
@@ -267,25 +265,25 @@ function calcDeviation(): number {
 // Get the current deviation formatted by german pattern
 const deviation = computed((): string[] => {
   const deviation: number = calcDeviation()
-  return (deviation)
-    ? formatValueArray(deviation)
-    : ['00', '00', '']
+  return deviation ? formatValueArray(deviation) : ['00', '00', '']
 })
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
   const currentValue: number = holding.value.ownedQuantity * priceRecord
-  const currentPercentage: number = (currentValue / store.totalAssetListValue) * 100
+  const currentPercentage: number =
+    (currentValue / store.totalAssetListValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
-  return (currentPercentage > targetPercentage)
+  return currentPercentage > targetPercentage
 })
 
 const deviationExists = computed(() => {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
   const currentValue: number = holding.value.ownedQuantity * priceRecord
-  const currentPercentage: number = (currentValue / store.totalAssetListValue) * 100
+  const currentPercentage: number =
+    (currentValue / store.totalAssetListValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
-  return (currentPercentage > targetPercentage)
+  return currentPercentage > targetPercentage
 })
 </script>

@@ -1,4 +1,4 @@
 export enum Operator {
-    PLUS,
-    MINUS
+  PLUS,
+  MINUS,
 }

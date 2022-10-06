@@ -1,11 +1,14 @@
-import type {PublicHoldingRequest} from '@/requests/PublicHoldingRequest'
-import type {PrivateHoldingRequest} from '@/requests/PrivateHoldingRequest'
-import {getAuthorizedInstance, handleErrorResponseStatus,} from '@/services/TokenService'
-import type {AxiosResponse} from 'axios'
-import type {HoldingGroupRequest} from '@/requests/HoldingGroupRequest'
-import {replaceAssetMapEntry} from '@/composables/UseAssetMap'
-import type {AssetMapEntry} from "@/models/enums/AssetMapEntry";
-import {EntryTypeEnum} from "@/models/enums/EntryTypeEnum";
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import {
+  getAuthorizedInstance,
+  handleErrorResponseStatus,
+} from '@/services/TokenService'
+import type { AxiosResponse } from 'axios'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import { replaceAssetMapEntry } from '@/composables/UseAssetMap'
+import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -99,9 +102,7 @@ export default {
               request
             )
           })
-          .then((response: AxiosResponse) => {
-
-          })
+          .then((response: AxiosResponse) => {})
           .catch((error) => handleErrorResponseStatus(error.response.status))
       }, 500)
     })
@@ -152,5 +153,5 @@ export default {
     }
 
     return new Promise<void>((resolve) => resolve())
-  }
+  },
 }

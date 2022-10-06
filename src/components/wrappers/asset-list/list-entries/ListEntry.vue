@@ -42,9 +42,9 @@ import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetListEntry } from '@/models/AssetListEntry'
 import type { Ref, PropType } from 'vue'
 import { useAssetStore } from '@/stores/SearchbarStore'
-import GroupEntry from "@/components/wrappers/asset-list/list-entries/groups/GroupEntry.vue";
-import PatchAssetService from "@/services/PatchAssetService";
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
+import GroupEntry from '@/components/wrappers/asset-list/list-entries/groups/GroupEntry.vue'
+import PatchAssetService from '@/services/PatchAssetService'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -59,7 +59,7 @@ const props = defineProps({
   index: {
     type: Number,
     required: true,
-  }
+  },
 })
 
 // The count of the group entry list
@@ -94,8 +94,8 @@ function addListEntryToGroup(): void {
     if (selectedGroupUuid) {
       store.addListEntryToGroup(props.listEntry, selectedGroupUuid)
       PatchAssetService.patchHoldingGroup(
-          patchHoldingGroupRequest(),
-          selectedGroupUuid
+        patchHoldingGroupRequest(),
+        selectedGroupUuid
       )
     }
   }
@@ -107,14 +107,17 @@ function addListEntryToGroup(): void {
 
 // The patch owned quantity request body
 function patchHoldingGroupRequest(): HoldingGroupRequest {
-  let group = store.selectionState.group
+  const group = store.selectionState.group
   if (group) {
     return {
-      publicHoldingUuids: group.publicHoldings.map(publicHoldings => publicHoldings.uuid),
-      privateHoldingUuids: group.privateHoldings.map(privateHolding => privateHolding.uuid)
+      publicHoldingUuids: group.publicHoldings.map(
+        (publicHoldings) => publicHoldings.uuid
+      ),
+      privateHoldingUuids: group.privateHoldings.map(
+        (privateHolding) => privateHolding.uuid
+      ),
     } as HoldingGroupRequest
   }
   return {} as HoldingGroupRequest
 }
-
 </script>

@@ -54,7 +54,9 @@ const showContentWrapper = computed(
 const searchbarResults = computed(
   () => searchbarStore.searchbarState.searchbarResultCount
 )
-const searchbarAssets = computed(() => searchbarStore.searchbarState.searchbarAssets)
+const searchbarAssets = computed(
+  () => searchbarStore.searchbarState.searchbarAssets
+)
 const showSkeletonAnimation = computed(
   () => searchbarStore.searchbarState.searchbarLoadingFlag
 )

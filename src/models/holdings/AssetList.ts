@@ -1,8 +1,8 @@
-import type { EntryTypeEnum } from "@/models/enums/EntryTypeEnum";
+import type { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 
 export interface AssetList {
-    uuid: string
-    hasGroup: boolean
-    groupUuid: string | null
-    entryType: EntryTypeEnum
+  uuid: string
+  hasGroup: boolean
+  groupUuid: string | null
+  entryType: EntryTypeEnum
 }

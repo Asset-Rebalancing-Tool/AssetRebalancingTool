@@ -201,8 +201,8 @@ const totalGroupValue = computed(() => {
 const totalGroupPercentage = computed(() => {
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-        // TODO: this is wrong, should be total group percentage
-        store.listState.totalAssetListPercentage
+      // TODO: this is wrong, should be total group percentage
+      store.listState.totalAssetListPercentage
     ) + ' %'
   )
 })

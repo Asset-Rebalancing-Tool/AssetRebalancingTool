@@ -29,7 +29,6 @@ import { useAssetMapStore } from '@/stores/AssetMapStore'
 import { useSearchbarStore } from '@/stores/SearchbarStore'
 import IconCopy from '@/assets/icons/IconCopy.vue'
 
-
 const searchbarStore = useSearchbarStore()
 const assetMapStore = useAssetMapStore()
 

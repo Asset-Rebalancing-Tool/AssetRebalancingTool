@@ -55,11 +55,11 @@ const data = computed(() => ({
       borderWidth: parseFloat(props.borderWidth),
       fill: true,
       borderColor: props.isPositive
-          ? ChartColumnEnum.BORDER_COLOR_POSITIVE
-          : ChartColumnEnum.BORDER_COLOR_NEGATIVE,
-      backgroundColor: (props.isPositive)
-          ? ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30
-          : ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_30
+        ? ChartColumnEnum.BORDER_COLOR_POSITIVE
+        : ChartColumnEnum.BORDER_COLOR_NEGATIVE,
+      backgroundColor: props.isPositive
+        ? ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30
+        : ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_30,
     },
   ],
 }))

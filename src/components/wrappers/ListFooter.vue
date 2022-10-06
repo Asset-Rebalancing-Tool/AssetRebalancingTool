@@ -8,7 +8,8 @@
     </div>
 
     <div class="total-value-wrapper">
-      <header>Soll-Wert
+      <header>
+        Soll-Wert
         <IconCheck v-show="showPercentageCheckIcon" />
       </header>
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
@@ -18,8 +19,6 @@
       <header>Abweichung</header>
       <span class="total-value">{{ totalDeviation }}</span>
     </div>
-
-
   </footer>
 </template>
 
@@ -52,9 +51,9 @@ const totalPercentage = computed(() => {
 
 const totalTargetPercentage = computed(() => {
   return (
-      new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-          store.totalAssetListTargetPercentage
-      ) + ' %'
+    new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
+      store.totalAssetListTargetPercentage
+    ) + ' %'
   )
 })
 
@@ -62,7 +61,7 @@ const totalTargetPercentage = computed(() => {
 const totalDeviation = computed(() => {
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-        store.totalAssetListDeviation
+      store.totalAssetListDeviation
     ) + ' %'
   )
 })
