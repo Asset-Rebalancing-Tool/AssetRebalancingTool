@@ -7,6 +7,7 @@ import {
   getAuthorizedInstance,
   handleErrorResponseStatus,
 } from '@/services/TokenService'
+
 export default {
   async fetchPublicHoldings(): Promise<PublicHolding[]> {
     return getAuthorizedInstance()
@@ -28,9 +29,7 @@ export default {
           params: { groupLess: true },
         })
       })
-      .then((response: AxiosResponse) => {
-        return response.data
-      })
+      .then((response: AxiosResponse) => response.data)
       .catch((error) => handleErrorResponseStatus(error.response.status))
   },
 

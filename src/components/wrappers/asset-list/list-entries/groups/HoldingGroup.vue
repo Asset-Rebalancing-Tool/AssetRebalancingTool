@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 import HoldingGroupFooter from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupFooter.vue'
 import HoldingGroupPercentage from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupPercentage.vue'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import type { AssetListEntry } from '@/models/AssetListEntry'
 import type { PropType } from 'vue'
 import type { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import { computed } from 'vue'

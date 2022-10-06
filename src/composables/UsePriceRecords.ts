@@ -77,7 +77,7 @@ export function getNewestPriceRecordFormatted(
  */
 export function formatValueArray(assetValue: number): string[] {
   if (assetValue === 0) {
-    return ['00', '00', '0']
+    return ['00', '00', '']
   }
 
   // Parse the value of the asset to string
@@ -87,8 +87,8 @@ export function formatValueArray(assetValue: number): string[] {
   const valueArray: string[] = valueString.split('.')
 
   // The single digits
-  const firstDigit: string = valueArray[0]
-  let firstDecimal: string = valueArray[1]
+  const firstDigit: string = valueArray[0] ? valueArray[0] : '0'
+  let firstDecimal: string = valueArray[1] ? valueArray[1] : '00'
   let secondDecimal = ''
 
   // If the first decimal is only one character long, add a zero to its end

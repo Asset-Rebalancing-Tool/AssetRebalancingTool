@@ -9,7 +9,7 @@
       id="check"
       d="M0,21.1l1.717-2.232L6.18,22.649l7.211-8.069,2.06,1.889-9.1,9.957Z"
       transform="translate(0 -14.58)"
-      fill="#19b399"
+      fill="#FFFFFF"
     />
   </svg>
 </template>

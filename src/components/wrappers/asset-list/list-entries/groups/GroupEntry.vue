@@ -21,8 +21,8 @@ import PrivateHolding from '@/components/wrappers/asset-list/list-entries/Privat
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { GroupEntry } from '@/models/holdings/GroupEntry'
 import type { PropType } from 'vue'
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
-import { useAssetStore } from '@/stores/AssetStore'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import { useAssetStore } from '@/stores/SearchbarStore'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -52,12 +52,12 @@ const props = defineProps({
  * Remove a public or private list entry from the selected holding group
  */
 function removeHoldingFromGroup(): void {
-  if ( store.selectionState.group) {
+  if (store.selectionState.group) {
     const selectedGroupUuid: string = store.selectionState.group.uuid
     store.removeHoldingFromGroup(props.groupEntry, selectedGroupUuid)
     PatchAssetService.patchHoldingGroup(
-        patchHoldingGroupRequest(),
-        selectedGroupUuid
+      patchHoldingGroupRequest(),
+      selectedGroupUuid
     )
   }
 }
@@ -68,11 +68,15 @@ function removeHoldingFromGroup(): void {
 
 // The patch owned quantity request body
 function patchHoldingGroupRequest(): HoldingGroupRequest {
-  let group = store.selectionState.group
+  const group = store.selectionState.group
   if (group) {
     return {
-      publicHoldingUuids: group.publicHoldings.map(publicHoldings => publicHoldings.uuid),
-      privateHoldingUuids: group.privateHoldings.map(privateHolding => privateHolding.uuid)
+      publicHoldingUuids: group.publicHoldings.map(
+        (publicHoldings) => publicHoldings.uuid
+      ),
+      privateHoldingUuids: group.privateHoldings.map(
+        (privateHolding) => privateHolding.uuid
+      ),
     } as HoldingGroupRequest
   }
   return {} as HoldingGroupRequest
