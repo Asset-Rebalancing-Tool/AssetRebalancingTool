@@ -15,6 +15,8 @@ import { Operator } from '@/models/enums/Operator'
 export async function generateAssetMap() {
   const store = useAssetMapStore()
 
+  store.listLoadingFlag = true
+
   // Fetch and set each holding group into the asset map
   const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
   holdingGroups.forEach((holdingGroup) => {
@@ -34,6 +36,8 @@ export async function generateAssetMap() {
   privateHoldings.forEach((privateHolding) => {
     addPrivateHolding(store, privateHolding)
   })
+
+  store.listLoadingFlag = false
 
   // Initial set of all total asset list values
   store.setAssetListTotalValue()

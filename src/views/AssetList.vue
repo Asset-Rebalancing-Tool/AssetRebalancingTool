@@ -8,12 +8,18 @@
     <TableFilters />
 
     <div class="holding-container">
-      <div v-if="!isLoading" v-for="[uuid, entry] in assetList" :key="uuid">
+      <div v-if="!showSkeletonAnimation" v-for="[uuid, entry] in assetList" :key="uuid">
         <PublicHoldingN
           v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
           :uuid="uuid"
         />
       </div>
+
+      <ListEntrySkeleton
+          v-show="showSkeletonAnimation"
+          v-for="index in 5"
+          :key="index"
+      />
     </div>
 
     <ListFooter />
@@ -23,8 +29,9 @@
 <script lang="ts" setup>
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/asset-list/searchbar/SearchbarContent.vue'
+import ListEntrySkeleton from '@/components/wrappers/asset-list/list-entries/ListEntrySkeleton.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import { onMounted, ref } from 'vue'
+import {computed, onMounted, ref} from 'vue'
 import type { Ref } from 'vue'
 import { generateAssetMap } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
@@ -36,12 +43,10 @@ import type { AssetList } from '@/models/holdings/AssetList'
 
 const store = useAssetMapStore()
 const assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>())
-const isLoading: Ref<boolean> = ref(true)
 
 onMounted(async () => {
   await generateAssetMap()
   assetList.value = store.assetList
-  isLoading.value = false
 })
 
 /**
@@ -50,6 +55,10 @@ onMounted(async () => {
 function addAssetMapEntry(uuid: string, entry: AssetMapEntry): void {
   store.addAssetMapEntry(uuid, entry)
 }
+
+const showSkeletonAnimation = computed(
+    () => store.listLoadingFlag
+)
 </script>
 
 <style lang="scss">

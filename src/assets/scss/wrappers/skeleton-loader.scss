@@ -65,3 +65,82 @@
     transform: translateX(100%);
   }
 }
+
+
+
+
+.list-entry-skeleton {
+  @include list-entry-grid;
+  grid-template-columns: $inner-holding-row-height auto $current-price-column $owned-quantity-column $current-value-column $target-percentage-column $deviation-column;
+  height: $inner-holding-row-height + 12px;
+  padding: 6px 18px 6px 6px;
+  column-gap: 70px;
+
+  .skeleton-logo {
+    @include background-image-contain;
+    height: $inner-holding-row-height;
+    width: $inner-holding-row-height;
+    background-color: $secondary-background-color;
+    border-radius: $secondary-border-radius;
+  }
+
+  .skeleton-info-wrapper {
+    margin-left: -60px;
+
+    .name  {
+      width: 240px;
+      height: 17px;
+      background-color: $secondary-background-color;
+      margin-bottom: 8px;
+      margin-top: 2px;
+    }
+
+    .info {
+      width: 190px;
+      height: 17px;
+      background-color: $secondary-background-color;
+    }
+  }
+
+  .skeleton-price,
+  .skeleton-quantity,
+  .skeleton-value,
+  .skeleton-target-percentage,
+  .skeleton-target-deviation
+  {
+    width: 100%;
+    height: 34px;
+    margin-top: 7px;
+    background-color: $secondary-background-color;
+  }
+
+  .skeleton-logo,
+  .skeleton-price,
+  .skeleton-info-wrapper .name,
+  .skeleton-info-wrapper .info,
+  .skeleton-quantity,
+  .skeleton-value ,
+  .skeleton-target-percentage,
+  .skeleton-target-deviation {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton-logo:before,
+  .skeleton-price:before,
+  .skeleton-info-wrapper .name:before,
+  .skeleton-info-wrapper .info:before,
+  .skeleton-quantity:before,
+  .skeleton-value:before,
+  .skeleton-target-percentage:before,
+  .skeleton-target-deviation:before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, #363c46, transparent);
+    transform: translateX(-100%);
+    animation: loading 1s infinite;
+  }
+}

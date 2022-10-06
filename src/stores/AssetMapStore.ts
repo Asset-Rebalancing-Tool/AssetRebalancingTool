@@ -20,6 +20,8 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
   )
   const assetList = reactive(new Map<string, AssetList>())
 
+  const listLoadingFlag: Ref<boolean> = ref(true)
+
   const totalAssetListValue: Ref<number> = ref(0)
   const totalAssetListPercentage: Ref<number> = ref(0)
   const totalAssetListTargetPercentage: Ref<number> = ref(0)
@@ -233,6 +235,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
   return {
     assetMap,
     assetList,
+    listLoadingFlag,
 
     totalAssetListValue,
     totalAssetListPercentage,
