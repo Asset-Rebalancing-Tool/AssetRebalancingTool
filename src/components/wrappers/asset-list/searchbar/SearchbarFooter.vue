@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import {
   getAuthorizedInstance,
@@ -30,13 +30,15 @@ import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
-import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
+import { addPrivateHolding, addHoldingGroup } from '@/composables/UseAssetMap'
 
-const store = useAssetStore()
+const store = useAssetMapStore()
 
+/**
+ * Add a new empty private holding to the asset map and list
+ */
 async function newPrivateHoldingAction() {
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
@@ -57,17 +59,14 @@ async function newPrivateHoldingAction() {
         '/holding_api/asset_holding/private',
         request
       )
-      .then((result) => {
-        store.listState.assetListEntries.push({
-          uuid: result.data.uuid,
-          entryType: EntryTypeEnum.PRIVATE_HOLDING,
-          privateHolding: result.data,
-        } as AssetListEntry)
-      })
+      .then((result) => addPrivateHolding(store, result.data))
       .catch((error) => handleErrorResponseStatus(error.response.status))
   })
 }
 
+/**
+ * Add a new empty holding group to the asset map and list
+ */
 async function newHoldingGroup() {
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
@@ -82,13 +81,7 @@ async function newHoldingGroup() {
   await getAuthorizedInstance().then((instance) => {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)
-      .then((result) => {
-        store.listState.assetListEntries.push({
-          uuid: result.data.uuid,
-          entryType: EntryTypeEnum.HOLDING_GROUP,
-          holdingGroup: result.data,
-        } as AssetListEntry)
-      })
+      .then((result) => addHoldingGroup(store, result.data))
       .catch((error) => handleErrorResponseStatus(error.response.status))
   })
 }

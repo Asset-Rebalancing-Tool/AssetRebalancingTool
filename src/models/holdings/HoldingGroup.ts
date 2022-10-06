@@ -1,6 +1,7 @@
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { BaseEntity } from '@/models/holdings/BaseEntity'
+import type { EntryTypeEnum } from "@/models/enums/EntryTypeEnum";
 
 export interface HoldingGroup extends BaseEntity {
   groupName: string
@@ -8,4 +9,5 @@ export interface HoldingGroup extends BaseEntity {
   privateHoldings: PrivateHolding[]
   targetPercentage: number
   targetPercentagesAddUp: boolean
+  entryType: EntryTypeEnum
 }

@@ -8,12 +8,17 @@
     <TableFilters />
 
     <div class="holding-container">
-      <ListEntry
-        v-for="(entry, index) in listEntries"
-        :key="entry.uuid"
-        :index="index"
-        :list-entry="entry"
-      />
+
+      <div
+          v-if="!isLoading"
+          v-for="[uuid, entry] in assetList"
+          :key="uuid"
+      >
+        <PublicHoldingN
+            v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+            :uuid="uuid"
+        />
+      </div>
     </div>
 
     <ListFooter />
@@ -24,23 +29,33 @@
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/asset-list/searchbar/SearchbarContent.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import ListEntry from '@/components/wrappers/asset-list/list-entries/ListEntry.vue'
-import { computed, onMounted } from 'vue'
-import { generateListEntries } from '@/composables/UseListEntries'
-import { useAssetStore } from '@/stores/AssetStore'
+import { onMounted, ref } from 'vue'
+import type { Ref } from 'vue'
+import { generateAssetMap } from '@/composables/UseAssetMap'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/ListFooter.vue'
+import PublicHoldingN from "@/components/wrappers/asset-list/list-entries/PublicHoldingN.vue";
+import { EntryTypeEnum } from "@/models/enums/EntryTypeEnum";
+import type { AssetMapEntry } from "@/models/enums/AssetMapEntry"
+import type { AssetList } from "@/models/holdings/AssetList";
 
-const store = useAssetStore()
+const store = useAssetMapStore()
+let assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>)
+let isLoading: Ref<boolean> = ref(true)
 
 onMounted(async () => {
-  // Fetch and merge all groups, private and public holdings
-  store.listState.assetListEntries = await generateListEntries()
-  // Update the total list values
-  store.updateTotalValue()
-  store.updateTotalTargetPercentage()
+  await generateAssetMap()
+  assetList.value = store.assetList
+  isLoading.value = false
 })
 
-const listEntries = computed(() => store.listState.assetListEntries)
+/**
+ * Add a public or private list entry to the selected holding group
+ */
+function addAssetMapEntry(uuid: string, entry: AssetMapEntry): void {
+  store.addAssetMapEntry(uuid, entry)
+}
+
 </script>
 
 <style lang="scss">

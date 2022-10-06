@@ -2,42 +2,42 @@
   <div class="table-filter">
     <span class="column info">
       <span @click="sort(
-          SortPropertyEnum.ENTRY_NAME,
+          SortColumn.ENTRY_NAME,
           direction()
       )"
     >Asset Bezeichnung <IconFilterArrow /></span>
     </span>
     <span class="column">
       <span @click="sort(
-          SortPropertyEnum.PRICE,
+          SortColumn.PRICE,
           direction()
       )"
     >Kurswert (YTD)<IconFilterArrow /></span>
     </span>
     <span class="column">
       <span @click="sort(
-          SortPropertyEnum.OWNED_QUANTITY,
+          SortColumn.OWNED_QUANTITY,
           direction()
       )"
     >gehaltene Anteile<IconFilterArrow /></span>
     </span>
     <span class="column">
       <span @click="sort(
-          SortPropertyEnum.CURRENT_VALUE,
+          SortColumn.CURRENT_VALUE,
           direction()
       )"
     >aktueller Ist-Wert<IconFilterArrow /></span>
     </span>
     <span class="column">
       <span @click="sort(
-          SortPropertyEnum.TARGET_PERCENTAGE,
+          SortColumn.TARGET_PERCENTAGE,
           direction()
       )"
     >Soll-Wert<IconFilterArrow /></span>
     </span>
     <span class="column">
       <span @click="sort(
-          SortPropertyEnum.DEVIATION,
+          SortColumn.DEVIATION,
           direction()
       )"
     >Abweichung<IconFilterArrow /></span>
@@ -47,17 +47,17 @@
 
 <script lang="ts" setup>
 import IconFilterArrow from '@/assets/icons/IconFilterArrow.vue'
-import  { SortDirectionEnum, SortPropertyEnum } from "@/models/enums/SortPropertyEnum";
-import { useAssetStore } from "@/stores/AssetStore";
+import  { SortColumn, SortDirection } from "@/models/enums/SortEnum";
+import { useAssetMapStore } from '@/stores/AssetMapStore'
 
-const store = useAssetStore()
+const store = useAssetMapStore()
 
 function direction() {
-  let testDirection = SortDirectionEnum.ASC
-  return (testDirection === SortDirectionEnum.ASC) ? SortDirectionEnum.DESC : SortDirectionEnum.ASC
+  let testDirection = SortDirection.ASC
+  return (testDirection === SortDirection.ASC) ? SortDirection.DESC : SortDirection.ASC
 }
 
-/*function sort(property: SortPropertyEnum, direction: SortDirectionEnum) {
+/*function sort(property: SortColumn, direction: SortDirection) {
   store.sortListEntries(property, direction)
 }*/
 </script>

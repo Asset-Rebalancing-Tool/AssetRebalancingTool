@@ -8,14 +8,14 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useSearchbarStore } from '@/stores/SearchbarStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 
-const store = useAssetStore()
+const store = useSearchbarStore()
 
-const activeModalUnderlay = computed(
-  () => store.searchbarState.activeModalUnderlay
-)
+const activeModalUnderlay = computed(() => {
+  return store.searchbarState.activeModalUnderlay
+})
 </script>
 
 <style lang="scss">

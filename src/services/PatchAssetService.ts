@@ -1,12 +1,11 @@
-import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import {
-  getAuthorizedInstance,
-  handleErrorResponseStatus,
-} from '@/services/TokenService'
-import type { AxiosResponse } from 'axios'
-import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import { useAssetStore } from '@/stores/AssetStore'
+import type {PublicHoldingRequest} from '@/requests/PublicHoldingRequest'
+import type {PrivateHoldingRequest} from '@/requests/PrivateHoldingRequest'
+import {getAuthorizedInstance, handleErrorResponseStatus,} from '@/services/TokenService'
+import type {AxiosResponse} from 'axios'
+import type {HoldingGroupRequest} from '@/requests/HoldingGroupRequest'
+import {replaceAssetMapEntry} from '@/composables/UseAssetMap'
+import type {AssetMapEntry} from "@/models/enums/AssetMapEntry";
+import {EntryTypeEnum} from "@/models/enums/EntryTypeEnum";
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -41,7 +40,9 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            useAssetStore().replaceListEntry(response.data)
+            const patchedEntry = response.data as AssetMapEntry
+            patchedEntry.entryType = EntryTypeEnum.PUBLIC_HOLDING
+            replaceAssetMapEntry(patchedEntry)
           })
           .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
       }, 500)
@@ -69,7 +70,9 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            useAssetStore().replaceListEntry(response.data)
+            const patchedEntry = response.data as AssetMapEntry
+            patchedEntry.entryType = EntryTypeEnum.PRIVATE_HOLDING
+            replaceAssetMapEntry(patchedEntry)
           })
           .catch((error) => handleErrorResponseStatus(error.response.status))
       }, 500)
@@ -97,7 +100,7 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            useAssetStore().replaceListEntry(response.data)
+
           })
           .catch((error) => handleErrorResponseStatus(error.response.status))
       }, 500)

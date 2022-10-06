@@ -25,10 +25,13 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import type { Ref } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useSearchbarStore } from '@/stores/SearchbarStore'
 import IconCopy from '@/assets/icons/IconCopy.vue'
 
-const store = useAssetStore()
+
+const searchbarStore = useSearchbarStore()
+const assetMapStore = useAssetMapStore()
 
 const props = defineProps({
   assetName: {
@@ -50,7 +53,7 @@ const props = defineProps({
 })
 
 const editGroupEntries: Ref<boolean> = computed(
-  () => store.selectionState.editGroupEntries
+  () => assetMapStore.editGroupEntries
 )
 
 // Copy the isin of an asset into the clipboard
@@ -69,7 +72,7 @@ const copyISIN = (event: Event) => {
 
 // Highlight the parts of the asset name that matches the user input
 const assetNameWithWordMatches = computed((): string => {
-  const input: string = store.searchbarState.searchString.toLowerCase()
+  const input: string = searchbarStore.searchbarState.searchString.toLowerCase()
   const assetName: string = props.assetName.toLowerCase()
   if (assetName.includes(input)) {
     const indexStart: number = assetName.indexOf(input)

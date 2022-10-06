@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useSearchbarStore } from '@/stores/SearchbarStore'
 import { showModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { Ref } from 'vue'
@@ -29,7 +29,7 @@ import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 import { handleErrorResponseStatus } from '@/services/TokenService'
 
-const store = useAssetStore()
+const store = useSearchbarStore()
 
 // reactive variables needed in order fetch assets properly
 const abortController: Ref<AbortController | null> = ref(new AbortController())

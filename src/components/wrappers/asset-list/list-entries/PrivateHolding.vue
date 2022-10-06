@@ -96,7 +96,7 @@ import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetStore } from '@/stores/SearchbarStore'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/

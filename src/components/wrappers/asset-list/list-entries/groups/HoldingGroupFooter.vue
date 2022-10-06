@@ -65,7 +65,7 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetStore } from '@/stores/SearchbarStore'
 import { ref, computed, watch } from 'vue'
 import type { Ref, PropType } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
@@ -201,7 +201,8 @@ const totalGroupValue = computed(() => {
 const totalGroupPercentage = computed(() => {
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      store.listState.totalAssetListPercentage
+        // TODO: this is wrong, should be total group percentage
+        store.listState.totalAssetListPercentage
     ) + ' %'
   )
 })

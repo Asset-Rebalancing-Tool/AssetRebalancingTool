@@ -39,9 +39,9 @@ import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicH
 import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
 import { ref } from 'vue'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import type { AssetListEntry } from '@/models/AssetListEntry'
 import type { Ref, PropType } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetStore } from '@/stores/SearchbarStore'
 import GroupEntry from "@/components/wrappers/asset-list/list-entries/groups/GroupEntry.vue";
 import PatchAssetService from "@/services/PatchAssetService";
 import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";

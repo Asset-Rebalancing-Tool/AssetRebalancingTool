@@ -55,20 +55,11 @@ const data = computed(() => ({
       borderWidth: parseFloat(props.borderWidth),
       fill: true,
       borderColor: props.isPositive
-        ? ChartColumnEnum.BORDER_COLOR_POSITIVE
-        : ChartColumnEnum.BORDER_COLOR_NEGATIVE,
-      backgroundColor: (ctx: any) => {
-        const canvas = ctx.chart.ctx
-        const gradient = canvas.createLinearGradient(0, 0, 0, 42)
-        if (props.isPositive) {
-          gradient.addColorStop(0, ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_60)
-          gradient.addColorStop(1, ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_0)
-        } else {
-          gradient.addColorStop(0, ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_60)
-          gradient.addColorStop(1, ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_0)
-        }
-        return gradient
-      },
+          ? ChartColumnEnum.BORDER_COLOR_POSITIVE
+          : ChartColumnEnum.BORDER_COLOR_NEGATIVE,
+      backgroundColor: (props.isPositive)
+          ? ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30
+          : ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_30
     },
   ],
 }))

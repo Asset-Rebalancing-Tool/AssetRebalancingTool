@@ -19,7 +19,7 @@
           :data-labels="getDataLabels(priceRecords)"
           :border-width="'0.8'"
           :is-positive="
-            isPositiveChart(props.holding.publicAsset.assetPriceRecords)
+            isPositiveChart(holding.publicAsset.assetPriceRecords)
           "
         />
       </template>
@@ -42,7 +42,7 @@
 
     <div class="current-value-wrapper">
       <p>{{ currentValue }}</p>
-      <p>{{ currentValuePercentage }}</p>
+      <p>{{ currentPercentage }}</p>
     </div>
 
     <BaseInput
@@ -60,16 +60,15 @@
       </template>
     </BaseInput>
 
-    <ThreeDigitValue :value-array="deviation" :unit="'%'" :arrow="'up'">
-      <template #arrow>
-        <IconAssetRowArrow />
-      </template>
+    <ThreeDigitValue :value-array="deviation" :unit="'%'">
+      <!--<template #arrow>
+        <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
+      </template>-->
     </ThreeDigitValue>
   </div>
 </template>
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { ComputedRef } from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -92,20 +91,25 @@ import {
   getDataLabels,
   isPositiveChart,
 } from '@/composables/UsePreviewChart'
-import { useAssetStore } from '@/stores/SearchbarStore'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
+import type { PublicHolding } from "@/models/holdings/PublicHolding";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
-const store = useAssetStore()
+const store = useAssetMapStore()
 const props = defineProps({
-  holding: {
-    type: Object as PropType<PublicHolding>,
+  uuid: {
+    type: String,
     required: true,
   },
+})
+
+let holding: ComputedRef<PublicHolding> = computed(() => {
+  return store.getAssetMapEntryByUuid(props.uuid) as PublicHolding
 })
 
 /**-***************************************************-**/
@@ -113,8 +117,8 @@ const props = defineProps({
 /**-***************************************************-**/
 
 // The input model values itself
-const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
-const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+const ownedQuantity:  Ref<number> = ref(holding.value.ownedQuantity)
+const targetPercentage: Ref<number> = ref(holding.value.targetPercentage)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/
@@ -148,18 +152,14 @@ function executeAnimation(field: Ref<boolean>) {
 
 // Watch the owned quantity prop in order to update the template after patch request response
 watch(
-  () => props.holding.ownedQuantity,
-  (quantity: number) => {
-    ownedQuantity.value = quantity
-  }
+  () => holding.value.ownedQuantity,
+  (quantity: number) => ownedQuantity.value = quantity
 )
 
 // Watch the target percentage prop in order to update the template after patch request response
 watch(
-  () => props.holding.targetPercentage,
-  (percentage: number) => {
-    targetPercentage.value = percentage
-  }
+  () => holding.value.targetPercentage,
+  (percentage: number) => targetPercentage.value = percentage
 )
 
 /**-***************************************************-**/
@@ -168,6 +168,7 @@ watch(
 
 // Patch the public holdings owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
+  ownedQuantity.value = +inputValue
   const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
@@ -177,6 +178,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
 
 // Patch the public holdings target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
+  targetPercentage.value = +inputValue
   const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPublicHolding(request, holdingUuid)
@@ -206,12 +208,12 @@ function patchTargetPercentageRequest(percentage: string) {
 
 // Get the mapped asset types of this holding
 const assetType = computed((): string => {
-  return mapAssetType(props.holding.publicAsset.assetType)
+  return mapAssetType(holding.value.publicAsset.assetType)
 })
 
 // Get the mapped currencies of the newest price record
 const currency = computed((): string => {
-  return mapCurrency(props.holding.publicAsset.availableCurrencies[0])
+  return mapCurrency(holding.value.publicAsset.availableCurrencies[0])
 })
 
 /**-***************************************************-**/
@@ -220,7 +222,7 @@ const currency = computed((): string => {
 
 // Get the array that contains all price records
 const priceRecords = computed((): PriceRecord[] => {
-  return props.holding.publicAsset.assetPriceRecords
+  return holding.value.publicAsset.assetPriceRecords
 })
 
 // Get an array that contains the exploded strings values of the newest price record
@@ -231,7 +233,7 @@ const formattedPriceDigits = computed((): string[] => {
 // Get the current value formatted by german pattern
 const currentValue = computed((): string => {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
-  const currentValue: number = props.holding.ownedQuantity * priceRecord
+  const currentValue: number = holding.value.ownedQuantity * priceRecord
 
   // Format the current value after german pattern
   return new Intl.NumberFormat('de-DE', {
@@ -240,21 +242,50 @@ const currentValue = computed((): string => {
   }).format(currentValue)
 })
 
-// Get the current value percentage formatted by german pattern
-const currentValuePercentage = computed((): string => {
+// Get the current value percentage
+function calcCurrentPercentage(): number {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
-  const currentValue: number = props.holding.ownedQuantity * priceRecord
-  const currentPercentage =
-    (currentValue / store.listState.totalAssetListValue) * 100
+  const currentValue: number = holding.value.ownedQuantity * priceRecord
+  return (currentValue / store.totalAssetListValue) * 100
+}
 
+// Get the current value percentage formatted by german pattern
+const currentPercentage = computed((): string => {
+  const currentPercentage: number = calcCurrentPercentage()
   // Format the current percentage value after german pattern
-  return new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
+  return (currentPercentage)
+      ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
+      : '0,00 %'
+})
+
+// Get the current deviation
+function calcDeviation(): number {
+  const currentPercentage: number = calcCurrentPercentage()
+  return Math.abs(currentPercentage - holding.value.targetPercentage)
+}
+
+// Get the current deviation formatted by german pattern
+const deviation = computed((): string[] => {
+  const deviation: number = calcDeviation()
+  return (deviation)
+    ? formatValueArray(deviation)
+    : ['00', '00', '']
 })
 
 // Get the deviation of the desired target percentage
-const deviation = computed(() => {
-  const deviation: number =
-    +currentValuePercentage.value - props.holding.targetPercentage
-  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
+const deviationArrowDirection = computed(() => {
+  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
+  const currentValue: number = holding.value.ownedQuantity * priceRecord
+  const currentPercentage: number = (currentValue / store.totalAssetListValue) * 100
+  const targetPercentage: number = holding.value.targetPercentage
+  return (currentPercentage > targetPercentage)
+})
+
+const deviationExists = computed(() => {
+  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
+  const currentValue: number = holding.value.ownedQuantity * priceRecord
+  const currentPercentage: number = (currentValue / store.totalAssetListValue) * 100
+  const targetPercentage: number = holding.value.targetPercentage
+  return (currentPercentage > targetPercentage)
 })
 </script>

@@ -2,7 +2,7 @@ import type { AxiosInstance, AxiosResponse } from 'axios'
 import axios from 'axios'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import router from '@/router'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useSearchbarStore } from '@/stores/SearchbarStore'
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -106,7 +106,7 @@ function redirectToLogin(): void {
   lastFetched = new Date('0000-00-00')
   localStorage.removeItem('token')
   router.push('/sign-in')
-  useAssetStore().showSidebar = false
+  useSearchbarStore().showSidebar = false
 }
 
 /**
@@ -120,7 +120,7 @@ function redirectToDashboard(token: string): void {
   lastFetched = new Date()
   localStorage.setItem('token', token)
   router.push('/asset-list')
-  useAssetStore().showSidebar = true
+  useSearchbarStore().showSidebar = true
 }
 
 /**-******************************************************************-**/

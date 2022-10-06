@@ -22,7 +22,7 @@ import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { GroupEntry } from '@/models/holdings/GroupEntry'
 import type { PropType } from 'vue'
 import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
-import { useAssetStore } from '@/stores/AssetStore'
+import { useAssetStore } from '@/stores/SearchbarStore'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/

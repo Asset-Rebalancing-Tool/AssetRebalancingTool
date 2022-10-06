@@ -1,6 +1,6 @@
 import AssetService from '@/services/FetchAssetService'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import type { AssetListEntry } from '@/models/AssetListEntry'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'

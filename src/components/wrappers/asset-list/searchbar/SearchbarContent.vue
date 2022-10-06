@@ -29,7 +29,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useAssetStore } from '@/stores/AssetStore'
+import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
 import SearchbarAsset from '@/components/wrappers/asset-list/searchbar/PublicAsset.vue'
 import SearchbarSkeleton from '@/components/wrappers/asset-list/searchbar/SearchbarSkeleton.vue'
 import SearchbarFooter from '@/components/wrappers/asset-list/searchbar/SearchbarFooter.vue'
@@ -41,44 +42,39 @@ import {
   handleErrorResponseStatus,
 } from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import { addPublicHolding } from '@/composables/UseAssetMap'
 
-const store = useAssetStore()
+// Initialize stores
+const searchbarStore = useSearchbarStore()
+const assetMapStore = useAssetMapStore()
 
 const showContentWrapper = computed(
-  () => store.searchbarState.activeModalUnderlay
+  () => searchbarStore.searchbarState.activeModalUnderlay
 )
 const searchbarResults = computed(
-  () => store.searchbarState.searchbarResultCount
+  () => searchbarStore.searchbarState.searchbarResultCount
 )
-const searchbarAssets = computed(() => store.searchbarState.searchbarAssets)
+const searchbarAssets = computed(() => searchbarStore.searchbarState.searchbarAssets)
 const showSkeletonAnimation = computed(
-  () => store.searchbarState.searchbarLoadingFlag
+  () => searchbarStore.searchbarState.searchbarLoadingFlag
 )
 
 const showPriceLabel = computed(() => {
   return (
-    store.searchbarState.searchbarLoadingFlag ||
-    store.searchbarState.searchbarAssets.length > 0
+    searchbarStore.searchbarState.searchbarLoadingFlag ||
+    searchbarStore.searchbarState.searchbarAssets.length > 0
   )
 })
 
 async function newPublicHoldingAction(uuid: string) {
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
-  const asset: PublicAsset = store.getSearchbarAsset(uuid)
+  const asset: PublicAsset = searchbarStore.getSearchbarAsset(uuid)
   const request = { publicAssetUuid: asset.uuid } as PublicHoldingRequest
   await getAuthorizedInstance().then((instance) => {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
-      .then((result) => {
-        store.listState.assetListEntries.push({
-          uuid: result.data.uuid,
-          entryType: EntryTypeEnum.PUBLIC_HOLDING,
-          publicHolding: result.data,
-        } as AssetListEntry)
-      })
+      .then((result) => addPublicHolding(assetMapStore, result.data))
       .catch((error) => handleErrorResponseStatus(error.response.status))
   })
 }

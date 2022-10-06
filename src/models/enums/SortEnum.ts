@@ -1,4 +1,4 @@
-export enum SortPropertyEnum {
+export enum SortColumn {
     ENTRY_NAME = 'entryName',
     PRICE = 'price',
     OWNED_QUANTITY = 'ownedQuantity',
@@ -7,7 +7,7 @@ export enum SortPropertyEnum {
     DEVIATION = 'deviation',
 }
 
-export enum SortDirectionEnum {
+export enum SortDirection {
     ASC = 'asc',
     DESC = 'desc'
 }

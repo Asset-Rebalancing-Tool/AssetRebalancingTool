@@ -26,12 +26,39 @@
   }
 
   footer:not(.holding-container footer) {
-    @include holding-row-grid;
+    @include base-grid;
+    /* asset information, price, shares, value, target, deviation */
+    grid-template-columns: auto  $current-value-column $target-percentage-column ($deviation-column + 52px);
+    grid-template-rows: $inner-holding-row-height;
+    grid-column-gap: 18px;
     height: $outer-holding-row-height;
     background-color: $tertiary-background-color;
-    padding-left: 33px;
-    padding-right: 40px;
+    padding: $holding-row-padding 40px $holding-row-padding 33px;
     box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
+
+    .total-value-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 4px solid $main-color;
+      border-radius: $primary-border-radius;
+
+      header {
+        @include full-reset;
+        position: absolute;
+        left: -4px;
+        top: -24px;
+        width: calc(100% + 8px);
+        height: 28px;
+        background-color: $main-color;
+        border-radius: $primary-border-radius $primary-border-radius 0 0;
+        text-align: center;
+        line-height: 28px;
+        font-size: 15px;
+        font-weight: 600;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+      }
+    }
 
     h4, .total-value, .total-percentage {
       font-weight: $bold-font-weight;
