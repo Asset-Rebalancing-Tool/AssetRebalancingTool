@@ -155,14 +155,26 @@ export function handleErrorResponseStatus(errorStatus: number): void {
       )
       break
     case 500:
-      console.log('500 error thrown')
+      showErrorMessage(
+          FlashMessageStore,
+          'Es ist ein 500 status Fehler aufgetreten.'
+      )
       break
   }
 }
 
+// Set the warning flash message store variables
 function showWarningMessage(store: any, text: string) {
   store.flashMessage.flashMessageIcon = FlashMessageIconEnum.WARNING
   store.flashMessage.flashMessageColor = FlashMessageColorEnum.WARNING
+  store.flashMessage.flashMessageText = text
+  store.flashMessage.showFlashMessage = true
+}
+
+// Set the error flash message store variables
+function showErrorMessage(store: any, text: string) {
+  store.flashMessage.flashMessageIcon = FlashMessageIconEnum.ERROR
+  store.flashMessage.flashMessageColor = FlashMessageColorEnum.ERROR
   store.flashMessage.flashMessageText = text
   store.flashMessage.showFlashMessage = true
 }
