@@ -30,7 +30,10 @@
       @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :execute-animation="showOwnedQuantityAnim">
+        <InputAnimation
+            :execute-animation="showOwnedQuantityAnim"
+            :animation-wrapper="AnimationWrapperEnum.OWNED_QUANTITY"
+        >
           <template #unit>
             <span v-show="!showOwnedQuantityAnim">Stk.</span>
           </template>
@@ -50,7 +53,10 @@
       @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :execute-animation="showTargetPercentageAnim">
+        <InputAnimation
+            :execute-animation="showTargetPercentageAnim"
+            :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
+        >
           <template #unit>
             <span v-show="!showTargetPercentageAnim">%</span>
           </template>
@@ -72,7 +78,7 @@ import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
-import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
+import { AnimationWrapperEnum } from "@/models/enums/AnimationWrapperEnum";
 import { computed, ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { mapAssetType } from '@/composables/UseAssetType'

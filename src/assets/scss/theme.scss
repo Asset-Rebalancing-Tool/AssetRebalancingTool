@@ -177,9 +177,41 @@ label {
     color: $primary-text-color;
 }
 
-.input-wrapper .lottie-animation-container {
-    width: 15px;
-    height: 15px;
+/*******************************************************/
+/* ------------ Input Animation Wrapper -------------- */
+/*******************************************************/
+
+
+.input-animation-base-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.input-animation-base-wrapper .lottie-animation-container {
+    margin-left: 5px;
+}
+
+.owned-quantity-animation  {
+    width: 40px;
+}
+
+.target-percentage-animation {
+    width: 32px;
+}
+
+.currency-animation {
+    width: 130px;
+}
+
+.unit-type-animation {
+    width: 207px;
+}
+
+.animation {
+    width: 23px;
+    height: 23px;
 }
 
 /*******************************************************/

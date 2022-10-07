@@ -13,7 +13,10 @@
       @input="patchPricePerUnit($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :execute-animation="showPricePerUnitAnim">
+        <InputAnimation
+            :execute-animation="showPricePerUnitAnim"
+            :animation-wrapper="AnimationWrapperEnum.CURRENCY"
+        >
           <template #unit>
             <BaseSelect
               v-show="!showPricePerUnitAnim"
@@ -36,9 +39,13 @@
       @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :execute-animation="showOwnedQuantityAnim">
+        <InputAnimation
+            :execute-animation="showOwnedQuantityAnim"
+            :animation-wrapper="AnimationWrapperEnum.UNIT_TYPE"
+        >
           <template #unit>
             <BaseSelect
+              v-show="!showOwnedQuantityAnim"
               class="quantity"
               :options="unitTypeOptions"
               :default-selection="defaultUnitType"
@@ -63,7 +70,10 @@
       @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>
-        <InputAnimation :execute-animation="showTargetPercentageAnim">
+        <InputAnimation
+            :execute-animation="showTargetPercentageAnim"
+            :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
+        >
           <template #unit>
             <span v-show="!showTargetPercentageAnim">%</span>
           </template>
@@ -96,6 +106,7 @@ import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import {formatValueArray} from "@/composables/UsePriceRecords";
+import { AnimationWrapperEnum } from "@/models/enums/AnimationWrapperEnum";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
