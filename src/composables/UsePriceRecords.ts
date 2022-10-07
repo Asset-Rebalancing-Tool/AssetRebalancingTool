@@ -87,9 +87,14 @@ export function formatValueArray(assetValue: number): string[] {
   const valueArray: string[] = valueString.split('.')
 
   // The single digits
-  const firstDigit: string = valueArray[0] ? valueArray[0] : '0'
+  let firstDigit: string = valueArray[0] ? valueArray[0] : '0'
   let firstDecimal: string = valueArray[1] ? valueArray[1] : '00'
   let secondDecimal = ''
+
+  // Add a zero in front of the value array if the first digit is only one char long
+  if (firstDigit.length === 1) {
+    firstDigit = '0' + firstDigit
+  }
 
   // If the first decimal is only one character long, add a zero to its end
   if (firstDecimal.length === 1) {
