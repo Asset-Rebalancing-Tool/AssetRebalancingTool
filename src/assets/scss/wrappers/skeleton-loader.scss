@@ -1,6 +1,6 @@
 .searchbar-asset-skeleton {
   @include searchbar-asset-grid;
-  grid-template-columns: $inner-holding-row-height auto $current-price-column;;
+  grid-template-columns: $inner-holding-row-height auto $current-price-column;
   height: $inner-holding-row-height + 12px;
   padding: 6px;
 
