@@ -8,25 +8,31 @@
     <TableFilters />
 
     <div class="holding-container">
-      <div v-if="!showSkeletonAnimation" v-for="[uuid, entry] in assetList" :key="uuid">
+      <div
+        v-if="!showSkeletonAnimation"
+        v-for="[uuid, entry] in assetList"
+        :key="uuid"
+      >
         <PublicHolding
           v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
           :uuid="uuid"
         />
         <PrivateHolding
-            v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
-            :uuid="uuid"
+          v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+          :uuid="uuid"
         />
       </div>
 
       <ListEntrySkeleton
-          v-show="showSkeletonAnimation"
-          v-for="index in 5"
-          :key="index"
+        v-show="showSkeletonAnimation"
+        v-for="index in 5"
+        :key="index"
       />
     </div>
 
     <ListFooter />
+
+    <FlashMessage v-if="showFlashMessage" />
   </section>
 </template>
 
@@ -35,7 +41,7 @@ import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/asset-list/searchbar/SearchbarContent.vue'
 import ListEntrySkeleton from '@/components/wrappers/asset-list/list-entries/ListEntrySkeleton.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import {computed, onMounted, ref} from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import { generateAssetMap } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
@@ -44,9 +50,13 @@ import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicH
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
 import type { AssetList } from '@/models/holdings/AssetList'
-import PrivateHolding from "@/components/wrappers/asset-list/list-entries/PrivateHolding.vue";
+import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
+import FlashMessage from '@/components/wrappers/FlashMessage.vue'
+import { useFlashMessageStore } from '@/stores/FlashMessageStore'
 
 const store = useAssetMapStore()
+const FlashMessageStore = useFlashMessageStore()
+
 const assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>())
 
 onMounted(async () => {
@@ -55,9 +65,11 @@ onMounted(async () => {
 })
 
 // Bool that indicates if the list is loading
-const showSkeletonAnimation = computed(
-    () => store.listLoadingFlag
-)
+const showSkeletonAnimation = computed(() => store.listLoadingFlag)
+
+const showFlashMessage = computed(() => {
+  return FlashMessageStore.flashMessage.showFlashMessage
+})
 
 /**
  * Add a public or private list entry to the selected holding group
@@ -65,8 +77,6 @@ const showSkeletonAnimation = computed(
 function addAssetMapEntry(uuid: string, entry: AssetMapEntry): void {
   store.addAssetMapEntry(uuid, entry)
 }
-
-
 </script>
 
 <style lang="scss">

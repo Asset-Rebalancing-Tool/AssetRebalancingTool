@@ -1,9 +1,7 @@
 <template>
+  <div class="list-entry-skeleton"></div>
 
-  <div class="list-entry-skeleton">
-  </div>
-
-<!--  <div class="list-entry-skeleton">
+  <!--  <div class="list-entry-skeleton">
     <div class="skeleton-logo"></div>
     <div class="skeleton-info-wrapper">
       <div class="name"></div>
@@ -26,7 +24,7 @@
   width: 100%;
   height: $inner-holding-row-height + 12px;
   padding: 6px;
-  background-color: #292E33;
+  background-color: #292e33;
   border-radius: $primary-border-radius;
   margin-bottom: 15px;
 }
@@ -47,5 +45,4 @@
     transform: translateX(100%);
   }
 }
-
 </style>

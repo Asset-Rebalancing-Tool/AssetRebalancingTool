@@ -3,6 +3,9 @@ import axios from 'axios'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import router from '@/router'
 import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { useFlashMessageStore } from '@/stores/FlashMessageStore'
+import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
+import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -138,16 +141,28 @@ function redirectToDashboard(token: string): void {
  * @return void
  */
 export function handleErrorResponseStatus(errorStatus: number): void {
+  const FlashMessageStore = useFlashMessageStore()
+
   switch (errorStatus) {
     case 401:
       redirectToLogin()
       console.log('401 error thrown')
       break
     case 409:
-      console.log('409 conflict with added list entry')
+      showWarningMessage(
+        FlashMessageStore,
+        'Es existiert bereits ein Asset mit dieser Bezeichnung.'
+      )
       break
     case 500:
       console.log('500 error thrown')
       break
   }
+}
+
+function showWarningMessage(store: any, text: string) {
+  store.flashMessage.flashMessageIcon = FlashMessageIconEnum.WARNING
+  store.flashMessage.flashMessageColor = FlashMessageColorEnum.WARNING
+  store.flashMessage.flashMessageText = text
+  store.flashMessage.showFlashMessage = true
 }

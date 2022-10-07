@@ -66,7 +66,7 @@ const totalDeviation = computed(() => {
   )
 })
 
-// Bool that indicates if the percentage check icon should be rendered
+// Bool that indicates if the percentage check icon.svg should be rendered
 const showPercentageCheckIcon = computed(() => {
   return store.totalAssetListTargetPercentage === 100
 })

@@ -14,8 +14,8 @@
     >
       <template #unit>
         <InputAnimation
-            :execute-animation="showPricePerUnitAnim"
-            :animation-wrapper="AnimationWrapperEnum.CURRENCY"
+          :execute-animation="showPricePerUnitAnim"
+          :animation-wrapper="AnimationWrapperEnum.CURRENCY"
         >
           <template #unit>
             <BaseSelect
@@ -40,8 +40,8 @@
     >
       <template #unit>
         <InputAnimation
-            :execute-animation="showOwnedQuantityAnim"
-            :animation-wrapper="AnimationWrapperEnum.UNIT_TYPE"
+          :execute-animation="showOwnedQuantityAnim"
+          :animation-wrapper="AnimationWrapperEnum.UNIT_TYPE"
         >
           <template #unit>
             <BaseSelect
@@ -71,8 +71,8 @@
     >
       <template #unit>
         <InputAnimation
-            :execute-animation="showTargetPercentageAnim"
-            :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
+          :execute-animation="showTargetPercentageAnim"
+          :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
         >
           <template #unit>
             <span v-show="!showTargetPercentageAnim">%</span>
@@ -105,8 +105,8 @@ import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
-import {formatValueArray} from "@/composables/UsePriceRecords";
-import { AnimationWrapperEnum } from "@/models/enums/AnimationWrapperEnum";
+import { formatValueArray } from '@/composables/UsePriceRecords'
+import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -289,7 +289,8 @@ const currentValue = computed((): string => {
 
 // Get the current value percentage
 function calcCurrentPercentage(): number {
-  const currentValue: number = holding.value.ownedQuantity * holding.value.pricePerUnit
+  const currentValue: number =
+    holding.value.ownedQuantity * holding.value.pricePerUnit
   return (currentValue / store.totalAssetListValue) * 100
 }
 
@@ -298,8 +299,8 @@ const currentPercentage = computed((): string => {
   const currentPercentage: number = calcCurrentPercentage()
   // Format the current percentage value after german pattern
   return currentPercentage
-      ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
-      : '0,00 %'
+    ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
+    : '0,00 %'
 })
 
 // Get the current deviation

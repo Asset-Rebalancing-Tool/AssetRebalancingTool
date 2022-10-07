@@ -38,7 +38,7 @@ const timer: Ref<ReturnType<typeof setTimeout> | null> = ref(null)
 const userInput: Ref<string> = ref('')
 const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
 
-// Clear the search string if the user click the remove icon and reset the store's asset state variables
+// Clear the search string if the user click the remove icon.svg and reset the store's asset state variables
 function removeUserInput() {
   if (store.searchbarState.searchString.length > 0) {
     resetFetch()

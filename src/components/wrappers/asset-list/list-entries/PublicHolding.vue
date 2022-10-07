@@ -31,8 +31,8 @@
     >
       <template #unit>
         <InputAnimation
-            :execute-animation="showOwnedQuantityAnim"
-            :animation-wrapper="AnimationWrapperEnum.OWNED_QUANTITY"
+          :execute-animation="showOwnedQuantityAnim"
+          :animation-wrapper="AnimationWrapperEnum.OWNED_QUANTITY"
         >
           <template #unit>
             <span v-show="!showOwnedQuantityAnim">Stk.</span>
@@ -54,8 +54,8 @@
     >
       <template #unit>
         <InputAnimation
-            :execute-animation="showTargetPercentageAnim"
-            :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
+          :execute-animation="showTargetPercentageAnim"
+          :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
         >
           <template #unit>
             <span v-show="!showTargetPercentageAnim">%</span>
@@ -78,7 +78,7 @@ import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
-import { AnimationWrapperEnum } from "@/models/enums/AnimationWrapperEnum";
+import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import { computed, ref, watch } from 'vue'
 import type { Ref } from 'vue'
 import { mapAssetType } from '@/composables/UseAssetType'
@@ -260,8 +260,6 @@ const deviation = computed((): string[] => {
 /**-***************************************************-**/
 /** -------- Old Deviation Computed Properties -------- **/
 /**-***************************************************-**/
-
-
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {

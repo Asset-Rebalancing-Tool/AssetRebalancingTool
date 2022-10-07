@@ -1,0 +1,98 @@
+.flash-message-container {
+  @include flex-center-xy;
+  position: absolute;
+  bottom: 100px;
+  right: 40px;
+  width: auto;
+  height: 60px;
+  padding: 0 16px;
+  background-color: $secondary-background-color;
+  border-top: 1px solid $tertiary-background-color;
+  border-right: 1px solid $tertiary-background-color;
+  border-bottom: 1px solid $tertiary-background-color;
+  border-radius: $primary-border-radius;
+  z-index: 20;
+  animation-name: FadeIn;
+  animation-duration: 800ms;
+  transition-timing-function: ease-in-out;
+
+  .icon-wrapper {
+    @include flex-center-xy;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    margin-right: 16px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      margin-top: -2px;
+    }
+  }
+
+  .close {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background-color: $primary-infill-color;
+    border-radius: 50%;
+    margin-left: 16px;
+    cursor: pointer;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@-moz-keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-o-keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-ms-keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
