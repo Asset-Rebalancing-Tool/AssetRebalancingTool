@@ -30,10 +30,10 @@
     /* asset information, price, shares, value, target, deviation */
     grid-template-columns: auto  $current-value-column $target-percentage-column ($deviation-column + 52px);
     grid-template-rows: $inner-holding-row-height;
-    grid-column-gap: 18px;
+    grid-column-gap: 45px;
     height: $outer-holding-row-height;
     background-color: $tertiary-background-color;
-    padding: $holding-row-padding 40px $holding-row-padding 33px;
+    padding: $holding-row-padding 25px $holding-row-padding 33px;
     box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
 
     .total-value-wrapper {
