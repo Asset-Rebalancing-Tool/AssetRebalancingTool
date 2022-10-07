@@ -146,7 +146,10 @@ export function handleErrorResponseStatus(errorStatus: number): void {
   switch (errorStatus) {
     case 401:
       redirectToLogin()
-      console.log('401 error thrown')
+      showWarningMessage(
+          FlashMessageStore,
+          'Sie wurden abgemeldet.'
+      )
       break
     case 409:
       showWarningMessage(
