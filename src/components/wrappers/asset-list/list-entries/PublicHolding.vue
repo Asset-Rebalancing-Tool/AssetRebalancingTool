@@ -246,15 +246,16 @@ function calcDeviation(): number {
   return Math.abs(currentPercentage - holding.value.targetPercentage)
 }
 
-/**-***************************************************-**/
-/** -------- Old Deviation Computed Properties -------- **/
-/**-***************************************************-**/
-
 // Get the current deviation formatted by german pattern
 const deviation = computed((): string[] => {
   const deviation: number = calcDeviation()
   return deviation ? formatValueArray(deviation) : ['00', '00', '']
 })
+/**-***************************************************-**/
+/** -------- Old Deviation Computed Properties -------- **/
+/**-***************************************************-**/
+
+
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {

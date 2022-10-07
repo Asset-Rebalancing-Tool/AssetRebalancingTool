@@ -52,8 +52,8 @@
     </BaseInput>
 
     <div class="current-value-wrapper">
-      <p>4.658,13 €</p>
-      <p>32,25 %</p>
+      <p>{{ currentValue }}</p>
+      <p>{{ currentPercentage }}</p>
     </div>
 
     <BaseInput
@@ -71,16 +71,16 @@
       </template>
     </BaseInput>
 
-    <ThreeDigitValue :value-array="['00', '00', '0']" :unit="'%'" :arrow="'up'">
-      <template #arrow>
+    <ThreeDigitValue :value-array="deviation" :unit="'%'">
+      <!--<template #arrow>
         <IconAssetRowArrow />
-      </template>
+      </template>-->
     </ThreeDigitValue>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { Ref, PropType } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
@@ -88,26 +88,29 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
-import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
 import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
-import { useAssetStore } from '@/stores/SearchbarStore'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
+import {formatValueArray} from "@/composables/UsePriceRecords";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
-const store = useAssetStore()
+const store = useAssetMapStore()
 const props = defineProps({
-  holding: {
-    type: Object as PropType<PrivateHolding>,
+  uuid: {
+    type: String,
     required: true,
   },
+})
+
+const holding: ComputedRef<PrivateHolding> = computed(() => {
+  return store.getAssetMapEntryByUuid(props.uuid) as PrivateHolding
 })
 
 /**-***************************************************-**/
@@ -115,10 +118,10 @@ const props = defineProps({
 /**-***************************************************-**/
 
 // The input model values itself
-const pricePerUnit: Ref<number> = ref(props.holding.pricePerUnit)
-const ownedQuantity: Ref<number> = ref(props.holding.ownedQuantity)
-const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
-const unitType: Ref<UnitTypeEnum> = ref(props.holding.unitType)
+const pricePerUnit: Ref<number> = ref(holding.value.pricePerUnit)
+const ownedQuantity: Ref<number> = ref(holding.value.ownedQuantity)
+const targetPercentage: Ref<number> = ref(holding.value.targetPercentage)
+const unitType: Ref<UnitTypeEnum> = ref(holding.value.unitType)
 const currency: Ref<CurrencyEnum> = ref(CurrencyEnum.EUR)
 
 /**-***************************************************-**/
@@ -150,39 +153,12 @@ function executeAnimation(field: Ref<boolean>) {
 }
 
 /**-***************************************************-**/
-/** -------- Watch Props For Reactive Template -------- **/
-/**-***************************************************-**/
-
-// Watch the price per unit prop in order to update the template after patch request response
-watch(
-  () => props.holding.pricePerUnit,
-  (price: number) => {
-    pricePerUnit.value = price
-  }
-)
-
-// Watch the owned quantity prop in order to update the template after patch request response
-watch(
-  () => props.holding.ownedQuantity,
-  (quantity: number) => {
-    ownedQuantity.value = quantity
-  }
-)
-
-// Watch the target percentage prop in order to update the template after patch request response
-watch(
-  () => props.holding.targetPercentage,
-  (percentage: number) => {
-    targetPercentage.value = percentage
-  }
-)
-
-/**-***************************************************-**/
 /** -------------- Input Patch Methods ---------------- **/
 /**-***************************************************-**/
 
 // Patch the public holdings price per unit
 function patchPricePerUnit(inputValue: string, holdingUuid: string) {
+  pricePerUnit.value = +inputValue
   const request = patchPricePerUnitRequest(inputValue)
   if (!pricePerUnitError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
@@ -192,6 +168,7 @@ function patchPricePerUnit(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
+  ownedQuantity.value = +inputValue
   const request = patchOwnedQuantityRequest(inputValue)
   if (!quantityError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
@@ -201,6 +178,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
+  targetPercentage.value = +inputValue
   const request = patchTargetPercentageRequest(inputValue)
   if (!targetPercentageError.value) {
     PatchAssetService.patchPrivateHolding(request, holdingUuid)
@@ -210,12 +188,16 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings unit type
 function patchUnitType(inputValue: UnitTypeEnum, holdingUuid: string) {
+  console.log(inputValue)
+  console.log(holdingUuid)
   const request = patchUnitTypeRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
 
 // Patch the public currency
 function patchCurrency(inputValue: CurrencyEnum, holdingUuid: string) {
+  console.log(inputValue)
+  console.log(holdingUuid)
   const request = patchCurrencyRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
@@ -258,7 +240,7 @@ function patchCurrencyRequest(currency: CurrencyEnum) {
 
 // Get the mapped asset types of this holding
 const assetType = computed((): string => {
-  return mapAssetType(props.holding.assetType)
+  return mapAssetType(holding.value.assetType)
 })
 
 // Get the default mapped unit type
@@ -279,5 +261,45 @@ const currencyOptions = computed(() => {
     currencies.push(currency)
   }
   return currencies
+})
+
+/**-***************************************************-**/
+/** ---------- Computed Template Properties ----------- **/
+/**-***************************************************-**/
+
+// Get the current value formatted by german pattern
+const currentValue = computed((): string => {
+  // Format the current value after german pattern
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
+  }).format(holding.value.ownedQuantity * holding.value.pricePerUnit)
+})
+
+// Get the current value percentage
+function calcCurrentPercentage(): number {
+  const currentValue: number = holding.value.ownedQuantity * holding.value.pricePerUnit
+  return (currentValue / store.totalAssetListValue) * 100
+}
+
+// Get the current value percentage formatted by german pattern
+const currentPercentage = computed((): string => {
+  const currentPercentage: number = calcCurrentPercentage()
+  // Format the current percentage value after german pattern
+  return currentPercentage
+      ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
+      : '0,00 %'
+})
+
+// Get the current deviation
+function calcDeviation(): number {
+  const currentPercentage: number = calcCurrentPercentage()
+  return Math.abs(currentPercentage - holding.value.targetPercentage)
+}
+
+// Get the current deviation formatted by german pattern
+const deviation = computed((): string[] => {
+  const deviation: number = calcDeviation()
+  return deviation ? formatValueArray(deviation) : ['00', '00', '']
 })
 </script>

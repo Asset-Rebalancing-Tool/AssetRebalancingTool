@@ -9,9 +9,13 @@
 
     <div class="holding-container">
       <div v-if="!showSkeletonAnimation" v-for="[uuid, entry] in assetList" :key="uuid">
-        <PublicHoldingN
+        <PublicHolding
           v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
           :uuid="uuid"
+        />
+        <PrivateHolding
+            v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+            :uuid="uuid"
         />
       </div>
 
@@ -36,10 +40,11 @@ import type { Ref } from 'vue'
 import { generateAssetMap } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/ListFooter.vue'
-import PublicHoldingN from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
+import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
 import type { AssetList } from '@/models/holdings/AssetList'
+import PrivateHolding from "@/components/wrappers/asset-list/list-entries/PrivateHolding.vue";
 
 const store = useAssetMapStore()
 const assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>())
@@ -49,6 +54,11 @@ onMounted(async () => {
   assetList.value = store.assetList
 })
 
+// Bool that indicates if the list is loading
+const showSkeletonAnimation = computed(
+    () => store.listLoadingFlag
+)
+
 /**
  * Add a public or private list entry to the selected holding group
  */
@@ -56,9 +66,7 @@ function addAssetMapEntry(uuid: string, entry: AssetMapEntry): void {
   store.addAssetMapEntry(uuid, entry)
 }
 
-const showSkeletonAnimation = computed(
-    () => store.listLoadingFlag
-)
+
 </script>
 
 <style lang="scss">
