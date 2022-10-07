@@ -141,6 +141,6 @@
     height: 100%;
     background: linear-gradient(to right, transparent, #363c46, transparent);
     transform: translateX(-100%);
-    animation: loading 1s infinite;
+    animation: loading .5s infinite;
   }
 }
