@@ -5,23 +5,23 @@
     </div>
     <div class="right-wrapper">
       <form class="sign-in-form" @submit.prevent="onSubmit">
-        <h1>Anmelden</h1>
+        <h1>{{ $t('authorization.headings.signIn') }}</h1>
         <BaseInput
           :class="{ error: emailError }"
-          :placeholder="'name@gmail.com'"
+          :placeholder="$t('authorization.placeholders.email')"
           type="email"
           v-model="email"
           :error="emailError"
           required
         >
           <template #label>
-            <label>E-Mail-Adresse</label>
+            <label>{{ $t('authorization.labels.email') }}</label>
           </template>
         </BaseInput>
         <div class="error">{{ emailError }}</div>
         <BaseInput
           :class="{ error: passwordError }"
-          :placeholder="'********'"
+          :placeholder="$t('authorization.placeholders.password')"
           :type="passwordType"
           @input="checkPasswordLength($event.target.value)"
           v-model="password"
@@ -29,7 +29,7 @@
           required
         >
           <template #label>
-            <label>Passwort</label>
+            <label>{{ $t('authorization.labels.password') }}</label>
           </template>
           <template #inputIcon>
             <IconShowPassword
@@ -41,26 +41,26 @@
         </BaseInput>
         <div class="error">{{ passwordError }}</div>
         <div class="form-spacing-wrapper">
-          <BaseCheckbox label="Angemeldet bleiben für 30 Tage" />
-          <RouterLink class="link" to="">Passwort vergessen?</RouterLink>
+          <BaseCheckbox :label="$t('authorization.labels.stayAuthorized')" />
+          <RouterLink class="link" to="">{{ $t('authorization.links.forgotPassword') }}</RouterLink>
         </div>
         <button type="submit" :class="{ show: activeSubmitButton }">
-          Anmelden
+          {{ $t('authorization.buttons.signIn') }}
         </button>
         <span class="change-entry-view"
-          >Noch kein Konto?
+          >{{ $t('authorization.texts.notAMember') }}
           <RouterLink class="link" :to="{ name: 'SignUp' }"
-            >Kostenlos registrieren</RouterLink
+            >{{ $t('authorization.links.signUp') }}</RouterLink
           >
         </span>
         <div class="divider-wrapper">
           <span></span>
-          <span>oder</span>
+          <span>{{ $t('authorization.texts.or') }}</span>
           <span></span>
         </div>
         <button class="third-party-button">
           <IconGoogle />
-          <span>Anmelden mit Google</span>
+          <span>{{ $t('authorization.buttons.signInWithGoogle') }}</span>
         </button>
       </form>
     </div>

@@ -1,0 +1,33 @@
+{
+  "authorization": {
+    "headings": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up"
+    },
+    "labels" : {
+      "email": "E-Mail Address",
+      "password": "Password",
+      "stayAuthorized": "Remember password for 30 days"
+    },
+    "placeholders": {
+      "email": "name@gmail.com",
+      "password": "********"
+    },
+    "buttons": {
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "signInWithGoogle": "Sign in with Google",
+      "signUpWithGoogle": "Sign up with Google"
+    },
+    "links": {
+      "forgotPassword": "Forgot password?",
+      "signUp": "sign up now",
+      "signIn": "sign in here"
+    },
+    "texts": {
+      "alreadyAMember": "Have an account?",
+      "notAMember": "Don't have an account?",
+      "or": "or"
+    }
+  }
+}

@@ -9,23 +9,23 @@
         @submit.prevent="onSubmit"
         :validation-schema="validations"
       >
-        <h1>Kostenlos Registrieren</h1>
+        <h1>{{ $t('authorization.headings.signUp') }}</h1>
         <BaseInput
           :class="{ error: emailError }"
-          :placeholder="'name@gmail.com'"
+          :placeholder="$t('authorization.placeholders.email')"
           type="email"
           v-model="email"
           :error="emailError"
           required
         >
           <template #label>
-            <label>E-Mail-Adresse</label>
+            <label>{{ $t('authorization.labels.email') }}</label>
           </template>
         </BaseInput>
         <div class="error">{{ emailError }}</div>
         <BaseInput
           :class="{ error: passwordError }"
-          :placeholder="'********'"
+          :placeholder="$t('authorization.placeholders.password')"
           :type="passwordType"
           @input="checkPasswordStrength($event.target.value)"
           v-model="password"
@@ -33,7 +33,7 @@
           required
         >
           <template #label>
-            <label>Passwort</label>
+            <label>{{ $t('authorization.labels.password') }}</label>
           </template>
           <template #inputIcon>
             <IconShowPassword
@@ -54,22 +54,22 @@
           </div>
         </div>
         <button type="submit" :class="{ show: activeSubmitButton }">
-          Kostenlos Registrieren
+          {{ $t('authorization.buttons.signUp') }}
         </button>
         <span class="change-entry-view"
-          >Du hast schon ein Konto?
+          >{{ $t('authorization.texts.alreadyAMember') }}
           <RouterLink class="link" :to="{ name: 'SignIn' }"
-            >Hier Anmelden</RouterLink
+            >{{ $t('authorization.links.signIn') }}</RouterLink
           >
         </span>
         <div class="divider-wrapper">
           <span></span>
-          <span>oder</span>
+          <span>{{ $t('authorization.texts.or') }}</span>
           <span></span>
         </div>
         <button class="third-party-button">
           <IconGoogle />
-          <span>Registrieren mit Google</span>
+          <span>{{ $t('authorization.buttons.signUpWithGoogle') }}</span>
         </button>
       </form>
     </div>

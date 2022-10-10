@@ -1,0 +1,33 @@
+{
+  "authorization": {
+    "headings": {
+      "signIn": "Anmelden",
+      "signUp": "Kostenlos Registrieren"
+    },
+    "labels" : {
+      "email": "E-Mail-Adresse",
+      "password": "Passwort",
+      "stayAuthorized": "Angemeldet bleiben für 30 Tage"
+    },
+    "placeholders": {
+      "email": "name@gmail.com",
+      "password": "********"
+    },
+    "buttons": {
+      "signIn": "Anmelden",
+      "signUp": "Kostenlos Registrieren",
+      "signInWithGoogle": "Anmelden mit Google",
+      "signUpWithGoogle": "Registrieren mit Google"
+    },
+    "links": {
+      "forgotPassword": "Passwort vergessen?",
+      "signUp": "Kostenlos registrieren",
+      "signIn": "Hier Anmelden"
+    },
+    "texts": {
+      "alreadyAMember": "Du hast schon Konto?",
+      "notAMember": "Noch keinen Konto?",
+      "or": "oder"
+    }
+  }
+}
