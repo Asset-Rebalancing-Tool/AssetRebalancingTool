@@ -7,21 +7,23 @@
       v-if="nestedHoldingCount > 0"
       :nested-holding-count="nestedHoldingCount"
     />
-    <HoldingGroupFooter :holding="holding.holdingGroup" />
+    <HoldingGroupFooter :uuid="uuid" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import HoldingGroupFooter from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupFooter.vue'
 import HoldingGroupPercentage from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupPercentage.vue'
-import type { AssetListEntry } from '@/models/AssetListEntry'
-import type { PropType } from 'vue'
-import type { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import { computed } from 'vue'
+import { useAssetMapStore } from "@/stores/AssetMapStore";
+import type { HoldingGroup } from "@/models/holdings/HoldingGroup";
+import { computed } from "vue";
+import type { ComputedRef } from "vue";
+
+const store = useAssetMapStore()
 
 const props = defineProps({
-  holding: {
-    type: Object as PropType<AssetListEntry>,
+  uuid: {
+    type: String,
     required: true,
   },
   nestedHoldingCount: {

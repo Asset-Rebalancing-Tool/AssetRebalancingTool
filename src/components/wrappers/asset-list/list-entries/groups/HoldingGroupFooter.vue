@@ -10,7 +10,7 @@
         @click="
           PatchAssetService.patchHoldingGroup(
             patchHoldingGroupRequest(),
-            holding.uuid
+            group.uuid
           )
         "
       >
@@ -41,10 +41,13 @@
       ref="footerInput"
       :modelValue="targetPercentage"
       :class="{ error: groupTargetPercentageError }"
-      @input="patchGroupTargetPercentage($event.target.value, holding.uuid)"
+      @input="patchGroupTargetPercentage($event.target.value, group.uuid)"
     >
       <template #unit>
-        <InputAnimation :execute-animation="showTargetPercentageAnim">
+        <InputAnimation
+            :execute-animation="showTargetPercentageAnim"
+            :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
+        >
           <template #unit>
             <span v-show="!showTargetPercentageAnim">%</span>
           </template>
@@ -53,9 +56,9 @@
     </BaseInput>
 
     <ThreeDigitValue :value-array="totalGroupDeviation" :unit="'%'">
-      <template #arrow>
+      <!--<template #arrow>
         <IconAssetRowArrow />
-      </template>
+      </template>-->
     </ThreeDigitValue>
   </footer>
 </template>
@@ -65,25 +68,30 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { useAssetStore } from '@/stores/SearchbarStore'
-import { ref, computed, watch } from 'vue'
-import type { Ref, PropType } from 'vue'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
+import {ref, computed, watch} from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { formatValueArray } from '@/composables/UsePriceRecords'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
+import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
-const store = useAssetStore()
+const store = useAssetMapStore()
 const props = defineProps({
-  holding: {
-    type: Object as PropType<HoldingGroup>,
+  uuid: {
+    type: String,
     required: true,
   },
+})
+
+const group: ComputedRef<HoldingGroup> = computed(() => {
+  return store.getAssetMapEntryByUuid(props.uuid) as HoldingGroup
 })
 
 /**-***************************************************-**/
@@ -91,11 +99,11 @@ const props = defineProps({
 /**-***************************************************-**/
 
 // The input model values itself
-const groupName: Ref<string> = ref(props.holding.groupName)
-const targetPercentage: Ref<number> = ref(props.holding.targetPercentage)
+const groupName: Ref<string> = ref(group.value.groupName)
+const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 
 // bool that indicates if the group is currently editable or not
-const editGroupEntries = computed(() => store.selectionState.editGroupEntries)
+const editGroupEntries = computed(() => store.editGroupEntries)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/
@@ -120,17 +128,6 @@ function executeAnimation(field: Ref<boolean>) {
     }, 1000)
   }, 500)
 }
-/**-***************************************************-**/
-/** -------- Watch Props For Reactive Template -------- **/
-/**-***************************************************-**/
-
-// Watch the target percentage prop in order to update the template after patch request response
-watch(
-  () => props.holding.targetPercentage,
-  (percentage: number) => {
-    targetPercentage.value = percentage
-  }
-)
 
 /**-***************************************************-**/
 /** --------------- Template Actions ------------------ **/
@@ -138,8 +135,8 @@ watch(
 
 // Start editing a group
 function editGroup(): void {
-  store.selectionState.editGroupEntries = true
-  store.selectionState.group = props.holding
+  store.editGroupEntries = true
+  store.selectedGroup = group.value
 }
 
 // Update the groupName value on each keyup
@@ -153,6 +150,7 @@ function writeGroupName(name: string) {
 
 // Patch the public holdings target percentage
 function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
+  targetPercentage.value = +inputValue
   const request = patchGroupTargetPercentageRequest(inputValue)
   if (!groupTargetPercentageError.value) {
     PatchAssetService.patchHoldingGroup(request, groupUuid)
@@ -181,8 +179,8 @@ function patchGroupTargetPercentageRequest(
 
 // Reset the store's selection state in order to deactivate group editing
 function resetSelectionState() {
-  store.selectionState.editGroupEntries = false
-  store.selectionState.group = null
+  store.editGroupEntries = false
+  store.selectedGroup = null
 }
 
 /**-***************************************************-**/
@@ -194,7 +192,7 @@ const totalGroupValue = computed(() => {
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
-  }).format(store.listState.totalAssetListValue)
+  }).format(0)
 })
 
 // Get the total asset list percentage
@@ -202,13 +200,20 @@ const totalGroupPercentage = computed(() => {
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
       // TODO: this is wrong, should be total group percentage
-      store.listState.totalAssetListPercentage
+      0
     ) + ' %'
   )
 })
 
 // Get the total asset list deviation
 const totalGroupDeviation = computed(() => {
-  return formatValueArray(store.listState.totalAssetListDeviation)
+  let totalGroupDeviation = calcGroupDeviation()
+  return (totalGroupDeviation)
+      ? formatValueArray(0)
+      : ['00', '00', '0']
 })
+
+function calcGroupDeviation(): null {
+  return null
+}
 </script>

@@ -312,6 +312,6 @@ function calcDeviation(): number {
 // Get the current deviation formatted by german pattern
 const deviation = computed((): string[] => {
   const deviation: number = calcDeviation()
-  return deviation ? formatValueArray(deviation) : ['00', '00', '']
+  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 </script>

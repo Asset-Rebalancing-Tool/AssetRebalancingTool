@@ -77,7 +77,7 @@ export function getNewestPriceRecordFormatted(
  */
 export function formatValueArray(assetValue: number): string[] {
   if (assetValue === 0) {
-    return ['00', '00', '']
+    return ['00', '00', '0']
   }
 
   // Parse the value of the asset to string

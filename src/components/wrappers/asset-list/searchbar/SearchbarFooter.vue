@@ -60,7 +60,7 @@ async function newPrivateHoldingAction() {
         request
       )
       .then((result) => addPrivateHolding(store, result.data))
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   })
 }
 
@@ -82,7 +82,7 @@ async function newHoldingGroup() {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)
       .then((result) => addHoldingGroup(store, result.data))
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   })
 }
 </script>

@@ -90,7 +90,7 @@ function searchAsset(searchValue: string): void {
         store.searchbarState.searchbarResultCount = results.length
         store.searchbarState.searchbarAssets = results
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   }, 500)
 }
 

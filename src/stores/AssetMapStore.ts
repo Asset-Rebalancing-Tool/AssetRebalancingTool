@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
 import { SortColumn } from '@/models/enums/SortEnum'
-import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
+import type { AssetMapEntry } from '@/models/AssetMapEntry'
 import type {
   SortColumn as ColumnType,
   SortDirection as DirectionType,

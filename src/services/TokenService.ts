@@ -68,7 +68,7 @@ export function registerUser(request: AuthRequest): Promise<void> {
   return axios
     .post('/auth_api/register', request)
     .then((response: AxiosResponse) => redirectToDashboard(response.data))
-    .catch((error) => handleErrorResponseStatus(error.response.status))
+    .catch((error) => handleErrorResponseStatus(error))
 }
 
 /**
@@ -82,7 +82,7 @@ export function loginUser(request: AuthRequest): Promise<void> {
   return axios
     .post<AuthRequest, AxiosResponse<string>>('/auth_api/login', request)
     .then((response) => redirectToDashboard(response.data))
-    .catch((error) => handleErrorResponseStatus(error.response.status))
+    .catch((error) => handleErrorResponseStatus(error))
 }
 
 /**
@@ -136,33 +136,36 @@ function redirectToDashboard(token: string): void {
  * 401  =>  Redirect to sign-in router view
  * 500  =>  Throw console.log
  *
- * @param errorStatus number
+ * @param error
  *
  * @return void
  */
-export function handleErrorResponseStatus(errorStatus: number): void {
+export function handleErrorResponseStatus(error: any): void {
   const FlashMessageStore = useFlashMessageStore()
-
-  switch (errorStatus) {
-    case 401:
-      redirectToLogin()
-      showWarningMessage(
-          FlashMessageStore,
-          'Sie wurden abgemeldet.'
-      )
-      break
-    case 409:
-      showWarningMessage(
-        FlashMessageStore,
-        'Es existiert bereits ein Asset mit dieser Bezeichnung.'
-      )
-      break
-    case 500:
-      showErrorMessage(
-          FlashMessageStore,
-          'Es ist ein 500 status Fehler aufgetreten.'
-      )
-      break
+  console.log(error)
+  const errorStatus = error.response.status
+  if (errorStatus) {
+    switch (errorStatus) {
+      case 401:
+        redirectToLogin()
+        showWarningMessage(
+            FlashMessageStore,
+            'Sie wurden abgemeldet.'
+        )
+        break
+      case 409:
+        showWarningMessage(
+            FlashMessageStore,
+            'Es existiert bereits ein Asset mit dieser Bezeichnung.'
+        )
+        break
+      case 500:
+        showErrorMessage(
+            FlashMessageStore,
+            'Es ist ein 500 status Fehler aufgetreten.'
+        )
+        break
+    }
   }
 }
 

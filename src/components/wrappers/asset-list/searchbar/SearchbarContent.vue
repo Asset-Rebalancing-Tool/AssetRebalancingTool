@@ -77,7 +77,7 @@ async function newPublicHoldingAction(uuid: string) {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => addPublicHolding(assetMapStore, result.data))
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   })
 }
 </script>

@@ -6,9 +6,10 @@ import {
 } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import { replaceAssetMapEntry } from '@/composables/UseAssetMap'
-import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
+import { patchAssetMapEntry } from '@/composables/UseAssetMap'
+import type { AssetMapEntry } from '@/models/AssetMapEntry'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
+import {useAssetMapStore} from "@/stores/AssetMapStore";
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -45,7 +46,7 @@ export default {
           .then((response: AxiosResponse) => {
             const patchedEntry = response.data as AssetMapEntry
             patchedEntry.entryType = EntryTypeEnum.PUBLIC_HOLDING
-            replaceAssetMapEntry(patchedEntry)
+            patchAssetMapEntry(patchedEntry)
           })
           .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
       }, 500)
@@ -75,9 +76,9 @@ export default {
           .then((response: AxiosResponse) => {
             const patchedEntry = response.data as AssetMapEntry
             patchedEntry.entryType = EntryTypeEnum.PRIVATE_HOLDING
-            replaceAssetMapEntry(patchedEntry)
+            patchAssetMapEntry(patchedEntry)
           })
-          .catch((error) => handleErrorResponseStatus(error.response.status))
+          .catch((error) => handleErrorResponseStatus(error))
       }, 500)
     })
   },
@@ -102,8 +103,12 @@ export default {
               request
             )
           })
-          .then((response: AxiosResponse) => {})
-          .catch((error) => handleErrorResponseStatus(error.response.status))
+          .then((response: AxiosResponse) => {
+            /*const patchedEntry = response.data as AssetMapEntry
+            patchedEntry.entryType = EntryTypeEnum.HOLDING_GROUP
+            patchAssetMapEntry(patchedEntry)*/
+          })
+          .catch((error) => handleErrorResponseStatus(error))
       }, 500)
     })
   },
@@ -120,7 +125,7 @@ export default {
         )
       })
       .then((response: AxiosResponse) => {})
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   },
 
   async deletePrivateHolding(holdingUuid: string) {
@@ -131,7 +136,7 @@ export default {
         )
       })
       .then((response: AxiosResponse) => {})
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   },
 
   /**-***********************************************************************-**/
