@@ -69,10 +69,10 @@
     },
     "listEntries": {
       "publicHolding": {
-
+        "pieces": "Stk."
       },
       "privateHolding": {
-
+        "type": "Privat"
       },
       "holdingGroup": {
         "emptyGroup": "leere Gruppe",
