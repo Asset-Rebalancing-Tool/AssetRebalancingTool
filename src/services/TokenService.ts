@@ -6,6 +6,7 @@ import { useSearchbarStore } from '@/stores/SearchbarStore'
 import { useFlashMessageStore } from '@/stores/FlashMessageStore'
 import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
+import { useI18n } from 'vue-i18n'
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -136,36 +137,35 @@ function redirectToDashboard(token: string): void {
  * 401  =>  Redirect to sign-in router view
  * 500  =>  Throw console.log
  *
- * @param error
+ * @param error any
  *
  * @return void
  */
 export function handleErrorResponseStatus(error: any): void {
   const FlashMessageStore = useFlashMessageStore()
-  console.log(error)
+  const { t } = useI18n()
+
   const errorStatus = error.response.status
-  if (errorStatus) {
-    switch (errorStatus) {
-      case 401:
-        redirectToLogin()
-        showWarningMessage(
-            FlashMessageStore,
-            'Sie wurden abgemeldet.'
-        )
-        break
-      case 409:
-        showWarningMessage(
-            FlashMessageStore,
-            'Es existiert bereits ein Asset mit dieser Bezeichnung.'
-        )
-        break
-      case 500:
-        showErrorMessage(
-            FlashMessageStore,
-            'Es ist ein 500 status Fehler aufgetreten.'
-        )
-        break
-    }
+  switch (errorStatus) {
+    case 401:
+      redirectToLogin()
+      showWarningMessage(
+          FlashMessageStore,
+          t('flashMessages.statusErrors.401')
+      )
+      break
+    case 409:
+      showWarningMessage(
+        FlashMessageStore,
+          t('flashMessages.statusErrors.409')
+      )
+      break
+    case 500:
+      showErrorMessage(
+          FlashMessageStore,
+          t('flashMessages.statusErrors.500')
+      )
+      break
   }
 }
 

@@ -9,23 +9,23 @@
         @submit.prevent="onSubmit"
         :validation-schema="validations"
       >
-        <h1>Kostenlos Registrieren</h1>
+        <h1>{{ $t('authorization.headings.signUp') }}</h1>
         <BaseInput
           :class="{ error: emailError }"
-          :placeholder="'name@gmail.com'"
+          :placeholder="$t('authorization.placeholders.email') + '@gmail.com'"
           type="email"
           v-model="email"
           :error="emailError"
           required
         >
           <template #label>
-            <label>E-Mail-Adresse</label>
+            <label>{{ $t('authorization.labels.email') }}</label>
           </template>
         </BaseInput>
         <div class="error">{{ emailError }}</div>
         <BaseInput
           :class="{ error: passwordError }"
-          :placeholder="'********'"
+          :placeholder="$t('authorization.placeholders.password')"
           :type="passwordType"
           @input="checkPasswordStrength($event.target.value)"
           v-model="password"
@@ -33,7 +33,7 @@
           required
         >
           <template #label>
-            <label>Passwort</label>
+            <label>{{ $t('authorization.labels.password') }}</label>
           </template>
           <template #inputIcon>
             <IconShowPassword
@@ -54,23 +54,24 @@
           </div>
         </div>
         <button type="submit" :class="{ show: activeSubmitButton }">
-          Kostenlos Registrieren
+          {{ $t('authorization.buttons.signUp') }}
         </button>
         <span class="change-entry-view"
-          >Du hast schon ein Konto?
+          >{{ $t('authorization.texts.alreadyAMember') }}
           <RouterLink class="link" :to="{ name: 'SignIn' }"
-            >Hier Anmelden</RouterLink
+            >{{ $t('authorization.links.signIn') }}</RouterLink
           >
         </span>
         <div class="divider-wrapper">
           <span></span>
-          <span>oder</span>
+          <span>{{ $t('authorization.texts.or') }}</span>
           <span></span>
         </div>
         <button class="third-party-button">
           <IconGoogle />
-          <span>Registrieren mit Google</span>
+          <span>{{ $t('authorization.buttons.signUpWithGoogle') }}</span>
         </button>
+        <LanguageWrapper />
       </form>
     </div>
   </section>
@@ -81,11 +82,15 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
+import LanguageWrapper from '@/components/wrappers/LanguageWrapper.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import { registerUser } from '@/services/TokenService'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 
 const validations = {
   email: (inputValue: any): string | boolean => {
@@ -98,8 +103,8 @@ const validations = {
 
     // Check requirements and return error message
     if (isUndefined || isEmptyString)
-      return 'Bitte geben Sie eine E-Mail-Adresse an'
-    if (!validEmail) return 'Bitte geben Sie eine gültige E-Mail-Adresse an'
+      return t('authorization.errorMessages.enterEmail')
+    if (!validEmail) return t('authorization.errorMessages.enterValidEmail')
 
     return true
   },
@@ -110,11 +115,11 @@ const validations = {
     const containsUpper = /[A-Z]/.test(inputValue)
 
     // Check requirements and return error message
-    if (isUndefined || isEmptyString) return 'Bitte geben Sie ein Passworts an'
+    if (isUndefined || isEmptyString) return t('authorization.errorMessages.enterPassword')
     if (!containsUpper)
-      return 'Ihr Passwort muss mindestens einen Großbuchstaben beinhalten'
+      return t('authorization.errorMessages.passwordChars')
     if (String(inputValue).length < 8)
-      return 'Ihr Passwort muss mindestens 8 Zeichen beinhalten'
+      return t('authorization.errorMessages.passwordLength')
     return true
   },
 }

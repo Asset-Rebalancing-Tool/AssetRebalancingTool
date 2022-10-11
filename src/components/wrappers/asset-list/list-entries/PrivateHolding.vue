@@ -2,7 +2,7 @@
   <div class="holding-row">
     <AssetInfo :asset-name="holding.title" :type="assetType">
       <template #additional-info>
-        <div class="asset-type">Privat</div>
+        <div class="asset-type">{{ $t('assetList.listEntries.privateHolding.type') }}</div>
       </template>
     </AssetInfo>
 

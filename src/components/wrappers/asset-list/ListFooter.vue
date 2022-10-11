@@ -1,22 +1,22 @@
 <template>
   <footer>
-    <h4>Portfoliowert</h4>
+    <h4>{{ $t('assetList.listFooter.totalValue') }}</h4>
 
     <div class="total-value-wrapper">
-      <header>Portfoliowert</header>
+      <header>{{ $t('assetList.listFooter.totalValue') }}</header>
       <span class="total-value">{{ totalValue }}</span>
     </div>
 
     <div class="total-value-wrapper">
       <header>
-        Soll-Wert
+        {{ $t('assetList.listFooter.totalTargetPercentage') }}
         <IconCheck v-show="showPercentageCheckIcon" />
       </header>
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
     </div>
 
     <div class="total-value-wrapper">
-      <header>Abweichung</header>
+      <header>{{ $t('assetList.listFooter.deviation') }}</header>
       <span class="total-value">{{ totalDeviation }}</span>
     </div>
   </footer>
