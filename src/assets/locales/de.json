@@ -14,7 +14,7 @@
       "stayAuthorized": "Angemeldet bleiben für 30 Tage"
     },
     "placeholders": {
-      "email": "name@gmail.com",
+      "email": "name",
       "password": "********"
     },
     "buttons": {

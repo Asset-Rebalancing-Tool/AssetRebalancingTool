@@ -8,7 +8,7 @@
         <h1>{{ $t('authorization.headings.signIn') }}</h1>
         <BaseInput
           :class="{ error: emailError }"
-          :placeholder="$t('authorization.placeholders.email')"
+          :placeholder="$t('authorization.placeholders.email') + '@gmail.com'"
           type="email"
           v-model="email"
           :error="emailError"

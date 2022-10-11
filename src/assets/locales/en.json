@@ -14,7 +14,7 @@
       "stayAuthorized": "Remember password for 30 days"
     },
     "placeholders": {
-      "email": "name@gmail.com",
+      "email": "name",
       "password": "********"
     },
     "buttons": {
