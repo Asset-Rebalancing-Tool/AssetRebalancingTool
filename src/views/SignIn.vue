@@ -62,6 +62,7 @@
           <IconGoogle />
           <span>{{ $t('authorization.buttons.signInWithGoogle') }}</span>
         </button>
+        <LanguageWrapper />
       </form>
     </div>
   </section>
@@ -73,6 +74,7 @@ import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
 import BaseCheckbox from '@/components/inputs/BaseCheckbox.vue'
+import LanguageWrapper from '@/components/wrappers/LanguageWrapper.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import { loginUser } from '@/services/TokenService'
 import { useField, useForm } from 'vee-validate'

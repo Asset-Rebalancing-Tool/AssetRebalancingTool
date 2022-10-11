@@ -1,4 +1,8 @@
 {
+  "locales": {
+    "de": "German",
+    "en": "English"
+  },
   "authorization": {
     "headings": {
       "signIn": "Login",
@@ -27,7 +31,8 @@
     "texts": {
       "alreadyAMember": "Have an account?",
       "notAMember": "Don't have an account?",
-      "or": "or"
+      "or": "or",
+      "selectedLanguage": "Selected language"
     },
     "errorMessages": {
       "enterEmail": "Please enter an email address",

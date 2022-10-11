@@ -1,8 +1,7 @@
 import en from "@/assets/locales/en.json";
 import de from "@/assets/locales/de.json";
 import { createI18n } from "vue-i18n";
-
-type Locales = 'de' | 'en'
+import type { Locales } from '@/models/enums/Locales'
 
 export const allLocales: string[] = ['de', 'en'];
 

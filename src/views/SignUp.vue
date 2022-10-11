@@ -71,6 +71,7 @@
           <IconGoogle />
           <span>{{ $t('authorization.buttons.signUpWithGoogle') }}</span>
         </button>
+        <LanguageWrapper />
       </form>
     </div>
   </section>
@@ -81,6 +82,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconShowPassword from '@/assets/icons/inputs/IconShowPassword.vue'
 import IconHidePassword from '@/assets/icons/inputs/IconHidePassword.vue'
 import IconGoogle from '@/assets/icons/IconGoogle.vue'
+import LanguageWrapper from '@/components/wrappers/LanguageWrapper.vue'
 import type { AuthRequest } from '@/requests/AuthRequest'
 import { registerUser } from '@/services/TokenService'
 import { computed, ref } from 'vue'
