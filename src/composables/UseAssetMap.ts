@@ -4,10 +4,11 @@ import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { AssetMapEntry } from '@/models/enums/AssetMapEntry'
+import type { AssetMapEntry } from '@/models/AssetMapEntry'
 import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
 import type { Operator as OperatorType } from '@/models/enums/Operator'
 import { Operator } from '@/models/enums/Operator'
+import type { GroupEntry } from '@/models/GroupEntry'
 
 /**
  * Generate the initial asset map that is getting fetched after the asset list has been mounted
@@ -54,6 +55,27 @@ export async function generateAssetMap() {
 export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
   holdingGroup.entryType = EntryTypeEnum.HOLDING_GROUP
   store.assetMap.set(holdingGroup.uuid, holdingGroup)
+
+  let groupUuids: GroupEntry[] = []
+  holdingGroup.publicHoldings.forEach(groupEntry => {
+    groupUuids.push({
+      uuid: groupEntry.uuid,
+      entryType: EntryTypeEnum.PUBLIC_HOLDING
+    } as GroupEntry)
+  })
+  holdingGroup.privateHoldings.forEach(groupEntry => {
+    groupUuids.push({
+      uuid: groupEntry.uuid,
+      entryType: EntryTypeEnum.PRIVATE_HOLDING
+    } as GroupEntry)
+  })
+
+  store.assetList.set(holdingGroup.uuid, {
+    uuid: holdingGroup.uuid,
+    hasGroup: false,
+    groupUuids: groupUuids,
+    entryType: EntryTypeEnum.HOLDING_GROUP,
+  })
 }
 
 /**
@@ -61,14 +83,18 @@ export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
  *
  * @param store any
  * @param publicHolding PublicHolding
+ * @param hasGroup boolean
  */
-export function addPublicHolding(store: any, publicHolding: PublicHolding) {
+export function addPublicHolding(
+    store: any,
+    publicHolding: PublicHolding,
+    hasGroup = false,
+) {
   publicHolding.entryType = EntryTypeEnum.PUBLIC_HOLDING
   store.assetMap.set(publicHolding.uuid, publicHolding)
   store.assetList.set(publicHolding.uuid, {
     uuid: publicHolding.uuid,
-    hasGroup: false,
-    groupUuid: null,
+    hasGroup: hasGroup,
     entryType: EntryTypeEnum.PUBLIC_HOLDING,
   })
 }
@@ -85,7 +111,6 @@ export function addPrivateHolding(store: any, privateHolding: PrivateHolding) {
   store.assetList.set(privateHolding.uuid, {
     uuid: privateHolding.uuid,
     hasGroup: false,
-    groupUuid: null,
     entryType: EntryTypeEnum.PRIVATE_HOLDING,
   })
 }
@@ -95,7 +120,7 @@ export function addPrivateHolding(store: any, privateHolding: PrivateHolding) {
  *
  * @param patchedEntry AssetMapEntry
  */
-export function replaceAssetMapEntry(patchedEntry: AssetMapEntry) {
+export function patchAssetMapEntry(patchedEntry: AssetMapEntry) {
   const store = useAssetMapStore()
 
   // Replace the old map entry with the patched one

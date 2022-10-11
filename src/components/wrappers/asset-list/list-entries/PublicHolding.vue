@@ -79,7 +79,7 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { mapAssetType } from '@/composables/UseAssetType'
 import {
@@ -99,6 +99,7 @@ import { useAssetMapStore } from '@/stores/AssetMapStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -255,7 +256,7 @@ function calcDeviation(): number {
 // Get the current deviation formatted by german pattern
 const deviation = computed((): string[] => {
   const deviation: number = calcDeviation()
-  return deviation ? formatValueArray(deviation) : ['00', '00', '']
+  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 /**-***************************************************-**/
 /** -------- Old Deviation Computed Properties -------- **/

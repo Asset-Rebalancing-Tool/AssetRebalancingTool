@@ -19,7 +19,7 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   },
 
   async fetchPrivateHoldings(): Promise<PrivateHolding[]> {
@@ -30,7 +30,7 @@ export default {
         })
       })
       .then((response: AxiosResponse) => response.data)
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   },
 
   async fetchHoldingGroups(): Promise<HoldingGroup[]> {
@@ -41,7 +41,7 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   },
 
   async fetchPublicAssets(
@@ -63,6 +63,6 @@ export default {
         }
         return [] as PublicAsset[]
       })
-      .catch((error) => handleErrorResponseStatus(error.response.status))
+      .catch((error) => handleErrorResponseStatus(error))
   },
 }
