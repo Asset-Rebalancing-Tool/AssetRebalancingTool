@@ -1,5 +1,9 @@
 <template>
   <section class="content">
-    <label>Connect Broker</label>
+    <UnderConstruction />
   </section>
 </template>
+
+<script lang="ts" setup>
+import UnderConstruction from '@/components/wrappers/UnderConstruction.vue';
+</script>

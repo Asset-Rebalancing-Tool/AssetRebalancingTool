@@ -1,7 +1,10 @@
 <template>
-  <SidebarSection v-if="showSidebar" />
+<!--  <SidebarSection v-if="showSidebar" />
   <RouterView />
-  <ModalUnderlay />
+  <ModalUnderlay />-->
+
+  <SidebarSection v-if="true" />
+  <RouterView />
 </template>
 
 <script lang="ts" setup>
