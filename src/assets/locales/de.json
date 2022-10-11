@@ -71,7 +71,9 @@
 
     },
     "listFooter": {
-
+      "totalValue": "Portfoliowert",
+      "totalTargetPercentage": "Soll-Wert",
+      "deviation": "Abweichung"
     }
   },
   "underConstruction": {

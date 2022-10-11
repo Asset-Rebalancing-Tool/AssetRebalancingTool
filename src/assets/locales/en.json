@@ -71,7 +71,9 @@
 
     },
     "listFooter": {
-
+      "totalValue": "Total value",
+      "totalTargetPercentage": "Target value",
+      "deviation": "Deviation"
     }
   },
   "underConstruction": {
