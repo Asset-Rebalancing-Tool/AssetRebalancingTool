@@ -86,6 +86,9 @@ import { registerUser } from '@/services/TokenService'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
+
 
 const validations = {
   email: (inputValue: any): string | boolean => {
@@ -98,8 +101,8 @@ const validations = {
 
     // Check requirements and return error message
     if (isUndefined || isEmptyString)
-      return 'Bitte geben Sie eine E-Mail-Adresse an'
-    if (!validEmail) return 'Bitte geben Sie eine gültige E-Mail-Adresse an'
+      return t('authorization.errorMessages.enterEmail')
+    if (!validEmail) return t('authorization.errorMessages.enterValidEmail')
 
     return true
   },
@@ -110,11 +113,11 @@ const validations = {
     const containsUpper = /[A-Z]/.test(inputValue)
 
     // Check requirements and return error message
-    if (isUndefined || isEmptyString) return 'Bitte geben Sie ein Passworts an'
+    if (isUndefined || isEmptyString) return t('authorization.errorMessages.enterPassword')
     if (!containsUpper)
-      return 'Ihr Passwort muss mindestens einen Großbuchstaben beinhalten'
+      return t('authorization.errorMessages.passwordChars')
     if (String(inputValue).length < 8)
-      return 'Ihr Passwort muss mindestens 8 Zeichen beinhalten'
+      return t('authorization.errorMessages.passwordLength')
     return true
   },
 }

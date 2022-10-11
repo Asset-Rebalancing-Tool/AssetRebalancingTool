@@ -78,6 +78,8 @@ import { loginUser } from '@/services/TokenService'
 import { useField, useForm } from 'vee-validate'
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const validations = {
   email: (inputValue: any): string | boolean => {
@@ -90,8 +92,8 @@ const validations = {
 
     // Check requirements and return error message
     if (isUndefined || isEmptyString)
-      return 'Bitte geben Sie eine E-Mail-Adresse an'
-    if (!validEmail) return 'Bitte geben Sie eine gültige E-Mail-Adresse an'
+      return t('authorization.errorMessages.enterEmail')
+    if (!validEmail) return t('authorization.errorMessages.enterValidEmail')
 
     return true
   },
@@ -101,7 +103,7 @@ const validations = {
     const isEmptyString = !String(inputValue).length
 
     // Check requirements and return error message
-    if (isUndefined || isEmptyString) return 'Bitte geben Sie ein Passwort an'
+    if (isUndefined || isEmptyString) return t('authorization.errorMessages.enterPassword')
     return true
   },
 }

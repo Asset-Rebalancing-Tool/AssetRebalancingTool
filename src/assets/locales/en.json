@@ -28,6 +28,13 @@
       "alreadyAMember": "Have an account?",
       "notAMember": "Don't have an account?",
       "or": "or"
+    },
+    "errorMessages": {
+      "enterEmail": "Please enter an email address",
+      "enterValidEmail": "Please enter a valid email address",
+      "enterPassword": "Please enter a password",
+      "passwordLength": "Your password has to be at least 8 characters long",
+      "passwordChars": "Your password should contain at least on uppercase character"
     }
   }
 }
