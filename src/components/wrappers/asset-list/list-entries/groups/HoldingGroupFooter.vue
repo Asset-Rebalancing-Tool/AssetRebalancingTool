@@ -2,7 +2,7 @@
   <footer>
     <div class="footer-header">
       <button v-show="!editGroupEntries" @click.prevent="editGroup">
-        Bearbeiten
+        {{ $t('assetList.listEntries.holdingGroup.edit') }}
       </button>
       <button
         class="save"
@@ -14,7 +14,7 @@
           )
         "
       >
-        Fertig
+        {{ $t('assetList.listEntries.holdingGroup.save') }}
       </button>
 
       <h4 v-show="!editGroupEntries">{{ groupName }}</h4>

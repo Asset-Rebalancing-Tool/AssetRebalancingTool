@@ -68,7 +68,17 @@
       "deviation": "Abweichung"
     },
     "listEntries": {
+      "publicHolding": {
 
+      },
+      "privateHolding": {
+
+      },
+      "holdingGroup": {
+        "emptyGroup": "leere Gruppe",
+        "edit": "Bearbeiten",
+        "save": "Fertig"
+      }
     },
     "listFooter": {
       "totalValue": "Portfoliowert",

@@ -68,7 +68,17 @@
       "deviation": "Deviation"
     },
     "listEntries": {
+      "publicHolding": {
 
+      },
+      "privateHolding": {
+
+      },
+      "holdingGroup": {
+        "emptyGroup": "empty group",
+        "edit": "Edit Group",
+        "save": "Done"
+      }
     },
     "listFooter": {
       "totalValue": "Total value",

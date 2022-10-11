@@ -1,7 +1,7 @@
 <template>
   <div class="holding-group">
     <slot name="holdings">
-      <div class="holding-placeholder">leere Gruppe</div>
+      <div class="holding-placeholder">{{ $t('assetList.listEntries.holdingGroup.emptyGroup') }}</div>
     </slot>
     <HoldingGroupPercentage
       v-if="nestedHoldingCount > 0"
