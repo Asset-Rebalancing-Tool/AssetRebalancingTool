@@ -2,32 +2,32 @@
   <div class="table-filter">
     <span class="column info">
       <span @click="sort(SortColumn.ENTRY_NAME, direction())"
-        >Asset Bezeichnung <IconFilterArrow
+        >{{ $t('assetList.tableFilters.assetName') }}<IconFilterArrow
       /></span>
     </span>
     <span class="column">
       <span @click="sort(SortColumn.PRICE, direction())"
-        >Kurswert (YTD)<IconFilterArrow
+        >{{ $t('assetList.tableFilters.price') }}<IconFilterArrow
       /></span>
     </span>
     <span class="column">
       <span @click="sort(SortColumn.OWNED_QUANTITY, direction())"
-        >gehaltene Anteile<IconFilterArrow
+        >{{ $t('assetList.tableFilters.ownedQuantity') }}<IconFilterArrow
       /></span>
     </span>
     <span class="column">
       <span @click="sort(SortColumn.CURRENT_VALUE, direction())"
-        >aktueller Ist-Wert<IconFilterArrow
+        >{{ $t('assetList.tableFilters.currentValue') }}<IconFilterArrow
       /></span>
     </span>
     <span class="column">
       <span @click="sort(SortColumn.TARGET_PERCENTAGE, direction())"
-        >Soll-Wert<IconFilterArrow
+        >{{ $t('assetList.tableFilters.targetPercentage') }}<IconFilterArrow
       /></span>
     </span>
     <span class="column">
       <span @click="sort(SortColumn.DEVIATION, direction())"
-        >Abweichung<IconFilterArrow
+        >{{ $t('assetList.tableFilters.deviation') }}<IconFilterArrow
       /></span>
     </span>
   </div>

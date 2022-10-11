@@ -37,12 +37,6 @@
       "passwordChars": "Ihr Passwort muss mindestens einen Großbuchstaben beinhalten"
     }
   },
-  "underConstruction": {
-    "heading": "In Entwicklung",
-    "description": "Dieser Bereich befindet sich noch in der Entwicklung. Wir freuen uns darauf Ihnen hier bald mehr präsentieren zu können.",
-    "moreInfo": "Mehr Informationen",
-    "imageAltTag": "Bild Anwendung in Entwicklung"
-  },
   "sidebar": {
     "overview": "Übersicht",
     "broker": "Broker Anbindung",
@@ -51,5 +45,33 @@
     "transactions": "Transaktionshistorie",
     "settings": "Einstellungen",
     "signOut": "Abmelden"
+  },
+  "assetList": {
+    "searchbar": {
+
+    },
+    "tableFilters": {
+      "assetName": "Asset Bezeichnung",
+      "price": "Kurswert (YTD)",
+      "ownedQuantity": "gehaltene Anteile",
+      "currentValue": "aktueller Ist-Wert",
+      "targetPercentage": "Soll-Wert",
+      "deviation": "Abweichung"
+    },
+    "listEntries": {
+
+    },
+    "listFooter": {
+
+    }
+  },
+  "underConstruction": {
+    "heading": "In Entwicklung",
+    "description": "Dieser Bereich befindet sich noch in der Entwicklung. Wir freuen uns darauf Ihnen hier bald mehr präsentieren zu können.",
+    "moreInfo": "Mehr Informationen",
+    "imageAltTag": "Bild Anwendung in Entwicklung"
+  },
+  "flashMessages": {
+
   }
 }

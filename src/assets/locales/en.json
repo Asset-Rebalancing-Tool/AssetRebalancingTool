@@ -37,12 +37,6 @@
       "passwordChars": "Your password should contain at least on uppercase character"
     }
   },
-  "underConstruction": {
-    "heading": "Under Construction",
-    "description": "This section is currently under construction. We look forward to presenting you here more soon.",
-    "moreInfo": "More Information",
-    "imageAltTag": "Image App is under construction"
-  },
   "sidebar": {
     "overview": "Overview",
     "broker": "Broker Connection",
@@ -51,5 +45,33 @@
     "transactions": "Transaction History",
     "settings": "Settings",
     "signOut": "Logout"
+  },
+  "assetList": {
+    "searchbar": {
+
+    },
+    "tableFilters": {
+      "assetName": "Asset name",
+      "price": "Market value (YTD)",
+      "ownedQuantity": "Owned quantity",
+      "currentValue": "Current value",
+      "targetPercentage": "Target value",
+      "deviation": "Deviation"
+    },
+    "listEntries": {
+
+    },
+    "listFooter": {
+
+    }
+  },
+  "underConstruction": {
+    "heading": "Under Construction",
+    "description": "This section is currently under construction. We look forward to presenting you here more soon.",
+    "moreInfo": "More Information",
+    "imageAltTag": "Image App is under construction"
+  },
+  "flashMessages": {
+
   }
 }
