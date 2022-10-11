@@ -26,6 +26,7 @@
   .construction-text-wrapper {
     margin-right: -25px;
     max-width: 425px;
+    margin-top: 25px;
 
     h1 {
       font-size: 40px;
@@ -34,6 +35,7 @@
     p {
       color: $secondary-text-color;
       font-size: 18px;
+      margin-top: 10px;
     }
 
     button {
@@ -43,7 +45,8 @@
       color: $primary-text-color;
       padding: 10px 18px;
       cursor: pointer;
-      margin-top: 15px;
+      margin-top: 25px;
+      font-size: 16px;
     }
   }
 
