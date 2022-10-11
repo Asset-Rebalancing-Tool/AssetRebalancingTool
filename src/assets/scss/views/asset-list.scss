@@ -1,6 +1,7 @@
 #asset-list {
   @include flex-column-center-y;
   position: relative;
+  width: 100%;
   overflow: hidden;
 
   header, footer {
