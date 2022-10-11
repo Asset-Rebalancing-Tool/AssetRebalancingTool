@@ -1,7 +1,7 @@
 <template>
   <BaseInput
     type="text"
-    placeholder="Nach Asset suchen (Bezeichnung, WKN oder ISIN)"
+    :placeholder="$t('assetList.searchbar.placeholder')"
     @focus="showModalUnderlay"
     @input="searchAsset($event.target.value)"
     v-model="userInput"

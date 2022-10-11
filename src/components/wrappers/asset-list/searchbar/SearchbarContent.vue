@@ -5,8 +5,8 @@
   >
     <div class="public-asset-container">
       <div class="searchbar-label-grid">
-        <p>Ergebnisse ({{ searchbarResults }})</p>
-        <p v-show="showPriceLabel">Kurswert (YTD)</p>
+        <p>{{ $t('assetList.searchbar.results') }} ({{ searchbarResults }})</p>
+        <p v-show="showPriceLabel">{{ $t('assetList.tableFilters.price') }}</p>
       </div>
 
       <SearchbarAsset

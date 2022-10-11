@@ -1,5 +1,5 @@
 <template>
-  <SidebarSection v-if="showSidebar" />
+  <SidebarSection v-if="true" />
   <RouterView />
   <ModalUnderlay />
 </template>

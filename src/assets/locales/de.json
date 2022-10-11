@@ -48,7 +48,16 @@
   },
   "assetList": {
     "searchbar": {
-
+      "placeholder": "Nach Asset suchen (Bezeichnung, WKN oder ISIN)",
+      "results" : "Ergebnisse",
+      "footer": {
+        "heading": "Ist dein Asset nicht dabei?",
+        "description": "Erstelle eigene Assets oder Gruppen, um dein Portfolio vollumfänglich abzubilden.",
+        "buttons": {
+          "newAsset": "Asset erstellen",
+          "newGroup": "Gruppe anlegen"
+        }
+      }
     },
     "tableFilters": {
       "assetName": "Asset Bezeichnung",

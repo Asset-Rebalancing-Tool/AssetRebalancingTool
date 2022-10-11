@@ -1,18 +1,17 @@
 <template>
   <div class="searchbar-content-footer">
     <div class="footer-info">
-      <p>Ist dein Asset nicht dabei?</p>
+      <p>{{ $t('assetList.searchbar.footer.heading') }}</p>
       <p>
-        Erstelle eigene Assets oder Gruppen, um dein Portfolio vollumfänglich
-        abzubilden.
+        {{ $t('assetList.searchbar.footer.description') }}
       </p>
     </div>
     <div class="button-wrapper">
       <button @click="newPrivateHoldingAction()">
-        <span class="icon"></span>Asset erstellen
+        <span class="icon"></span>{{ $t('assetList.searchbar.footer.buttons.newAsset') }}
       </button>
       <button @click="newHoldingGroup()">
-        <span class="icon"></span>Gruppe anlegen
+        <span class="icon"></span>{{ $t('assetList.searchbar.footer.buttons.newGroup') }}
       </button>
     </div>
   </div>

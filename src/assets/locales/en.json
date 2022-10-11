@@ -48,7 +48,16 @@
   },
   "assetList": {
     "searchbar": {
-
+      "placeholder": "Search for stocks, ETFs & more (Term, WKN or ISIN)",
+      "results" : "Results",
+      "footer": {
+        "heading": "Haven't found your asset?",
+        "description": "Create your own assets or groups, in order to fully represent your portfolio.",
+        "buttons": {
+          "newAsset": "Create Asset",
+          "newGroup": "Create Group"
+        }
+      }
     },
     "tableFilters": {
       "assetName": "Asset name",
