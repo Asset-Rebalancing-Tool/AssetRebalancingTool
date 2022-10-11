@@ -23,16 +23,13 @@ export async function setLocale(locale: Locales) {
     // Load locale if not available yet.
     if (!i18n.global.availableLocales.includes(locale)) {
         const messages = await loadLocale(locale);
-
         // fetch() error occurred.
         if (messages === undefined) {
             return;
         }
-
         // Add locale.
         i18n.global.setLocaleMessage(locale, messages);
     }
-
     // Set locale.
     i18n.global.locale.value = locale;
 }

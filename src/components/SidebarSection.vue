@@ -6,38 +6,38 @@
 
     <RouterLink :to="{ name: 'PortfolioOverview' }">
       <IconSidebarOverview />
-      <span>Übersicht</span>
+      <span>{{ $t('sidebar.overview') }}</span>
     </RouterLink>
 
     <RouterLink :to="{ name: 'ConnectBroker' }">
       <IconSidebarBroker />
-      <span>Broker Anbindung</span>
+      <span>{{ $t('sidebar.broker') }}</span>
     </RouterLink>
 
     <RouterLink :to="{ name: 'AssetList' }">
       <IconSidebarAssets />
-      <span>Assets Verwalten</span>
+      <span>{{ $t('sidebar.assets') }}</span>
     </RouterLink>
 
     <RouterLink :to="{ name: 'ScheduleInvestments' }">
       <IconSidebarSchedule />
-      <span>Investitionen planen</span>
+      <span>{{ $t('sidebar.schedule') }}</span>
     </RouterLink>
 
     <RouterLink :to="{ name: 'TransactionHistory' }">
       <IconSidebarHistory />
-      <span>Transaktionshistorie</span>
+      <span>{{ $t('sidebar.transactions') }}</span>
     </RouterLink>
 
     <RouterLink :to="{ name: 'AppSettings' }">
       <IconSidebarSettings />
-      <span>Einstellungen</span>
+      <span>{{ $t('sidebar.settings') }}</span>
     </RouterLink>
 
     <footer>
       <RouterLink :to="{ name: 'AppSettings' }" @click="logoutUser">
         <IconSidebarLogout />
-        <span>Abmelden</span>
+        <span>{{ $t('sidebar.signOut') }}</span>
       </RouterLink>
     </footer>
   </section>

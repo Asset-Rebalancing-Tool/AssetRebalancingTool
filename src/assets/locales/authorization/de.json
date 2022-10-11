@@ -42,14 +42,5 @@
     "description": "Dieser Bereich befindet sich noch in der Entwicklung. Wir freuen uns darauf Ihnen hier bald mehr präsentieren zu können.",
     "moreInfo": "Mehr Informationen",
     "imageAltTag": "Bild Anwendung in Entwicklung"
-  },
-  "sidebar": {
-    "overview": "Übersicht",
-    "broker": "Broker Anbindung",
-    "assets": "Assets Verwalten",
-    "schedule": "Investitionen planen",
-    "transactions": "Transaktionshistorie",
-    "settings": "Einstellungen",
-    "signOut": "Abmelden"
   }
 }

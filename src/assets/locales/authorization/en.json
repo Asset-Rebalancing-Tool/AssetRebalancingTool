@@ -1,7 +1,7 @@
 {
   "authorization": {
     "headings": {
-      "signIn": "Login",
+      "signIn": "Sign In",
       "signUp": "Sign Up"
     },
     "labels" : {
@@ -14,15 +14,15 @@
       "password": "********"
     },
     "buttons": {
-      "signIn": "Login",
+      "signIn": "Sign In",
       "signUp": "Sign Up",
       "signInWithGoogle": "Sign in with Google",
       "signUpWithGoogle": "Sign up with Google"
     },
     "links": {
       "forgotPassword": "Forgot password?",
-      "signUp": "Sign up now",
-      "signIn": "Log in here"
+      "signUp": "sign up now",
+      "signIn": "sign in here"
     },
     "texts": {
       "alreadyAMember": "Have an account?",
@@ -42,14 +42,5 @@
     "description": "This section is currently under construction. We look forward to presenting you here more soon.",
     "moreInfo": "More Information",
     "imageAltTag": "Image App is under construction"
-  },
-  "sidebar": {
-    "overview": "Overview",
-    "broker": "Broker Connection",
-    "assets": "manage Assets",
-    "schedule": "Schedule Investments",
-    "transactions": "Transaction History",
-    "settings": "Settings",
-    "signOut": "Logout"
   }
 }
