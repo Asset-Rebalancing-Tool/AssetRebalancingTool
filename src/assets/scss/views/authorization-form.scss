@@ -38,6 +38,8 @@
 
         span {
           color: $main-color;
+          font-size: 66px;
+          line-height: 70px;
         }
       }
 
@@ -232,6 +234,11 @@
       line-height: 70px;
       margin-top: 0;
       margin-bottom: 20px;
+
+      span {
+        font-size: 66px;
+        line-height: 70px;
+      }
     }
     h3 {
       font-size: 28px;

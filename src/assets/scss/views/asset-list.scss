@@ -234,3 +234,21 @@
     }
   }
 }
+
+@media only screen and (min-width: 1600px) {
+  #asset-list footer:not(.holding-container footer) h4,
+  #asset-list footer:not(.holding-container footer) .total-value,
+  #asset-list footer:not(.holding-container footer) .total-percentage
+  {
+    font-size: 18px;
+  }
+
+  #asset-list footer:not(.holding-container footer) {
+    grid-column-gap: 76px;
+  }
+
+  .table-filter {
+    column-gap: 92px;
+    grid-template-columns: auto 140px 110px 165px 110px 82px;
+  }
+}

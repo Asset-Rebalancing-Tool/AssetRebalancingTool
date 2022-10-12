@@ -84,6 +84,11 @@ input {
   cursor: pointer;
 }
 
+@media only screen and (min-width: 1600px) {
+  input {
+    font-size: 15px;
+  }
+}
 input:focus,
 textarea:focus {
   border: 1px solid #19B399;
@@ -228,6 +233,7 @@ h1, h2, h3, h4, h5, h6, p, span {
   border: none;
   background: transparent;
   color: #FFFFFF;
+  font-size: 15px;
 }
 
 p {
@@ -237,6 +243,11 @@ p {
   color: #FFFFFF;
 }
 
+@media only screen and (min-width: 1600px) {
+  h1, h2, h3, h4, h5, h6, p, span {
+    font-size: 18px;
+  }
+}
 /***************************************************************/
 /* ---------------- General Checkbox Styles ------------------ */
 /***************************************************************/
