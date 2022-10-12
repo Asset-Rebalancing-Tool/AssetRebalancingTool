@@ -3,9 +3,9 @@
     <div class="left-wrapper">
       <div class="app-logo"></div>
       <header>
-        <h3>Bei uns gibt's</h3>
-        <h1>Volle Portfolio <span>Kontrolle</span></h1>
-        <p>Asset Rebalancing leicht gemacht. Weil du den Takt vorgibst und nicht dein Portfolio</p>
+          <h3 v-html="$t('authorization.headings.subHeading')"></h3>
+          <h1 v-html="$t('authorization.headings.mainHeading')"></h1>
+          <p v-html="$t('authorization.texts.mainText')"></p>
       </header>
     </div>
     <div class="right-wrapper">

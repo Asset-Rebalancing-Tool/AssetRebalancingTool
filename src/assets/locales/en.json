@@ -5,6 +5,8 @@
   },
   "authorization": {
     "headings": {
+      "subHeading": "We offer you",
+      "mainHeading": "Full Portfolio <span>Control</span>",
       "signIn": "Login",
       "signUp": "Sign Up"
     },
@@ -29,6 +31,7 @@
       "signIn": "Log in here"
     },
     "texts": {
+      "mainText": "<a href=\"https://www.finanzfluss.de/etf-handbuch/etf-rebalancing\" target=\"_blank\">Asset Rebalancing</a> made easy!<br>Because you set the pace and not your portfolio.",
       "alreadyAMember": "Have an account?",
       "notAMember": "Don't have an account?",
       "or": "or",

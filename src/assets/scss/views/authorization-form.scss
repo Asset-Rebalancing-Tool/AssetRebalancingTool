@@ -9,7 +9,7 @@
     @include background-image-cover;
     position: relative;
     width: 50%;
-    background:linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), $entry-background;
+    background:linear-gradient(0deg, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), $entry-background;
 
     .app-logo {
       @include background-image-contain;
@@ -23,7 +23,8 @@
 
     header {
       width: 100%;
-      max-width: 500px;
+      max-width: 645px;
+      margin-top: -50px;
 
       h1 {
         font-family: Nunito Sans, serif;
@@ -33,6 +34,7 @@
         margin-bottom: 10px;
         text-transform: uppercase;
         margin-top: 2px;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 
         span {
           color: $main-color;
@@ -44,17 +46,22 @@
         font-weight: 700;
         font-size: 20px;
         text-transform: uppercase;
-
+        color: #CACACA;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.6);
       }
 
       p {
         font-size: 20px;
         line-height: 30px;
-        color: #EAEAEA;
+        color: #CACACA;
         word-wrap: anywhere;
+        text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+        white-space:nowrap;
 
-        span {
+        a {
           color: $main-color;
+          text-decoration: underline;
+          cursor: pointer;
         }
       }
     }
@@ -221,16 +228,17 @@
   #sign-in .left-wrapper header,
   #sign-up .left-wrapper header {
     h1 {
-      font-size: 52px;
-      line-height: 58px;
-      margin-bottom: 10px;
+      font-size: 66px;
+      line-height: 70px;
+      margin-top: 0;
+      margin-bottom: 20px;
     }
     h3 {
-      font-size: 24px;
+      font-size: 28px;
     }
 
     p {
-      font-size: 24px;
+      font-size: 26px;
       line-height: 34px;
     }
   }
