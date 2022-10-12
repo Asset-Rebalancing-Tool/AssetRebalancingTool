@@ -218,7 +218,8 @@
 
 
 @media only screen and (min-width: 1360px) {
-  #sign-in .left-wrapper header {
+  #sign-in .left-wrapper header,
+  #sign-up .left-wrapper header {
     h1 {
       font-size: 52px;
       line-height: 58px;
