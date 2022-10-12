@@ -1,7 +1,7 @@
 /* Error: Undefined mixin.
  *   ,
- * 8 |     @include background-image-cover;
- *   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ * 8 |     @include flex-center-xy;
+ *   |     ^^^^^^^^^^^^^^^^^^^^^^^
  *   '
  *   authorization-form.scss 8:5  root stylesheet */
 
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined mixin.\a   \2577 \a 8 \2502      @include background-image-cover;\d\a   \2502      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   authorization-form.scss 8:5  root stylesheet";
+  content: "Error: Undefined mixin.\a   \2577 \a 8 \2502      @include flex-center-xy;\d\a   \2502      ^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   authorization-form.scss 8:5  root stylesheet";
 }

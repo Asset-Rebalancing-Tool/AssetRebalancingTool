@@ -51,6 +51,97 @@ $exact-primary-line-height: 1.4; // no spacing primary font size
 $bold-font-weight: 600;
 $regular-font-weight: 400;
 
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-ExtraLight.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-ExtraLight.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraLight.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraLight.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraLight.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraLight.svg#NunitoSans-ExtraLight') format('svg');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Light.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Light.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Light.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Light.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Light.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Light.svg#NunitoSans-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Bold.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Bold.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Bold.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Bold.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Bold.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Bold.svg#NunitoSans-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Black.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Black.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Black.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Black.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Black.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Black.svg#NunitoSans-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-SemiBold.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-SemiBold.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-SemiBold.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-SemiBold.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-SemiBold.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-SemiBold.svg#NunitoSans-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Regular.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-Regular.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Regular.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Regular.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Regular.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-Regular.svg#NunitoSans-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Nunito Sans';
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-ExtraBold.eot');
+    src: url('@/assets/fonts/NunitoSans/NunitoSans-ExtraBold.eot?#iefix') format('embedded-opentype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraBold.woff2') format('woff2'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraBold.woff') format('woff'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraBold.ttf') format('truetype'),
+    url('@/assets/fonts/NunitoSans/NunitoSans-ExtraBold.svg#NunitoSans-ExtraBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 /*******************************************************/
 /* ------------ Theme Appearance Variables ----------- */
 /*******************************************************/

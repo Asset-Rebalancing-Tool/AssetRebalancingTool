@@ -2,6 +2,11 @@
   <section id="sign-up">
     <div class="left-wrapper">
       <div class="app-logo"></div>
+      <header>
+        <h3>Bei uns gibt's</h3>
+        <h1>Volle Portfolio <span>Kontrolle</span></h1>
+        <p>Asset Rebalancing leicht gemacht. Weil du den Takt vorgibst und nicht dein Portfolio</p>
+      </header>
     </div>
     <div class="right-wrapper">
       <form
@@ -9,7 +14,7 @@
         @submit.prevent="onSubmit"
         :validation-schema="validations"
       >
-        <h1>{{ $t('authorization.headings.signUp') }}</h1>
+        <h2>{{ $t('authorization.headings.signUp') }}</h2>
         <BaseInput
           :class="{ error: emailError }"
           :placeholder="$t('authorization.placeholders.email') + '@gmail.com'"

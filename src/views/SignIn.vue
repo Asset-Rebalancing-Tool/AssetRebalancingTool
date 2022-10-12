@@ -2,10 +2,15 @@
   <section id="sign-in">
     <div class="left-wrapper">
       <div class="app-logo"></div>
+      <header>
+        <h3>Bei uns gibt's</h3>
+        <h1>Volle Portfolio <span>Kontrolle</span></h1>
+        <p>Asset Rebalancing leicht gemacht. Weil du den Takt vorgibst und nicht dein Portfolio</p>
+      </header>
     </div>
     <div class="right-wrapper">
       <form class="sign-in-form" @submit.prevent="onSubmit">
-        <h1>{{ $t('authorization.headings.signIn') }}</h1>
+        <h2>{{ $t('authorization.headings.signIn') }}</h2>
         <BaseInput
           :class="{ error: emailError }"
           :placeholder="$t('authorization.placeholders.email') + '@gmail.com'"
