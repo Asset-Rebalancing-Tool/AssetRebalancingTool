@@ -87,3 +87,14 @@
     );
   }
 }
+
+
+@media only screen and (min-width: 1360px) {
+  #sidebar {
+    min-width: 15%;
+
+    svg {
+      margin: 0 20px;
+    }
+  }
+}

@@ -227,6 +227,12 @@ input {
     cursor: pointer;
 }
 
+@media only screen and (min-width: 1600px) {
+    input {
+        font-size: 15px;
+    }
+}
+
 input:focus,
 textarea:focus {
     border: 1px solid $active-border-color;
@@ -376,6 +382,7 @@ h1, h2, h3, h4, h5, h6, p, span {
     border: none;
     background: transparent;
     color: $primary-text-color;
+    font-size: $primary-font-size;
 }
 
 p {
@@ -383,6 +390,12 @@ p {
     font-size: $primary-font-size;
     line-height: $primary-line-height;
     color: $primary-text-color;
+}
+
+@media only screen and (min-width: 1600px) {
+    h1, h2, h3, h4, h5, h6, p, span {
+        font-size: 18px;
+    }
 }
 
 /***************************************************************/
