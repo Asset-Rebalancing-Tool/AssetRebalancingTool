@@ -2,19 +2,19 @@
   <div class="language-container">
     <span>{{ $t('authorization.texts.selectedLanguage') }}</span>
     <div class="link-wrapper">
-      <span
-          class="language-link"
-          @click="toggleLanguageWrapper"
-      >{{ $t(`locales.${i18n.global.locale.value}`) }}
+      <span class="language-link" @click="toggleLanguageWrapper"
+        >{{ $t(`locales.${i18n.global.locale.value}`) }}
       </span>
       <div class="language-wrapper" v-show="showLanguageWrapper">
         <div
-            class="language"
-            v-for="locale in allLocales"
-            :lang="locale"
-            :class="isSelectedLanguage(locale)"
-            @click="selectLanguage(locale)"
-        >{{ locale }}</div>
+          class="language"
+          v-for="locale in allLocales"
+          :lang="locale"
+          :class="isSelectedLanguage(locale)"
+          @click="selectLanguage(locale)"
+        >
+          {{ locale }}
+        </div>
       </div>
     </div>
     <IconLanguage />
@@ -23,9 +23,9 @@
 
 <script lang="ts" setup>
 import IconLanguage from '@/assets/icons/IconLanguage.vue'
-import { i18n, allLocales, setLocale } from "@/i18n";
-import { ref} from "vue";
-import type { Ref } from "vue";
+import { i18n, allLocales, setLocale } from '@/i18n'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
 import type { Locales } from '@/models/enums/Locales'
 
 const showLanguageWrapper: Ref<boolean> = ref(false)
@@ -35,11 +35,11 @@ function toggleLanguageWrapper() {
 }
 
 function isSelectedLanguage(locale: string) {
-  return (locale === i18n.global.locale.value) ? 'selected' : ''
+  return locale === i18n.global.locale.value ? 'selected' : ''
 }
 
 function selectLanguage(locale: string) {
-  let langauge: Locales = locale as Locales
+  const langauge: Locales = locale as Locales
   setLocale(langauge)
   showLanguageWrapper.value = false
 }

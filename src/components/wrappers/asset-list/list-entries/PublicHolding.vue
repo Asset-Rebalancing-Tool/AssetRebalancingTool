@@ -35,7 +35,9 @@
           :animation-wrapper="AnimationWrapperEnum.OWNED_QUANTITY"
         >
           <template #unit>
-            <span v-show="!showOwnedQuantityAnim">{{ $t('assetList.listEntries.publicHolding.pieces') }}</span>
+            <span v-show="!showOwnedQuantityAnim">{{
+              $t('assetList.listEntries.publicHolding.pieces')
+            }}</span>
           </template>
         </InputAnimation>
       </template>

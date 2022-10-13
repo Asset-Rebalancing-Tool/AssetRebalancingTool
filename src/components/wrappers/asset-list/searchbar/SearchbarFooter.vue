@@ -8,10 +8,12 @@
     </div>
     <div class="button-wrapper">
       <button @click="newPrivateHoldingAction()">
-        <span class="icon"></span>{{ $t('assetList.searchbar.footer.buttons.newAsset') }}
+        <span class="icon"></span
+        >{{ $t('assetList.searchbar.footer.buttons.newAsset') }}
       </button>
       <button @click="newHoldingGroup()">
-        <span class="icon"></span>{{ $t('assetList.searchbar.footer.buttons.newGroup') }}
+        <span class="icon"></span
+        >{{ $t('assetList.searchbar.footer.buttons.newGroup') }}
       </button>
     </div>
   </div>

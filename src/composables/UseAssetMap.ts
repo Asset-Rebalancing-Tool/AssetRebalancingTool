@@ -56,17 +56,17 @@ export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
   holdingGroup.entryType = EntryTypeEnum.HOLDING_GROUP
   store.assetMap.set(holdingGroup.uuid, holdingGroup)
 
-  let groupUuids: GroupEntry[] = []
-  holdingGroup.publicHoldings.forEach(groupEntry => {
+  const groupUuids: GroupEntry[] = []
+  holdingGroup.publicHoldings.forEach((groupEntry) => {
     groupUuids.push({
       uuid: groupEntry.uuid,
-      entryType: EntryTypeEnum.PUBLIC_HOLDING
+      entryType: EntryTypeEnum.PUBLIC_HOLDING,
     } as GroupEntry)
   })
-  holdingGroup.privateHoldings.forEach(groupEntry => {
+  holdingGroup.privateHoldings.forEach((groupEntry) => {
     groupUuids.push({
       uuid: groupEntry.uuid,
-      entryType: EntryTypeEnum.PRIVATE_HOLDING
+      entryType: EntryTypeEnum.PRIVATE_HOLDING,
     } as GroupEntry)
   })
 
@@ -86,9 +86,9 @@ export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
  * @param hasGroup boolean
  */
 export function addPublicHolding(
-    store: any,
-    publicHolding: PublicHolding,
-    hasGroup = false,
+  store: any,
+  publicHolding: PublicHolding,
+  hasGroup = false
 ) {
   publicHolding.entryType = EntryTypeEnum.PUBLIC_HOLDING
   store.assetMap.set(publicHolding.uuid, publicHolding)

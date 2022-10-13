@@ -63,9 +63,9 @@
         </button>
         <span class="change-entry-view"
           >{{ $t('authorization.texts.alreadyAMember') }}
-          <RouterLink class="link" :to="{ name: 'SignIn' }"
-            >{{ $t('authorization.links.signIn') }}</RouterLink
-          >
+          <RouterLink class="link" :to="{ name: 'SignIn' }">{{
+            $t('authorization.links.signIn')
+          }}</RouterLink>
         </span>
         <div class="divider-wrapper">
           <span></span>
@@ -119,9 +119,9 @@ const validations = {
     const containsUpper = /[A-Z]/.test(inputValue)
 
     // Check requirements and return error message
-    if (isUndefined || isEmptyString) return t('authorization.errorMessages.enterPassword')
-    if (!containsUpper)
-      return t('authorization.errorMessages.passwordChars')
+    if (isUndefined || isEmptyString)
+      return t('authorization.errorMessages.enterPassword')
+    if (!containsUpper) return t('authorization.errorMessages.passwordChars')
     if (String(inputValue).length < 8)
       return t('authorization.errorMessages.passwordLength')
     return true

@@ -1,7 +1,7 @@
 import type { CurrencyEnum as CurrencyEnumType } from '@/models/enums/CurrencyEnum'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 // @ts-ignore
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
 /**
  *
@@ -13,7 +13,7 @@ export function createCurrencyObject(currencyArray: CurrencyEnumType[]) {
     if (currencyKey == 'UNSUPPORTED') continue
     tempArray.push({
       value: currencyKey,
-      text: getCurrencyValue(currencyKey)
+      text: getCurrencyValue(currencyKey),
     })
   }
   return tempArray

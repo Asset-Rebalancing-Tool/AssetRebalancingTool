@@ -3,9 +3,9 @@
     <div class="left-wrapper">
       <div class="app-logo"></div>
       <header>
-          <h3 v-html="$t('authorization.headings.subHeading')"></h3>
-          <h1 v-html="$t('authorization.headings.mainHeading')"></h1>
-          <p v-html="$t('authorization.texts.mainText')"></p>
+        <h3 v-html="$t('authorization.headings.subHeading')"></h3>
+        <h1 v-html="$t('authorization.headings.mainHeading')"></h1>
+        <p v-html="$t('authorization.texts.mainText')"></p>
       </header>
     </div>
     <div class="right-wrapper">
@@ -47,16 +47,18 @@
         <div class="error">{{ passwordError }}</div>
         <div class="form-spacing-wrapper">
           <BaseCheckbox :label="$t('authorization.labels.stayAuthorized')" />
-          <RouterLink class="link" to="">{{ $t('authorization.links.forgotPassword') }}</RouterLink>
+          <RouterLink class="link" to="">{{
+            $t('authorization.links.forgotPassword')
+          }}</RouterLink>
         </div>
         <button type="submit" :class="{ show: activeSubmitButton }">
           {{ $t('authorization.buttons.signIn') }}
         </button>
         <span class="change-entry-view"
           >{{ $t('authorization.texts.notAMember') }}
-          <RouterLink class="link" :to="{ name: 'SignUp' }"
-            >{{ $t('authorization.links.signUp') }}</RouterLink
-          >
+          <RouterLink class="link" :to="{ name: 'SignUp' }">{{
+            $t('authorization.links.signUp')
+          }}</RouterLink>
         </span>
         <div class="divider-wrapper">
           <span></span>
@@ -110,7 +112,8 @@ const validations = {
     const isEmptyString = !String(inputValue).length
 
     // Check requirements and return error message
-    if (isUndefined || isEmptyString) return t('authorization.errorMessages.enterPassword')
+    if (isUndefined || isEmptyString)
+      return t('authorization.errorMessages.enterPassword')
     return true
   },
 }

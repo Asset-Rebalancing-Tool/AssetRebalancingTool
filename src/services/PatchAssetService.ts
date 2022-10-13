@@ -9,7 +9,7 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import { patchAssetMapEntry } from '@/composables/UseAssetMap'
 import type { AssetMapEntry } from '@/models/AssetMapEntry'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import {useAssetMapStore} from "@/stores/AssetMapStore";
+import { useAssetMapStore } from '@/stores/AssetMapStore'
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null

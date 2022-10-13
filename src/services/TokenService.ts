@@ -149,22 +149,13 @@ export function handleErrorResponseStatus(error: any): void {
   switch (errorStatus) {
     case 401:
       redirectToLogin()
-      showWarningMessage(
-          FlashMessageStore,
-          t('flashMessages.statusErrors.401')
-      )
+      showWarningMessage(FlashMessageStore, t('flashMessages.statusErrors.401'))
       break
     case 409:
-      showWarningMessage(
-        FlashMessageStore,
-          t('flashMessages.statusErrors.409')
-      )
+      showWarningMessage(FlashMessageStore, t('flashMessages.statusErrors.409'))
       break
     case 500:
-      showErrorMessage(
-          FlashMessageStore,
-          t('flashMessages.statusErrors.500')
-      )
+      showErrorMessage(FlashMessageStore, t('flashMessages.statusErrors.500'))
       break
   }
 }

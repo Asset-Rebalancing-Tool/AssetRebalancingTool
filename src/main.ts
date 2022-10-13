@@ -5,7 +5,7 @@ import './plugins/chart'
 import App from './App.vue'
 import router from './router'
 import Vue3Lottie from 'vue3-lottie'
-import { i18n } from '@/i18n';
+import { i18n } from '@/i18n'
 
 const app = createApp(App)
 

@@ -45,8 +45,8 @@
     >
       <template #unit>
         <InputAnimation
-            :execute-animation="showTargetPercentageAnim"
-            :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
+          :execute-animation="showTargetPercentageAnim"
+          :animation-wrapper="AnimationWrapperEnum.TARGET_PERCENTAGE"
         >
           <template #unit>
             <span v-show="!showTargetPercentageAnim">%</span>
@@ -69,7 +69,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
-import {ref, computed, watch} from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
@@ -207,10 +207,8 @@ const totalGroupPercentage = computed(() => {
 
 // Get the total asset list deviation
 const totalGroupDeviation = computed(() => {
-  let totalGroupDeviation = calcGroupDeviation()
-  return (totalGroupDeviation)
-      ? formatValueArray(0)
-      : ['00', '00', '0']
+  const totalGroupDeviation = calcGroupDeviation()
+  return totalGroupDeviation ? formatValueArray(0) : ['00', '00', '0']
 })
 
 function calcGroupDeviation(): null {

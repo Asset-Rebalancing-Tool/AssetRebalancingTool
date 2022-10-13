@@ -44,11 +44,9 @@ const props = defineProps({
   },
 })
 
-console.log(props.options)
-
 const selectedValue = computed(() => {
   //return props.defaultSelection ? props.defaultSelection : props.modelValue
-  return props.modelValue ? props.modelValue: props.defaultSelection
+  return props.modelValue ? props.modelValue : props.defaultSelection
 })
 </script>
 

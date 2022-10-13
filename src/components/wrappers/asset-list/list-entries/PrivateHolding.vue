@@ -2,7 +2,9 @@
   <div class="holding-row">
     <AssetInfo :asset-name="holding.title" :type="assetType">
       <template #additional-info>
-        <div class="asset-type">{{ $t('assetList.listEntries.privateHolding.type') }}</div>
+        <div class="asset-type">
+          {{ $t('assetList.listEntries.privateHolding.type') }}
+        </div>
       </template>
     </AssetInfo>
 
@@ -90,24 +92,30 @@
 </template>
 
 <script lang="ts" setup>
-import type {ComputedRef, Ref} from 'vue'
-import {computed, ref} from 'vue'
+import type { ComputedRef, Ref } from 'vue'
+import { computed, ref } from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
-import type {PrivateHolding} from '@/models/holdings/PrivateHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
-import {CurrencyEnum} from '@/models/enums/CurrencyEnum'
-import {UnitTypeEnum} from '@/models/enums/UnitTypeEnum'
-import {mapAssetType} from '@/composables/UseAssetType'
-import {createUnitTypeObject, getUnitTypeValue} from '@/composables/UseUnitType'
-import {createCurrencyObject, getCurrencyValue} from '@/composables/UseCurrency'
-import type {PrivateHoldingRequest} from '@/requests/PrivateHoldingRequest'
-import {useAssetMapStore} from '@/stores/AssetMapStore'
-import {formatValueArray} from '@/composables/UsePriceRecords'
-import {AnimationWrapperEnum} from '@/models/enums/AnimationWrapperEnum'
+import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
+import { mapAssetType } from '@/composables/UseAssetType'
+import {
+  createUnitTypeObject,
+  getUnitTypeValue,
+} from '@/composables/UseUnitType'
+import {
+  createCurrencyObject,
+  getCurrencyValue,
+} from '@/composables/UseCurrency'
+import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
+import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { formatValueArray } from '@/composables/UsePriceRecords'
+import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -200,16 +208,12 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings unit type
 function patchUnitType(inputValue: UnitTypeEnum, holdingUuid: string) {
-  console.log(inputValue)
-  console.log(holdingUuid)
   const request = patchUnitTypeRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
 
 // Patch the public currency
 function patchCurrency(inputValue: CurrencyEnum, holdingUuid: string) {
-  console.log(inputValue)
-  console.log(holdingUuid)
   const request = patchCurrencyRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }

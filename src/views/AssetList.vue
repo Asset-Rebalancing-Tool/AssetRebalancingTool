@@ -14,26 +14,26 @@
         :key="uuid"
       >
         <HoldingGroup
-            v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
-            :uuid="uuid"
-            :nested-holding-count="0"
+          v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
+          :uuid="uuid"
+          :nested-holding-count="0"
         >
           <template #holdings>
             <div
-                v-for="groupEntry in entry.groupEntries"
-                :key="groupEntry.uuid"
+              v-for="groupEntry in entry.groupEntries"
+              :key="groupEntry.uuid"
             >
               <PublicHolding
-                  v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
-                  :uuid="groupEntry.uuid"
+                v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+                :uuid="groupEntry.uuid"
               />
               <PrivateHolding
-                  v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
-                  :uuid="groupEntry.uuid"
+                v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+                :uuid="groupEntry.uuid"
               />
             </div>
           </template>
-      </HoldingGroup>
+        </HoldingGroup>
 
         <PublicHolding
           v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
@@ -67,7 +67,12 @@ import ListEntrySkeleton from '@/components/wrappers/asset-list/list-entries/Lis
 import TableFilters from '@/components/wrappers/TableFilters.vue'
 import { computed, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
-import {addHoldingGroup, addPrivateHolding, addPublicHolding, generateAssetMap} from '@/composables/UseAssetMap'
+import {
+  addHoldingGroup,
+  addPrivateHolding,
+  addPublicHolding,
+  generateAssetMap,
+} from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
 import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
@@ -77,10 +82,10 @@ import type { AssetList } from '@/models/holdings/AssetList'
 import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
 import FlashMessage from '@/components/wrappers/FlashMessage.vue'
 import { useFlashMessageStore } from '@/stores/FlashMessageStore'
-import HoldingGroup from "@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue";
-import type { HoldingGroup as HoldingGroupType } from "@/models/holdings/HoldingGroup";
-import PatchAssetService from "@/services/PatchAssetService";
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
+import HoldingGroup from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue'
+import type { HoldingGroup as HoldingGroupType } from '@/models/holdings/HoldingGroup'
+import PatchAssetService from '@/services/PatchAssetService'
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 
 const store = useAssetMapStore()
 const FlashMessageStore = useFlashMessageStore()
@@ -106,19 +111,20 @@ function addHoldingToGroup(entryUuid: string): void {
   // Always return if no group is selected
   if (!store.editGroupEntries) return
 
-  const clickedEntry: AssetMapEntry | null = store.getAssetMapEntryByUuid(entryUuid)
+  const clickedEntry: AssetMapEntry | null =
+    store.getAssetMapEntryByUuid(entryUuid)
   const selectedGroup: HoldingGroup = store.selectedGroup
 
   if (clickedEntry) {
     switch (clickedEntry.entryType) {
       case EntryTypeEnum.PUBLIC_HOLDING:
-        let publicHolding = clickedEntry as PublicHolding
+        const publicHolding = clickedEntry as PublicHolding
         selectedGroup.publicHoldings.push(publicHolding)
-        break;
+        break
       case EntryTypeEnum.PRIVATE_HOLDING:
-        let privateHolding = clickedEntry as PrivateHolding
+        const privateHolding = clickedEntry as PrivateHolding
         selectedGroup.privateHoldings.push(privateHolding)
-        break;
+        break
     }
   }
 
@@ -126,9 +132,12 @@ function addHoldingToGroup(entryUuid: string): void {
 }
 
 // The patch owned quantity request body
-function patchHoldingGroupRequest(holdingGroup: HoldingGroup, mapEntry: AssetMapEntry): HoldingGroupRequest {
-  let publicUuids: string[] = []
-  let privateUuids: string[] = []
+function patchHoldingGroupRequest(
+  holdingGroup: HoldingGroup,
+  mapEntry: AssetMapEntry
+): HoldingGroupRequest {
+  const publicUuids: string[] = []
+  const privateUuids: string[] = []
 
   switch (mapEntry.entryType) {
     case EntryTypeEnum.PUBLIC_HOLDING:
@@ -136,20 +145,20 @@ function patchHoldingGroupRequest(holdingGroup: HoldingGroup, mapEntry: AssetMap
         addPublicHolding(store, publicHolding)
         publicUuids.push(publicHolding.uuid)
       })
-      break;
+      break
     case EntryTypeEnum.PRIVATE_HOLDING:
       holdingGroup.publicHoldings.forEach((privateHolding: PrivateHolding) => {
         addPrivateHolding(store, privateHolding)
         publicUuids.push(privateHolding.uuid)
       })
-      break;
+      break
   }
 
   return {
     publicHoldingUuids: publicUuids,
     privateHoldingUuids: privateUuids,
     groupName: holdingGroup.groupName,
-    targetPercentage: holdingGroup.targetPercentage
+    targetPercentage: holdingGroup.targetPercentage,
   } as HoldingGroupRequest
 }
 </script>

@@ -8,7 +8,7 @@ export function createUnitTypeObject(unitTypeArray: UnitTypeEnum[]) {
     if (unitTypeKey == 'UNKNOWN') continue
     tempArray.push({
       value: unitTypeKey,
-      text: getUnitTypeValue(unitTypeKey)
+      text: getUnitTypeValue(unitTypeKey),
     })
   }
   return tempArray

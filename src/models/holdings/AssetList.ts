@@ -7,4 +7,3 @@ export interface AssetList {
   groupEntries: GroupEntry[]
   entryType: EntryTypeEnum
 }
-
