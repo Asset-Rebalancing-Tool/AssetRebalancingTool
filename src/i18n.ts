@@ -1,5 +1,6 @@
 import en from '@/assets/locales/en.json'
 import de from '@/assets/locales/de.json'
+// @ts-ignore
 import { createI18n } from 'vue-i18n'
 import type { Locales } from '@/models/enums/Locales'
 

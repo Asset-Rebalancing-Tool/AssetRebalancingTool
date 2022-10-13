@@ -6,6 +6,7 @@ import { useSearchbarStore } from '@/stores/SearchbarStore'
 import { useFlashMessageStore } from '@/stores/FlashMessageStore'
 import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
+// @ts-ignore
 import { useI18n } from 'vue-i18n'
 
 /**-******************************************************************-**/
