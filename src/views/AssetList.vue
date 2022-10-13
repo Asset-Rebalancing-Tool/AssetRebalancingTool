@@ -72,13 +72,14 @@ import {
   addPrivateHolding,
   addPublicHolding,
   generateAssetMap,
+  buildGroupPatchUuidArray, pushHoldingToSelectedGroup,
 } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
 import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetMapEntry } from '@/models/AssetMapEntry'
-import type { AssetList } from '@/models/holdings/AssetList'
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
 import FlashMessage from '@/components/wrappers/FlashMessage.vue'
 import { useFlashMessageStore } from '@/stores/FlashMessageStore'
@@ -90,7 +91,7 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 const store = useAssetMapStore()
 const FlashMessageStore = useFlashMessageStore()
 
-const assetList: Ref<Map<string, AssetList>> = ref(new Map<string, AssetList>())
+const assetList: Ref<Map<string, AssetListEntry>> = ref(new Map<string, AssetListEntry>())
 
 onMounted(async () => {
   await generateAssetMap()
@@ -111,49 +112,31 @@ function addHoldingToGroup(entryUuid: string): void {
   // Always return if no group is selected
   if (!store.editGroupEntries) return
 
-  const clickedEntry: AssetMapEntry | null =
-    store.getAssetMapEntryByUuid(entryUuid)
-  const selectedGroup: HoldingGroup = store.selectedGroup
+  // Get the currently edited group and the holding that has been clicked
+  const clickedHolding: AssetMapEntry | null = store.getAssetMapEntryByUuid(entryUuid)
+  const group: HoldingGroup = store.selectedGroup
 
-  if (clickedEntry) {
-    switch (clickedEntry.entryType) {
-      case EntryTypeEnum.PUBLIC_HOLDING:
-        const publicHolding = clickedEntry as PublicHolding
-        selectedGroup.publicHoldings.push(publicHolding)
-        break
-      case EntryTypeEnum.PRIVATE_HOLDING:
-        const privateHolding = clickedEntry as PrivateHolding
-        selectedGroup.privateHoldings.push(privateHolding)
-        break
-    }
+  if (clickedHolding && group) {
+    // Push the clicked holding to the selected group
+    pushHoldingToSelectedGroup(clickedHolding, group)
+
+    // Remove the holding group from the asset list, which is getting rendered
+    store.assetList.delete(clickedHolding.uuid)
+
+    // Add the modified holding group to the asset map and the asset list
+    addHoldingGroup(store, group)
+    // Patch the holding group entry
+    PatchAssetService.patchHoldingGroup(
+        patchHoldingGroupRequest(group),
+        group.uuid
+    )
   }
-
-  addHoldingGroup(store, selectedGroup)
 }
 
 // The patch owned quantity request body
-function patchHoldingGroupRequest(
-  holdingGroup: HoldingGroup,
-  mapEntry: AssetMapEntry
-): HoldingGroupRequest {
-  const publicUuids: string[] = []
-  const privateUuids: string[] = []
-
-  switch (mapEntry.entryType) {
-    case EntryTypeEnum.PUBLIC_HOLDING:
-      holdingGroup.publicHoldings.forEach((publicHolding: PublicHolding) => {
-        addPublicHolding(store, publicHolding)
-        publicUuids.push(publicHolding.uuid)
-      })
-      break
-    case EntryTypeEnum.PRIVATE_HOLDING:
-      holdingGroup.publicHoldings.forEach((privateHolding: PrivateHolding) => {
-        addPrivateHolding(store, privateHolding)
-        publicUuids.push(privateHolding.uuid)
-      })
-      break
-  }
-
+function patchHoldingGroupRequest(holdingGroup: HoldingGroup): HoldingGroupRequest {
+  const publicUuids: string[] = buildGroupPatchUuidArray(holdingGroup, EntryTypeEnum.PUBLIC_HOLDING)
+  const privateUuids: string[] = buildGroupPatchUuidArray(holdingGroup, EntryTypeEnum.PRIVATE_HOLDING)
   return {
     publicHoldingUuids: publicUuids,
     privateHoldingUuids: privateUuids,

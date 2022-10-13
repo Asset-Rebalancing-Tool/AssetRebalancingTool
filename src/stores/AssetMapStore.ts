@@ -7,7 +7,7 @@ import type {
   SortColumn as ColumnType,
   SortDirection as DirectionType,
 } from '@/models/enums/SortEnum'
-import type { AssetList } from '@/models/holdings/AssetList'
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
@@ -18,7 +18,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
   let assetMap: Map<string, AssetMapEntry> = reactive(
     new Map<string, AssetMapEntry>()
   )
-  const assetList = reactive(new Map<string, AssetList>())
+  const assetList = reactive(new Map<string, AssetListEntry>())
 
   const listLoadingFlag: Ref<boolean> = ref(true)
 

@@ -9,6 +9,8 @@ import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
 import type { Operator as OperatorType } from '@/models/enums/Operator'
 import { Operator } from '@/models/enums/Operator'
 import type { GroupEntry } from '@/models/GroupEntry'
+import type {AssetListEntry} from "@/models/holdings/AssetListEntry";
+import type {HoldingGroupRequest} from "@/requests/HoldingGroupRequest";
 
 /**
  * Generate the initial asset map that is getting fetched after the asset list has been mounted
@@ -53,29 +55,88 @@ export async function generateAssetMap() {
  * @param holdingGroup HoldingGroup
  */
 export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
+
+  const groupEntryArray = buildGroupEntryArray(holdingGroup)
+
+  // Update the whole holding group value of the asset map
   holdingGroup.entryType = EntryTypeEnum.HOLDING_GROUP
   store.assetMap.set(holdingGroup.uuid, holdingGroup)
 
-  const groupUuids: GroupEntry[] = []
+  // Build the new asset list entry object in order to rerender the template
+  store.assetList.set(holdingGroup.uuid, {
+    uuid: holdingGroup.uuid,
+    hasGroup: false,
+    groupEntries: groupEntryArray,
+    entryType: EntryTypeEnum.HOLDING_GROUP,
+  } as AssetListEntry)
+}
+
+/**
+ *
+ * @param clickedEntry
+ * @param group
+ */
+export function pushHoldingToSelectedGroup(clickedEntry: AssetMapEntry, group: HoldingGroup): void {
+  switch (clickedEntry.entryType) {
+    case EntryTypeEnum.PUBLIC_HOLDING:
+      const publicHolding = clickedEntry as PublicHolding
+      group.publicHoldings.push(publicHolding)
+      break
+    case EntryTypeEnum.PRIVATE_HOLDING:
+      const privateHolding = clickedEntry as PrivateHolding
+      group.privateHoldings.push(privateHolding)
+      break
+  }
+}
+
+/**
+ * Iterate over the holdings of a group and push all holding uuids from a specified entry type into an array
+ *
+ * @param holdingGroup HoldingGroup
+ * @param entryType EntryTypeEnum
+ *
+ * @return string[]
+ */
+export function buildGroupPatchUuidArray(holdingGroup: HoldingGroup, entryType: EntryTypeEnum): string[] {
+  const tempUuidArray: string[] = []
+  switch (entryType) {
+    case EntryTypeEnum.PUBLIC_HOLDING:
+      holdingGroup.publicHoldings.forEach((groupEntry) => {
+        tempUuidArray.push(groupEntry.uuid)
+      })
+      break;
+    case EntryTypeEnum.PRIVATE_HOLDING:
+      holdingGroup.privateHoldings.forEach((groupEntry) => {
+        tempUuidArray.push(groupEntry.uuid)
+      })
+      break;
+  }
+  return tempUuidArray
+}
+
+/**
+ * Iterate over the holdings of a group and build the group entry array,
+ * needed for asset list entry, which renders the template
+ *
+ * @param holdingGroup HoldingGroup
+ *
+ * @return GroupEntry[]
+ */
+function buildGroupEntryArray(holdingGroup: HoldingGroup): GroupEntry[] {
+  const groupEntryArray: GroupEntry[] = []
   holdingGroup.publicHoldings.forEach((groupEntry) => {
-    groupUuids.push({
+    groupEntryArray.push({
       uuid: groupEntry.uuid,
       entryType: EntryTypeEnum.PUBLIC_HOLDING,
     } as GroupEntry)
   })
   holdingGroup.privateHoldings.forEach((groupEntry) => {
-    groupUuids.push({
+    groupEntryArray.push({
       uuid: groupEntry.uuid,
       entryType: EntryTypeEnum.PRIVATE_HOLDING,
     } as GroupEntry)
   })
-
-  store.assetList.set(holdingGroup.uuid, {
-    uuid: holdingGroup.uuid,
-    hasGroup: false,
-    groupUuids: groupUuids,
-    entryType: EntryTypeEnum.HOLDING_GROUP,
-  })
+  return groupEntryArray
 }
 
 /**
