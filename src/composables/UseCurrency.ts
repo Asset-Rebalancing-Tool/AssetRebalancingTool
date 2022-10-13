@@ -1,17 +1,32 @@
 import type { CurrencyEnum as CurrencyEnumType } from '@/models/enums/CurrencyEnum'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
+// @ts-ignore
+import { useI18n } from "vue-i18n";
 
 /**
- * Get an array of mapped currencies
  *
- * @param currencyArray CurrencyEnum[]
+ * @param currencyArray
  */
-export function mapCurrencyArray(currencyArray: CurrencyEnumType[]) {
-  const tempArray = []
-  for (const currency of currencyArray) {
-    tempArray.push(mapCurrency(currency))
+export function createCurrencyObject(currencyArray: CurrencyEnumType[]) {
+  const tempArray: any = []
+  for (const currencyKey of currencyArray) {
+    if (currencyKey == 'UNSUPPORTED') continue
+    tempArray.push({
+      value: currencyKey,
+      text: getCurrencyValue(currencyKey)
+    })
   }
   return tempArray
+}
+
+/**
+ * Get a currency select option value translated by its key
+ *
+ * @param currencyKey CurrencyEnumType
+ */
+export function getCurrencyValue(currencyKey: CurrencyEnumType): string {
+  const { t } = useI18n()
+  return t(`assetList.listEntries.privateHolding.currencies.${currencyKey}`)
 }
 
 /**

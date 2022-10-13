@@ -48,7 +48,7 @@
   "sidebar": {
     "overview": "Overview",
     "broker": "Broker Connection",
-    "assets": "manage Assets",
+    "assets": "Manage Assets",
     "schedule": "Schedule Investments",
     "transactions": "Transaction History",
     "settings": "Settings",
@@ -80,7 +80,21 @@
         "pieces": "pcs."
       },
       "privateHolding": {
-        "type": "Private"
+        "type": "Private",
+        "unitTypes": {
+          "Grams": "Grams",
+          "Kilos": "Kilos",
+          "Liters": "Liters",
+          "Milliliters": "Milliliters",
+          "Ounce": "Ounce",
+          "Piece": "Piece",
+          "Unknown": "Unknown"
+        },
+        "currencies": {
+          "EUR": "EUR",
+          "USD":  "USD",
+          "UNSUPPORTED": "UNSUPPORTED"
+        }
       },
       "holdingGroup": {
         "emptyGroup": "empty group",

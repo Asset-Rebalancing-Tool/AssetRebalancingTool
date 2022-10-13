@@ -5,5 +5,5 @@ export enum UnitTypeEnum {
   MILLILITERS = 'Milliliters',
   OUNCE = 'Ounce',
   PIECE = 'Piece',
-  UNKNOWN = 'Unknown',
+  UNKNOWN = 'UNKNOWN',
 }

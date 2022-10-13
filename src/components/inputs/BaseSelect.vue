@@ -11,11 +11,11 @@
     >
       <option
         v-for="option in options"
-        :value="option"
-        :key="option"
-        :selected="option === modelValue"
+        :value="option.value"
+        :key="option.value"
+        :selected="option.value === modelValue"
       >
-        {{ option }}
+        {{ option.text }}
       </option>
     </select>
 
@@ -26,9 +26,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from 'vue'
-import type { CurrencyEnum as CurrencyType } from '@/models/enums/CurrencyEnum'
-import type { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { computed } from 'vue'
 import IconSelectArrow from '@/assets/icons/inputs/IconSelectArrow.vue'
 
@@ -42,13 +39,16 @@ const props = defineProps({
     required: false,
   },
   options: {
-    type: Array,
+    type: Object,
     required: true,
   },
 })
 
+console.log(props.options)
+
 const selectedValue = computed(() => {
-  return props.defaultSelection ? props.defaultSelection : props.modelValue
+  //return props.defaultSelection ? props.defaultSelection : props.modelValue
+  return props.modelValue ? props.modelValue: props.defaultSelection
 })
 </script>
 

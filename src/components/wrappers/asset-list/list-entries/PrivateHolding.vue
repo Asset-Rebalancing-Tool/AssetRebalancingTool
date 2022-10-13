@@ -22,7 +22,7 @@
               v-show="!showPricePerUnitAnim"
               class="currency"
               :options="currencyOptions"
-              :default-selection="CurrencyEnum.EUR"
+              :default-selection="defaultCurrency"
               :modelValue="currency"
               @change="patchCurrency($event.target.value, holding.uuid)"
             />
@@ -90,23 +90,24 @@
 </template>
 
 <script lang="ts" setup>
-import type { Ref, ComputedRef } from 'vue'
+import type {ComputedRef, Ref} from 'vue'
+import {computed, ref} from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
-import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
+import type {PrivateHolding} from '@/models/holdings/PrivateHolding'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import BaseSelect from '@/components/inputs/BaseSelect.vue'
-import { computed, ref } from 'vue'
-import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
-import { mapAssetType } from '@/composables/UseAssetType'
-import { mapUnitTypeArray, mapUnitType } from '@/composables/UseUnitType'
-import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
-import { formatValueArray } from '@/composables/UsePriceRecords'
-import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
+import {CurrencyEnum} from '@/models/enums/CurrencyEnum'
+import {UnitTypeEnum} from '@/models/enums/UnitTypeEnum'
+import {mapAssetType} from '@/composables/UseAssetType'
+import {createUnitTypeObject, getUnitTypeValue} from '@/composables/UseUnitType'
+import {createCurrencyObject, getCurrencyValue} from '@/composables/UseCurrency'
+import type {PrivateHoldingRequest} from '@/requests/PrivateHoldingRequest'
+import {useAssetMapStore} from '@/stores/AssetMapStore'
+import {formatValueArray} from '@/composables/UsePriceRecords'
+import {AnimationWrapperEnum} from '@/models/enums/AnimationWrapperEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -254,24 +255,24 @@ const assetType = computed((): string => {
   return mapAssetType(holding.value.assetType)
 })
 
-// Get the default mapped unit type
+// Get the default unit type
 const defaultUnitType = computed(() => {
-  return mapUnitType(UnitTypeEnum.PIECE)
+  return UnitTypeEnum.PIECE
 })
 
 // Get the unit type select options
 const unitTypeOptions = computed(() => {
-  return mapUnitTypeArray(Object.values(UnitTypeEnum))
+  return createUnitTypeObject(Object.values(UnitTypeEnum))
+})
+
+// Get the default currency
+const defaultCurrency = computed(() => {
+  return CurrencyEnum.EUR
 })
 
 // Get the currency select options
 const currencyOptions = computed(() => {
-  const currencies = []
-  for (const currency of Object.values(CurrencyEnum)) {
-    if (currency == 'UNSUPPORTED') continue
-    currencies.push(currency)
-  }
-  return currencies
+  return createCurrencyObject(Object.values(CurrencyEnum))
 })
 
 /**-***************************************************-**/

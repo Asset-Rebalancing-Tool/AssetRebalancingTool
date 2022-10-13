@@ -80,7 +80,21 @@
         "pieces": "Stk."
       },
       "privateHolding": {
-        "type": "Privat"
+        "type": "Privat",
+        "unitTypes": {
+          "Grams": "Gramm",
+          "Kilos": "Kilo",
+          "Liters": "Liter",
+          "Milliliters": "Milliliter",
+          "Ounce": "Unze",
+          "Piece": "Stück",
+          "Unknown": "Unknown"
+        },
+        "currencies": {
+          "EUR": "EUR",
+          "USD":  "USD",
+          "UNSUPPORTED": "UNSUPPORTED"
+        }
       },
       "holdingGroup": {
         "emptyGroup": "leere Gruppe",
