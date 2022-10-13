@@ -133,6 +133,8 @@ const holding: ComputedRef<PrivateHolding> = computed(() => {
   return store.getAssetMapEntryByUuid(props.uuid) as PrivateHolding
 })
 
+console.log(holding)
+
 /**-***************************************************-**/
 /** --------------- Input Model Values ---------------- **/
 /**-***************************************************-**/
@@ -142,7 +144,7 @@ const pricePerUnit: Ref<number> = ref(holding.value.pricePerUnit)
 const ownedQuantity: Ref<number> = ref(holding.value.ownedQuantity)
 const targetPercentage: Ref<number> = ref(holding.value.targetPercentage)
 const unitType: Ref<UnitTypeEnum> = ref(holding.value.unitType)
-const currency: Ref<CurrencyEnum> = ref(CurrencyEnum.EUR)
+const currency: Ref<CurrencyEnum> = ref(holding.value.currency)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/

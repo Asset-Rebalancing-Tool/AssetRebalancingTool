@@ -36,8 +36,7 @@ export async function generateAssetMap() {
   })
 
   // Fetch and set each holding public holding into the asset map
-  const publicHoldings: PublicHolding[] =
-    await AssetService.fetchPublicHoldings()
+  const publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
   publicHoldings.forEach((publicHolding) => {
     addPublicHolding(store, publicHolding)
   })
