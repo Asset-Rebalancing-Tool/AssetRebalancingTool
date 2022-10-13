@@ -23,7 +23,7 @@
 
     header {
       width: 100%;
-      max-width: 645px;
+      max-width: 500px;
       margin-top: -50px;
 
       h1 {
@@ -38,8 +38,8 @@
 
         span {
           color: $main-color;
-          font-size: 66px;
-          line-height: 70px;
+          font-size: 46px;
+          line-height: 52px;
         }
       }
 
@@ -226,9 +226,11 @@
 }
 
 
-@media only screen and (min-width: 1360px) {
+@media only screen and (min-width: 1600px) {
   #sign-in .left-wrapper header,
   #sign-up .left-wrapper header {
+    max-width: 645px;
+
     h1 {
       font-size: 66px;
       line-height: 70px;
@@ -248,5 +250,40 @@
       font-size: 26px;
       line-height: 34px;
     }
+  }
+}
+
+@media only screen and (min-width: 1700px) {
+  #sign-in .sign-in-form,
+  #sign-up .sign-in-form {
+    max-width: 500px;
+  }
+
+  #sign-in .sign-in-form h2,
+  #sign-up .sign-in-form h2 {
+    font-size: 35px;
+  }
+
+  #sign-in .sign-in-form label,
+  #sign-up .sign-in-form label {
+    font-size: 18px;
+  }
+
+  #sign-in .sign-in-form button[type="submit"].show,
+  #sign-up .sign-in-form button[type="submit"].show {
+    font-size: 18px;
+  }
+
+  #sign-in .left-wrapper header p a,
+  #sign-up .left-wrapper header p a {
+    font-size: 26px;
+    line-height: 34px
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  #sign-in .sign-in-form,
+  #sign-up .sign-in-form {
+    max-width: 580px;
   }
 }

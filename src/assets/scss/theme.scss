@@ -227,7 +227,7 @@ input {
     cursor: pointer;
 }
 
-@media only screen and (min-width: 1600px) {
+@media only screen and (min-width: 1700px) {
     input {
         font-size: 15px;
     }
@@ -392,8 +392,8 @@ p {
     color: $primary-text-color;
 }
 
-@media only screen and (min-width: 1600px) {
-    h1, h2, h3, h4, h5, h6, p, span {
+@media only screen and (min-width: 1700px) {
+    h1, h2, h3, h4, h5, h6, p, span, a {
         font-size: 18px;
     }
 }
