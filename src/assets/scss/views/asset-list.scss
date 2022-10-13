@@ -236,6 +236,13 @@
 }
 
 @media only screen and (min-width: 1600px) {
+
+  #asset-list .holding-container .holding-row {
+    grid-template-columns: auto 140px 110px 200px 110px 76px;
+    grid-column-gap: 85px;
+    padding: 8px 26px 8px 8px;
+  }
+
   #asset-list footer:not(.holding-container footer) h4,
   #asset-list footer:not(.holding-container footer) .total-value,
   #asset-list footer:not(.holding-container footer) .total-percentage
