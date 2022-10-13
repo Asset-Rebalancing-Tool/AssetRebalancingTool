@@ -23,7 +23,16 @@ export async function generateAssetMap() {
   // Fetch and set each holding group into the asset map
   const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
   holdingGroups.forEach((holdingGroup) => {
+    // Push the holding group to the asset map
     addHoldingGroup(store, holdingGroup)
+    // Push each public group entry to the asset map
+    holdingGroup.publicHoldings.forEach((publicHolding) => {
+      addPublicHolding(store, publicHolding)
+    })
+    // Push each private group entry to the asset map
+    holdingGroup.privateHoldings.forEach((privateHolding) => {
+      addPrivateHolding(store, privateHolding)
+    })
   })
 
   // Fetch and set each holding public holding into the asset map
