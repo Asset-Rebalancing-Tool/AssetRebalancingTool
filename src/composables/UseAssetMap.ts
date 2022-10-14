@@ -5,13 +5,8 @@ import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
 import type { AssetMapEntry } from '@/models/AssetMapEntry'
-import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
-import type { Operator as OperatorType } from '@/models/enums/Operator'
-import { Operator } from '@/models/enums/Operator'
 import type { GroupEntry } from '@/models/GroupEntry'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
-import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import { toRaw } from 'vue'
+import type {AssetListEntry} from "@/models/holdings/AssetListEntry";
 
 /**
  * Generate the initial asset map that is getting fetched after the asset list has been mounted
@@ -37,8 +32,7 @@ export async function generateAssetMap() {
   })
 
   // Fetch and set each holding public holding into the asset map
-  const publicHoldings: PublicHolding[] =
-    await AssetService.fetchPublicHoldings()
+  const publicHoldings: PublicHolding[] = await AssetService.fetchPublicHoldings()
   publicHoldings.forEach((publicHolding) => {
     addPublicHoldingToMap(store, publicHolding)
     addPublicHoldingToRenderList(store, publicHolding)
@@ -67,6 +61,7 @@ export async function generateAssetMap() {
  * @param holdingGroup HoldingGroup
  */
 export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
+
   const groupEntryArray = buildGroupEntryArray(holdingGroup)
 
   // Update the whole holding group value of the asset map
@@ -87,10 +82,7 @@ export function addHoldingGroup(store: any, holdingGroup: HoldingGroup) {
  * @param clickedEntry
  * @param group
  */
-export function pushHoldingToSelectedGroup(
-  clickedEntry: AssetMapEntry,
-  group: HoldingGroup
-): void {
+export function pushHoldingToSelectedGroup(clickedEntry: AssetMapEntry, group: HoldingGroup): void {
   switch (clickedEntry.entryType) {
     case EntryTypeEnum.PUBLIC_HOLDING:
       const publicHolding = clickedEntry as PublicHolding
@@ -111,22 +103,19 @@ export function pushHoldingToSelectedGroup(
  *
  * @return string[]
  */
-export function buildGroupPatchUuidArray(
-  holdingGroup: HoldingGroup,
-  entryType: EntryTypeEnum
-): string[] {
+export function buildGroupPatchUuidArray(holdingGroup: HoldingGroup, entryType: EntryTypeEnum): string[] {
   const tempUuidArray: string[] = []
   switch (entryType) {
     case EntryTypeEnum.PUBLIC_HOLDING:
       holdingGroup.publicHoldings.forEach((groupEntry) => {
         tempUuidArray.push(groupEntry.uuid)
       })
-      break
+      break;
     case EntryTypeEnum.PRIVATE_HOLDING:
       holdingGroup.privateHoldings.forEach((groupEntry) => {
         tempUuidArray.push(groupEntry.uuid)
       })
-      break
+      break;
   }
   return tempUuidArray
 }
@@ -162,10 +151,7 @@ function buildGroupEntryArray(holdingGroup: HoldingGroup): GroupEntry[] {
  * @param store any
  * @param publicHolding PublicHolding
  */
-export function addPublicHoldingToMap(
-  store: any,
-  publicHolding: PublicHolding
-) {
+export function addPublicHoldingToMap (store: any, publicHolding: PublicHolding) {
   publicHolding.entryType = EntryTypeEnum.PUBLIC_HOLDING
   store.assetMap.set(publicHolding.uuid, publicHolding)
 }
@@ -177,10 +163,10 @@ export function addPublicHoldingToMap(
  * @param publicHolding PublicHolding
  * @param hasGroup false
  */
-export function addPublicHoldingToRenderList(
-  store: any,
-  publicHolding: PublicHolding,
-  hasGroup = false
+export function addPublicHoldingToRenderList (
+    store: any,
+    publicHolding: PublicHolding,
+    hasGroup = false
 ) {
   store.assetList.set(publicHolding.uuid, {
     uuid: publicHolding.uuid,
@@ -195,10 +181,7 @@ export function addPublicHoldingToRenderList(
  * @param store any
  * @param privateHolding PrivateHolding
  */
-export function addPrivateHoldingToMap(
-  store: any,
-  privateHolding: PrivateHolding
-) {
+export function addPrivateHoldingToMap(store: any, privateHolding: PrivateHolding) {
   privateHolding.entryType = EntryTypeEnum.PRIVATE_HOLDING
   store.assetMap.set(privateHolding.uuid, privateHolding)
 }
@@ -210,10 +193,10 @@ export function addPrivateHoldingToMap(
  * @param privateHolding PrivateHolding
  * @param hasGroup false
  */
-export function addPrivateHoldingToRenderList(
-  store: any,
-  privateHolding: PrivateHolding,
-  hasGroup = false
+export function addPrivateHoldingToRenderList (
+    store: any,
+    privateHolding: PrivateHolding,
+    hasGroup = false
 ) {
   privateHolding.entryType = EntryTypeEnum.PRIVATE_HOLDING
   store.assetList.set(privateHolding.uuid, {
