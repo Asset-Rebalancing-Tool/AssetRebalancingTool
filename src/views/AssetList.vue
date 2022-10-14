@@ -16,7 +16,7 @@
         <HoldingGroup
           v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
           :uuid="uuid"
-          :nested-holding-count="0"
+          :nested-holding-count="getNestedHoldingCount(uuid)"
         >
           <template #holdings>
             <div
@@ -207,6 +207,23 @@ function patchHoldingGroupRequest(
     groupName: holdingGroup.groupName,
     targetPercentage: holdingGroup.targetPercentage,
   } as HoldingGroupRequest
+}
+
+/**
+ * Get the count of holdings, that are nested in a specific group
+ *
+ * @param groupUuid string
+ *
+ * @return number
+ */
+function getNestedHoldingCount(groupUuid: string) {
+  if (store.assetList.has(groupUuid)) {
+    let group = store.assetList.get(groupUuid)
+    if (group && group.groupEntries) {
+      return group.groupEntries.length
+    }
+  }
+  return 0
 }
 </script>
 

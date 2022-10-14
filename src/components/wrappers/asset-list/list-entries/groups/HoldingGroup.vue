@@ -33,4 +33,6 @@ const props = defineProps({
     required: true,
   },
 })
+
+console.log(props.nestedHoldingCount)
 </script>
