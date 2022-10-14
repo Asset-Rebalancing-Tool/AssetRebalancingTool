@@ -26,10 +26,24 @@
               <PublicHolding
                 v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
                 :uuid="groupEntry.uuid"
+                @click="
+                  removeHoldingFromGroup(
+                    uuid,
+                    groupEntry.uuid,
+                    groupEntry.entryType
+                  )
+                "
               />
               <PrivateHolding
                 v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
                 :uuid="groupEntry.uuid"
+                @click="
+                  removeHoldingFromGroup(
+                    uuid,
+                    groupEntry.uuid,
+                    groupEntry.entryType
+                  )
+                "
               />
             </div>
           </template>
@@ -72,6 +86,7 @@ import {
   generateAssetMap,
   buildGroupPatchUuidArray,
   pushHoldingToSelectedGroup,
+  moveGroupEntryToAssetList,
 } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
@@ -83,7 +98,6 @@ import PrivateHolding from '@/components/wrappers/asset-list/list-entries/Privat
 import FlashMessage from '@/components/wrappers/FlashMessage.vue'
 import { useFlashMessageStore } from '@/stores/FlashMessageStore'
 import HoldingGroup from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue'
-import type { HoldingGroup as HoldingGroupType } from '@/models/holdings/HoldingGroup'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 
@@ -108,6 +122,10 @@ const showFlashMessage = computed(() => {
 
 /**
  * Add a public or private list entry to the selected holding group
+ *
+ * @param entryUuid string
+ *
+ * @return void
  */
 function addHoldingToGroup(entryUuid: string): void {
   // Always return if no group is selected
@@ -121,10 +139,8 @@ function addHoldingToGroup(entryUuid: string): void {
   if (clickedHolding && group) {
     // Push the clicked holding to the selected group
     pushHoldingToSelectedGroup(clickedHolding, group)
-
     // Remove the holding group from the asset list, which is getting rendered
     store.assetList.delete(clickedHolding.uuid)
-
     // Add the modified holding group to the asset map and the asset list
     addHoldingGroup(store, group)
     // Patch the holding group entry
@@ -135,7 +151,45 @@ function addHoldingToGroup(entryUuid: string): void {
   }
 }
 
-// The patch owned quantity request body
+/**
+ * Remove a public or private list entry from the selected holding group
+ *
+ * @param groupUuid string
+ * @param entryUuid string
+ * @param entryType EntryTypeEnum
+ *
+ * @return void
+ */
+function removeHoldingFromGroup(
+  groupUuid: string,
+  entryUuid: string,
+  entryType: EntryTypeEnum
+): void {
+  // Always return if no group is selected
+  if (!store.editGroupEntries) return
+
+  if (store.assetList.has(groupUuid)) {
+    const group = store.assetList.get(groupUuid)
+    if (group && group.groupEntries) {
+      // Remove the whole holding entry from the selected group
+      moveGroupEntryToAssetList(store, group, entryUuid, entryType)
+
+      // Patch the holding group entry
+      PatchAssetService.patchHoldingGroup(
+        patchHoldingGroupRequest(store.selectedGroup),
+        group.uuid
+      )
+    }
+  }
+}
+
+/**
+ * The patch owned quantity request body
+ *
+ * @param holdingGroup HoldingGroup
+ *
+ * @return HoldingGroupRequest
+ */
 function patchHoldingGroupRequest(
   holdingGroup: HoldingGroup
 ): HoldingGroupRequest {
