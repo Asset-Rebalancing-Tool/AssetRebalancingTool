@@ -1,15 +1,18 @@
-import {defineStore} from 'pinia'
-import type {Ref} from 'vue'
-import {reactive, ref} from 'vue'
-import type {SortColumn as ColumnType, SortDirection as DirectionType,} from '@/models/enums/SortEnum'
-import {SortColumn} from '@/models/enums/SortEnum'
-import type {AssetMapEntry} from '@/models/AssetMapEntry'
-import type {AssetListEntry} from '@/models/holdings/AssetListEntry'
-import {EntryTypeEnum} from '@/models/enums/EntryTypeEnum'
-import type {PublicHolding} from '@/models/holdings/PublicHolding'
-import type {PrivateHolding} from '@/models/holdings/PrivateHolding'
-import type {HoldingGroup} from '@/models/holdings/HoldingGroup'
-import {getNewestPriceRecord} from '@/composables/UsePriceRecords'
+import { defineStore } from 'pinia'
+import type { Ref } from 'vue'
+import { reactive, ref } from 'vue'
+import type {
+  SortColumn as ColumnType,
+  SortDirection as DirectionType,
+} from '@/models/enums/SortEnum'
+import { SortColumn } from '@/models/enums/SortEnum'
+import type { AssetMapEntry } from '@/models/AssetMapEntry'
+import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
+import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
+import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
 
 export const useAssetMapStore = defineStore('assetMapStore', () => {
   let assetMap: Map<string, AssetMapEntry> = reactive(
@@ -118,14 +121,14 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    * @return number
    */
   function getTotalGroupTargetPercentage(groupUuid: string): number {
-    let totalTargetPercentage: number = 0
+    let totalTargetPercentage = 0
     if (assetList.has(groupUuid)) {
-      let group = assetList.get(groupUuid)
+      const group = assetList.get(groupUuid)
       if (group && group.groupEntries) {
-        group.groupEntries.forEach(groupEntry => {
-          let mapEntry = assetMap.get(groupEntry.uuid)
-          if(mapEntry) {
-            let holding: AssetMapEntry = mapEntry
+        group.groupEntries.forEach((groupEntry) => {
+          const mapEntry = assetMap.get(groupEntry.uuid)
+          if (mapEntry) {
+            const holding: AssetMapEntry = mapEntry
             totalTargetPercentage += holding.targetPercentage
           }
         })
@@ -142,24 +145,29 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    * @return number
    */
   function getTotalGroupValue(groupUuid: string): number {
-    let totalValue: number = 0
+    let totalValue = 0
     if (assetList.has(groupUuid)) {
-      let group = assetList.get(groupUuid)
+      const group = assetList.get(groupUuid)
       if (group && group.groupEntries) {
-        group.groupEntries.forEach(groupEntry => {
-          let mapEntry = assetMap.get(groupEntry.uuid)
-          if(mapEntry) {
+        group.groupEntries.forEach((groupEntry) => {
+          const mapEntry = assetMap.get(groupEntry.uuid)
+          if (mapEntry) {
             switch (mapEntry.entryType) {
               case EntryTypeEnum.PUBLIC_HOLDING:
                 const publicHolding: PublicHolding = mapEntry as PublicHolding
-                const price = getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
+                const price = getNewestPriceRecord(
+                  publicHolding.publicAsset.assetPriceRecords
+                )
                 const quantity = publicHolding.ownedQuantity
-                totalValue = totalValue + (price * quantity)
-                break;
+                totalValue = totalValue + price * quantity
+                break
               case EntryTypeEnum.PRIVATE_HOLDING:
-                const privateHolding: PrivateHolding = mapEntry as PrivateHolding
-                totalValue = totalValue + (privateHolding.pricePerUnit * privateHolding.ownedQuantity)
-                break;
+                const privateHolding: PrivateHolding =
+                  mapEntry as PrivateHolding
+                totalValue =
+                  totalValue +
+                  privateHolding.pricePerUnit * privateHolding.ownedQuantity
+                break
             }
           }
         })
@@ -176,25 +184,34 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    * @return number
    */
   function getTotalGroupPercentage(groupUuid: string): number {
-    let totalPercentage: number = 0
+    let totalPercentage = 0
     if (assetList.has(groupUuid)) {
-      let group = assetList.get(groupUuid)
+      const group = assetList.get(groupUuid)
       if (group && group.groupEntries) {
-        group.groupEntries.forEach(groupEntry => {
-          let mapEntry = assetMap.get(groupEntry.uuid)
-          if(mapEntry) {
+        group.groupEntries.forEach((groupEntry) => {
+          const mapEntry = assetMap.get(groupEntry.uuid)
+          if (mapEntry) {
             switch (mapEntry.entryType) {
               case EntryTypeEnum.PUBLIC_HOLDING:
                 const publicHolding: PublicHolding = mapEntry as PublicHolding
-                const priceRecord: number = getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
-                const publicValue: number = publicHolding.ownedQuantity * priceRecord
-                totalPercentage = totalPercentage + (publicValue / totalAssetListValue.value) * 100
-                break;
+                const priceRecord: number = getNewestPriceRecord(
+                  publicHolding.publicAsset.assetPriceRecords
+                )
+                const publicValue: number =
+                  publicHolding.ownedQuantity * priceRecord
+                totalPercentage =
+                  totalPercentage +
+                  (publicValue / totalAssetListValue.value) * 100
+                break
               case EntryTypeEnum.PRIVATE_HOLDING:
-                const privateHolding: PrivateHolding = mapEntry as PrivateHolding
-                const privateValue: number = privateHolding.ownedQuantity * privateHolding.pricePerUnit
-                totalPercentage = totalPercentage + (privateValue / totalAssetListValue.value) * 100
-                break;
+                const privateHolding: PrivateHolding =
+                  mapEntry as PrivateHolding
+                const privateValue: number =
+                  privateHolding.ownedQuantity * privateHolding.pricePerUnit
+                totalPercentage =
+                  totalPercentage +
+                  (privateValue / totalAssetListValue.value) * 100
+                break
             }
           }
         })
@@ -212,7 +229,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    */
   function getTotalGroupDeviation(groupUuid: string): number {
     if (assetMap.has(groupUuid)) {
-      let group = assetMap.get(groupUuid)
+      const group = assetMap.get(groupUuid)
       if (group) {
         const holdingGroup: HoldingGroup = group as HoldingGroup
         const totalGroupPercentage: number = getTotalGroupPercentage(groupUuid)

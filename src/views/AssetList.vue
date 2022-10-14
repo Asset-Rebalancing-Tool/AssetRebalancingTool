@@ -218,7 +218,7 @@ function patchHoldingGroupRequest(
  */
 function getNestedHoldingCount(groupUuid: string) {
   if (store.assetList.has(groupUuid)) {
-    let group = store.assetList.get(groupUuid)
+    const group = store.assetList.get(groupUuid)
     if (group && group.groupEntries) {
       return group.groupEntries.length
     }

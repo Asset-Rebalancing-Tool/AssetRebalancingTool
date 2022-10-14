@@ -189,7 +189,7 @@ function resetSelectionState() {
 
 // Get the total asset list value
 const totalGroupValue = computed(() => {
-  let totalGroupValue = store.getTotalGroupValue(group.value.uuid)
+  const totalGroupValue = store.getTotalGroupValue(group.value.uuid)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
@@ -198,10 +198,10 @@ const totalGroupValue = computed(() => {
 
 // Get the total asset list percentage
 const totalGroupPercentage = computed(() => {
-  let totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
+  const totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-        totalGroupPercentage
+      totalGroupPercentage
     ) + ' %'
   )
 })
@@ -209,6 +209,8 @@ const totalGroupPercentage = computed(() => {
 // Get the total asset list deviation
 const totalGroupDeviation = computed(() => {
   const totalGroupDeviation = store.getTotalGroupDeviation(group.value.uuid)
-  return totalGroupDeviation ? formatValueArray(totalGroupDeviation) : ['00', '00', '0']
+  return totalGroupDeviation
+    ? formatValueArray(totalGroupDeviation)
+    : ['00', '00', '0']
 })
 </script>
