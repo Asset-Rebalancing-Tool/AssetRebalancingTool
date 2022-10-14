@@ -126,7 +126,6 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
           let mapEntry = assetMap.get(groupEntry.uuid)
           if(mapEntry) {
             let holding: AssetMapEntry = mapEntry
-            console.log(holding)
             totalTargetPercentage += holding.targetPercentage
           }
         })
