@@ -42,7 +42,10 @@ import {
   handleErrorResponseStatus,
 } from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import { addPublicHolding } from '@/composables/UseAssetMap'
+import {
+  addPublicHoldingToMap,
+  addPublicHoldingToRenderList,
+} from '@/composables/UseAssetMap'
 
 // Initialize stores
 const searchbarStore = useSearchbarStore()
@@ -76,7 +79,10 @@ async function newPublicHoldingAction(uuid: string) {
   await getAuthorizedInstance().then((instance) => {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
-      .then((result) => addPublicHolding(assetMapStore, result.data))
+      .then((result) => {
+        addPublicHoldingToMap(assetMapStore, result.data)
+        addPublicHoldingToRenderList(assetMapStore, result.data)
+      })
       .catch((error) => handleErrorResponseStatus(error))
   })
 }

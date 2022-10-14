@@ -133,8 +133,6 @@ const holding: ComputedRef<PrivateHolding> = computed(() => {
   return store.getAssetMapEntryByUuid(props.uuid) as PrivateHolding
 })
 
-console.log(holding)
-
 /**-***************************************************-**/
 /** --------------- Input Model Values ---------------- **/
 /**-***************************************************-**/

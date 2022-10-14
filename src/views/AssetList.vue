@@ -69,10 +69,9 @@ import { computed, onMounted, ref } from 'vue'
 import type { Ref } from 'vue'
 import {
   addHoldingGroup,
-  addPrivateHolding,
-  addPublicHolding,
   generateAssetMap,
-  buildGroupPatchUuidArray, pushHoldingToSelectedGroup,
+  buildGroupPatchUuidArray,
+  pushHoldingToSelectedGroup,
 } from '@/composables/UseAssetMap'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
@@ -91,7 +90,9 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 const store = useAssetMapStore()
 const FlashMessageStore = useFlashMessageStore()
 
-const assetList: Ref<Map<string, AssetListEntry>> = ref(new Map<string, AssetListEntry>())
+const assetList: Ref<Map<string, AssetListEntry>> = ref(
+  new Map<string, AssetListEntry>()
+)
 
 onMounted(async () => {
   await generateAssetMap()
@@ -113,7 +114,8 @@ function addHoldingToGroup(entryUuid: string): void {
   if (!store.editGroupEntries) return
 
   // Get the currently edited group and the holding that has been clicked
-  const clickedHolding: AssetMapEntry | null = store.getAssetMapEntryByUuid(entryUuid)
+  const clickedHolding: AssetMapEntry | null =
+    store.getAssetMapEntryByUuid(entryUuid)
   const group: HoldingGroup = store.selectedGroup
 
   if (clickedHolding && group) {
@@ -127,16 +129,24 @@ function addHoldingToGroup(entryUuid: string): void {
     addHoldingGroup(store, group)
     // Patch the holding group entry
     PatchAssetService.patchHoldingGroup(
-        patchHoldingGroupRequest(group),
-        group.uuid
+      patchHoldingGroupRequest(group),
+      group.uuid
     )
   }
 }
 
 // The patch owned quantity request body
-function patchHoldingGroupRequest(holdingGroup: HoldingGroup): HoldingGroupRequest {
-  const publicUuids: string[] = buildGroupPatchUuidArray(holdingGroup, EntryTypeEnum.PUBLIC_HOLDING)
-  const privateUuids: string[] = buildGroupPatchUuidArray(holdingGroup, EntryTypeEnum.PRIVATE_HOLDING)
+function patchHoldingGroupRequest(
+  holdingGroup: HoldingGroup
+): HoldingGroupRequest {
+  const publicUuids: string[] = buildGroupPatchUuidArray(
+    holdingGroup,
+    EntryTypeEnum.PUBLIC_HOLDING
+  )
+  const privateUuids: string[] = buildGroupPatchUuidArray(
+    holdingGroup,
+    EntryTypeEnum.PRIVATE_HOLDING
+  )
   return {
     publicHoldingUuids: publicUuids,
     privateHoldingUuids: privateUuids,

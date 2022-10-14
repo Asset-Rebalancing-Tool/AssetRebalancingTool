@@ -33,7 +33,11 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
-import { addPrivateHolding, addHoldingGroup } from '@/composables/UseAssetMap'
+import {
+  addHoldingGroup,
+  addPrivateHoldingToMap,
+  addPrivateHoldingToRenderList,
+} from '@/composables/UseAssetMap'
 
 const store = useAssetMapStore()
 
@@ -60,7 +64,10 @@ async function newPrivateHoldingAction() {
         '/holding_api/asset_holding/private',
         request
       )
-      .then((result) => addPrivateHolding(store, result.data))
+      .then((result) => {
+        addPrivateHoldingToMap(store, result.data)
+        addPrivateHoldingToRenderList(store, result.data)
+      })
       .catch((error) => handleErrorResponseStatus(error))
   })
 }
