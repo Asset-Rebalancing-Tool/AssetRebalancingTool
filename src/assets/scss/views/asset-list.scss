@@ -214,21 +214,37 @@
         position: absolute;
         top: -8px;
         right: calc($deviation-column + $holding-row-column-gap + 41px);
-        border: 3px solid #19B399;
+        border: 3px solid $main-error;
         border-radius: 5px;
         pointer-events: none;
 
         .header {
+          @include flex-center-x;
+          column-gap: 5px;
           width: 100%;
           height: 16px;
-          background-color: $main-color;
+          background-color: $main-error;
 
           span {
             text-align: center;
             font-size: 12px;
             line-height: 12px;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
           }
+
+          svg {
+            width: 11px;
+            height: 11px;
+            margin-top: 1px;
+          }
+        }
+      }
+
+      .percentage-wrapper.valid {
+        border: 3px solid $main-color;
+        .header {
+          background-color: $main-color;
         }
       }
     }

@@ -1,18 +1,15 @@
-import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
-import type { Ref } from 'vue'
-import { SortColumn } from '@/models/enums/SortEnum'
-import type { AssetMapEntry } from '@/models/AssetMapEntry'
-import type {
-  SortColumn as ColumnType,
-  SortDirection as DirectionType,
-} from '@/models/enums/SortEnum'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
-import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
-import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
-import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
+import {defineStore} from 'pinia'
+import type {Ref} from 'vue'
+import {reactive, ref} from 'vue'
+import type {SortColumn as ColumnType, SortDirection as DirectionType,} from '@/models/enums/SortEnum'
+import {SortColumn} from '@/models/enums/SortEnum'
+import type {AssetMapEntry} from '@/models/AssetMapEntry'
+import type {AssetListEntry} from '@/models/holdings/AssetListEntry'
+import {EntryTypeEnum} from '@/models/enums/EntryTypeEnum'
+import type {PublicHolding} from '@/models/holdings/PublicHolding'
+import type {PrivateHolding} from '@/models/holdings/PrivateHolding'
+import type {HoldingGroup} from '@/models/holdings/HoldingGroup'
+import {getNewestPriceRecord} from '@/composables/UsePriceRecords'
 
 export const useAssetMapStore = defineStore('assetMapStore', () => {
   let assetMap: Map<string, AssetMapEntry> = reactive(
@@ -111,6 +108,31 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
     if (assetMap.has(uuid)) {
       assetMap.delete(uuid)
     }
+  }
+
+  /**
+   * Calculate a groups total target percentage
+   *
+   * @param groupUuid string
+   *
+   * @return number
+   */
+  function getGroupTotalTargetPercentage(groupUuid: string): number {
+    let totalTargetPercentage = 0
+    if (assetList.has(groupUuid)) {
+      let group = assetList.get(groupUuid)
+      if (group && group.groupEntries) {
+        group.groupEntries.forEach(groupEntry => {
+          let mapEntry = assetMap.get(groupEntry.uuid)
+          if(mapEntry) {
+            let holding: AssetMapEntry = mapEntry
+            console.log(holding)
+            totalTargetPercentage += holding.targetPercentage
+          }
+        })
+      }
+    }
+    return totalTargetPercentage
   }
 
   /**
@@ -249,6 +271,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
     addAssetMapEntry,
     patchAssetMapEntry,
     removeAssetMapEntry,
+    getGroupTotalTargetPercentage,
     setAssetListTotalValue,
     setAssetListTotalTargetPercentage,
     setAssetListTotalDeviation,
