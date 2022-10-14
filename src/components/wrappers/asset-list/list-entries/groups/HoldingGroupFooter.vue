@@ -189,29 +189,26 @@ function resetSelectionState() {
 
 // Get the total asset list value
 const totalGroupValue = computed(() => {
+  let totalGroupValue = store.getTotalGroupValue(group.value.uuid)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
-  }).format(0)
+  }).format(totalGroupValue)
 })
 
 // Get the total asset list percentage
 const totalGroupPercentage = computed(() => {
+  let totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      // TODO: this is wrong, should be total group percentage
-      0
+        totalGroupPercentage
     ) + ' %'
   )
 })
 
 // Get the total asset list deviation
 const totalGroupDeviation = computed(() => {
-  const totalGroupDeviation = calcGroupDeviation()
-  return totalGroupDeviation ? formatValueArray(0) : ['00', '00', '0']
+  const totalGroupDeviation = store.getTotalGroupDeviation(group.value.uuid)
+  return totalGroupDeviation ? formatValueArray(totalGroupDeviation) : ['00', '00', '0']
 })
-
-function calcGroupDeviation(): null {
-  return null
-}
 </script>

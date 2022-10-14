@@ -117,8 +117,8 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    *
    * @return number
    */
-  function getGroupTotalTargetPercentage(groupUuid: string): number {
-    let totalTargetPercentage = 0
+  function getTotalGroupTargetPercentage(groupUuid: string): number {
+    let totalTargetPercentage: number = 0
     if (assetList.has(groupUuid)) {
       let group = assetList.get(groupUuid)
       if (group && group.groupEntries) {
@@ -132,6 +132,94 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
       }
     }
     return totalTargetPercentage
+  }
+
+  /**
+   * Calculate a groups total value
+   *
+   * @param groupUuid string
+   *
+   * @return number
+   */
+  function getTotalGroupValue(groupUuid: string): number {
+    let totalValue: number = 0
+    if (assetList.has(groupUuid)) {
+      let group = assetList.get(groupUuid)
+      if (group && group.groupEntries) {
+        group.groupEntries.forEach(groupEntry => {
+          let mapEntry = assetMap.get(groupEntry.uuid)
+          if(mapEntry) {
+            switch (mapEntry.entryType) {
+              case EntryTypeEnum.PUBLIC_HOLDING:
+                const publicHolding: PublicHolding = mapEntry as PublicHolding
+                const price = getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
+                const quantity = publicHolding.ownedQuantity
+                totalValue = totalValue + (price * quantity)
+                break;
+              case EntryTypeEnum.PRIVATE_HOLDING:
+                const privateHolding: PrivateHolding = mapEntry as PrivateHolding
+                totalValue = totalValue + (privateHolding.pricePerUnit * privateHolding.ownedQuantity)
+                break;
+            }
+          }
+        })
+      }
+    }
+    return totalValue
+  }
+
+  /**
+   * Calculate a groups total percentage
+   *
+   * @param groupUuid string
+   *
+   * @return number
+   */
+  function getTotalGroupPercentage(groupUuid: string): number {
+    let totalPercentage: number = 0
+    if (assetList.has(groupUuid)) {
+      let group = assetList.get(groupUuid)
+      if (group && group.groupEntries) {
+        group.groupEntries.forEach(groupEntry => {
+          let mapEntry = assetMap.get(groupEntry.uuid)
+          if(mapEntry) {
+            switch (mapEntry.entryType) {
+              case EntryTypeEnum.PUBLIC_HOLDING:
+                const publicHolding: PublicHolding = mapEntry as PublicHolding
+                const priceRecord: number = getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
+                const publicValue: number = publicHolding.ownedQuantity * priceRecord
+                totalPercentage = totalPercentage + (publicValue / totalAssetListValue.value) * 100
+                break;
+              case EntryTypeEnum.PRIVATE_HOLDING:
+                const privateHolding: PrivateHolding = mapEntry as PrivateHolding
+                const privateValue: number = privateHolding.ownedQuantity * privateHolding.pricePerUnit
+                totalPercentage = totalPercentage + (privateValue / totalAssetListValue.value) * 100
+                break;
+            }
+          }
+        })
+      }
+    }
+    return totalPercentage
+  }
+
+  /**
+   * Calculate a groups total deviation
+   *
+   * @param groupUuid string
+   *
+   * @return number
+   */
+  function getTotalGroupDeviation(groupUuid: string): number {
+    if (assetMap.has(groupUuid)) {
+      let group = assetMap.get(groupUuid)
+      if (group) {
+        const holdingGroup: HoldingGroup = group as HoldingGroup
+        const totalGroupPercentage: number = getTotalGroupPercentage(groupUuid)
+        return Math.abs(totalGroupPercentage - holdingGroup.targetPercentage)
+      }
+    }
+    return 0
   }
 
   /**
@@ -267,10 +355,16 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
 
     // Actions
     getAssetMapEntryByUuid,
+
     addAssetMapEntry,
     patchAssetMapEntry,
     removeAssetMapEntry,
-    getGroupTotalTargetPercentage,
+
+    getTotalGroupTargetPercentage,
+    getTotalGroupValue,
+    getTotalGroupPercentage,
+    getTotalGroupDeviation,
+
     setAssetListTotalValue,
     setAssetListTotalTargetPercentage,
     setAssetListTotalDeviation,

@@ -54,7 +54,7 @@ watch(
 
 // Get the current groups target percentage formatted by german pattern
 const totalGroupTargetPercentage = computed((): string => {
-  const targetPercentage: number = store.getGroupTotalTargetPercentage(props.groupUuid)
+  const targetPercentage: number = store.getTotalGroupTargetPercentage(props.groupUuid)
   // Set the flag that indicates if the group equals one hundred percent
   isOneHundredPercent.value = (targetPercentage === 100)
   // Format the current percentage value after german pattern

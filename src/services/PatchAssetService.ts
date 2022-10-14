@@ -104,9 +104,10 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            /*const patchedEntry = response.data as AssetMapEntry
+            const patchedEntry = response.data as AssetMapEntry
+            console.log(patchedEntry)
             patchedEntry.entryType = EntryTypeEnum.HOLDING_GROUP
-            patchAssetMapEntry(patchedEntry)*/
+            patchAssetMapEntry(patchedEntry)
           })
           .catch((error) => handleErrorResponseStatus(error))
       }, 500)
