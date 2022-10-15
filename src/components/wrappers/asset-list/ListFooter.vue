@@ -59,6 +59,7 @@ const totalTargetPercentage = computed(() => {
 
 // Get the total asset list deviation
 const totalDeviation = computed(() => {
+  console.log(store.totalAssetListDeviation)
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
       store.totalAssetListDeviation

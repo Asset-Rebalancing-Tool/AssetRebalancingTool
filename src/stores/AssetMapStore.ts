@@ -242,7 +242,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
   /**
    * Set the initial total asset list value by iterating over the fetched asset map holdings
    */
-  function setAssetListTotalValue() {
+  function setAssetListTotalValue(): void {
     let totalValue = 0
     assetMap.forEach((mapEntry: AssetMapEntry) => {
       let ownedQuantity = 0
@@ -270,7 +270,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    * Set the initial total asset list target percentage by iterating over the fetched asset map holdings
    * NOTE: Holding groups are not needed in this incrementation, since the asset map contains all assets
    */
-  function setAssetListTotalTargetPercentage() {
+  function setAssetListTotalTargetPercentage(): void {
     let totalTargetPercentage = 0
     assetMap.forEach((mapEntry: AssetMapEntry) => {
       switch (mapEntry.entryType) {
@@ -291,29 +291,8 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
    * Set the initial total asset list target percentage by iterating over the fetched asset map holdings
    * NOTE: Holding groups are not needed in this incrementation, since the asset map contains all assets
    */
-  function setAssetListTotalDeviation() {
-    let totalDeviation = 0
-    assetMap.forEach((mapEntry: AssetMapEntry) => {
-      switch (mapEntry.entryType) {
-        case EntryTypeEnum.PUBLIC_HOLDING:
-          const publicHolding = mapEntry as PublicHolding
-          const targetPercentage = publicHolding.targetPercentage
-          const priceRecord: number = getNewestPriceRecord(
-            publicHolding.publicAsset.assetPriceRecords
-          )
-          const currentValue: number = publicHolding.ownedQuantity * priceRecord
-          const currentPercentage =
-            (currentValue / totalAssetListValue.value) * 100
-          totalDeviation += Math.abs(currentPercentage - targetPercentage)
-          break
-
-        case EntryTypeEnum.PRIVATE_HOLDING:
-          const privateHolding = mapEntry as PrivateHolding
-          totalDeviation += privateHolding.targetPercentage
-          break
-      }
-    })
-    totalAssetListDeviation.value = totalDeviation
+  function setAssetListTotalDeviation(): void {
+    totalAssetListDeviation.value = Math.abs(100 - totalAssetListTargetPercentage.value)
   }
 
   /**-******************************************************************-**/
