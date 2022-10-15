@@ -1,12 +1,14 @@
 <template>
   <div class="asset-info">
-    <div
-      class="asset-logo"
-      :class="{ shake: editGroupEntries }"
-      v-bind:style="{
+    <slot name="asset-logo">
+      <div
+          class="asset-logo"
+          :class="{ shake: editGroupEntries }"
+          v-bind:style="{
         'background-image': 'url(data:image/png;base64,' + logo + ')',
       }"
-    ></div>
+      ></div>
+    </slot>
     <slot name="asset-name"></slot>
     <div class="additional-info">
       <slot name="additional-info">

@@ -1,6 +1,9 @@
 <template>
   <div class="holding-row">
     <AssetInfo :type="assetType" :edit-asset="isEdited">
+      <template #asset-logo>
+        <div class="asset-logo private-holding"></div>
+      </template>
       <template #asset-name>
         <h4 v-show="!isEdited">{{ holding.title }}</h4>
       </template>

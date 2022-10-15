@@ -10,6 +10,11 @@
     background-color: #f2f2f2;
   }
 
+  .asset-logo.private-holding {
+    background-image: $icon-private-holding-logo;
+    background-size: 28px;
+  }
+
   .asset-logo.shake {
     animation: shake 0.35s;
     animation-iteration-count: infinite;
