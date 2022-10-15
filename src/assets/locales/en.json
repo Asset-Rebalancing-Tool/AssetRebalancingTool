@@ -77,10 +77,14 @@
     },
     "listEntries": {
       "publicHolding": {
-        "pieces": "pcs."
+        "pieces": "pcs.",
+        "edit": "Edit Group",
+        "save": "Done"
       },
       "privateHolding": {
         "type": "Private",
+        "edit": "Edit Group",
+        "save": "Done",
         "unitTypes": {
           "Grams": "Grams",
           "Kilos": "Kilos",

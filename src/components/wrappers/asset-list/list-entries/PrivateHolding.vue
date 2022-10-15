@@ -2,11 +2,30 @@
   <div class="holding-row">
     <AssetInfo :type="assetType" :edit-asset="isEdited">
       <template #asset-name>
-        <h4>{{ holding.title }}</h4>
+        <h4 v-show="!isEdited">{{ holding.title }}</h4>
       </template>
       <template #additional-info>
         <div class="asset-type" v-show="!isEdited">
           {{ $t('assetList.listEntries.privateHolding.type') }}
+        </div>
+        <div class="edit-asset" v-show="!isEdited" @click.prevent="editAsset">
+          {{ $t('assetList.listEntries.privateHolding.edit') }}
+        </div>
+        <div class="edit-asset-name-wrapper">
+          <input
+              class="asset-name-input"
+              v-show="isEdited"
+              type="text"
+              v-model="holding.title"
+          />
+          <div class="save-asset" v-show="isEdited" @click="
+               PatchAssetService.patchPrivateHolding(
+                 patchPrivateHoldingNameRequest(),
+                 holding.uuid
+               )
+          ">
+            {{ $t('assetList.listEntries.privateHolding.save') }}
+          </div>
         </div>
       </template>
     </AssetInfo>
@@ -109,11 +128,9 @@ import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
 import {
   createUnitTypeObject,
-  getUnitTypeValue,
 } from '@/composables/UseUnitType'
 import {
   createCurrencyObject,
-  getCurrencyValue,
 } from '@/composables/UseCurrency'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
@@ -253,6 +270,12 @@ function patchCurrencyRequest(currency: CurrencyEnum) {
   return { currency: currency } as PrivateHoldingRequest
 }
 
+// The patch holding name body
+function patchPrivateHoldingNameRequest() {
+  isEdited.value = false
+  return { title: holding.value.title } as PrivateHoldingRequest
+}
+
 /**-***************************************************-**/
 /** ------------- Select Value Mapping  --------------- **/
 /**-***************************************************-**/
@@ -324,9 +347,7 @@ const deviation = computed((): string[] => {
 })
 
 const isEdited: Ref<boolean> = ref(false)
-function editAsset() {
-  isEdited.value = !isEdited.value
-}
+const editAsset = () => isEdited.value = true
 
 
 </script>

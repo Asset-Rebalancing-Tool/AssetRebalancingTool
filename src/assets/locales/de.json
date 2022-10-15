@@ -77,10 +77,14 @@
     },
     "listEntries": {
       "publicHolding": {
-        "pieces": "Stk."
+        "pieces": "Stk.",
+        "edit": "Bearbeiten",
+        "save": "Fertig"
       },
       "privateHolding": {
         "type": "Privat",
+        "edit": "Bearbeiten",
+        "save": "Fertig",
         "unitTypes": {
           "Grams": "Gramm",
           "Kilos": "Kilo",

@@ -72,7 +72,9 @@
     white-space: nowrap;
   }
 
-  .asset-type {
+  .asset-type,
+  .edit-asset,
+  .save-asset {
     width: auto;
     background-color: $main-color;
     border-radius: $secondary-border-radius;
@@ -80,6 +82,26 @@
     font-size: $secondary-font-size;
     font-weight: $bold-font-weight;
     padding: 0 5px;
+  }
+
+  .edit-asset-name-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    margin-top: 28px;
+  }
+
+  .edit-asset {
+    background-color: $primary-infill-color;
+    border-radius: 1px solid $tertiary-background-color;
+    cursor: pointer;
+  }
+
+  .save-asset {
+    height: 30px;
+    padding: 3px 8px;
+    background-color: $main-color;
+    cursor: pointer;
   }
 
   .isin-wrapper {

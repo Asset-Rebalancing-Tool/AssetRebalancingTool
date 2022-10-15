@@ -24,7 +24,6 @@
         v-show="editGroupEntries"
         type="text"
         v-model="groupName"
-        @input="writeGroupName($event.target.value)"
       />
     </div>
 
@@ -137,11 +136,6 @@ function executeAnimation(field: Ref<boolean>) {
 function editGroup(): void {
   store.editGroupEntries = true
   store.selectedGroup = group.value
-}
-
-// Update the groupName value on each keyup
-function writeGroupName(name: string) {
-  groupName.value = name
 }
 
 /**-***************************************************-**/

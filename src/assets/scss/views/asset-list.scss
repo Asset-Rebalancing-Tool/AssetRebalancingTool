@@ -118,7 +118,8 @@
       height: $secondary-input-height;
       border-radius: $primary-border-radius;
     }
-    input.group-name-input {
+    input.group-name-input,
+    input.asset-name-input {
       max-width: 135px;
       text-align: left;
       line-height: 49px;
@@ -127,7 +128,6 @@
       padding-left: 15px;
       border: none;
     }
-
 
     .current-value-wrapper {
       @include flex-center-xy;
