@@ -274,13 +274,23 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
     let totalTargetPercentage = 0
     assetMap.forEach((mapEntry: AssetMapEntry) => {
       switch (mapEntry.entryType) {
+        case EntryTypeEnum.HOLDING_GROUP:
+          const holdingGroup = mapEntry as HoldingGroup
+          totalTargetPercentage += holdingGroup.targetPercentage
+          break
         case EntryTypeEnum.PUBLIC_HOLDING:
           const publicHolding = mapEntry as PublicHolding
-          totalTargetPercentage += publicHolding.targetPercentage
+          const publicListEntry = assetList.get(publicHolding.uuid)
+          if (publicListEntry && !publicListEntry.hasGroup) {
+            totalTargetPercentage += publicHolding.targetPercentage
+          }
           break
         case EntryTypeEnum.PRIVATE_HOLDING:
           const privateHolding = mapEntry as PrivateHolding
-          totalTargetPercentage += privateHolding.targetPercentage
+          const privateListEntry = assetList.get(privateHolding.uuid)
+          if (privateListEntry && !privateListEntry.hasGroup) {
+            totalTargetPercentage += privateHolding.targetPercentage
+          }
           break
       }
     })
