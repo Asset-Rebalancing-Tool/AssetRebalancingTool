@@ -7,7 +7,10 @@
       <span class="total-value">{{ totalValue }}</span>
     </div>
 
-    <div class="total-value-wrapper">
+    <div
+        class="total-target-percentage-wrapper"
+        :class="{ valid: targetPercentageIsOneHundredPercent }"
+    >
       <header>
         {{ $t('assetList.listFooter.totalTargetPercentage') }}
         <IconCheck v-show="showPercentageCheckIcon" />
@@ -23,7 +26,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+import type { Ref } from 'vue'
 import { formatValueArray } from '@/composables/UsePriceRecords'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
@@ -31,6 +35,8 @@ import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 
 const store = useAssetMapStore()
+
+const targetPercentageIsOneHundredPercent: Ref<boolean> = ref(false)
 
 // Get the total asset list value
 const totalValue = computed(() => {
@@ -40,26 +46,19 @@ const totalValue = computed(() => {
   }).format(store.totalAssetListValue)
 })
 
-// Get the total asset list percentage
-const totalPercentage = computed(() => {
-  return (
-    new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      store.totalAssetListPercentage
-    ) + ' %'
-  )
-})
-
 const totalTargetPercentage = computed(() => {
+  const targetPercentage: number = store.totalAssetListTargetPercentage
+  // Set the flag that indicates if the group equals one hundred percent
+  targetPercentageIsOneHundredPercent.value = targetPercentage === 100
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      store.totalAssetListTargetPercentage
+        targetPercentage
     ) + ' %'
   )
 })
 
 // Get the total asset list deviation
 const totalDeviation = computed(() => {
-  console.log(store.totalAssetListDeviation)
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
       store.totalAssetListDeviation
