@@ -1,8 +1,11 @@
 <template>
   <div class="holding-row">
-    <AssetInfo :asset-name="holding.title" :type="assetType">
+    <AssetInfo :type="assetType" :edit-asset="isEdited">
+      <template #asset-name>
+        <h4>{{ holding.title }}</h4>
+      </template>
       <template #additional-info>
-        <div class="asset-type">
+        <div class="asset-type" v-show="!isEdited">
           {{ $t('assetList.listEntries.privateHolding.type') }}
         </div>
       </template>
@@ -319,4 +322,11 @@ const deviation = computed((): string[] => {
   const deviation: number = calcDeviation()
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
+
+const isEdited: Ref<boolean> = ref(false)
+function editAsset() {
+  isEdited.value = !isEdited.value
+}
+
+
 </script>

@@ -7,7 +7,7 @@
         'background-image': 'url(data:image/png;base64,' + logo + ')',
       }"
     ></div>
-    <h4 v-html="assetNameWithWordMatches"></h4>
+    <slot name="asset-name"></slot>
     <div class="additional-info">
       <slot name="additional-info">
         <div class="asset-type">{{ type }}</div>
@@ -26,17 +26,11 @@
 import { computed } from 'vue'
 import type { Ref } from 'vue'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
-import { useSearchbarStore } from '@/stores/SearchbarStore'
 import IconCopy from '@/assets/icons/IconCopy.vue'
 
-const searchbarStore = useSearchbarStore()
 const assetMapStore = useAssetMapStore()
 
 const props = defineProps({
-  assetName: {
-    type: String,
-    required: true,
-  },
   type: {
     type: String,
     required: false,
@@ -68,22 +62,4 @@ const copyISIN = (event: Event) => {
     alert('Copied the text: ' + tempTextInput.value)
   }
 }
-
-// Highlight the parts of the asset name that matches the user input
-const assetNameWithWordMatches = computed((): string => {
-  const input: string = searchbarStore.searchbarState.searchString.toLowerCase()
-  const assetName: string = props.assetName.toLowerCase()
-  if (assetName.includes(input)) {
-    const indexStart: number = assetName.indexOf(input)
-    const indexEnd: number = indexStart + input.length
-    return (
-      props.assetName.substring(0, indexStart) +
-      '<mark>' +
-      props.assetName.substring(indexStart, indexEnd) +
-      '</mark>' +
-      props.assetName.substring(indexEnd)
-    )
-  }
-  return props.assetName
-})
 </script>

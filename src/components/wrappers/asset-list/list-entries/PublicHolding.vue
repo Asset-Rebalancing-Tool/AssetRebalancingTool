@@ -1,11 +1,14 @@
 <template>
   <div class="holding-row">
     <AssetInfo
-      :asset-name="holding.publicAsset.assetName"
       :type="assetType"
       :isin="holding.publicAsset.isin"
       :logo="holding.publicAsset.iconBase64"
-    />
+    >
+      <template #asset-name>
+        <h4>{{ holding.publicAsset.assetName }}</h4>
+      </template>
+    </AssetInfo>
 
     <ThreeDigitValue
       :value-array="formattedPriceDigits"
