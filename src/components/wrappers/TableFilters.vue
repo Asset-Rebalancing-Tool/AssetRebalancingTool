@@ -21,7 +21,7 @@
       /></span>
     </span>
     <span class="column">
-      <span @click="sort(SortColumn.TARGET_PERCENTAGE, direction())"
+      <span @click="sort(SortColumn.TARGET_PERCENTAGE, direction())" style="margin-left: -14px;"
         >{{ $t('assetList.tableFilters.targetPercentage') }}<IconFilterArrow
       /></span>
     </span>
