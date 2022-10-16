@@ -63,10 +63,9 @@ const selectedValue = computed(() => {
 
   svg {
     @include absolute-right-center-y;
-    transform: translate(0, -50%);
-    right: 6px;
-    width: 16px;
-    height: 16px;
+    width: 8px;
+    height: 8px;
+    top: calc(50% + 1px);
     pointer-events: none;
   }
 }
