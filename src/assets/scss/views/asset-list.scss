@@ -10,6 +10,21 @@
     column-gap: $base-column-gap;
   }
 
+  header .searchbar-wrapper {
+    @include flex-center-xy;
+    column-gap: 12px;
+
+    .delete-holding {
+      @include flex-center-xy;
+      width: 52px;
+      height: 52px;
+      background-color: $primary-infill-color;
+      border: 1px solid $tertiary-background-color;
+      border-radius: $primary-border-radius;
+      cursor: pointer;
+    }
+  }
+
   .holding-container {
     width: calc(100% - (2 * $base-padding));
     margin: 0 $base-padding;

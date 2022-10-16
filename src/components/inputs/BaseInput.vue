@@ -56,6 +56,7 @@ function focusSelect(target: { select: () => void }): void {
 }
 
 .input-wrapper {
+  position: relative;
   width: 100%;
 }
 

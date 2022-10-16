@@ -1,19 +1,24 @@
 <template>
-  <BaseInput
-    type="text"
-    :placeholder="$t('assetList.searchbar.placeholder')"
-    @focus="showModalUnderlay"
-    @input="searchAsset($event.target.value)"
-    v-model="userInput"
-  >
-    <template #inputIcon>
-      <Component
-        :is="inputIcon"
-        :class="{ 'remove-value': userInput.length > 0 }"
-        @click="removeUserInput"
-      />
-    </template>
-  </BaseInput>
+  <div class="searchbar-wrapper">
+    <BaseInput
+      type="text"
+      :placeholder="$t('assetList.searchbar.placeholder')"
+      @focus="showModalUnderlay"
+      @input="searchAsset($event.target.value)"
+      v-model="userInput"
+    >
+      <template #inputIcon>
+        <Component
+          :is="inputIcon"
+          :class="{ 'remove-value': userInput.length > 0 }"
+          @click="removeUserInput"
+        />
+      </template>
+    </BaseInput>
+    <button class="delete-holding">
+      <IconDelete />
+    </button>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -28,6 +33,7 @@ import IconInputSearch from '@/assets/icons/inputs/IconInputSearch.vue'
 import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 import { handleErrorResponseStatus } from '@/services/TokenService'
+import IconDelete from "@/assets/icons/inputs/IconDelete.vue";
 
 const store = useSearchbarStore()
 
@@ -121,7 +127,6 @@ header input {
 
 .input-wrapper svg {
   @include absolute-right-center-y;
-  right: 25px;
   width: 18px;
   height: 18px;
   pointer-events: none;
