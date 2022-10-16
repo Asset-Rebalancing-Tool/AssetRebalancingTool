@@ -55,7 +55,6 @@ const selectedValue = computed(() => {
 })
 
 function setSelectArrow(action: string) {
-  console.log(action)
   switch (action) {
     case 'open':
       selectIsOpen.value = !selectIsOpen.value
