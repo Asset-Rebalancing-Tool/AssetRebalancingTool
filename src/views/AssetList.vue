@@ -26,24 +26,22 @@
               <PublicHolding
                 v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
                 :uuid="groupEntry.uuid"
-                @click="
-                  removeHoldingFromGroup(
-                    uuid,
-                    groupEntry.uuid,
-                    groupEntry.entryType
-                  )
-                "
+                @click="doHoldingAction({
+                    action: (store.deleteHoldings) ? 'delete' : 'remove',
+                    holdingUuid: uuid,
+                    groupUuid: groupEntry.uuid,
+                    holdingType: groupEntry.entryType
+                })"
               />
               <PrivateHolding
                 v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
                 :uuid="groupEntry.uuid"
-                @click="
-                  removeHoldingFromGroup(
-                    uuid,
-                    groupEntry.uuid,
-                    groupEntry.entryType
-                  )
-                "
+                @click="doHoldingAction({
+                    action: (store.deleteHoldings) ? 'delete' : 'remove',
+                    holdingUuid: uuid,
+                    groupUuid: groupEntry.uuid,
+                    holdingType: groupEntry.entryType
+                })"
               />
             </div>
           </template>
@@ -52,12 +50,18 @@
         <PublicHolding
           v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
           :uuid="uuid"
-          @click="addHoldingToGroup(uuid)"
+          @click="doHoldingAction({
+            action: (store.deleteHoldings) ? 'delete' : 'add',
+            holdingUuid: uuid
+          })"
         />
         <PrivateHolding
           v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
           :uuid="uuid"
-          @click="addHoldingToGroup(uuid)"
+          @click="doHoldingAction({
+            action: (store.deleteHoldings) ? 'delete' : 'add',
+            holdingUuid: uuid
+          })"
         />
       </div>
 
@@ -100,6 +104,7 @@ import { useFlashMessageStore } from '@/stores/FlashMessageStore'
 import HoldingGroup from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue'
 import PatchAssetService from '@/services/PatchAssetService'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import DeleteAssetService from "@/services/DeleteAssetService";
 
 const store = useAssetMapStore()
 const FlashMessageStore = useFlashMessageStore()
@@ -120,20 +125,46 @@ const showFlashMessage = computed(() => {
   return FlashMessageStore.flashMessage.showFlashMessage
 })
 
+function doHoldingAction(args: any) {
+  if (args.action) {
+    switch (args.action) {
+      case 'add':
+        if (store.editGroupEntries) {
+          addHoldingToGroup(args.holdingUuid)
+        }
+        break;
+      case 'remove':
+        if (store.editGroupEntries) {
+          removeHoldingFromGroup(
+              args.holdingUuid,
+              args.groupUuid,
+              args.holdingType
+          )
+        }
+        break;
+      case 'delete':
+        if (store.deleteHoldings) {
+          deleteHolding(args.holdingUuid)
+        }
+        break;
+    }
+  }
+}
+
 /**
  * Add a public or private list entry to the selected holding group
  *
- * @param entryUuid string
+ * @param holdingUuid string
  *
  * @return void
  */
-function addHoldingToGroup(entryUuid: string): void {
+function addHoldingToGroup(holdingUuid: string): void {
   // Always return if no group is selected
   if (!store.editGroupEntries) return
 
   // Get the currently edited group and the holding that has been clicked
   const clickedHolding: AssetMapEntry | null =
-    store.getAssetMapEntryByUuid(entryUuid)
+    store.getAssetMapEntryByUuid(holdingUuid)
   const group: HoldingGroup = store.selectedGroup
 
   if (clickedHolding && group) {
@@ -155,14 +186,14 @@ function addHoldingToGroup(entryUuid: string): void {
  * Remove a public or private list entry from the selected holding group
  *
  * @param groupUuid string
- * @param entryUuid string
+ * @param holdingUuid string
  * @param entryType EntryTypeEnum
  *
  * @return void
  */
 function removeHoldingFromGroup(
   groupUuid: string,
-  entryUuid: string,
+  holdingUuid: string,
   entryType: EntryTypeEnum
 ): void {
   // Always return if no group is selected
@@ -172,7 +203,7 @@ function removeHoldingFromGroup(
     const group = store.assetList.get(groupUuid)
     if (group && group.groupEntries) {
       // Remove the whole holding entry from the selected group
-      moveGroupEntryToAssetList(store, group, entryUuid, entryType)
+      moveGroupEntryToAssetList(store, group, holdingUuid, entryType)
 
       // Patch the holding group entry
       PatchAssetService.patchHoldingGroup(
@@ -180,6 +211,19 @@ function removeHoldingFromGroup(
         group.uuid
       )
     }
+  }
+}
+
+function deleteHolding(holdingUuid: string) {
+
+  const holding = store.getAssetMapEntryByUuid(holdingUuid)
+  switch (holding.entryType) {
+    case EntryTypeEnum.PUBLIC_HOLDING:
+      DeleteAssetService.deletePublicHolding(holdingUuid)
+      break;
+    case EntryTypeEnum.PRIVATE_HOLDING:
+      DeleteAssetService.deletePrivateHolding(holdingUuid)
+      break;
   }
 }
 

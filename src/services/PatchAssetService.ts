@@ -9,7 +9,6 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import { patchAssetMapEntry } from '@/composables/UseAssetMap'
 import type { AssetMapEntry } from '@/models/AssetMapEntry'
 import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -111,32 +110,6 @@ export default {
           .catch((error) => handleErrorResponseStatus(error))
       }, 500)
     })
-  },
-
-  /**-***********************************************************************-**/
-  /**-------------------------- Delete Holdings ------------------------------**/
-  /**-***********************************************************************-**/
-
-  async deletePublicHolding(holdingUuid: string) {
-    return getAuthorizedInstance()
-      .then((instance) => {
-        return instance.delete(
-          `/holding_api/asset_holding/public/${holdingUuid}`
-        )
-      })
-      .then((response: AxiosResponse) => {})
-      .catch((error) => handleErrorResponseStatus(error))
-  },
-
-  async deletePrivateHolding(holdingUuid: string) {
-    return getAuthorizedInstance()
-      .then((instance) => {
-        return instance.delete(
-          `/holding_api/asset_holding/private/${holdingUuid}`
-        )
-      })
-      .then((response: AxiosResponse) => {})
-      .catch((error) => handleErrorResponseStatus(error))
   },
 
   /**-***********************************************************************-**/

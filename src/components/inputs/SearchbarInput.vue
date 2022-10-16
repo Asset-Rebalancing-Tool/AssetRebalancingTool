@@ -55,6 +55,7 @@ const deleteHoldings = computed(
 )
 
 function toggleDeleteHoldingFlag() {
+  assetMapStore.editGroupEntries = false
   assetMapStore.deleteHoldings = !assetMapStore.deleteHoldings
 }
 

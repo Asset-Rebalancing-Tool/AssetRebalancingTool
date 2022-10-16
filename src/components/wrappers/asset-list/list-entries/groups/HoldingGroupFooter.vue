@@ -134,6 +134,7 @@ function executeAnimation(field: Ref<boolean>) {
 
 // Start editing a group
 function editGroup(): void {
+  store.deleteHoldings = false
   store.editGroupEntries = true
   store.selectedGroup = group.value
 }
