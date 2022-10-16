@@ -284,6 +284,14 @@
 
 @media only screen and (min-width: 1700px) {
 
+  #asset-list .holding-container .holding-row .asset-info h4 {
+    font-weight: 500;
+  }
+
+  #asset-list .holding-container .holding-row .asset-info span {
+    font-size: 16px;
+  }
+
   #asset-list .holding-container .holding-row,
   #asset-list .holding-container .holding-group footer {
     grid-template-columns: auto 140px 110px 200px 110px 76px;
