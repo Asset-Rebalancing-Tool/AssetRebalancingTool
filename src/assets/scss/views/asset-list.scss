@@ -293,11 +293,13 @@
 @media only screen and (min-width: 1700px) {
 
   #asset-list .holding-container .holding-row .asset-info h4,
-  #asset-list .holding-container .holding-group footer .footer-header h4 {
+  #asset-list .holding-container .holding-group footer .footer-header h4,
+  #asset-list header .searchbar-content-wrapper .public-asset-container .searchbar-asset .asset-info h4 {
     font-weight: 500;
   }
 
-  #asset-list .holding-container .holding-row .asset-info span {
+  #asset-list .holding-container .holding-row .asset-info span,
+  #asset-list header .searchbar-content-wrapper .public-asset-container .searchbar-asset .asset-info span{
     font-size: 16px;
   }
 

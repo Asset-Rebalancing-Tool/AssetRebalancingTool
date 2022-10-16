@@ -1,11 +1,14 @@
 <template>
   <div class="searchbar-asset">
     <AssetInfo
-      :asset-name="thisAsset.assetName"
       :type="assetType"
       :isin="thisAsset.isin"
       :logo="thisAsset.iconBase64"
-    />
+    >
+      <template #asset-name>
+        <h4 v-html="assetNameWithWordMatches"></h4>
+      </template>
+    </AssetInfo>
 
     <ThreeDigitValue
       :value-array="priceArray"
@@ -41,6 +44,9 @@ import {
   getDataLabels,
   isPositiveChart,
 } from '@/composables/UsePreviewChart'
+import {useSearchbarStore} from "@/stores/SearchbarStore";
+
+const searchbarStore = useSearchbarStore()
 
 const props = defineProps({
   thisAsset: {
@@ -66,5 +72,23 @@ const priceArray = computed((): string[] => {
 // Get the currency of the newest price record
 const currency = computed((): string => {
   return mapCurrency(props.thisAsset.availableCurrencies[0])
+})
+
+// Highlight the parts of the asset name that matches the user input
+const assetNameWithWordMatches = computed((): string => {
+  const input: string = searchbarStore.searchbarState.searchString.toLowerCase()
+  const assetName: string = props.thisAsset.assetName.toLowerCase()
+  if (assetName.includes(input)) {
+    const indexStart: number = assetName.indexOf(input)
+    const indexEnd: number = indexStart + input.length
+    return (
+        props.thisAsset.assetName.substring(0, indexStart) +
+        '<mark>' +
+        props.thisAsset.assetName.substring(indexStart, indexEnd) +
+        '</mark>' +
+        props.thisAsset.assetName.substring(indexEnd)
+    )
+  }
+  return props.thisAsset.assetName
 })
 </script>
