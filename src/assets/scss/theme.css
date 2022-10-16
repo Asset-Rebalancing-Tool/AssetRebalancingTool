@@ -84,7 +84,11 @@ input {
   cursor: pointer;
 }
 
-
+@media only screen and (min-width: 1700px) {
+  input {
+    font-size: 15px;
+  }
+}
 input:focus,
 textarea:focus {
   border: 1px solid #19B399;
@@ -124,12 +128,6 @@ label {
   position: relative;
   width: 100%;
   color: #FFFFFF;
-}
-
-@media only screen and (min-width: 1700px) {
-  input {
-    font-size: 15px;
-  }
 }
 
 /*******************************************************/
