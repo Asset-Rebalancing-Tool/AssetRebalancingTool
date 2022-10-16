@@ -16,12 +16,15 @@
   }
 
   .asset-logo.shake,
-  .asset-logo.private-holding.shake {
+  .asset-logo.private-holding.shake,
+  .asset-logo.delete,
+  .asset-logo.private-holding.delete {
     animation: shake 0.35s;
     animation-iteration-count: infinite;
     cursor: pointer;
   }
 
+  .asset-logo.delete:before,
   .asset-logo.shake:before {
     position: absolute;
     left: -6px;
@@ -33,10 +36,18 @@
     line-height: 19px;
     width: 20px;
     height: 20px;
-    //background-color: #ee5253;
     background-color: $main-color;
     border-radius: 50%;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .asset-logo.delete:before {
+    background-color: $main-error;
+    content: '';
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15.997' height='18.282' viewBox='0 0 15.997 18.282'%3E%3Cpath id='trash-can' d='M5.142,14.283a.571.571,0,1,1-1.143,0v-8a.571.571,0,1,1,1.143,0Zm3.428,0a.571.571,0,1,1-1.143,0v-8a.571.571,0,1,1,1.143,0Zm3.428,0a.571.571,0,1,1-1.143,0v-8a.571.571,0,1,1,1.143,0ZM11.073.806l.957,1.48h3.4a.571.571,0,0,1,0,1.143h-.571v12A2.856,2.856,0,0,1,12,18.282H4a2.856,2.856,0,0,1-2.857-2.857v-12H.571a.571.571,0,0,1,0-1.143h3.4L4.892.806A1.717,1.717,0,0,1,6.345,0H9.652a1.624,1.624,0,0,1,1.421.806ZM5.317,2.285H10.68l-.546-.874a.567.567,0,0,0-.482-.269H6.345a.567.567,0,0,0-.482.269ZM2.285,15.425A1.714,1.714,0,0,0,4,17.139h8a1.714,1.714,0,0,0,1.714-1.714v-12H2.285Z' fill='%23fff'/%3E%3C/svg%3E%0A");
+    background-size: 11.5px;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   @keyframes shake {

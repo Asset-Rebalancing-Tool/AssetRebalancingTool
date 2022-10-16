@@ -15,14 +15,18 @@
         />
       </template>
     </BaseInput>
-    <button class="delete-holding">
+    <button
+        class="delete-holding"
+        :class="{ active : deleteHoldings }"
+        @click.prevent="toggleDeleteHoldingFlag"
+    >
       <IconDelete />
     </button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {computed, ref} from 'vue'
 import { useSearchbarStore } from '@/stores/SearchbarStore'
 import { showModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
@@ -34,8 +38,10 @@ import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 import { handleErrorResponseStatus } from '@/services/TokenService'
 import IconDelete from "@/assets/icons/inputs/IconDelete.vue";
+import { useAssetMapStore } from "@/stores/AssetMapStore";
 
 const store = useSearchbarStore()
+const assetMapStore = useAssetMapStore()
 
 // reactive variables needed in order fetch assets properly
 const abortController: Ref<AbortController | null> = ref(new AbortController())
@@ -43,6 +49,14 @@ const timer: Ref<ReturnType<typeof setTimeout> | null> = ref(null)
 
 const userInput: Ref<string> = ref('')
 const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
+
+const deleteHoldings = computed(
+    () => assetMapStore.deleteHoldings
+)
+
+function toggleDeleteHoldingFlag() {
+  assetMapStore.deleteHoldings = !assetMapStore.deleteHoldings
+}
 
 // Clear the search string if the user click the remove icon.svg and reset the store's asset state variables
 function removeUserInput() {

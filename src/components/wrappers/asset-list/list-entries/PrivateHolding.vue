@@ -2,7 +2,13 @@
   <div class="holding-row">
     <AssetInfo :type="assetType" :edit-asset="isEdited">
       <template #asset-logo>
-        <div class="asset-logo private-holding" :class="{ shake: editGroupEntries }"></div>
+        <div
+            class="asset-logo private-holding"
+            :class="{
+              shake: editGroupEntries,
+              delete: deleteHoldings
+            }"
+        ></div>
       </template>
       <template #asset-name>
         <h4 v-show="!isEdited">{{ holding.title }}</h4>
@@ -315,6 +321,10 @@ const currencyOptions = computed(() => {
 
 const editGroupEntries = computed(
     () => store.editGroupEntries
+)
+
+const deleteHoldings = computed(
+    () => store.deleteHoldings
 )
 
 const isEdited: Ref<boolean> = ref(false)

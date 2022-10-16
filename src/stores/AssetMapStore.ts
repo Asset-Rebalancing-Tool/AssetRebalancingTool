@@ -28,6 +28,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
   const totalAssetListDeviation: Ref<number> = ref(0)
 
   const editGroupEntries: Ref<boolean> = ref(false)
+  const deleteHoldings: Ref<boolean> = ref(false)
   const selectedGroup: Ref<HoldingGroup | null> = ref(null)
 
   /**-******************************************************************-**/
@@ -357,6 +358,7 @@ export const useAssetMapStore = defineStore('assetMapStore', () => {
     totalAssetListTargetPercentage,
     totalAssetListDeviation,
     editGroupEntries,
+    deleteHoldings,
     selectedGroup,
 
     // Actions

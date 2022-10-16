@@ -23,6 +23,10 @@
       border-radius: $primary-border-radius;
       cursor: pointer;
     }
+
+    .delete-holding.active {
+      background-color: #19B399;
+    }
   }
 
   .holding-container {

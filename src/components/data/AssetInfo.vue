@@ -3,7 +3,10 @@
     <slot name="asset-logo">
       <div
           class="asset-logo"
-          :class="{ shake: editGroupEntries }"
+          :class="{
+             shake: editGroupEntries,
+             delete: deleteHoldings
+          }"
           v-bind:style="{
         'background-image': 'url(data:image/png;base64,' + logo + ')',
       }"
@@ -49,6 +52,10 @@ const props = defineProps({
 
 const editGroupEntries = computed(
   () => assetMapStore.editGroupEntries
+)
+
+const deleteHoldings = computed(
+    () => assetMapStore.deleteHoldings
 )
 
 // Copy the isin of an asset into the clipboard
