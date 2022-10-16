@@ -1,12 +1,12 @@
 <template>
   <footer>
     <div class="footer-header">
-      <button v-show="!editGroupEntries && !deleteHoldingGroup" @click.prevent="editGroup">
+      <button v-show="!editGroupEntriesFlag && !deleteHoldingGroupFlag" @click.prevent="editGroup">
         {{ $t('assetList.listEntries.holdingGroup.edit') }}
       </button>
       <button
         class="save"
-        v-show="editGroupEntries && !deleteHoldingGroup"
+        v-show="editGroupEntriesFlag && !deleteHoldingGroupFlag"
         @click="
           PatchAssetService.patchHoldingGroup(
             patchHoldingGroupRequest(),
@@ -18,15 +18,15 @@
       </button>
       <button
           class="delete"
-          v-show="deleteHoldingGroup"
+          v-show="deleteHoldingGroupFlag"
           @click="DeleteAssetService.deleteHoldingGroup(group.uuid)"
       >
         {{ $t('assetList.listEntries.holdingGroup.delete') }}
       </button>
-      <h4 v-show="!editGroupEntries">{{ groupName }}</h4>
+      <h4 v-show="!editGroupEntriesFlag">{{ groupName }}</h4>
       <input
         class="group-name-input"
-        v-show="editGroupEntries"
+        v-show="editGroupEntriesFlag"
         type="text"
         v-model="groupName"
       />
@@ -108,8 +108,8 @@ const groupName: Ref<string> = ref(group.value.groupName)
 const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 
 // bool that indicates if the group is currently editable or not
-const editGroupEntries = computed(() => store.editGroupEntries)
-const deleteHoldingGroup = computed(() => store.deleteHoldings)
+const editGroupEntriesFlag = computed(() => store.editGroupEntries)
+const deleteHoldingGroupFlag = computed(() => store.deleteHoldings)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/
