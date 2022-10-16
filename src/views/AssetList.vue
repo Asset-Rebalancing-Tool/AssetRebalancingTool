@@ -214,8 +214,14 @@ function removeHoldingFromGroup(
   }
 }
 
-function deleteHolding(holdingUuid: string) {
-
+/**
+ * Fire the delete holding request, based on the holdings type
+ *
+ * @param holdingUuid string
+ *
+ * @return void
+ */
+function deleteHolding(holdingUuid: string): void {
   const holding = store.getAssetMapEntryByUuid(holdingUuid)
   switch (holding.entryType) {
     case EntryTypeEnum.PUBLIC_HOLDING:
