@@ -109,9 +109,9 @@
     </BaseInput>
 
     <ThreeDigitValue :value-array="deviation" :unit="'%'">
-      <!--<template #arrow>
-        <IconAssetRowArrow />
-      </template>-->
+      <template #arrow>
+        <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
+      </template>
     </ThreeDigitValue>
   </div>
 </template>
@@ -137,8 +137,9 @@ import {
 } from '@/composables/UseCurrency'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { useAssetMapStore } from '@/stores/AssetMapStore'
-import { formatValueArray } from '@/composables/UsePriceRecords'
+import {formatValueArray, getNewestPriceRecord} from '@/composables/UsePriceRecords'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
+import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -312,6 +313,9 @@ const currencyOptions = computed(() => {
 /** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
 
+const isEdited: Ref<boolean> = ref(false)
+const editAsset = () => isEdited.value = true
+
 // Get the current value formatted by german pattern
 const currentValue = computed((): string => {
   // Format the current value after german pattern
@@ -349,8 +353,24 @@ const deviation = computed((): string[] => {
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
 
-const isEdited: Ref<boolean> = ref(false)
-const editAsset = () => isEdited.value = true
+/**-***************************************************-**/
+/** ---------- Deviation Computed Properties ---------- **/
+/**-***************************************************-**/
 
+// Get the deviation of the desired target percentage
+const deviationArrowDirection = computed(() => {
+  const currentValue: number = holding.value.ownedQuantity * holding.value.pricePerUnit
+  const currentPercentage: number =
+      (currentValue / store.totalAssetListValue) * 100
+  const targetPercentage: number = holding.value.targetPercentage
+  return currentPercentage > targetPercentage
+})
 
+const deviationExists = computed(() => {
+  const currentValue: number = holding.value.ownedQuantity * holding.value.pricePerUnit
+  const currentPercentage: number =
+      (currentValue / store.totalAssetListValue) * 100
+  const targetPercentage: number = holding.value.targetPercentage
+  return currentPercentage !== targetPercentage
+})
 </script>

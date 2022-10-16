@@ -70,9 +70,9 @@
     </BaseInput>
 
     <ThreeDigitValue :value-array="deviation" :unit="'%'">
-      <!--<template #arrow>
+      <template #arrow>
         <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
-      </template>-->
+      </template>
     </ThreeDigitValue>
   </div>
 </template>
@@ -263,8 +263,9 @@ const deviation = computed((): string[] => {
   const deviation: number = calcDeviation()
   return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 })
+
 /**-***************************************************-**/
-/** -------- Old Deviation Computed Properties -------- **/
+/** ---------- Deviation Computed Properties ---------- **/
 /**-***************************************************-**/
 
 // Get the deviation of the desired target percentage
@@ -283,6 +284,6 @@ const deviationExists = computed(() => {
   const currentPercentage: number =
     (currentValue / store.totalAssetListValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
-  return currentPercentage > targetPercentage
+  return currentPercentage !== targetPercentage
 })
 </script>

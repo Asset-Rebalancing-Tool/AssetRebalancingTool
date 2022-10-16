@@ -55,9 +55,9 @@
     </BaseInput>
 
     <ThreeDigitValue :value-array="totalGroupDeviation" :unit="'%'">
-      <!--<template #arrow>
-        <IconAssetRowArrow />
-      </template>-->
+      <template #arrow>
+        <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
+      </template>
     </ThreeDigitValue>
   </footer>
 </template>
@@ -183,7 +183,7 @@ function resetSelectionState() {
 
 // Get the total asset list value
 const totalGroupValue = computed(() => {
-  const totalGroupValue = store.getTotalGroupValue(group.value.uuid)
+  const totalGroupValue: number = store.getTotalGroupValue(group.value.uuid)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
@@ -206,5 +206,26 @@ const totalGroupDeviation = computed(() => {
   return totalGroupDeviation
     ? formatValueArray(totalGroupDeviation)
     : ['00', '00', '0']
+})
+
+/**-***************************************************-**/
+/** ---------- Deviation Computed Properties ---------- **/
+/**-***************************************************-**/
+
+// Get the deviation of the desired target percentage
+const deviationArrowDirection = computed(() => {
+  const currentValue: number = store.getTotalGroupValue(group.value.uuid)
+  const currentPercentage: number =
+      (currentValue / store.totalAssetListValue) * 100
+  const targetPercentage: number = store.getTotalGroupTargetPercentage(group.value.uuid)
+  return currentPercentage < targetPercentage
+})
+
+const deviationExists = computed(() => {
+  const currentValue: number = store.getTotalGroupValue(group.value.uuid)
+  const currentPercentage: number =
+      (currentValue / store.totalAssetListValue) * 100
+  const targetPercentage: number = store.getTotalGroupTargetPercentage(group.value.uuid)
+  return currentPercentage !== targetPercentage
 })
 </script>
