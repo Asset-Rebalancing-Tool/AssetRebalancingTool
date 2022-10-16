@@ -49,7 +49,7 @@ const totalValue = computed(() => {
 const totalTargetPercentage = computed(() => {
   const targetPercentage: number = store.totalAssetListTargetPercentage
   // Set the flag that indicates if the group equals one hundred percent
-  targetPercentageIsOneHundredPercent.value = targetPercentage === 100
+  targetPercentageIsOneHundredPercent.value = targetPercentage === 0 || targetPercentage === 100
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
         targetPercentage
@@ -68,7 +68,6 @@ const totalDeviation = computed(() => {
 
 // Bool that indicates if the percentage check icon.svg should be rendered
 const showPercentageCheckIcon = computed(() => {
-  const percentage: number = store.totalAssetListTargetPercentage
-  return percentage === 0 || percentage === 100
+  return store.totalAssetListTargetPercentage === 100
 })
 </script>
