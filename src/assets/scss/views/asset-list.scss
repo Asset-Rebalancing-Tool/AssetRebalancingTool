@@ -288,7 +288,8 @@
 
 @media only screen and (min-width: 1700px) {
 
-  #asset-list .holding-container .holding-row .asset-info h4 {
+  #asset-list .holding-container .holding-row .asset-info h4,
+  #asset-list .holding-container .holding-group footer .footer-header h4 {
     font-weight: 500;
   }
 
