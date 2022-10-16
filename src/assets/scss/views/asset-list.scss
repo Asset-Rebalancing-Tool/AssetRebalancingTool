@@ -301,6 +301,7 @@
     font-size: 16px;
   }
 
+  .table-filter,
   #asset-list .holding-container .holding-row,
   #asset-list .holding-container .holding-group footer {
     grid-template-columns: auto 140px 110px 200px 110px 76px;
@@ -321,10 +322,5 @@
 
   #asset-list footer:not(.holding-container footer) {
     grid-column-gap: 76px;
-  }
-
-  .table-filter {
-    column-gap: 92px;
-    grid-template-columns: auto 140px 110px 165px 110px 82px;
   }
 }
