@@ -15,7 +15,8 @@
     background-size: 28px;
   }
 
-  .asset-logo.shake {
+  .asset-logo.shake,
+  .asset-logo.private-holding.shake {
     animation: shake 0.35s;
     animation-iteration-count: infinite;
     cursor: pointer;

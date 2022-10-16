@@ -47,7 +47,7 @@ const props = defineProps({
   },
 })
 
-const editGroupEntries: Ref<boolean> = computed(
+const editGroupEntries = computed(
   () => assetMapStore.editGroupEntries
 )
 
