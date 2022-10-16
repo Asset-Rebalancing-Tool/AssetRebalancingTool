@@ -297,3 +297,17 @@ export function patchAssetMapEntry(patchedEntry: AssetMapEntry): void {
   store.setAssetListTotalTargetPercentage()
   store.setAssetListTotalDeviation()
 }
+
+/**
+ * Remove an asset from the stores asset map and asset list after the delete endpoint has been called
+ *
+ * @param entryUuid string
+ *
+ * @return void
+ */
+export function removeAssetMapEntry(entryUuid: string) {
+  const store = useAssetMapStore()
+
+  store.removeAssetMapEntry(entryUuid)
+  store.assetList.delete(entryUuid)
+}

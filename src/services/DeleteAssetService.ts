@@ -1,5 +1,5 @@
-import { AxiosResponse } from "axios";
 import { getAuthorizedInstance, handleErrorResponseStatus } from "@/services/TokenService";
+import { removeAssetMapEntry } from "@/composables/UseAssetMap";
 
 export default {
 
@@ -17,9 +17,7 @@ export default {
                     `/holding_api/asset_holding/public/${holdingUuid}`
                 )
             })
-            .then((response: AxiosResponse) => {
-                console.log(response)
-            })
+            .then(() => removeAssetMapEntry(holdingUuid))
             .catch((error) => handleErrorResponseStatus(error))
     },
 
@@ -37,9 +35,7 @@ export default {
                     `/holding_api/asset_holding/private/${holdingUuid}`
                 )
             })
-            .then((response: AxiosResponse) => {
-                console.log(response)
-            })
+            .then(() => removeAssetMapEntry(holdingUuid))
             .catch((error) => handleErrorResponseStatus(error))
     }
 
