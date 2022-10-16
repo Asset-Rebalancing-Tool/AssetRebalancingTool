@@ -215,18 +215,12 @@ const totalGroupDeviation = computed(() => {
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {
-  const currentValue: number = store.getTotalGroupValue(group.value.uuid)
-  const currentPercentage: number =
-      (currentValue / store.totalAssetListValue) * 100
-  const targetPercentage: number = store.getTotalGroupTargetPercentage(group.value.uuid)
-  return currentPercentage < targetPercentage
+  const totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
+  return totalGroupPercentage < targetPercentage.value
 })
 
 const deviationExists = computed(() => {
-  const currentValue: number = store.getTotalGroupValue(group.value.uuid)
-  const currentPercentage: number =
-      (currentValue / store.totalAssetListValue) * 100
-  const targetPercentage: number = store.getTotalGroupTargetPercentage(group.value.uuid)
-  return currentPercentage !== targetPercentage
+  const totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
+  return totalGroupPercentage !== targetPercentage.value
 })
 </script>
