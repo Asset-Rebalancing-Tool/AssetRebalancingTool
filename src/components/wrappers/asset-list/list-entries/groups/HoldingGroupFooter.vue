@@ -1,12 +1,12 @@
 <template>
   <footer>
     <div class="footer-header">
-      <button v-show="!editGroupEntries" @click.prevent="editGroup">
+      <button v-show="!editGroupEntries && !deleteHoldingGroup" @click.prevent="editGroup">
         {{ $t('assetList.listEntries.holdingGroup.edit') }}
       </button>
       <button
         class="save"
-        v-show="editGroupEntries"
+        v-show="editGroupEntries && !deleteHoldingGroup"
         @click="
           PatchAssetService.patchHoldingGroup(
             patchHoldingGroupRequest(),
@@ -16,9 +16,14 @@
       >
         {{ $t('assetList.listEntries.holdingGroup.save') }}
       </button>
-
+      <button
+          class="delete"
+          v-show="deleteHoldingGroup"
+          @click="DeleteAssetService.deleteHoldingGroup(group.uuid)"
+      >
+        {{ $t('assetList.listEntries.holdingGroup.delete') }}
+      </button>
       <h4 v-show="!editGroupEntries">{{ groupName }}</h4>
-
       <input
         class="group-name-input"
         v-show="editGroupEntries"
@@ -72,6 +77,7 @@ import { ref, computed, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
+import DeleteAssetService from '@/services/DeleteAssetService'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { formatValueArray } from '@/composables/UsePriceRecords'
 import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
@@ -103,6 +109,7 @@ const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 
 // bool that indicates if the group is currently editable or not
 const editGroupEntries = computed(() => store.editGroupEntries)
+const deleteHoldingGroup = computed(() => store.deleteHoldings)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/

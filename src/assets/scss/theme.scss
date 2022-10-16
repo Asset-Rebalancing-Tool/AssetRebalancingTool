@@ -189,6 +189,7 @@ $base-margin: $base-padding;
     background-color: $primary-infill-color;
     border-radius: $primary-border-radius;
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 @mixin button-wrapper-flex {

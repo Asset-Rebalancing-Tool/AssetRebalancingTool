@@ -103,7 +103,8 @@
       "holdingGroup": {
         "emptyGroup": "empty group",
         "edit": "Edit Group",
-        "save": "Done"
+        "save": "Done",
+        "delete": "Delete Group"
       }
     },
     "listFooter": {
