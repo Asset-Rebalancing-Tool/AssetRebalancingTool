@@ -58,7 +58,7 @@ function setSelectArrow(action: string) {
   console.log(action)
   switch (action) {
     case 'open':
-      selectIsOpen.value = true
+      selectIsOpen.value = !selectIsOpen.value
       break;
     case 'blur':
       selectIsOpen.value = false
