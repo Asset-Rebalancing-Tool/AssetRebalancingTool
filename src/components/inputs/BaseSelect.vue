@@ -4,6 +4,8 @@
       :value="selectedValue"
       v-bind="{
         ...$attrs,
+        onClick: () => setSelectArrow('open'),
+        onBlur: () => setSelectArrow('blur'),
         onChange: ($event) => {
           $emit('update:modelValue', $event.target.value)
         },
@@ -20,13 +22,14 @@
     </select>
 
     <slot name="icon">
-      <IconSelectArrow />
+      <IconSelectArrow :select-is-open="selectIsOpen" />
     </slot>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
+import type { Ref } from 'vue'
 import IconSelectArrow from '@/assets/icons/inputs/IconSelectArrow.vue'
 
 const props = defineProps({
@@ -44,10 +47,24 @@ const props = defineProps({
   },
 })
 
+const selectIsOpen: Ref<boolean> = ref(false)
+
 const selectedValue = computed(() => {
   //return props.defaultSelection ? props.defaultSelection : props.modelValue
   return props.modelValue ? props.modelValue : props.defaultSelection
 })
+
+function setSelectArrow(action: string) {
+  console.log(action)
+  switch (action) {
+    case 'open':
+      selectIsOpen.value = true
+      break;
+    case 'blur':
+      selectIsOpen.value = false
+      break;
+  }
+}
 </script>
 
 <style lang="scss">
