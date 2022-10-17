@@ -5,11 +5,11 @@
       <SearchbarContent />
     </header>
 
-    <TableFilters />
+    <TableFilters v-if="!emptyAssetListBackground" />
 
     <div class="holding-container">
       <div
-        v-if="!showSkeletonAnimation"
+        v-if="!emptyAssetListBackground"
         v-for="[uuid, entry] in assetList"
         :key="uuid"
       >
@@ -70,9 +70,11 @@
         v-for="index in 5"
         :key="index"
       />
+
+      <EmptyAssetList v-if="emptyAssetListBackground" />
     </div>
 
-    <ListFooter />
+    <ListFooter v-if="!emptyAssetListBackground" />
 
     <FlashMessage v-if="showFlashMessage" />
   </section>
@@ -105,6 +107,7 @@ import HoldingGroup from '@/components/wrappers/asset-list/list-entries/groups/H
 import PatchAssetService from '@/services/PatchAssetService'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import DeleteAssetService from "@/services/DeleteAssetService";
+import EmptyAssetList from '@/components/wrappers/EmptyAssetList.vue'
 
 const store = useAssetMapStore()
 const FlashMessageStore = useFlashMessageStore()
@@ -123,6 +126,10 @@ const showSkeletonAnimation = computed(() => store.listLoadingFlag)
 
 const showFlashMessage = computed(() => {
   return FlashMessageStore.flashMessage.showFlashMessage
+})
+
+const emptyAssetListBackground = computed(() => {
+  return !store.listLoadingFlag && store.assetList.size === 0
 })
 
 function doHoldingAction(args: any) {
