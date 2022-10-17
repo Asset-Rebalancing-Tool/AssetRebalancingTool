@@ -3,16 +3,16 @@
     <img class="empty-asset-list" src="src/assets/images/how-to-use-asset-list-view.png" alt="How to use asset list" />
     <div class="empty-list-grid">
       <div class="text-wrapper">
-        <h4>Assets suchen</h4>
-        <p>Suche oder erstelle Assets, um dein Portfolio vollumfänglich abzubilden.</p>
+        <h4>{{ $t('assetList.emptyListBackground.heading1') }}</h4>
+        <p>{{ $t('assetList.emptyListBackground.heading1') }}</p>
       </div>
       <div class="text-wrapper">
-        <h4>Ziel-Verteilung festlegen</h4>
-        <p>Lege fest, wie dein optimales Portfolio Gleichgewicht aussehen soll.</p>
+        <h4>{{ $t('assetList.emptyListBackground.heading2') }}</h4>
+        <p>{{ $t('assetList.emptyListBackground.text2') }}</p>
       </div>
       <div class="text-wrapper">
-        <h4>Gleichgewicht herstellen</h4>
-        <p>Mit dieser Grundlage kannst du alle unsere Rebalancing-Funktionen zu nutzen.</p>
+        <h4>{{ $t('assetList.emptyListBackground.heading3') }}</h4>
+        <p>{{ $t('assetList.emptyListBackground.text3') }}</p>
       </div>
     </div>
   </div>

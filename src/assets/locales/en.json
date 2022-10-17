@@ -111,6 +111,14 @@
       "totalValue": "Total value",
       "totalTargetPercentage": "Target value",
       "deviation": "Deviation"
+    },
+    "emptyListBackground": {
+      "heading1": "Search for Assets",
+      "text1": "Search or create Assets, to fully represent your portfolio.",
+      "heading2": "Set your target distribution",
+      "text2": "Determine what your optimal portfolio balance should look like.",
+      "heading3": "Restore balance",
+      "text3": "With this foundation, you are able to use all of our rebalancing features."
     }
   },
   "underConstruction": {
