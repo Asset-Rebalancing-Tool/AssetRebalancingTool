@@ -16,6 +16,7 @@
       </template>
     </BaseInput>
     <button
+        v-if="showDeleteButton"
         class="delete-holding"
         :class="{ active : deleteHoldings }"
         @click.prevent="toggleDeleteHoldingFlag"
@@ -49,6 +50,10 @@ const timer: Ref<ReturnType<typeof setTimeout> | null> = ref(null)
 
 const userInput: Ref<string> = ref('')
 const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
+
+const showDeleteButton = computed(() => {
+  return assetMapStore.listLoadingFlag || assetMapStore.assetList.size !== 0
+})
 
 const deleteHoldings = computed(
     () => assetMapStore.deleteHoldings
