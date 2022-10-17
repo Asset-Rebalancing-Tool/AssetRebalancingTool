@@ -35,7 +35,7 @@
     </RouterLink>
 
     <footer>
-      <RouterLink :to="{ name: 'AppSettings' }" @click="logoutUser">
+      <RouterLink :to="{ name: 'SignIn' }" @click="logoutUser">
         <IconSidebarLogout />
         <span>{{ $t('sidebar.signOut') }}</span>
       </RouterLink>
