@@ -31,7 +31,7 @@ const props = defineProps({
   },
   selectOnFocus: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
 

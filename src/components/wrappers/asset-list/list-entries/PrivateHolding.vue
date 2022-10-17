@@ -43,6 +43,7 @@
       type="number"
       :modelValue="pricePerUnit"
       :class="{ error: pricePerUnitError }"
+      :select-on-focus="true"
       @input="patchPricePerUnit($event.target.value, holding.uuid)"
     >
       <template #unit>
@@ -69,6 +70,7 @@
       type="number"
       :modelValue="ownedQuantity"
       :class="{ error: quantityError }"
+      :select-on-focus="true"
       @input="patchOwnedQuantity($event.target.value, holding.uuid)"
     >
       <template #unit>
@@ -100,6 +102,7 @@
       type="number"
       :modelValue="targetPercentage"
       :class="{ error: targetPercentageError }"
+      :select-on-focus="true"
       @input="patchTargetPercentage($event.target.value, holding.uuid)"
     >
       <template #unit>

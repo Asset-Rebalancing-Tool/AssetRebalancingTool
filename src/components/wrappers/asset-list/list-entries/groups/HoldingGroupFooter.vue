@@ -45,6 +45,7 @@
       ref="footerInput"
       :modelValue="targetPercentage"
       :class="{ error: groupTargetPercentageError }"
+      :select-on-focus="true"
       @input="patchGroupTargetPercentage($event.target.value, group.uuid)"
     >
       <template #unit>
