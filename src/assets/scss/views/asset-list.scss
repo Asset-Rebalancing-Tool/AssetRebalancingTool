@@ -298,6 +298,14 @@
     font-weight: 500;
   }
 
+  #asset-list .holding-container .holding-row .asset-info h4 {
+    margin-top: -4px;
+  }
+
+  #asset-list .holding-container .holding-row .asset-info {
+    grid-row-gap: 1px;
+  }
+
   #asset-list .holding-container .holding-row .asset-info span,
   #asset-list header .searchbar-content-wrapper .public-asset-container .searchbar-asset .asset-info span{
     font-size: 16px;
