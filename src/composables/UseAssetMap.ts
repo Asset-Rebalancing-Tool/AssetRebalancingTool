@@ -20,34 +20,40 @@ export async function generateAssetMap(): Promise<void> {
 
   // Fetch and set each holding group into the asset map
   const holdingGroups: HoldingGroup[] = await AssetService.fetchHoldingGroups()
-  holdingGroups.forEach((holdingGroup) => {
-    // Push the holding group to the asset map
-    addHoldingGroup(store, holdingGroup)
-    // Push each public group entry to the asset map
-    holdingGroup.publicHoldings.forEach((publicHolding) => {
-      addPublicHoldingToMap(store, publicHolding)
+  if (holdingGroups) {
+    holdingGroups.forEach((holdingGroup) => {
+      // Push the holding group to the asset map
+      addHoldingGroup(store, holdingGroup)
+      // Push each public group entry to the asset map
+      holdingGroup.publicHoldings.forEach((publicHolding) => {
+        addPublicHoldingToMap(store, publicHolding)
+      })
+      // Push each private group entry to the asset map
+      holdingGroup.privateHoldings.forEach((privateHolding) => {
+        addPrivateHoldingToMap(store, privateHolding)
+      })
     })
-    // Push each private group entry to the asset map
-    holdingGroup.privateHoldings.forEach((privateHolding) => {
-      addPrivateHoldingToMap(store, privateHolding)
-    })
-  })
+  }
 
   // Fetch and set each holding public holding into the asset map
   const publicHoldings: PublicHolding[] =
     await AssetService.fetchPublicHoldings()
-  publicHoldings.forEach((publicHolding) => {
-    addPublicHoldingToMap(store, publicHolding)
-    addPublicHoldingToRenderList(store, publicHolding)
-  })
+  if (publicHoldings) {
+    publicHoldings.forEach((publicHolding) => {
+      addPublicHoldingToMap(store, publicHolding)
+      addPublicHoldingToRenderList(store, publicHolding)
+    })
+  }
 
   // Fetch and set each private holding into the asset map
   const privateHoldings: PrivateHolding[] =
     await AssetService.fetchPrivateHoldings()
-  privateHoldings.forEach((privateHolding) => {
-    addPrivateHoldingToMap(store, privateHolding)
-    addPrivateHoldingToRenderList(store, privateHolding)
-  })
+  if (privateHoldings) {
+    privateHoldings.forEach((privateHolding) => {
+      addPrivateHoldingToMap(store, privateHolding)
+      addPrivateHoldingToRenderList(store, privateHolding)
+    })
+  }
 
   store.listLoadingFlag = false
 
