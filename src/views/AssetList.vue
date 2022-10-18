@@ -5,17 +5,17 @@
       <SearchbarContent />
     </header>
 
-    <TableFilters v-if="!emptyAssetListBackground" />
+    <TableFilters v-if="!showEmptyAssetListBc" />
 
     <div class="holding-container">
       <div
-        v-if="!emptyAssetListBackground"
+        v-if="!showEmptyAssetListBc"
         v-for="[uuid, entry] in assetList"
         :key="uuid"
       >
         <HoldingGroup
-          v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
           :uuid="uuid"
+          v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
           :nested-holding-count="getNestedHoldingCount(uuid)"
         >
           <template #holdings>
@@ -24,247 +24,117 @@
               :key="groupEntry.uuid"
             >
               <PublicHolding
-                v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
                 :uuid="groupEntry.uuid"
-                @click="doHoldingAction({
-                    action: (store.deleteHoldings) ? 'delete' : 'remove',
-                    holdingUuid: uuid,
-                    groupUuid: groupEntry.uuid,
-                    holdingType: groupEntry.entryType
-                })"
+                v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+                @click="
+                  executeAction(
+                    true,
+                    groupEntry.uuid,
+                    groupEntry.entryType,
+                    uuid
+                  )
+                "
               />
               <PrivateHolding
-                v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
                 :uuid="groupEntry.uuid"
-                @click="doHoldingAction({
-                    action: (store.deleteHoldings) ? 'delete' : 'remove',
-                    holdingUuid: uuid,
-                    groupUuid: groupEntry.uuid,
-                    holdingType: groupEntry.entryType
-                })"
+                v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+                @click="
+                  executeAction(
+                    true,
+                    groupEntry.uuid,
+                    groupEntry.entryType,
+                    uuid
+                  )
+                "
               />
             </div>
           </template>
         </HoldingGroup>
 
         <PublicHolding
-          v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
           :uuid="uuid"
-          @click="doHoldingAction({
-            action: (store.deleteHoldings) ? 'delete' : 'add',
-            holdingUuid: uuid
-          })"
+          v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+          @click="executeAction(false, uuid)"
         />
         <PrivateHolding
-          v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
           :uuid="uuid"
-          @click="doHoldingAction({
-            action: (store.deleteHoldings) ? 'delete' : 'add',
-            holdingUuid: uuid
-          })"
+          v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+          @click="executeAction(false, uuid)"
         />
       </div>
 
       <ListEntrySkeleton
-        v-show="showSkeletonAnimation"
+        v-show="showLoadingAnimation"
         v-for="index in 5"
         :key="index"
       />
 
-      <EmptyAssetList v-if="emptyAssetListBackground" />
+      <EmptyAssetList v-if="showEmptyAssetListBc" />
     </div>
 
-    <ListFooter v-if="!emptyAssetListBackground" />
+    <ListFooter v-if="!showEmptyAssetListBc" />
 
     <FlashMessage v-if="showFlashMessage" />
   </section>
 </template>
 
 <script lang="ts" setup>
+import type { Ref } from 'vue'
+import { computed, onMounted } from 'vue'
+import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
+import type { AssetRenderingEntry } from '@/models/holdings/AssetRenderingEntry'
 import SearchbarInput from '@/components/inputs/SearchbarInput.vue'
 import SearchbarContent from '@/components/wrappers/asset-list/searchbar/SearchbarContent.vue'
 import ListEntrySkeleton from '@/components/wrappers/asset-list/list-entries/ListEntrySkeleton.vue'
 import TableFilters from '@/components/wrappers/TableFilters.vue'
-import { computed, onMounted, ref } from 'vue'
-import type { Ref } from 'vue'
-import {
-  addHoldingGroup,
-  generateAssetMap,
-  buildGroupPatchUuidArray,
-  pushHoldingToSelectedGroup,
-  moveGroupEntryToAssetList,
-} from '@/composables/UseAssetMap'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
-import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
 import PublicHolding from '@/components/wrappers/asset-list/list-entries/PublicHolding.vue'
-import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
-import type { AssetMapEntry } from '@/models/AssetMapEntry'
-import type { AssetListEntry } from '@/models/holdings/AssetListEntry'
-import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
-import FlashMessage from '@/components/wrappers/FlashMessage.vue'
-import { useFlashMessageStore } from '@/stores/FlashMessageStore'
 import HoldingGroup from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroup.vue'
-import PatchAssetService from '@/services/PatchAssetService'
-import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import DeleteAssetService from "@/services/DeleteAssetService";
+import PrivateHolding from '@/components/wrappers/asset-list/list-entries/PrivateHolding.vue'
+import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
 import EmptyAssetList from '@/components/wrappers/EmptyAssetList.vue'
+import FlashMessage from '@/components/wrappers/FlashMessage.vue'
+import { useAssetStore } from '@/stores/AssetStore'
+import { useNotificationStore } from '@/stores/NotificationStore'
+import { generateAssetRenderList } from '@/composables/UseAssetRenderList'
+import { executeAction } from '@/composables/UseHoldings'
 
-const store = useAssetMapStore()
-const FlashMessageStore = useFlashMessageStore()
+/**-***************************************************-**/
+/** ----------- Store And List Declarations ----------- **/
+/**-***************************************************-**/
 
-const assetList: Ref<Map<string, AssetListEntry>> = ref(
-  new Map<string, AssetListEntry>()
+// Initialize the store objects
+const assetStore = useAssetStore()
+const notificationStore = useNotificationStore()
+
+// The asset list that is getting rendered
+const assetList: Ref<Map<string, AssetRenderingEntry>> = computed(
+  () => assetStore.renderState.assetList
 )
 
+// Fetch and generate the asset list
 onMounted(async () => {
-  await generateAssetMap()
-  assetList.value = store.assetList
+  await generateAssetRenderList()
+  assetList.value = assetStore.renderState.assetList
 })
 
-// Bool that indicates if the list is loading
-const showSkeletonAnimation = computed(() => store.listLoadingFlag)
+/**-***************************************************-**/
+/** ------------- Holding Action Handling ------------- **/
+/**-***************************************************-**/
 
-const showFlashMessage = computed(() => {
-  return FlashMessageStore.flashMessage.showFlashMessage
+// Store state variables
+const renderState = assetStore.renderState
+const flashMessage = notificationStore.flashMessage
+
+// Handle template display
+const showLoadingAnimation = computed(() => renderState.loadingFlag)
+const showFlashMessage = computed(() => flashMessage.showFlag)
+const showEmptyAssetListBc = computed(() => {
+  return !renderState.loadingFlag && renderState.assetList.size === 0
 })
 
-const emptyAssetListBackground = computed(() => {
-  return !store.listLoadingFlag && store.assetList.size === 0
-})
-
-function doHoldingAction(args: any) {
-  if (args.action) {
-    switch (args.action) {
-      case 'add':
-        if (store.editGroupEntries) {
-          addHoldingToGroup(args.holdingUuid)
-        }
-        break;
-      case 'remove':
-        if (store.editGroupEntries) {
-          removeHoldingFromGroup(
-              args.holdingUuid,
-              args.groupUuid,
-              args.holdingType
-          )
-        }
-        break;
-      case 'delete':
-        if (store.deleteHoldings) {
-          deleteHolding(args.holdingUuid)
-        }
-        break;
-    }
-  }
-}
-
-/**
- * Add a public or private list entry to the selected holding group
- *
- * @param holdingUuid string
- *
- * @return void
- */
-function addHoldingToGroup(holdingUuid: string): void {
-  // Always return if no group is selected
-  if (!store.editGroupEntries) return
-
-  // Get the currently edited group and the holding that has been clicked
-  const clickedHolding: AssetMapEntry | null =
-    store.getAssetMapEntryByUuid(holdingUuid)
-  const group: HoldingGroup = store.selectedGroup
-
-  if (clickedHolding && group) {
-    // Push the clicked holding to the selected group
-    pushHoldingToSelectedGroup(clickedHolding, group)
-    // Remove the holding group from the asset list, which is getting rendered
-    store.assetList.delete(clickedHolding.uuid)
-    // Add the modified holding group to the asset map and the asset list
-    addHoldingGroup(store, group)
-    // Patch the holding group entry
-    PatchAssetService.patchHoldingGroup(
-      patchHoldingGroupRequest(group),
-      group.uuid
-    )
-  }
-}
-
-/**
- * Remove a public or private list entry from the selected holding group
- *
- * @param groupUuid string
- * @param holdingUuid string
- * @param entryType EntryTypeEnum
- *
- * @return void
- */
-function removeHoldingFromGroup(
-  groupUuid: string,
-  holdingUuid: string,
-  entryType: EntryTypeEnum
-): void {
-  // Always return if no group is selected
-  if (!store.editGroupEntries) return
-
-  if (store.assetList.has(groupUuid)) {
-    const group = store.assetList.get(groupUuid)
-    if (group && group.groupEntries) {
-      // Remove the whole holding entry from the selected group
-      moveGroupEntryToAssetList(store, group, holdingUuid, entryType)
-
-      // Patch the holding group entry
-      PatchAssetService.patchHoldingGroup(
-        patchHoldingGroupRequest(store.selectedGroup),
-        group.uuid
-      )
-    }
-  }
-}
-
-/**
- * Fire the delete holding request, based on the holdings type
- *
- * @param holdingUuid string
- *
- * @return void
- */
-function deleteHolding(holdingUuid: string): void {
-  const holding = store.getAssetMapEntryByUuid(holdingUuid)
-  switch (holding.entryType) {
-    case EntryTypeEnum.PUBLIC_HOLDING:
-      DeleteAssetService.deletePublicHolding(holdingUuid)
-      break;
-    case EntryTypeEnum.PRIVATE_HOLDING:
-      DeleteAssetService.deletePrivateHolding(holdingUuid)
-      break;
-  }
-}
-
-/**
- * The patch owned quantity request body
- *
- * @param holdingGroup HoldingGroup
- *
- * @return HoldingGroupRequest
- */
-function patchHoldingGroupRequest(
-  holdingGroup: HoldingGroup
-): HoldingGroupRequest {
-  const publicUuids: string[] = buildGroupPatchUuidArray(
-    holdingGroup,
-    EntryTypeEnum.PUBLIC_HOLDING
-  )
-  const privateUuids: string[] = buildGroupPatchUuidArray(
-    holdingGroup,
-    EntryTypeEnum.PRIVATE_HOLDING
-  )
-  return {
-    publicHoldingUuids: publicUuids,
-    privateHoldingUuids: privateUuids,
-    groupName: holdingGroup.groupName,
-    targetPercentage: holdingGroup.targetPercentage,
-  } as HoldingGroupRequest
-}
+/**-***************************************************-**/
+/** --------------- Template Methods ------------------ **/
+/**-***************************************************-**/
 
 /**
  * Get the count of holdings, that are nested in a specific group
@@ -274,8 +144,8 @@ function patchHoldingGroupRequest(
  * @return number
  */
 function getNestedHoldingCount(groupUuid: string) {
-  if (store.assetList.has(groupUuid)) {
-    const group = store.assetList.get(groupUuid)
+  if (assetStore.renderState.assetList.has(groupUuid)) {
+    const group = assetStore.renderState.assetList.get(groupUuid)
     if (group && group.groupEntries) {
       return group.groupEntries.length
     }

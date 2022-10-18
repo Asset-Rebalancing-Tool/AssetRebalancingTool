@@ -17,9 +17,9 @@
 <script lang="ts" setup>
 import HoldingGroupFooter from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupFooter.vue'
 import HoldingGroupPercentage from '@/components/wrappers/asset-list/list-entries/groups/HoldingGroupPercentage.vue'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 
 const props = defineProps({
   uuid: {

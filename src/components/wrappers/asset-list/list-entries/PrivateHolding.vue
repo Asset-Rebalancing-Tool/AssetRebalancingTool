@@ -3,11 +3,11 @@
     <AssetInfo :type="assetType" :edit-asset="isEdited">
       <template #asset-logo>
         <div
-            class="asset-logo private-holding"
-            :class="{
-              shake: editGroupEntries,
-              delete: deleteHoldings
-            }"
+          class="asset-logo private-holding"
+          :class="{
+            shake: editGroupFlag,
+            delete: deleteHoldingFlag,
+          }"
         ></div>
       </template>
       <template #asset-name>
@@ -22,17 +22,21 @@
         </div>
         <div class="edit-asset-name-wrapper">
           <input
-              class="asset-name-input"
-              v-show="isEdited"
-              type="text"
-              v-model="holding.title"
+            class="asset-name-input"
+            v-show="isEdited"
+            type="text"
+            v-model="holding.title"
           />
-          <div class="save-asset" v-show="isEdited" @click="
-               PatchAssetService.patchPrivateHolding(
-                 patchPrivateHoldingNameRequest(),
-                 holding.uuid
-               )
-          ">
+          <div
+            class="save-asset"
+            v-show="isEdited"
+            @click="
+              PatchAssetService.patchPrivateHolding(
+                patchPrivateHoldingNameRequest(),
+                holding.uuid
+              )
+            "
+          >
             {{ $t('assetList.listEntries.privateHolding.save') }}
           </div>
         </div>
@@ -119,7 +123,10 @@
 
     <ThreeDigitValue :value-array="deviation" :unit="'%'">
       <template #arrow>
-        <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
+        <IconAssetRowArrow
+          v-show="deviationExists"
+          :arrow-up="deviationArrowDirection"
+        />
       </template>
     </ThreeDigitValue>
   </div>
@@ -138,15 +145,14 @@ import BaseSelect from '@/components/inputs/BaseSelect.vue'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { mapAssetType } from '@/composables/UseAssetType'
-import {
-  createUnitTypeObject,
-} from '@/composables/UseUnitType'
-import {
-  createCurrencyObject,
-} from '@/composables/UseCurrency'
+import { createUnitTypeObject } from '@/composables/UseUnitType'
+import { createCurrencyObject } from '@/composables/UseCurrency'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
-import {formatValueArray, getNewestPriceRecord} from '@/composables/UsePriceRecords'
+import { useAssetStore } from '@/stores/AssetStore'
+import {
+  formatValueArray,
+  getNewestPriceRecord,
+} from '@/composables/UsePriceRecords'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 
@@ -154,7 +160,7 @@ import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 const props = defineProps({
   uuid: {
     type: String,
@@ -163,7 +169,7 @@ const props = defineProps({
 })
 
 const holding: ComputedRef<PrivateHolding> = computed(() => {
-  return store.getAssetMapEntryByUuid(props.uuid) as PrivateHolding
+  return store.getAssetPoolEntryByUuid(props.uuid) as PrivateHolding
 })
 
 /**-***************************************************-**/
@@ -322,16 +328,12 @@ const currencyOptions = computed(() => {
 /** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
 
-const editGroupEntries = computed(
-    () => store.editGroupEntries
-)
+const editGroupFlag = computed(() => assetStore.listActionState.editFlag)
 
-const deleteHoldings = computed(
-    () => store.deleteHoldings
-)
+const deleteHoldingFlag = computed(() => assetStore.listActionState.deleteFlag)
 
 const isEdited: Ref<boolean> = ref(false)
-const editAsset = () => isEdited.value = true
+const editAsset = () => (isEdited.value = true)
 
 // Get the current value formatted by german pattern
 const currentValue = computed((): string => {
@@ -346,7 +348,7 @@ const currentValue = computed((): string => {
 function calcCurrentPercentage(): number {
   const currentValue: number =
     holding.value.ownedQuantity * holding.value.pricePerUnit
-  return (currentValue / store.totalAssetListValue) * 100
+  return (currentValue / assetStore.sumState.totalValue) * 100
 }
 
 // Get the current value percentage formatted by german pattern
@@ -376,17 +378,19 @@ const deviation = computed((): string[] => {
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {
-  const currentValue: number = holding.value.ownedQuantity * holding.value.pricePerUnit
+  const currentValue: number =
+    holding.value.ownedQuantity * holding.value.pricePerUnit
   const currentPercentage: number =
-      (currentValue / store.totalAssetListValue) * 100
+    (currentValue / assetStore.sumState.totalValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
   return currentPercentage > targetPercentage
 })
 
 const deviationExists = computed(() => {
-  const currentValue: number = holding.value.ownedQuantity * holding.value.pricePerUnit
+  const currentValue: number =
+    holding.value.ownedQuantity * holding.value.pricePerUnit
   const currentPercentage: number =
-      (currentValue / store.totalAssetListValue) * 100
+    (currentValue / assetStore.sumState.totalValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
   return currentPercentage !== targetPercentage
 })

@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import {
   getAuthorizedInstance,
@@ -33,13 +33,10 @@ import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
 import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
-import {
-  addHoldingGroup,
-  addPrivateHoldingToMap,
-  addPrivateHoldingToRenderList,
-} from '@/composables/UseAssetMap'
-
-const store = useAssetMapStore()
+import { addPrivateHoldingToRenderList } from '@/composables/UseAssetRenderList'
+import { addPrivateHoldingToPool } from '@/composables/UseAssetPool'
+import { addHoldingGroup } from '@/composables/UseHoldingGroup'
+const assetStore = useAssetStore()
 
 /**
  * Add a new empty private holding to the asset map and list
@@ -65,8 +62,8 @@ async function newPrivateHoldingAction() {
         request
       )
       .then((result) => {
-        addPrivateHoldingToMap(store, result.data)
-        addPrivateHoldingToRenderList(store, result.data)
+        addPrivateHoldingToPool(assetStore, result.data)
+        addPrivateHoldingToRenderList(assetStore, result.data)
       })
       .catch((error) => handleErrorResponseStatus(error))
   })
@@ -89,7 +86,7 @@ async function newHoldingGroup() {
   await getAuthorizedInstance().then((instance) => {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)
-      .then((result) => addHoldingGroup(store, result.data))
+      .then((result) => addHoldingGroup(assetStore, result.data))
       .catch((error) => handleErrorResponseStatus(error))
   })
 }

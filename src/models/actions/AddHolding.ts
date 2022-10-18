@@ -1,0 +1,9 @@
+import type { HoldingActionEnum } from '@/models/actions/HoldingActionEnum'
+import type { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
+
+export interface AddHolding {
+  actionType: HoldingActionEnum
+  holdingUuid: string
+  groupUuid: string
+  holdingType: EntryTypeEnum
+}

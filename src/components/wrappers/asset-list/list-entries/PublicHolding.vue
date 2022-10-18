@@ -73,7 +73,10 @@
 
     <ThreeDigitValue :value-array="deviation" :unit="'%'">
       <template #arrow>
-        <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
+        <IconAssetRowArrow
+          v-show="deviationExists"
+          :arrow-up="deviationArrowDirection"
+        />
       </template>
     </ThreeDigitValue>
   </div>
@@ -102,7 +105,7 @@ import {
   getDataLabels,
   isPositiveChart,
 } from '@/composables/UsePreviewChart'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
@@ -112,7 +115,7 @@ import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 const props = defineProps({
   uuid: {
     type: String,
@@ -121,7 +124,7 @@ const props = defineProps({
 })
 
 const holding: ComputedRef<PublicHolding> = computed(() => {
-  return store.getAssetMapEntryByUuid(props.uuid) as PublicHolding
+  return assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
 })
 
 /**-***************************************************-**/
@@ -242,7 +245,7 @@ const currentValue = computed((): string => {
 function calcCurrentPercentage(): number {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
   const currentValue: number = holding.value.ownedQuantity * priceRecord
-  return (currentValue / store.totalAssetListValue) * 100
+  return (currentValue / assetStore.sumState.totalValue) * 100
 }
 
 // Get the current value percentage formatted by german pattern
@@ -275,7 +278,7 @@ const deviationArrowDirection = computed(() => {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
   const currentValue: number = holding.value.ownedQuantity * priceRecord
   const currentPercentage: number =
-    (currentValue / store.totalAssetListValue) * 100
+    (currentValue / assetStore.sumState.totalValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
   return currentPercentage > targetPercentage
 })
@@ -284,7 +287,7 @@ const deviationExists = computed(() => {
   const priceRecord: number = getNewestPriceRecord(priceRecords.value)
   const currentValue: number = holding.value.ownedQuantity * priceRecord
   const currentPercentage: number =
-    (currentValue / store.totalAssetListValue) * 100
+    (currentValue / assetStore.sumState.totalValue) * 100
   const targetPercentage: number = holding.value.targetPercentage
   return currentPercentage !== targetPercentage
 })

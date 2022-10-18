@@ -5,8 +5,7 @@ import type { PublicAsset } from '@/models/PublicAsset'
 import type { SearchbarState } from '@/models/SearchbarState'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 
-export const useSearchbarStore = defineStore('searchbarStore', () => {
-
+export const useSearchStore = defineStore('searchStore', () => {
   /**-******************************************************************-**/
   /**-------------------- Asset List State Variables --------------------**/
   /**-******************************************************************-**/

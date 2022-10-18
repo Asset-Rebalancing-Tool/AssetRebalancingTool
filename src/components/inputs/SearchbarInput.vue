@@ -16,10 +16,10 @@
       </template>
     </BaseInput>
     <button
-        v-if="showDeleteButton"
-        class="delete-holding"
-        :class="{ active : deleteHoldings }"
-        @click.prevent="toggleDeleteHoldingFlag"
+      v-if="showDeleteButton"
+      class="delete-holding"
+      :class="{ active: deleteHoldingFlag }"
+      @click.prevent="toggleDeleteHoldingFlag"
     >
       <IconDelete />
     </button>
@@ -27,8 +27,8 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, ref} from 'vue'
-import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { computed, ref } from 'vue'
+import { useSearchStore } from '@/stores/SearchStore'
 import { showModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { Ref } from 'vue'
@@ -38,11 +38,11 @@ import IconInputSearch from '@/assets/icons/inputs/IconInputSearch.vue'
 import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 import { handleErrorResponseStatus } from '@/services/TokenService'
-import IconDelete from "@/assets/icons/inputs/IconDelete.vue";
-import { useAssetMapStore } from "@/stores/AssetMapStore";
+import IconDelete from '@/assets/icons/inputs/IconDelete.vue'
+import { useAssetStore } from '@/stores/AssetStore'
 
-const store = useSearchbarStore()
-const assetMapStore = useAssetMapStore()
+const searchbarStore = useSearchStore()
+const assetStore = useAssetStore()
 
 // reactive variables needed in order fetch assets properly
 const abortController: Ref<AbortController | null> = ref(new AbortController())
@@ -52,26 +52,27 @@ const userInput: Ref<string> = ref('')
 const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
 
 const showDeleteButton = computed(() => {
-  return assetMapStore.listLoadingFlag || assetMapStore.assetList.size !== 0
+  return (
+    assetStore.renderState.loadingFlag ||
+    assetStore.renderState.assetList.size !== 0
+  )
 })
 
-const deleteHoldings = computed(
-    () => assetMapStore.deleteHoldings
-)
+const deleteHoldingFlag = computed(() => assetStore.listActionState.deleteFlag)
 
 function toggleDeleteHoldingFlag() {
-  assetMapStore.editGroupEntries = false
-  assetMapStore.deleteHoldings = !assetMapStore.deleteHoldings
+  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.deleteFlag = !assetStore.listActionState.deleteFlag
 }
 
-// Clear the search string if the user click the remove icon.svg and reset the store's asset state variables
+// Clear the search string if the user click the remove icon.svg and reset the searchbarStore's asset state variables
 function removeUserInput() {
-  if (store.searchbarState.searchString.length > 0) {
+  if (searchbarStore.searchbarState.searchString.length > 0) {
     resetFetch()
-    store.searchbarState.searchString = ''
+    searchbarStore.searchbarState.searchString = ''
     userInput.value = ''
     inputIcon.value = IconInputSearch
-    store.searchbarState.searchbarLoadingFlag = false
+    searchbarStore.searchbarState.searchbarLoadingFlag = false
   }
 }
 
@@ -85,17 +86,17 @@ function removeUserInput() {
  * @return void
  */
 function searchAsset(searchValue: string): void {
-  // Abort the previous fetch and reset the asset store state variables
+  // Abort the previous fetch and reset the asset searchbarStore state variables
   resetFetch()
 
-  // Always update the search string of the asset store
-  store.searchbarState.searchString = searchValue
+  // Always update the search string of the asset searchbarStore
+  searchbarStore.searchbarState.searchString = searchValue
 
   inputIcon.value = searchValue.length > 0 ? IconRemoveValue : IconInputSearch
 
   // Ensure to only make request, if the user input is greater than three characters
   if (searchValue.length < 3) {
-    store.searchbarState.searchbarLoadingFlag = false
+    searchbarStore.searchbarState.searchbarLoadingFlag = false
     return
   }
 
@@ -112,16 +113,16 @@ function searchAsset(searchValue: string): void {
     abortController.value = new AbortController()
     await AssetService.fetchPublicAssets(searchValue, abortController.value)
       .then((results) => {
-        store.searchbarState.searchbarLoadingFlag = false
-        store.searchbarState.searchbarResultCount = results.length
-        store.searchbarState.searchbarAssets = results
+        searchbarStore.searchbarState.searchbarLoadingFlag = false
+        searchbarStore.searchbarState.searchbarResultCount = results.length
+        searchbarStore.searchbarState.searchbarAssets = results
       })
       .catch((error) => handleErrorResponseStatus(error))
   }, 500)
 }
 
 /**
- * Abort the previous fetch and reset the asset store state variables
+ * Abort the previous fetch and reset the asset searchbarStore state variables
  *
  * @return void
  */
@@ -133,9 +134,9 @@ function resetFetch(): void {
   }
 
   // Always reset the reactive state object properties
-  store.searchbarState.searchbarAssets = [] as PublicAsset[]
-  store.searchbarState.searchbarResultCount = 0
-  store.searchbarState.searchbarLoadingFlag = true
+  searchbarStore.searchbarState.searchbarAssets = [] as PublicAsset[]
+  searchbarStore.searchbarState.searchbarResultCount = 0
+  searchbarStore.searchbarState.searchbarLoadingFlag = true
 }
 </script>
 

@@ -44,9 +44,9 @@ import {
   getDataLabels,
   isPositiveChart,
 } from '@/composables/UsePreviewChart'
-import {useSearchbarStore} from "@/stores/SearchbarStore";
+import { useSearchStore } from '@/stores/SearchStore'
 
-const searchbarStore = useSearchbarStore()
+const searchbarStore = useSearchStore()
 
 const props = defineProps({
   thisAsset: {
@@ -82,11 +82,11 @@ const assetNameWithWordMatches = computed((): string => {
     const indexStart: number = assetName.indexOf(input)
     const indexEnd: number = indexStart + input.length
     return (
-        props.thisAsset.assetName.substring(0, indexStart) +
-        '<mark>' +
-        props.thisAsset.assetName.substring(indexStart, indexEnd) +
-        '</mark>' +
-        props.thisAsset.assetName.substring(indexEnd)
+      props.thisAsset.assetName.substring(0, indexStart) +
+      '<mark>' +
+      props.thisAsset.assetName.substring(indexStart, indexEnd) +
+      '</mark>' +
+      props.thisAsset.assetName.substring(indexEnd)
     )
   }
   return props.thisAsset.assetName

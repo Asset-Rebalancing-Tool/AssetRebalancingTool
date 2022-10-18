@@ -2,14 +2,14 @@
   <div class="asset-info">
     <slot name="asset-logo">
       <div
-          class="asset-logo"
-          :class="{
-             shake: editGroupEntries,
-             delete: deleteHoldings
-          }"
-          v-bind:style="{
-        'background-image': 'url(data:image/png;base64,' + logo + ')',
-      }"
+        class="asset-logo"
+        :class="{
+          shake: editGroupFlag,
+          delete: deleteHoldingFlag,
+        }"
+        v-bind:style="{
+          'background-image': 'url(data:image/png;base64,' + logo + ')',
+        }"
       ></div>
     </slot>
     <slot name="asset-name"></slot>
@@ -30,10 +30,10 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import type { Ref } from 'vue'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import IconCopy from '@/assets/icons/IconCopy.vue'
 
-const assetMapStore = useAssetMapStore()
+const assetMapStore = useAssetStore()
 
 const props = defineProps({
   type: {
@@ -50,12 +50,10 @@ const props = defineProps({
   },
 })
 
-const editGroupEntries = computed(
-  () => assetMapStore.editGroupEntries
-)
+const editGroupFlag = computed(() => assetMapStore.listActionState.editFlag)
 
-const deleteHoldings = computed(
-    () => assetMapStore.deleteHoldings
+const deleteHoldingFlag = computed(
+  () => assetMapStore.listActionState.deleteFlag
 )
 
 // Copy the isin of an asset into the clipboard

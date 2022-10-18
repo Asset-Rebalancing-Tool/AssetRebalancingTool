@@ -1,4 +1,4 @@
-import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { useSearchStore } from '@/stores/SearchStore'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 
@@ -8,7 +8,7 @@ import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
  * @param uuid string
  */
 export function mapAssetTypeByUUid(uuid: string) {
-  const searchbarStore = useSearchbarStore()
+  const searchbarStore = useSearchStore()
   const asset: PublicAsset = searchbarStore.getSearchbarAsset(uuid)
   return mapAssetType(asset.assetType)
 }

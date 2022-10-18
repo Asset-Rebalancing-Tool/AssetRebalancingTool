@@ -14,10 +14,11 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch, computed } from 'vue'
 import type { Ref } from 'vue'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
+import { getTotalGroupTargetPercentage } from '@/composables/UseTotalValues'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 
 const props = defineProps({
   groupUuid: {
@@ -58,7 +59,7 @@ watch(
 
 // Get the current groups target percentage formatted by german pattern
 const totalGroupTargetPercentage = computed((): string => {
-  const targetPercentage: number = store.getTotalGroupTargetPercentage(
+  const targetPercentage: number = getTotalGroupTargetPercentage(
     props.groupUuid
   )
   // Set the flag that indicates if the group equals one hundred percent

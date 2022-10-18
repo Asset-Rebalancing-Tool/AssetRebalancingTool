@@ -1,10 +1,10 @@
-import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { useSearchStore } from '@/stores/SearchStore'
 
 /**
  * Show the modal underlay by setting the active modal underlay wrapper flag to true
  */
 export function showModalUnderlay(): void {
-  const searchbarStore = useSearchbarStore()
+  const searchbarStore = useSearchStore()
   searchbarStore.searchbarState.activeModalUnderlay = true
 }
 
@@ -12,6 +12,6 @@ export function showModalUnderlay(): void {
  * Show the modal underlay by setting the active modal underlay wrapper flag to false
  */
 export function hideModalUnderlay(): void {
-  const searchbarStore = useSearchbarStore()
+  const searchbarStore = useSearchStore()
   searchbarStore.searchbarState.activeModalUnderlay = false
 }

@@ -29,8 +29,8 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useSearchbarStore } from '@/stores/SearchbarStore'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useSearchStore } from '@/stores/SearchStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/wrappers/asset-list/searchbar/PublicAsset.vue'
 import SearchbarSkeleton from '@/components/wrappers/asset-list/searchbar/SearchbarSkeleton.vue'
 import SearchbarFooter from '@/components/wrappers/asset-list/searchbar/SearchbarFooter.vue'
@@ -42,14 +42,12 @@ import {
   handleErrorResponseStatus,
 } from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import {
-  addPublicHoldingToMap,
-  addPublicHoldingToRenderList,
-} from '@/composables/UseAssetMap'
+import { addPublicHoldingToRenderList } from '@/composables/UseAssetRenderList'
+import { addPublicHoldingToPool } from '@/composables/UseAssetPool'
 
 // Initialize stores
-const searchbarStore = useSearchbarStore()
-const assetMapStore = useAssetMapStore()
+const searchbarStore = useSearchStore()
+const assetMapStore = useAssetStore()
 
 const showContentWrapper = computed(
   () => searchbarStore.searchbarState.activeModalUnderlay
@@ -80,7 +78,7 @@ async function newPublicHoldingAction(uuid: string) {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => {
-        addPublicHoldingToMap(assetMapStore, result.data)
+        addPublicHoldingToPool(assetMapStore, result.data)
         addPublicHoldingToRenderList(assetMapStore, result.data)
       })
       .catch((error) => handleErrorResponseStatus(error))

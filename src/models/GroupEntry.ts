@@ -1,4 +1,4 @@
-import type { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
+import type { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 
 export interface GroupEntry {
   uuid: string

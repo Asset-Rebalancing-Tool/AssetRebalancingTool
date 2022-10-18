@@ -1,12 +1,15 @@
 <template>
   <footer>
     <div class="footer-header">
-      <button v-show="!editGroupEntriesFlag && !deleteHoldingGroupFlag" @click.prevent="editGroup">
+      <button
+        v-show="!editGroupFlagFlag && !deleteHoldingGroupFlag"
+        @click.prevent="editGroup"
+      >
         {{ $t('assetList.listEntries.holdingGroup.edit') }}
       </button>
       <button
         class="save"
-        v-show="editGroupEntriesFlag && !deleteHoldingGroupFlag"
+        v-show="editGroupFlagFlag && !deleteHoldingGroupFlag"
         @click="
           PatchAssetService.patchHoldingGroup(
             patchHoldingGroupRequest(),
@@ -17,16 +20,16 @@
         {{ $t('assetList.listEntries.holdingGroup.save') }}
       </button>
       <button
-          class="delete"
-          v-show="deleteHoldingGroupFlag"
-          @click="DeleteAssetService.deleteHoldingGroup(group.uuid)"
+        class="delete"
+        v-show="deleteHoldingGroupFlag"
+        @click="DeleteAssetService.deleteHoldingGroup(group.uuid)"
       >
         {{ $t('assetList.listEntries.holdingGroup.delete') }}
       </button>
-      <h4 v-show="!editGroupEntriesFlag">{{ groupName }}</h4>
+      <h4 v-show="!editGroupFlagFlag">{{ groupName }}</h4>
       <input
         class="group-name-input"
-        v-show="editGroupEntriesFlag"
+        v-show="editGroupFlagFlag"
         type="text"
         v-model="groupName"
       />
@@ -62,7 +65,10 @@
 
     <ThreeDigitValue :value-array="totalGroupDeviation" :unit="'%'">
       <template #arrow>
-        <IconAssetRowArrow v-show="deviationExists" :arrow-up="deviationArrowDirection" />
+        <IconAssetRowArrow
+          v-show="deviationExists"
+          :arrow-up="deviationArrowDirection"
+        />
       </template>
     </ThreeDigitValue>
   </footer>
@@ -73,7 +79,7 @@ import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import { ref, computed, watch } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
@@ -81,14 +87,18 @@ import PatchAssetService from '@/services/PatchAssetService'
 import DeleteAssetService from '@/services/DeleteAssetService'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { formatValueArray } from '@/composables/UsePriceRecords'
-import { InputStatusEnum } from '@/models/enums/InputStatusEnum'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
+import {
+  getTotalGroupValue,
+  getTotalGroupPercentage,
+  getTotalGroupDeviation,
+} from '@/composables/UseTotalValues'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 const props = defineProps({
   uuid: {
     type: String,
@@ -97,7 +107,7 @@ const props = defineProps({
 })
 
 const group: ComputedRef<HoldingGroup> = computed(() => {
-  return store.getAssetMapEntryByUuid(props.uuid) as HoldingGroup
+  return assetStore.getAssetPoolEntryByUuid(props.uuid) as HoldingGroup
 })
 
 /**-***************************************************-**/
@@ -109,8 +119,10 @@ const groupName: Ref<string> = ref(group.value.groupName)
 const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 
 // bool that indicates if the group is currently editable or not
-const editGroupEntriesFlag = computed(() => store.editGroupEntries)
-const deleteHoldingGroupFlag = computed(() => store.deleteHoldings)
+const editGroupFlagFlag = computed(() => assetStore.listActionState.editFlag)
+const deleteHoldingGroupFlag = computed(
+  () => assetStore.listActionState.deleteFlag
+)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/
@@ -142,9 +154,9 @@ function executeAnimation(field: Ref<boolean>) {
 
 // Start editing a group
 function editGroup(): void {
-  store.deleteHoldings = false
-  store.editGroupEntries = true
-  store.selectedGroup = group.value
+  assetStore.listActionState.deleteFlag = false
+  assetStore.listActionState.editFlag = true
+  assetStore.listActionState.selectedGroup = group.value
 }
 
 /**-***************************************************-**/
@@ -182,8 +194,8 @@ function patchGroupTargetPercentageRequest(
 
 // Reset the store's selection state in order to deactivate group editing
 function resetSelectionState() {
-  store.editGroupEntries = false
-  store.selectedGroup = null
+  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.selectedGroup = null
 }
 
 /**-***************************************************-**/
@@ -192,7 +204,7 @@ function resetSelectionState() {
 
 // Get the total asset list value
 const totalGroupValue = computed(() => {
-  const totalGroupValue: number = store.getTotalGroupValue(group.value.uuid)
+  const totalGroupValue: number = getTotalGroupValue(group.value.uuid)
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
@@ -201,7 +213,7 @@ const totalGroupValue = computed(() => {
 
 // Get the total asset list percentage
 const totalGroupPercentage = computed(() => {
-  const totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
+  const totalGroupPercentage = getTotalGroupPercentage(group.value.uuid)
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
       totalGroupPercentage
@@ -211,7 +223,7 @@ const totalGroupPercentage = computed(() => {
 
 // Get the total asset list deviation
 const totalGroupDeviation = computed(() => {
-  const totalGroupDeviation = store.getTotalGroupDeviation(group.value.uuid)
+  const totalGroupDeviation = getTotalGroupDeviation(group.value.uuid)
   return totalGroupDeviation
     ? formatValueArray(totalGroupDeviation)
     : ['00', '00', '0']
@@ -223,12 +235,12 @@ const totalGroupDeviation = computed(() => {
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {
-  const totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
+  const totalGroupPercentage = getTotalGroupPercentage(group.value.uuid)
   return totalGroupPercentage < targetPercentage.value
 })
 
 const deviationExists = computed(() => {
-  const totalGroupPercentage = store.getTotalGroupPercentage(group.value.uuid)
+  const totalGroupPercentage = getTotalGroupPercentage(group.value.uuid)
   return totalGroupPercentage !== targetPercentage.value
 })
 </script>

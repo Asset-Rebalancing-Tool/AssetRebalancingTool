@@ -21,7 +21,9 @@
       /></span>
     </span>
     <span class="column">
-      <span @click="sort(SortColumn.TARGET_PERCENTAGE, direction())" style="margin-left: -14px;"
+      <span
+        @click="sort(SortColumn.TARGET_PERCENTAGE, direction())"
+        style="margin-left: -14px"
         >{{ $t('assetList.tableFilters.targetPercentage') }}<IconFilterArrow
       /></span>
     </span>
@@ -36,9 +38,9 @@
 <script lang="ts" setup>
 import IconFilterArrow from '@/assets/icons/IconFilterArrow.vue'
 import { SortColumn, SortDirection } from '@/models/enums/SortEnum'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 
 function direction() {
   const testDirection = SortDirection.ASC

@@ -8,10 +8,10 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { useSearchStore } from '@/stores/SearchStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 
-const store = useSearchbarStore()
+const store = useSearchStore()
 
 const activeModalUnderlay = computed(() => {
   return store.searchbarState.activeModalUnderlay

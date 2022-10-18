@@ -6,9 +6,9 @@ import {
 } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import { patchAssetMapEntry } from '@/composables/UseAssetMap'
-import type { AssetMapEntry } from '@/models/AssetMapEntry'
-import { EntryTypeEnum } from '@/models/enums/EntryTypeEnum'
+import { patchAssetPoolEntry } from '@/composables/UseAssetPool'
+import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
+import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 
 let abortController: AbortController | null = new AbortController()
 let timer: ReturnType<typeof setTimeout> | null = null
@@ -43,9 +43,9 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            const patchedEntry = response.data as AssetMapEntry
+            const patchedEntry = response.data as AssetPoolEntry
             patchedEntry.entryType = EntryTypeEnum.PUBLIC_HOLDING
-            patchAssetMapEntry(patchedEntry)
+            patchAssetPoolEntry(patchedEntry)
           })
           .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
       }, 500)
@@ -73,9 +73,9 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            const patchedEntry = response.data as AssetMapEntry
+            const patchedEntry = response.data as AssetPoolEntry
             patchedEntry.entryType = EntryTypeEnum.PRIVATE_HOLDING
-            patchAssetMapEntry(patchedEntry)
+            patchAssetPoolEntry(patchedEntry)
           })
           .catch((error) => handleErrorResponseStatus(error))
       }, 500)
@@ -103,9 +103,9 @@ export default {
             )
           })
           .then((response: AxiosResponse) => {
-            const patchedEntry = response.data as AssetMapEntry
+            const patchedEntry = response.data as AssetPoolEntry
             patchedEntry.entryType = EntryTypeEnum.HOLDING_GROUP
-            patchAssetMapEntry(patchedEntry)
+            patchAssetPoolEntry(patchedEntry)
           })
           .catch((error) => handleErrorResponseStatus(error))
       }, 500)

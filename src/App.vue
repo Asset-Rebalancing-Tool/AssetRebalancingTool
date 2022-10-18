@@ -8,9 +8,8 @@
 import { computed } from 'vue'
 import SidebarSection from '@/components/SidebarSection.vue'
 import ModalUnderlay from '@/components/modals/ModalUnderlay.vue'
-import { useSearchbarStore } from '@/stores/SearchbarStore'
+import { useSearchStore } from '@/stores/SearchStore'
 
-const store = useSearchbarStore()
-
-const showSidebar = computed(() => store.showSidebar)
+const searchStore = useSearchStore()
+const showSidebar = computed(() => searchStore.showSidebar)
 </script>

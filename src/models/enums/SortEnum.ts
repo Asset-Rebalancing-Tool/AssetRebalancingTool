@@ -1,13 +1,13 @@
 export enum SortColumn {
-  ENTRY_NAME = 'entryName',
-  PRICE = 'price',
-  OWNED_QUANTITY = 'ownedQuantity',
-  CURRENT_VALUE = 'currentValue',
-  TARGET_PERCENTAGE = 'targetPercentage',
-  DEVIATION = 'deviation',
+  ENTRY_NAME,
+  PRICE,
+  OWNED_QUANTITY,
+  CURRENT_VALUE,
+  TARGET_PERCENTAGE,
+  DEVIATION,
 }
 
 export enum SortDirection {
-  ASC = 'asc',
-  DESC = 'desc',
+  ASC,
+  DESC,
 }

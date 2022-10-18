@@ -8,8 +8,8 @@
     </div>
 
     <div
-        class="total-target-percentage-wrapper"
-        :class="{ valid: targetPercentageIsOneHundredPercent }"
+      class="total-target-percentage-wrapper"
+      :class="{ valid: targetPercentageIsOneHundredPercent }"
     >
       <header>
         {{ $t('assetList.listFooter.totalTargetPercentage') }}
@@ -29,12 +29,12 @@
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { formatValueArray } from '@/composables/UsePriceRecords'
-import { useAssetMapStore } from '@/stores/AssetMapStore'
+import { useAssetStore } from '@/stores/AssetStore'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 
-const store = useAssetMapStore()
+const assetStore = useAssetStore()
 
 const targetPercentageIsOneHundredPercent: Ref<boolean> = ref(false)
 
@@ -43,16 +43,17 @@ const totalValue = computed(() => {
   return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR',
-  }).format(store.totalAssetListValue)
+  }).format(assetStore.sumState.totalValue)
 })
 
 const totalTargetPercentage = computed(() => {
-  const targetPercentage: number = store.totalAssetListTargetPercentage
+  const targetPercentage: number = assetStore.sumState.totalTargetPercentage
   // Set the flag that indicates if the group equals one hundred percent
-  targetPercentageIsOneHundredPercent.value = targetPercentage === 0 || targetPercentage === 100
+  targetPercentageIsOneHundredPercent.value =
+    targetPercentage === 0 || targetPercentage === 100
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-        targetPercentage
+      targetPercentage
     ) + ' %'
   )
 })
@@ -61,13 +62,13 @@ const totalTargetPercentage = computed(() => {
 const totalDeviation = computed(() => {
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      store.totalAssetListDeviation
+      assetStore.sumState.totalDeviation
     ) + ' %'
   )
 })
 
 // Bool that indicates if the percentage check icon.svg should be rendered
 const showPercentageCheckIcon = computed(() => {
-  return store.totalAssetListTargetPercentage === 100
+  return assetStore.sumState.totalTargetPercentage === 100
 })
 </script>

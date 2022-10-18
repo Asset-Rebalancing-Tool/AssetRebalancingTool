@@ -1,12 +1,12 @@
 <template>
   <div
     class="flash-message-container"
-    :style="{ borderLeft: `5px solid ${flashMessageColor}` }"
+    :style="{ borderLeft: `5px solid ${color}` }"
   >
-    <div class="icon-wrapper" :style="{ backgroundColor: flashMessageColor }">
-      <Component :is="flashMessageIcon" />
+    <div class="icon-wrapper" :style="{ backgroundColor: color }">
+      <Component :is="icon" />
     </div>
-    <p>{{ flashMessageText }}</p>
+    <p>{{ text }}</p>
     <div class="close" @click="closeFlashMessage">
       <IconCloseFlashMessage />
     </div>
@@ -15,25 +15,25 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useFlashMessageStore } from '@/stores/FlashMessageStore'
+import { useNotificationStore } from '@/stores/NotificationStore'
 import IconCloseFlashMessage from '@/assets/icons/flash-message/IconCloseFlashMessage.vue'
 
-const store = useFlashMessageStore()
+const notificationStore = useNotificationStore()
 
-const flashMessageColor = computed(() => {
-  return store.flashMessage.flashMessageColor
+const color = computed(() => {
+  return notificationStore.flashMessage.color
 })
 
-const flashMessageIcon = computed(() => {
-  return store.flashMessage.flashMessageIcon
+const icon = computed(() => {
+  return notificationStore.flashMessage.icon
 })
 
-const flashMessageText = computed(() => {
-  return store.flashMessage.flashMessageText
+const text = computed(() => {
+  return notificationStore.flashMessage.text
 })
 
 const closeFlashMessage = computed(() => {
-  return (store.flashMessage.showFlashMessage = false)
+  return (notificationStore.flashMessage.showFlag = false)
 })
 </script>
 
