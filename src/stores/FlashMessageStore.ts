@@ -5,6 +5,8 @@ import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
 
 export const useFlashMessageStore = defineStore('flashMessageStore', () => {
+
+  // The reactive flash message object
   const flashMessage: FlashMessage = reactive({
     showFlashMessage: false,
     flashMessageText: '',

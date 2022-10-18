@@ -6,6 +6,7 @@ import type { SearchbarState } from '@/models/SearchbarState'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 
 export const useSearchbarStore = defineStore('searchbarStore', () => {
+
   /**-******************************************************************-**/
   /**-------------------- Asset List State Variables --------------------**/
   /**-******************************************************************-**/
@@ -13,7 +14,7 @@ export const useSearchbarStore = defineStore('searchbarStore', () => {
   // bool that indicates if the sidebar should be rendered
   const showSidebar: Ref<boolean> = ref(localStorage.getItem('token') !== null)
 
-  // All reactive searchbar variables
+  // The reactive searchbar state
   const searchbarState: SearchbarState = reactive({
     searchString: '',
     searchbarAssets: [],
