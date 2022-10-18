@@ -58,11 +58,11 @@ const showDeleteButton = computed(() => {
   )
 })
 
-const deleteHoldingFlag = computed(() => assetStore.listActionState.deleteFlag)
+const deleteHoldingFlag = computed(() => assetStore.deleteFlag)
 
 function toggleDeleteHoldingFlag() {
   assetStore.listActionState.editFlag = false
-  assetStore.listActionState.deleteFlag = !assetStore.listActionState.deleteFlag
+  assetStore.listActionState.deleteFlag = !assetStore.deleteFlag
 }
 
 // Clear the search string if the user click the remove icon.svg and reset the searchbarStore's asset state variables

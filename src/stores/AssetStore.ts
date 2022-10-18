@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
+import type { ComputedRef } from 'vue'
 import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
 import type { AssetRenderingEntry } from '@/models/holdings/AssetRenderingEntry'
 import type { RenderState } from '@/models/states/RenderState'
 import type { SumState } from '@/models/states/SumState'
 import type { ListActionState } from '@/models/states/ListActionState'
+import type {HoldingGroup} from "@/models/holdings/HoldingGroup";
 
 export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
@@ -35,6 +37,22 @@ export const useAssetStore = defineStore('assetStore', () => {
     deleteFlag: false,
     selectedGroup: null,
   })
+
+  /**-******************************************************************-**/
+  /**-------------------- Computed Getter Properties --------------------**/
+  /**-******************************************************************-**/
+
+  const deleteFlag: ComputedRef<boolean> = computed(
+      () => listActionState.deleteFlag
+  )
+
+  const editFlag: ComputedRef<boolean> = computed(
+      () => listActionState.editFlag
+  )
+
+  const selectedGroup: ComputedRef<HoldingGroup | null> = computed(
+      () => listActionState.selectedGroup
+  )
 
   /**-******************************************************************-**/
   /**-------------------- Asset List Render Actions ---------------------**/
@@ -106,19 +124,6 @@ export const useAssetStore = defineStore('assetStore', () => {
     }
   }
 
-  /**
-   * remove an existing asset pool entry by its uuid
-   *
-   * @param uuid string
-   *
-   * @return void
-   */
-  function removeAssetPoolEntry(uuid: string): void {
-    if (assetPool.has(uuid)) {
-      assetPool.delete(uuid)
-    }
-  }
-
   /**-******************************************************************-**/
   /**--------------- Return States, Getters And Actions -----------------**/
   /**-******************************************************************-**/
@@ -130,10 +135,12 @@ export const useAssetStore = defineStore('assetStore', () => {
     sumState,
     listActionState,
 
+    // Computed template properties
+    editFlag,
+    deleteFlag,
+    selectedGroup,
+
     // Asset List Render Actions
-    getAssetPoolEntryByUuid,
-    addAssetPoolEntry,
-    patchAssetPoolEntry,
-    removeAssetPoolEntry,
+    getAssetPoolEntryByUuid
   }
 })

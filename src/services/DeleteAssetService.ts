@@ -2,7 +2,8 @@ import {
   getAuthorizedInstance,
   handleErrorResponseStatus,
 } from '@/services/TokenService'
-import { removeAssetPoolEntry } from '@/composables/UseAssetPool'
+import { deleteAssetPoolEntry } from '@/composables/UseAssetPool'
+import { deleteRenderListEntry } from "@/composables/UseAssetRenderList";
 
 export default {
   /**
@@ -17,7 +18,10 @@ export default {
       .then((instance) => {
         return instance.delete(`/holding_api/asset_holding/group/${groupUuid}`)
       })
-      .then(() => removeAssetPoolEntry(groupUuid))
+      .then(() => {
+          deleteAssetPoolEntry(groupUuid)
+          deleteRenderListEntry(groupUuid)
+      })
       .catch((error) => handleErrorResponseStatus(error))
   },
 
@@ -35,7 +39,10 @@ export default {
           `/holding_api/asset_holding/public/${holdingUuid}`
         )
       })
-      .then(() => removeAssetPoolEntry(holdingUuid))
+      .then(() => {
+          deleteAssetPoolEntry(holdingUuid)
+          deleteRenderListEntry(holdingUuid)
+      })
       .catch((error) => handleErrorResponseStatus(error))
   },
 
@@ -53,7 +60,10 @@ export default {
           `/holding_api/asset_holding/private/${holdingUuid}`
         )
       })
-      .then(() => removeAssetPoolEntry(holdingUuid))
+      .then(() => {
+          deleteAssetPoolEntry(holdingUuid)
+          deleteRenderListEntry(holdingUuid)
+      })
       .catch((error) => handleErrorResponseStatus(error))
   },
 }

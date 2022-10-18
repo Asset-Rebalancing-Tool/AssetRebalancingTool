@@ -1,15 +1,15 @@
-import { useAssetStore } from '@/stores/AssetStore'
+import {useAssetStore} from '@/stores/AssetStore'
 import PatchAssetService from '@/services/PatchAssetService'
 import DeleteAssetService from '@/services/DeleteAssetService'
-import { HoldingActionEnum } from '@/models/actions/HoldingActionEnum'
-import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
-import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
-import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
-import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
+import {HoldingActionEnum} from '@/models/actions/HoldingActionEnum'
+import {EntryTypeEnum} from '@/models/holdings/EntryTypeEnum'
+import type {AssetPoolEntry} from '@/models/AssetPoolEntry'
+import type {HoldingGroup} from '@/models/holdings/HoldingGroup'
 import {
-  pushHoldingToGroup,
   addHoldingGroup,
-  buildGroupPatchUuidArray,
+  patchHoldingGroupRequest,
+  pushHoldingToGroup,
+  removeHoldingFromGroup
 } from '@/composables/UseHoldingGroup'
 
 /**-*******************************************************************************-**/
@@ -21,7 +21,7 @@ import {
  *
  * @param holdingIsNested boolean
  *
- * @param entryUuid string
+ * @param holdingUuid string
  * @param entryType EntryTypeEnum | null (default = null)
  * @param groupUuid string | null (default = null)
  *
@@ -29,7 +29,7 @@ import {
  */
 export async function executeAction(
   holdingIsNested: boolean,
-  entryUuid: string,
+  holdingUuid: string,
   entryType: EntryTypeEnum | null = null,
   groupUuid: string | null = null
 ): Promise<void> {
@@ -39,14 +39,15 @@ export async function executeAction(
   // Execute the holding action
   switch (action) {
     case HoldingActionEnum.ADD_TO_GROUP:
-      await addHoldingToGroup(entryUuid)
+      await addHoldingToGroup(holdingUuid)
       break
     case HoldingActionEnum.REMOVE_FROM_GROUP:
-      if (!groupUuid || !entryType) return
-      await removeHoldingFromGroup(entryUuid, groupUuid, entryType)
+      if (groupUuid !== null && entryType !== null) {
+        await removeHoldingFromGroup(holdingUuid, groupUuid, entryType)
+      }
       break
     case HoldingActionEnum.DELETE_HOLDING:
-      await deleteHolding(entryUuid)
+      await deleteHolding(holdingUuid)
       break
   }
 }
@@ -62,7 +63,7 @@ export function getActionType(holdingIsNested = false): HoldingActionEnum {
   const assetStore = useAssetStore()
 
   // Check if the user is in delete mode
-  if (assetStore.listActionState.deleteFlag) {
+  if (assetStore.deleteFlag) {
     return HoldingActionEnum.DELETE_HOLDING
   }
 
@@ -87,10 +88,10 @@ async function addHoldingToGroup(holdingUuid: string): Promise<void> {
   const assetStore = useAssetStore()
 
   // Always return if no group is selected
-  if (!assetStore.listActionState.editFlag) return
+  if (!assetStore.editFlag) return
 
   // Get the currently edited group and the holding that has been clicked
-  const group: HoldingGroup | null = assetStore.listActionState.selectedGroup
+  const group: HoldingGroup | null = assetStore.selectedGroup
   const clickedHolding: AssetPoolEntry | null =
     assetStore.getAssetPoolEntryByUuid(holdingUuid)
 
@@ -106,43 +107,6 @@ async function addHoldingToGroup(holdingUuid: string): Promise<void> {
       patchHoldingGroupRequest(group),
       group.uuid
     )
-  }
-}
-
-/**
- * Remove a public or private list entry from the selected holding group
- *
- * @param groupUuid string
- * @param holdingUuid string
- * @param entryType EntryTypeEnum
- *
- * @return Promise<void>
- */
-async function removeHoldingFromGroup(
-  groupUuid: string,
-  holdingUuid: string,
-  entryType: EntryTypeEnum
-): Promise<void> {
-  const assetStore = useAssetStore()
-
-  // Always return if the user is not in edit mode or no group is selected
-  if (
-    !assetStore.listActionState.editFlag ||
-    !assetStore.listActionState.selectedGroup
-  )
-    return
-
-  if (assetStore.renderState.assetList.has(groupUuid)) {
-    const group = assetStore.renderState.assetList.get(groupUuid)
-    if (group && group.groupEntries) {
-      // Remove the whole holding entry from the selected group
-      await removeHoldingFromGroup(group.uuid, holdingUuid, entryType)
-      // Patch the holding group entry
-      await PatchAssetService.patchHoldingGroup(
-        patchHoldingGroupRequest(assetStore.listActionState.selectedGroup),
-        group.uuid
-      )
-    }
   }
 }
 
@@ -167,35 +131,4 @@ async function deleteHolding(holdingUuid: string): Promise<void> {
         break
     }
   }
-}
-
-/**
- * The patch owned quantity request body
- *
- * @param holdingGroup HoldingGroup
- *
- * @return HoldingGroupRequest
- */
-function patchHoldingGroupRequest(
-  holdingGroup: HoldingGroup
-): HoldingGroupRequest {
-  // All nested public holding uuid's
-  const publicUuids: string[] = buildGroupPatchUuidArray(
-    holdingGroup,
-    EntryTypeEnum.PUBLIC_HOLDING
-  )
-
-  // All nested private holding uuid's
-  const privateUuids: string[] = buildGroupPatchUuidArray(
-    holdingGroup,
-    EntryTypeEnum.PRIVATE_HOLDING
-  )
-
-  // The patch request object
-  return {
-    publicHoldingUuids: publicUuids,
-    privateHoldingUuids: privateUuids,
-    groupName: holdingGroup.groupName,
-    targetPercentage: holdingGroup.targetPercentage,
-  } as HoldingGroupRequest
 }

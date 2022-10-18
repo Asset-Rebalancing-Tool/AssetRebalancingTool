@@ -119,9 +119,9 @@ const groupName: Ref<string> = ref(group.value.groupName)
 const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 
 // bool that indicates if the group is currently editable or not
-const editGroupFlagFlag = computed(() => assetStore.listActionState.editFlag)
+const editGroupFlagFlag = computed(() => assetStore.editFlag)
 const deleteHoldingGroupFlag = computed(
-  () => assetStore.listActionState.deleteFlag
+  () => assetStore.deleteFlag
 )
 
 /**-***************************************************-**/

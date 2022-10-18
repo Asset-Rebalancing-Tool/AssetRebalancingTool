@@ -77,12 +77,12 @@ export async function generateAssetRenderList(): Promise<void> {
 }
 
 /**
- * Build the new asset list entry object in order to rerender the template
+ * Build the new asset render list
  *
  * @param assetStore any
  * @param holdingGroup HoldingGroup
  */
-export function addHoldingToRenderList(
+export function addHoldingGroupToRenderList(
   assetStore: any,
   holdingGroup: HoldingGroup
 ): void {
@@ -97,7 +97,7 @@ export function addHoldingToRenderList(
 }
 
 /**
- * Add a public holding to the asset list, which is getting rendered in template
+ * Add a public holding to the asset render list
  *
  * @param assetStore any
  * @param publicHolding PublicHolding
@@ -118,7 +118,7 @@ export function addPublicHoldingToRenderList(
 }
 
 /**
- * Add a public holding to the asset list, which is getting rendered in template
+ * Add a public holding to the asset render list
  *
  * @param assetStore any
  * @param privateHolding PrivateHolding
@@ -137,4 +137,18 @@ export function addPrivateHoldingToRenderList(
     hasGroup: hasGroup,
     entryType: EntryTypeEnum.PRIVATE_HOLDING,
   })
+}
+
+/**
+ * Remove an holding rom the asset render list
+ *
+ * @param holdingUuid string
+ *
+ * @return void
+ */
+export function deleteRenderListEntry(holdingUuid: string): void {
+  const assetStore = useAssetStore()
+  if (assetStore.renderState.assetList.has(holdingUuid)) {
+    assetStore.renderState.assetList.delete(holdingUuid)
+  }
 }

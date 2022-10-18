@@ -18,7 +18,7 @@
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
     </div>
 
-    <div class="total-value-wrapper">
+    <div class="total-deviation-wrapper">
       <header>{{ $t('assetList.listFooter.deviation') }}</header>
       <span class="total-value">{{ totalDeviation }}</span>
     </div>

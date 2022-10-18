@@ -328,9 +328,9 @@ const currencyOptions = computed(() => {
 /** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
 
-const editGroupFlag = computed(() => assetStore.listActionState.editFlag)
+const editGroupFlag = computed(() => assetStore.editFlag)
 
-const deleteHoldingFlag = computed(() => assetStore.listActionState.deleteFlag)
+const deleteHoldingFlag = computed(() => assetStore.deleteFlag)
 
 const isEdited: Ref<boolean> = ref(false)
 const editAsset = () => (isEdited.value = true)
