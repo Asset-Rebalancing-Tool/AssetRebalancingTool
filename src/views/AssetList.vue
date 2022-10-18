@@ -9,7 +9,7 @@
 
     <div class="holding-container">
       <div
-        v-if="!showEmptyAssetListBc"
+        v-if="!showLoadingAnimation"
         v-for="[uuid, entry] in assetList"
         :key="uuid"
       >

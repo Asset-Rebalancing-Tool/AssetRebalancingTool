@@ -169,7 +169,7 @@ const props = defineProps({
 })
 
 const holding: ComputedRef<PrivateHolding> = computed(() => {
-  return store.getAssetPoolEntryByUuid(props.uuid) as PrivateHolding
+  return assetStore.getAssetPoolEntryByUuid(props.uuid) as PrivateHolding
 })
 
 /**-***************************************************-**/
