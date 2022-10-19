@@ -8,7 +8,7 @@
     <div class="empty-list-grid">
       <div class="text-wrapper">
         <h4>{{ $t('assetList.emptyListBackground.heading1') }}</h4>
-        <p>{{ $t('assetList.emptyListBackground.heading1') }}</p>
+        <p>{{ $t('assetList.emptyListBackground.text1') }}</p>
       </div>
       <div class="text-wrapper">
         <h4>{{ $t('assetList.emptyListBackground.heading2') }}</h4>
