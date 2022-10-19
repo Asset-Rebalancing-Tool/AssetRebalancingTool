@@ -192,7 +192,13 @@ function patchGroupTargetPercentageRequest(
 ): HoldingGroupRequest {
   resetSelectionState()
   groupTargetPercentageError.value = !+percentage
-  return { targetPercentage: +percentage } as HoldingGroupRequest
+  if (groupName.value === '') {
+    groupName.value = 'Meine Gruppe 1'
+  }
+  return {
+    groupName: groupName.value,
+    targetPercentage: +percentage
+  } as HoldingGroupRequest
 }
 
 // Reset the store's selection state in order to deactivate group editing
