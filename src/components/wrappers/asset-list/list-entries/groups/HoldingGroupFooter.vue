@@ -180,6 +180,9 @@ function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
 // Patch the whole holding group
 function patchHoldingGroupRequest(): HoldingGroupRequest {
   resetSelectionState()
+  if (groupName.value === '') {
+    groupName.value = 'Meine Gruppe 1'
+  }
   return { groupName: groupName.value } as HoldingGroupRequest
 }
 

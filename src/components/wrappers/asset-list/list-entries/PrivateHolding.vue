@@ -294,6 +294,9 @@ function patchCurrencyRequest(currency: CurrencyEnum) {
 // The patch holding name body
 function patchPrivateHoldingNameRequest() {
   isEdited.value = false
+  if (holding.value.title === '') {
+    holding.value.title = 'Neues Privates Asset'
+  }
   return { title: holding.value.title } as PrivateHoldingRequest
 }
 
