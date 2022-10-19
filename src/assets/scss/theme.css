@@ -316,4 +316,22 @@ p {
   background-size: contain;
 }
 
+@media only screen and (max-width: 1490px) {
+  body:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 30px);
+    height: 100vh;
+    background-color: #24292D;
+    padding: 15px;
+    z-index: 1000;
+    background-image: url("@/assets/images/no-mobile-device-support.png");
+    background-size: 375px;
+    background-repeat: no-repeat;
+    background-position: 50% 30%;
+  }
+}
+
 /*# sourceMappingURL=theme.css.map */
