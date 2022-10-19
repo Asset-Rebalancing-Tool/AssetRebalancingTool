@@ -9,6 +9,7 @@ import ConnectBroker from '../views/ConnectBroker.vue'
 import TransactionHistory from '../views/TransactionHistory.vue'
 import ScheduleInvestments from '../views/ScheduleInvestments.vue'
 import AppSettings from '../views/AppSettings.vue'
+import {useAssetStore} from "@/stores/AssetStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,9 @@ const router = createRouter({
 })
 
 router.beforeEach(async (toRout) => {
+
+  resetStoreVariables()
+
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/sign-in', '/sign-up']
 
@@ -111,3 +115,14 @@ router.beforeEach(async (toRout) => {
 })
 
 export default router
+
+/**
+ * Reset store variables that should not remain after router view changes
+ *
+ * @return void
+ */
+function resetStoreVariables(): void {
+  const assetStore = useAssetStore()
+  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.deleteFlag = false
+}

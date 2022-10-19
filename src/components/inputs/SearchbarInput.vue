@@ -16,7 +16,7 @@
       </template>
     </BaseInput>
     <button
-      v-if="showDeleteButton"
+      v-show="showDeleteButton"
       class="delete-holding"
       :class="{ active: deleteHoldingFlag }"
       @click.prevent="toggleDeleteHoldingFlag"
@@ -52,17 +52,24 @@ const userInput: Ref<string> = ref('')
 const inputIcon: Ref<InputIconEnum> = ref(IconInputSearch)
 
 const showDeleteButton = computed(() => {
+  if (searchbarStore.searchbarState.activeModalUnderlay) {
+    return false
+  }
   return (
     assetStore.renderState.loadingFlag ||
     assetStore.renderState.assetList.size !== 0
   )
 })
 
-const deleteHoldingFlag = computed(() => assetStore.deleteFlag)
+const deleteHoldingFlag = computed(() => {
+  return (!searchbarStore.searchbarState.activeModalUnderlay)
+    ? assetStore.deleteFlag
+    : false
+})
 
 function toggleDeleteHoldingFlag() {
   assetStore.listActionState.editFlag = false
-  assetStore.listActionState.deleteFlag = !assetStore.deleteFlag
+  assetStore.listActionState.deleteFlag = !assetStore.listActionState.deleteFlag
 }
 
 // Clear the search string if the user click the remove icon.svg and reset the searchbarStore's asset state variables
