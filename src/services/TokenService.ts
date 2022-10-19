@@ -6,8 +6,7 @@ import { useSearchStore } from '@/stores/SearchStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
 import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
-// @ts-ignore
-import { useI18n } from 'vue-i18n'
+import { i18n } from '@/i18n'
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -143,22 +142,33 @@ function redirectToDashboard(token: string): void {
  * @return void
  */
 export function handleErrorResponseStatus(error: any): void {
-  const notificationStore = useNotificationStore()
-  const { t } = useI18n()
 
-  const errorStatus = error.response.status
-  switch (errorStatus) {
-    case 401:
-      redirectToLogin()
-      showWarningMessage(notificationStore, t('flashMessages.statusErrors.401'))
-      break
-    case 409:
-      showWarningMessage(notificationStore, t('flashMessages.statusErrors.409'))
-      break
-    case 500:
-      showErrorMessage(notificationStore, t('flashMessages.statusErrors.500'))
-      break
+  const { t } = i18n.global
+  const notificationStore = useNotificationStore()
+
+  if (error) {
+    const errorStatus = error.response.status
+    console.log(errorStatus)
+    switch (errorStatus) {
+      case 401:
+        redirectToLogin()
+        showWarningMessage(notificationStore, t('flashMessages.statusErrors.401'))
+        break
+      case 409:
+        showWarningMessage(notificationStore, t('flashMessages.statusErrors.409'))
+        break
+      case 500:
+        showErrorMessage(notificationStore, t('flashMessages.statusErrors.500'))
+        break
+    }
   }
+
+
+  showErrorMessage(notificationStore, t('flashMessages.statusErrors.other'))
+
+
+
+
 }
 
 /**

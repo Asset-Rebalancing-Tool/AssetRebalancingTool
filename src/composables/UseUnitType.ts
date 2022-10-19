@@ -1,6 +1,5 @@
 import type { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
-// @ts-ignore
-import { useI18n } from 'vue-i18n'
+import { i18n } from '@/i18n'
 
 export function createUnitTypeObject(unitTypeArray: UnitTypeEnum[]) {
   const tempArray: any = []
@@ -20,6 +19,6 @@ export function createUnitTypeObject(unitTypeArray: UnitTypeEnum[]) {
  * @param unitTypeKey UnitTypeEnum
  */
 export function getUnitTypeValue(unitTypeKey: UnitTypeEnum): string {
-  const { t } = useI18n()
+  const { t } = i18n.global
   return t(`assetList.listEntries.privateHolding.unitTypes.${unitTypeKey}`)
 }

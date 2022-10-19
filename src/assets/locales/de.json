@@ -131,7 +131,8 @@
     "statusErrors": {
       "401": "Sie wurden abgemeldet.",
       "409": "Es existiert bereits ein Asset mit dieser Bezeichnung.",
-      "500": "Es ist ein 500 status Fehler aufgetreten."
+      "500": "Es ist ein 500 status Fehler aufgetreten.",
+      "other": "Es ist ein unerwarteter Fehler aufgetreten."
     }
   }
 }

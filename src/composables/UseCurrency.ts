@@ -1,7 +1,6 @@
 import type { CurrencyEnum as CurrencyEnumType } from '@/models/enums/CurrencyEnum'
 import { CurrencyEnum } from '@/models/enums/CurrencyEnum'
-// @ts-ignore
-import { useI18n } from 'vue-i18n'
+import { i18n } from '@/i18n'
 
 /**
  *
@@ -25,7 +24,7 @@ export function createCurrencyObject(currencyArray: CurrencyEnumType[]) {
  * @param currencyKey CurrencyEnumType
  */
 export function getCurrencyValue(currencyKey: CurrencyEnumType): string {
-  const { t } = useI18n()
+  const { t } = i18n.global
   return t(`assetList.listEntries.privateHolding.currencies.${currencyKey}`)
 }
 

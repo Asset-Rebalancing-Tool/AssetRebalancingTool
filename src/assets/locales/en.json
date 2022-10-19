@@ -131,7 +131,8 @@
     "statusErrors": {
       "401": "You have been logged out.",
       "409": "An asset with this name already exists.",
-      "500": "A 500 status error occurred."
+      "500": "A 500 status error occurred.",
+      "other": "An unexpected error has occurred."
     }
   }
 }
