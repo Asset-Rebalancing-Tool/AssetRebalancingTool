@@ -247,12 +247,14 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
 
 // Patch the public holdings unit type
 function patchUnitType(inputValue: UnitTypeEnum, holdingUuid: string) {
+  unitType.value = inputValue
   const request = patchUnitTypeRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
 
 // Patch the public currency
 function patchCurrency(inputValue: CurrencyEnum, holdingUuid: string) {
+  currency.value = inputValue
   const request = patchCurrencyRequest(inputValue)
   PatchAssetService.patchPrivateHolding(request, holdingUuid)
 }
