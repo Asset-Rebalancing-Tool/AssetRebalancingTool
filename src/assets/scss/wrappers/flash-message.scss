@@ -1,7 +1,7 @@
 .flash-message-container {
   @include flex-center-xy;
   position: absolute;
-  bottom: 100px;
+  bottom: 120px;
   right: 40px;
   width: auto;
   height: 60px;
@@ -24,10 +24,23 @@
     margin-right: 16px;
 
     svg {
-      width: 20px;
-      height: 20px;
       margin-top: -2px;
     }
+  }
+
+  .icon-wrapper.success svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .icon-wrapper.warning svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .icon-wrapper.error svg {
+    width: 10px;
+    height: 10px;
   }
 
   .close {

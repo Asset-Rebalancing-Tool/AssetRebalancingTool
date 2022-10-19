@@ -1,5 +1,5 @@
 export enum FlashMessageColorEnum {
   SUCCESS = '#19B399',
-  WARNING = '#ffc122',
+  WARNING = '#f1b452',
   ERROR = '#ee5253',
 }

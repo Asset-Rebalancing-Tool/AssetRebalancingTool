@@ -1,5 +1,5 @@
 <template>
-  <svg width="538.963" height="475" viewBox="0 0 538.963 475">
+  <svg width="18" height="18" viewBox="0 0 538.963 475">
     <defs>
       <filter
         id="a"

@@ -161,14 +161,9 @@ export function handleErrorResponseStatus(error: any): void {
         showErrorMessage(notificationStore, t('flashMessages.statusErrors.500'))
         break
     }
+  } else {
+    showErrorMessage(notificationStore, t('flashMessages.statusErrors.other'))
   }
-
-
-  showErrorMessage(notificationStore, t('flashMessages.statusErrors.other'))
-
-
-
-
 }
 
 /**
