@@ -129,7 +129,13 @@ const flashMessage = notificationStore.flashMessage
 const showLoadingAnimation = computed(() => renderState.loadingFlag)
 const showFlashMessage = computed(() => flashMessage.showFlag)
 const showEmptyAssetListBc = computed(() => {
-  return !renderState.loadingFlag && renderState.assetList.size === 0
+  let flag = !renderState.loadingFlag && renderState.assetList.size === 0
+  if (flag) {
+    assetStore.sumState.totalValue = 0
+    assetStore.sumState.totalTargetPercentage = 0
+    assetStore.sumState.totalDeviation = 0
+  }
+  return flag
 })
 
 /**-***************************************************-**/
