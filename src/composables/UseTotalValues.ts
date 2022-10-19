@@ -5,6 +5,7 @@ import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 import { getNewestPriceRecord } from '@/composables/UsePriceRecords'
 import { useAssetStore } from '@/stores/AssetStore'
+import type {AssetRenderingEntry} from "@/models/holdings/AssetRenderingEntry";
 
 /**
  * Calculate a groups total target percentage
@@ -210,7 +211,44 @@ export function setAssetListTotalTargetPercentage(): void {
  */
 export function setAssetListTotalDeviation(): void {
   const assetStore = useAssetStore()
-  assetStore.sumState.totalDeviation = Math.abs(
-    100 - assetStore.sumState.totalTargetPercentage
-  )
+  let totalDeviation: number = 0
+  let assetDeviationCount: number = 0
+
+  assetStore.renderState.assetList.forEach((assetEntry: AssetRenderingEntry) => {
+    switch (assetEntry.entryType) {
+      case EntryTypeEnum.HOLDING_GROUP:
+        const holdingGroup = assetStore.getAssetPoolEntryByUuid(assetEntry.uuid) as HoldingGroup
+        if (holdingGroup) {
+          const currentPercentage: number = getTotalGroupPercentage(holdingGroup.uuid)
+          totalDeviation = totalDeviation + (currentPercentage - holdingGroup.targetPercentage)
+          assetDeviationCount = assetDeviationCount + 1
+        }
+        break;
+      case EntryTypeEnum.PUBLIC_HOLDING:
+        if (!assetEntry.hasGroup) {
+          const publicHolding = assetStore.getAssetPoolEntryByUuid(assetEntry.uuid) as PublicHolding
+          if (publicHolding) {
+            const priceRecord: number = getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
+            const currentValue: number = publicHolding.ownedQuantity * priceRecord
+            const currentPercentage: number = (currentValue / assetStore.sumState.totalValue) * 100
+            totalDeviation = totalDeviation + Math.abs(currentPercentage - publicHolding.targetPercentage)
+            assetDeviationCount = assetDeviationCount + 1
+          }
+        }
+        break;
+      case EntryTypeEnum.PRIVATE_HOLDING:
+        if (!assetEntry.hasGroup) {
+          const privateHolding = assetStore.getAssetPoolEntryByUuid(assetEntry.uuid) as PrivateHolding
+          if (privateHolding) {
+            const currentValue: number = privateHolding.pricePerUnit * privateHolding.ownedQuantity
+            const currentPercentage: number = (currentValue / assetStore.sumState.totalValue) * 100
+            totalDeviation = totalDeviation + Math.abs(currentPercentage - privateHolding.targetPercentage)
+            assetDeviationCount = assetDeviationCount + 1
+          }
+        }
+        break;
+    }
+  })
+  totalDeviation = totalDeviation / assetDeviationCount
+  assetStore.sumState.totalDeviation = (totalDeviation) ? totalDeviation : 0
 }
