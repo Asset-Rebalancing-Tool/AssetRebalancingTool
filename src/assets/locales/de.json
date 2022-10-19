@@ -129,7 +129,7 @@
   },
   "flashMessages": {
     "statusErrors": {
-      "401": "Sie wurden abgemeldet.",
+      "401": "Zeit abgelaufen. Bitte melden Sie sich erneut an.",
       "409": "Es existiert bereits ein Asset mit dieser Bezeichnung.",
       "500": "Es ist ein 500 status Fehler aufgetreten.",
       "other": "Es ist ein unerwarteter Fehler aufgetreten."

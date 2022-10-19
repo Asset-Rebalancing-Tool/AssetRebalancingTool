@@ -129,7 +129,7 @@
   },
   "flashMessages": {
     "statusErrors": {
-      "401": "You have been logged out.",
+      "401": "Timeout. Please login again",
       "409": "An asset with this name already exists.",
       "500": "A 500 status error occurred.",
       "other": "An unexpected error has occurred."

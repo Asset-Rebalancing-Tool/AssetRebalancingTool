@@ -10,6 +10,9 @@ import TransactionHistory from '../views/TransactionHistory.vue'
 import ScheduleInvestments from '../views/ScheduleInvestments.vue'
 import AppSettings from '../views/AppSettings.vue'
 import {useAssetStore} from "@/stores/AssetStore";
+import {FlashMessageIconEnum} from "@/models/enums/FlashMessageIconEnum";
+import {FlashMessageColorEnum} from "@/models/enums/FlashMessageColorEnum";
+import {useNotificationStore} from "@/stores/NotificationStore";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -123,6 +126,8 @@ export default router
  */
 function resetStoreVariables(): void {
   const assetStore = useAssetStore()
+  const notificationStore = useNotificationStore()
   assetStore.listActionState.editFlag = false
   assetStore.listActionState.deleteFlag = false
+  notificationStore.flashMessage.showFlag = false
 }
