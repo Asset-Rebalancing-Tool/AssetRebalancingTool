@@ -36,6 +36,9 @@ import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { addPrivateHoldingToRenderList } from '@/composables/UseAssetRenderList'
 import { addPrivateHoldingToPool } from '@/composables/UseAssetPool'
 import { addHoldingGroup } from '@/composables/UseHoldingGroup'
+import {useI18n} from "vue-i18n";
+
+const { t } = useI18n()
 const assetStore = useAssetStore()
 
 /**
@@ -52,7 +55,7 @@ async function newPrivateHoldingAction() {
     ownedQuantity: 0,
     unitType: UnitTypeEnum.PIECE,
     targetPercentage: 0.0,
-    title: 'Neues Privates Asset',
+    title: t('assetList.listEntries.privateHolding.defaultName'),
   } as PrivateHoldingRequest
 
   await getAuthorizedInstance().then((instance) => {
@@ -79,7 +82,7 @@ async function newHoldingGroup() {
   const request = {
     publicHoldingUuids: [],
     privateHoldingUuids: [],
-    groupName: 'Meine Gruppe 1',
+    groupName: t('assetList.listEntries.holdingGroup.defaultName'),
     targetPercentage: 0,
   } as HoldingGroupRequest
 

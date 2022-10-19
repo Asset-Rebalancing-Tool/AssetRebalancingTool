@@ -98,13 +98,15 @@
           "EUR": "EUR",
           "USD":  "USD",
           "UNSUPPORTED": "UNSUPPORTED"
-        }
+        },
+        "defaultName": "New private asset"
       },
       "holdingGroup": {
         "emptyGroup": "empty group",
         "edit": "Edit Group",
         "save": "Done",
-        "delete": "Delete Group"
+        "delete": "Delete Group",
+        "defaultName": "My group 1"
       }
     },
     "listFooter": {

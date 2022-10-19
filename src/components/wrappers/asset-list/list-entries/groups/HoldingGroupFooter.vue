@@ -93,12 +93,15 @@ import {
   getTotalGroupPercentage,
   getTotalGroupDeviation,
 } from '@/composables/UseTotalValues'
+import {useI18n} from "vue-i18n";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
+const { t } = useI18n()
 const assetStore = useAssetStore()
+
 const props = defineProps({
   uuid: {
     type: String,
@@ -181,7 +184,7 @@ function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
 function patchHoldingGroupRequest(): HoldingGroupRequest {
   resetSelectionState()
   if (groupName.value === '') {
-    groupName.value = 'Meine Gruppe 1'
+    groupName.value = t('assetList.listEntries.holdingGroup.defaultName')
   }
   return { groupName: groupName.value } as HoldingGroupRequest
 }
@@ -193,7 +196,7 @@ function patchGroupTargetPercentageRequest(
   resetSelectionState()
   groupTargetPercentageError.value = !+percentage
   if (groupName.value === '') {
-    groupName.value = 'Meine Gruppe 1'
+    groupName.value = t('assetList.listEntries.holdingGroup.defaultName')
   }
   return {
     groupName: groupName.value,

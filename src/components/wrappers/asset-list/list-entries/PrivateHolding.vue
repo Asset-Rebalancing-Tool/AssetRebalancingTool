@@ -155,12 +155,15 @@ import {
 } from '@/composables/UsePriceRecords'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
+import {useI18n} from "vue-i18n";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
 /**-***************************************************-**/
 
+const { t } = useI18n()
 const assetStore = useAssetStore()
+
 const props = defineProps({
   uuid: {
     type: String,
@@ -295,7 +298,7 @@ function patchCurrencyRequest(currency: CurrencyEnum) {
 function patchPrivateHoldingNameRequest() {
   isEdited.value = false
   if (holding.value.title === '') {
-    holding.value.title = 'Neues Privates Asset'
+    holding.value.title = t('assetList.listEntries.privateHolding.defaultName')
   }
   return { title: holding.value.title } as PrivateHoldingRequest
 }
