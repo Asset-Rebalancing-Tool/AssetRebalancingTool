@@ -79,6 +79,11 @@
         />
       </template>
     </ThreeDigitValue>
+
+    <DeviationTooltip
+      :deviation="rawDeviation"
+      :deviation-direction="deviationArrowDirection"
+    />
   </div>
 </template>
 <script lang="ts" setup>
@@ -110,6 +115,7 @@ import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
+import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -262,6 +268,11 @@ function calcDeviation(): number {
   const currentPercentage: number = calcCurrentPercentage()
   return Math.abs(currentPercentage - holding.value.targetPercentage)
 }
+
+// The un formatted deviation
+const rawDeviation = computed((): number => {
+  return +Number(calcDeviation()).toFixed(2)
+})
 
 // Get the current deviation formatted by german pattern
 const deviation = computed((): string[] => {

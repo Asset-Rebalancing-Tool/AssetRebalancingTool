@@ -48,6 +48,7 @@
       ref="footerInput"
       :modelValue="targetPercentage"
       :class="{ error: groupTargetPercentageError }"
+      custom-container-class="group-target-percentage-input"
       :select-on-focus="true"
       @input="patchGroupTargetPercentage($event.target.value, group.uuid)"
     >
@@ -71,6 +72,8 @@
         />
       </template>
     </ThreeDigitValue>
+
+    <GroupTargetPercentageTooltip />
   </footer>
 </template>
 
@@ -94,6 +97,7 @@ import {
   getTotalGroupDeviation,
 } from '@/composables/UseTotalValues'
 import { useI18n } from 'vue-i18n'
+import GroupTargetPercentageTooltip from '@/components/wrappers/asset-list/list-entries/GroupTargetPercentageTooltip.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/

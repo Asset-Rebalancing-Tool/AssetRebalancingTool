@@ -1,0 +1,101 @@
+.tooltip-event-wrapper {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  top: 8px;
+
+  .tooltip {
+    position: absolute;
+    width: auto;
+    padding: 3px 8px;
+    border-radius: $primary-border-radius;
+    background-color: $primary-infill-color;
+    color: $primary-text-color;
+    font-size: 12px;
+    white-space: nowrap;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+
+    .text {
+      z-index: 10;
+      background-color: $primary-infill-color;
+    }
+
+    .corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: $primary-border-radius;
+      background-color: $primary-infill-color;
+      transform: rotate(45deg);
+      z-index: 5;
+    }
+  }
+}
+
+.tooltip-event-wrapper.deviation {
+  position: absolute;
+  grid-column: 6 / 6;
+  grid-row: 1 / 1;
+
+  .tooltip {
+    right: 0;
+    top: -30px;
+
+    .corner {
+      bottom: -5px;
+      right: 25px;
+    }
+  }
+}
+
+.tooltip-event-wrapper.target-percentage {
+  grid-column: 5 / 5;
+  grid-row: 1 / 1;
+  top: 0;
+
+  .tooltip {
+    left: calc(50% - 25px);
+    transform: translateX(-50%);
+    bottom: -27px;
+    z-index: 5;
+
+    .corner-wrapper {
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .corner {
+        transform: rotate(45deg);
+        z-index: 8;
+      }
+    }
+  }
+}
+
+.tooltip-event-wrapper.group-percentage-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 16px;
+  top: 0;
+
+  .tooltip {
+    position: absolute;
+    top: 20px;
+    left: calc(50% - 12px);
+    transform: translateX(-50%);
+
+    .corner-wrapper {
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      .corner {
+        transform: rotate(45deg);
+        z-index: 8;
+        border-radius: $primary-border-radius;
+      }
+    }
+  }
+}

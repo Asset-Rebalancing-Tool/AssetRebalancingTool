@@ -228,6 +228,11 @@
           }
         }
 
+        .group-target-percentage-input {
+          grid-column: 5 / 5;
+          grid-row: 1 / 1;
+        }
+
         @import 'src/assets/scss/data/_three-digit-value.scss';
       }
 

@@ -79,7 +79,13 @@
       "publicHolding": {
         "pieces": "Stk.",
         "edit": "Bearbeiten",
-        "save": "Fertig"
+        "save": "Fertig",
+        "tooltips": {
+          "deviation": {
+            "higher": "mehr als Soll-Wert",
+            "less": "weniger als Soll-Wert"
+          }
+        }
       },
       "privateHolding": {
         "type": "Privat",
@@ -106,7 +112,11 @@
         "edit": "Bearbeiten",
         "save": "Fertig",
         "delete": "Löschen",
-        "defaultName": "Meine Gruppe 1"
+        "defaultName": "Meine Gruppe 1",
+        "tooltips": {
+          "groupTargetPercentage": "Der prozentuale Soll-Wert, der Gruppe",
+          "groupPercentageWrapper": "Innerhalb einer Gruppe muss die Soll-Verteilung 100% ergeben"
+        }
       }
     },
     "listFooter": {

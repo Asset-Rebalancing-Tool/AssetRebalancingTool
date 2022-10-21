@@ -129,6 +129,11 @@
         />
       </template>
     </ThreeDigitValue>
+
+    <DeviationTooltip
+      :deviation="rawDeviation"
+      :deviation-direction="deviationArrowDirection"
+    />
   </div>
 </template>
 
@@ -149,13 +154,11 @@ import { createUnitTypeObject } from '@/composables/UseUnitType'
 import { createCurrencyObject } from '@/composables/UseCurrency'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { useAssetStore } from '@/stores/AssetStore'
-import {
-  formatValueArray,
-  getNewestPriceRecord,
-} from '@/composables/UsePriceRecords'
+import { formatValueArray } from '@/composables/UsePriceRecords'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useI18n } from 'vue-i18n'
+import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -373,6 +376,11 @@ function calcDeviation(): number {
   const currentPercentage: number = calcCurrentPercentage()
   return Math.abs(currentPercentage - holding.value.targetPercentage)
 }
+
+// The un formatted deviation
+const rawDeviation = computed((): number => {
+  return +Number(calcDeviation()).toFixed(2)
+})
 
 // Get the current deviation formatted by german pattern
 const deviation = computed((): string[] => {

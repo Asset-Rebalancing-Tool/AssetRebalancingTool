@@ -160,6 +160,8 @@ async function onSubmit() {
   } as AuthRequest
   const loginStatus: number = await loginUser(authRequest)
   switch (loginStatus) {
+    case 200:
+      break
     case 401:
       serverError.value = t('flashMessages.authorization.401')
       showServerError.value = true

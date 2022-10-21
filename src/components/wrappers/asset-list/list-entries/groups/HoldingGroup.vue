@@ -10,6 +10,7 @@
       :group-uuid="uuid"
       :nested-holding-count="nestedHoldingCount"
     />
+
     <HoldingGroupFooter :uuid="uuid" />
   </div>
 </template>
