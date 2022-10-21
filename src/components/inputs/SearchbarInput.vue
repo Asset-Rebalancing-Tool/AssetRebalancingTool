@@ -37,7 +37,6 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import IconInputSearch from '@/assets/icons/inputs/IconInputSearch.vue'
 import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
-import { handleErrorResponseStatus } from '@/services/TokenService'
 import IconDelete from '@/assets/icons/inputs/IconDelete.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 
@@ -62,7 +61,7 @@ const showDeleteButton = computed(() => {
 })
 
 const deleteHoldingFlag = computed(() => {
-  return (!searchbarStore.searchbarState.activeModalUnderlay)
+  return !searchbarStore.searchbarState.activeModalUnderlay
     ? assetStore.deleteFlag
     : false
 })
@@ -124,7 +123,15 @@ function searchAsset(searchValue: string): void {
         searchbarStore.searchbarState.searchbarResultCount = results.length
         searchbarStore.searchbarState.searchbarAssets = results
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'SearchbarInput.vue.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   }, 500)
 }
 

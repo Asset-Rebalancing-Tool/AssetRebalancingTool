@@ -1,9 +1,7 @@
-import {
-  getAuthorizedInstance,
-  handleErrorResponseStatus,
-} from '@/services/TokenService'
+import { getAuthorizedInstance } from '@/services/TokenService'
 import { deleteAssetPoolEntry } from '@/composables/UseAssetPool'
-import { deleteRenderListEntry } from "@/composables/UseAssetRenderList";
+import { deleteRenderListEntry } from '@/composables/UseAssetRenderList'
+import type { AxiosInstance } from 'axios'
 
 export default {
   /**
@@ -19,10 +17,18 @@ export default {
         return instance.delete(`/holding_api/asset_holding/group/${groupUuid}`)
       })
       .then(() => {
-          deleteAssetPoolEntry(groupUuid)
-          deleteRenderListEntry(groupUuid)
+        deleteAssetPoolEntry(groupUuid)
+        deleteRenderListEntry(groupUuid)
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'DeleteAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 
   /**
@@ -34,16 +40,24 @@ export default {
    */
   async deletePublicHolding(holdingUuid: string): Promise<void> {
     return getAuthorizedInstance()
-      .then((instance) => {
+      .then((instance: AxiosInstance) => {
         return instance.delete(
           `/holding_api/asset_holding/public/${holdingUuid}`
         )
       })
       .then(() => {
-          deleteAssetPoolEntry(holdingUuid)
-          deleteRenderListEntry(holdingUuid)
+        deleteAssetPoolEntry(holdingUuid)
+        deleteRenderListEntry(holdingUuid)
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'DeleteAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 
   /**
@@ -61,9 +75,17 @@ export default {
         )
       })
       .then(() => {
-          deleteAssetPoolEntry(holdingUuid)
-          deleteRenderListEntry(holdingUuid)
+        deleteAssetPoolEntry(holdingUuid)
+        deleteRenderListEntry(holdingUuid)
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'DeleteAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 }

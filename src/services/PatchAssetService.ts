@@ -1,9 +1,6 @@
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
-import {
-  getAuthorizedInstance,
-  handleErrorResponseStatus,
-} from '@/services/TokenService'
+import { getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import { patchAssetPoolEntry } from '@/composables/UseAssetPool'
@@ -47,7 +44,15 @@ export default {
             patchedEntry.entryType = EntryTypeEnum.PUBLIC_HOLDING
             patchAssetPoolEntry(patchedEntry)
           })
-          .catch((error) => console.log(error)) //handleErrorResponseStatus(error.response.status)
+          .catch((error) => {
+            switch (error.response.status) {
+              default:
+                console.log(
+                  'PatchAssetService.ts no status case ' + error.response.status
+                )
+                break
+            }
+          })
       }, 500)
     })
   },
@@ -77,7 +82,15 @@ export default {
             patchedEntry.entryType = EntryTypeEnum.PRIVATE_HOLDING
             patchAssetPoolEntry(patchedEntry)
           })
-          .catch((error) => handleErrorResponseStatus(error))
+          .catch((error) => {
+            switch (error.response.status) {
+              default:
+                console.log(
+                  'PatchAssetService.ts no status case ' + error.response.status
+                )
+                break
+            }
+          })
       }, 500)
     })
   },
@@ -107,7 +120,15 @@ export default {
             patchedEntry.entryType = EntryTypeEnum.HOLDING_GROUP
             patchAssetPoolEntry(patchedEntry)
           })
-          .catch((error) => handleErrorResponseStatus(error))
+          .catch((error) => {
+            switch (error.response.status) {
+              default:
+                console.log(
+                  'PatchAssetService.ts no status case ' + error.response.status
+                )
+                break
+            }
+          })
       }, 500)
     })
   },

@@ -130,11 +130,11 @@
     "imageAltTag": "Bild Anwendung in Entwicklung"
   },
   "flashMessages": {
-    "statusErrors": {
-      "401": "Zeit abgelaufen. Bitte melden Sie sich erneut an.",
-      "409": "Es existiert bereits ein Asset mit dieser Bezeichnung.",
-      "500": "Es ist ein 500 status Fehler aufgetreten.",
-      "other": "Es ist ein unerwarteter Fehler aufgetreten."
+    "authorization": {
+      "401": "Die eingegebene E-Mail-Adresse oder das Passwort ist falsch."
+    },
+    "assetList": {
+      "409": "Es existiert bereits ein Asset mit dieser Bezeichnung."
     }
   }
 }

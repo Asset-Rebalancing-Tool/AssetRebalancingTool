@@ -45,6 +45,7 @@
           </template>
         </BaseInput>
         <div class="error">{{ passwordError }}</div>
+        <div class="error" v-if="showServerError">{{ serverError }}</div>
         <div class="form-spacing-wrapper">
           <BaseCheckbox :label="$t('authorization.labels.stayAuthorized')" />
           <RouterLink class="link" to="">{{
@@ -86,7 +87,7 @@ import type { AuthRequest } from '@/requests/AuthRequest'
 import { loginUser } from '@/services/TokenService'
 import { useField, useForm } from 'vee-validate'
 import { computed, ref } from 'vue'
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
@@ -132,26 +133,41 @@ function checkPasswordLength(inputValue: string) {
   return (passwordLength.value = inputValue.length)
 }
 
+// Show active submit button
 const activeSubmitButton = computed((): boolean => {
   return !emailError.value && passwordLength.value > 0
 })
 
+// Flag that indicates if the password should be shown
 const showPassword: Ref<boolean> = ref(false)
-
 const passwordType = computed((): string => {
   return showPassword.value ? 'text' : 'password'
 })
 
+// Toggle the visibility of the password input
 function toggleVisibility() {
   showPassword.value = !showPassword.value
 }
 
-function onSubmit() {
+// Error messages for response status errors
+const serverError: Ref<string> = ref('')
+const showServerError: Ref<boolean> = ref(false)
+
+async function onSubmit() {
   const authRequest: AuthRequest = {
     email: email.value,
     password: password.value,
   } as AuthRequest
-  loginUser(authRequest)
+  const loginStatus: number = await loginUser(authRequest)
+  switch (loginStatus) {
+    case 401:
+      serverError.value = t('flashMessages.authorization.401')
+      showServerError.value = true
+      break
+    default:
+      console.log('SignIn.vue no status case ' + loginStatus)
+      break
+  }
 }
 </script>
 

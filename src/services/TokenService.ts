@@ -4,8 +4,8 @@ import type { AuthRequest } from '@/requests/AuthRequest'
 import router from '@/router'
 import { useSearchStore } from '@/stores/SearchStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
-import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
-import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
+import type { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
+import type { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
 import { i18n } from '@/i18n'
 
 /**-******************************************************************-**/
@@ -63,13 +63,14 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
  *
  * @param request
  *
- * @return Promise<void>
+ * @return Promise<number> Response Status
  */
-export function registerUser(request: AuthRequest): Promise<void> {
+export function registerUser(request: AuthRequest): Promise<number> {
+  const { t } = i18n.global
   return axios
     .post('/auth_api/register', request)
     .then((response: AxiosResponse) => redirectToDashboard(response.data))
-    .catch((error) => handleErrorResponseStatus(error))
+    .catch((error) => error.response.status)
 }
 
 /**
@@ -77,13 +78,14 @@ export function registerUser(request: AuthRequest): Promise<void> {
  *
  * @param request AuthRequest
  *
- * @return Promise<void>
+ * @return Promise<number> Response Status
  */
-export function loginUser(request: AuthRequest): Promise<void> {
+export function loginUser(request: AuthRequest): Promise<number> {
+  const { t } = i18n.global
   return axios
     .post<AuthRequest, AxiosResponse<string>>('/auth_api/login', request)
-    .then((response) => redirectToDashboard(response.data))
-    .catch((error) => handleErrorResponseStatus(error))
+    .then((response: AxiosResponse) => redirectToDashboard(response.data))
+    .catch((error) => error.response.status)
 }
 
 /**
@@ -127,77 +129,22 @@ function redirectToDashboard(token: string): void {
   searchbarStore.showSidebar = true
 }
 
-/**-******************************************************************-**/
-/**---------------------- Token Based User Actions --------------------**/
-/**-******************************************************************-**/
-
 /**
- * Handle the axios error response codes
+ * Show a flash message on response error status
  *
- * 401  =>  Redirect to sign-in router view
- * 500  =>  Throw console.log
- *
- * @param error any
- *
- * @return void
+ * @param icon FlashMessageIconEnum
+ * @param color FlashMessageColorEnum
+ * @param text string
  */
-export function handleErrorResponseStatus(error: any): void {
-
-  const { t } = i18n.global
+export function showFlashMessage(
+  icon: FlashMessageIconEnum,
+  color: FlashMessageColorEnum,
+  text: string
+) {
   const notificationStore = useNotificationStore()
-
-  if (error) {
-    const errorStatus = error.response.status
-    console.log(errorStatus)
-    switch (errorStatus) {
-      case 401:
-        redirectToLogin()
-        showWarningMessage(notificationStore, t('flashMessages.statusErrors.401'))
-        break
-      case 409:
-        showWarningMessage(notificationStore, t('flashMessages.statusErrors.409'))
-        break
-      case 500:
-        showErrorMessage(notificationStore, t('flashMessages.statusErrors.500'))
-        break
-    }
-  } else {
-    showErrorMessage(notificationStore, t('flashMessages.statusErrors.other'))
-  }
-}
-
-/**
- * Show a warning flash message
- *
- * @param notificationStore any
- * @param text string
- *
- * @return void
- */
-function showWarningMessage(notificationStore: any, text: string): void {
   // Get the reactive flash message object
   const flashMessage = notificationStore.flashMessage
-  // Set the flash message properties
-  flashMessage.icon = FlashMessageIconEnum.WARNING
-  flashMessage.color = FlashMessageColorEnum.WARNING
+  flashMessage.icon = icon
+  flashMessage.color = color
   flashMessage.text = text
-  flashMessage.showFlag = true
-}
-
-/**
- * Show an error flash message
- *
- * @param notificationStore any
- * @param text string
- *
- * @return void
- */
-function showErrorMessage(notificationStore: any, text: string): void {
-  // Get the reactive flash message object
-  const flashMessage = notificationStore.flashMessage
-  // Set the flash message properties
-  flashMessage.icon = FlashMessageIconEnum.ERROR
-  flashMessage.color = FlashMessageColorEnum.ERROR
-  flashMessage.text = text
-  flashMessage.showFlag = true
 }

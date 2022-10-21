@@ -9,10 +9,10 @@ import ConnectBroker from '../views/ConnectBroker.vue'
 import TransactionHistory from '../views/TransactionHistory.vue'
 import ScheduleInvestments from '../views/ScheduleInvestments.vue'
 import AppSettings from '../views/AppSettings.vue'
-import {useAssetStore} from "@/stores/AssetStore";
-import {FlashMessageIconEnum} from "@/models/enums/FlashMessageIconEnum";
-import {FlashMessageColorEnum} from "@/models/enums/FlashMessageColorEnum";
-import {useNotificationStore} from "@/stores/NotificationStore";
+import { useAssetStore } from '@/stores/AssetStore'
+import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
+import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
+import { useNotificationStore } from '@/stores/NotificationStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,7 +97,6 @@ const router = createRouter({
 })
 
 router.beforeEach(async (toRout) => {
-
   resetStoreVariables()
 
   // redirect to login page if not logged in and trying to access a restricted page

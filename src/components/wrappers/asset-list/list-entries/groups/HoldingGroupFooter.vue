@@ -93,7 +93,7 @@ import {
   getTotalGroupPercentage,
   getTotalGroupDeviation,
 } from '@/composables/UseTotalValues'
-import {useI18n} from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -123,9 +123,7 @@ const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 
 // bool that indicates if the group is currently editable or not
 const editGroupFlagFlag = computed(() => assetStore.editFlag)
-const deleteHoldingGroupFlag = computed(
-  () => assetStore.deleteFlag
-)
+const deleteHoldingGroupFlag = computed(() => assetStore.deleteFlag)
 
 /**-***************************************************-**/
 /** ---------------- Error Class Flags ---------------- **/
@@ -200,7 +198,7 @@ function patchGroupTargetPercentageRequest(
   }
   return {
     groupName: groupName.value,
-    targetPercentage: +percentage
+    targetPercentage: +percentage,
   } as HoldingGroupRequest
 }
 

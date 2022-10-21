@@ -93,6 +93,7 @@ import PrivateHolding from '@/components/wrappers/asset-list/list-entries/Privat
 import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
 import EmptyAssetList from '@/components/wrappers/EmptyAssetList.vue'
 import FlashMessage from '@/components/wrappers/FlashMessage.vue'
+import CopyAnimation from '@/components/CopyAnimation.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
 import { generateAssetRenderList } from '@/composables/UseAssetRenderList'
@@ -129,7 +130,7 @@ const flashMessage = notificationStore.flashMessage
 const showLoadingAnimation = computed(() => renderState.loadingFlag)
 const showFlashMessage = computed(() => flashMessage.showFlag)
 const showEmptyAssetListBc = computed(() => {
-  let flag = !renderState.loadingFlag && renderState.assetList.size === 0
+  const flag = !renderState.loadingFlag && renderState.assetList.size === 0
   if (flag) {
     assetStore.sumState.totalValue = 0
     assetStore.sumState.totalTargetPercentage = 0

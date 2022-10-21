@@ -6,7 +6,7 @@ import type { AssetRenderingEntry } from '@/models/holdings/AssetRenderingEntry'
 import type { RenderState } from '@/models/states/RenderState'
 import type { SumState } from '@/models/states/SumState'
 import type { ListActionState } from '@/models/states/ListActionState'
-import type {HoldingGroup} from "@/models/holdings/HoldingGroup";
+import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 
 export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
@@ -43,15 +43,15 @@ export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
 
   const deleteFlag: ComputedRef<boolean> = computed(
-      () => listActionState.deleteFlag
+    () => listActionState.deleteFlag
   )
 
   const editFlag: ComputedRef<boolean> = computed(
-      () => listActionState.editFlag
+    () => listActionState.editFlag
   )
 
   const selectedGroup: ComputedRef<HoldingGroup | null> = computed(
-      () => listActionState.selectedGroup
+    () => listActionState.selectedGroup
   )
 
   /**-******************************************************************-**/
@@ -141,6 +141,6 @@ export const useAssetStore = defineStore('assetStore', () => {
     selectedGroup,
 
     // Asset List Render Actions
-    getAssetPoolEntryByUuid
+    getAssetPoolEntryByUuid,
   }
 })

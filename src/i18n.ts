@@ -44,6 +44,12 @@ function loadLocale(locale: Locales) {
       throw new Error('Something went wrong!')
     })
     .catch((error) => {
-      console.error(error)
+      switch (error.response.status) {
+        default:
+          console.log(
+            'FetchAssetService.ts no status case ' + error.response.status
+          )
+          break
+      }
     })
 }

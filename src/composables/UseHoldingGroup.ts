@@ -3,15 +3,15 @@ import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
 import type { GroupEntry } from '@/models/GroupEntry'
-import type { HoldingGroupRequest } from "@/requests/HoldingGroupRequest";
+import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 import {
   addHoldingGroupToRenderList,
   addPublicHoldingToRenderList,
-  addPrivateHoldingToRenderList
+  addPrivateHoldingToRenderList,
 } from '@/composables/UseAssetRenderList'
-import { useAssetStore } from "@/stores/AssetStore";
-import PatchAssetService from "@/services/PatchAssetService";
+import { useAssetStore } from '@/stores/AssetStore'
+import PatchAssetService from '@/services/PatchAssetService'
 
 /**
  * Add a holding group to the asset pool and set the render list entry
@@ -66,25 +66,19 @@ export function pushHoldingToGroup(
  * @return Promise<void>
  */
 export async function removeHoldingFromGroup(
-    holdingUuid: string,
-    groupUuid: string,
-    entryType: EntryTypeEnum
+  holdingUuid: string,
+  groupUuid: string,
+  entryType: EntryTypeEnum
 ): Promise<void> {
-
   const assetStore = useAssetStore()
 
   // Always return if the user is not in edit mode or no group is selected
-  if (
-      !assetStore.editFlag ||
-      !assetStore.selectedGroup
-  )
-    return
+  if (!assetStore.editFlag || !assetStore.selectedGroup) return
 
   const renderGroup = assetStore.renderState.assetList.get(groupUuid)
   if (renderGroup && renderGroup.groupEntries) {
     renderGroup.groupEntries.forEach((holding, index) => {
       if (holding.uuid === holdingUuid) {
-
         // Remove from group entry from the template
         renderGroup.groupEntries.splice(index, 1)
 
@@ -93,10 +87,16 @@ export async function removeHoldingFromGroup(
           _splicePoolGroupEntry(assetStore, groupUuid, poolEntry)
           switch (poolEntry.entryType) {
             case EntryTypeEnum.PUBLIC_HOLDING:
-              addPublicHoldingToRenderList(assetStore, poolEntry as PublicHolding)
+              addPublicHoldingToRenderList(
+                assetStore,
+                poolEntry as PublicHolding
+              )
               break
             case EntryTypeEnum.PRIVATE_HOLDING:
-              addPrivateHoldingToRenderList(assetStore, poolEntry as PrivateHolding)
+              addPrivateHoldingToRenderList(
+                assetStore,
+                poolEntry as PrivateHolding
+              )
               break
           }
         }
@@ -105,8 +105,8 @@ export async function removeHoldingFromGroup(
 
     // Patch the holding group entry
     await PatchAssetService.patchHoldingGroup(
-        patchHoldingGroupRequest(assetStore.selectedGroup),
-        groupUuid
+      patchHoldingGroupRequest(assetStore.selectedGroup),
+      groupUuid
     )
   }
 }
@@ -118,7 +118,11 @@ export async function removeHoldingFromGroup(
  * @param groupUuid string
  * @param poolEntry AssetPoolEntry
  */
-function _splicePoolGroupEntry(assetStore: any, groupUuid: string, poolEntry: AssetPoolEntry) {
+function _splicePoolGroupEntry(
+  assetStore: any,
+  groupUuid: string,
+  poolEntry: AssetPoolEntry
+) {
   const poolGroup = assetStore.assetPool.get(groupUuid) as HoldingGroup
   poolGroup.publicHoldings.forEach((holding, index) => {
     if (holding.uuid === poolEntry.uuid) {
@@ -193,18 +197,18 @@ export function buildGroupEntryArray(holdingGroup: HoldingGroup): GroupEntry[] {
  * @return HoldingGroupRequest
  */
 export function patchHoldingGroupRequest(
-    holdingGroup: HoldingGroup
+  holdingGroup: HoldingGroup
 ): HoldingGroupRequest {
   // All nested public holding uuid's
   const publicUuids: string[] = buildGroupPatchUuidArray(
-      holdingGroup,
-      EntryTypeEnum.PUBLIC_HOLDING
+    holdingGroup,
+    EntryTypeEnum.PUBLIC_HOLDING
   )
 
   // All nested private holding uuid's
   const privateUuids: string[] = buildGroupPatchUuidArray(
-      holdingGroup,
-      EntryTypeEnum.PRIVATE_HOLDING
+    holdingGroup,
+    EntryTypeEnum.PRIVATE_HOLDING
   )
 
   // The patch request object

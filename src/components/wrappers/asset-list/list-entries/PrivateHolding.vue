@@ -155,7 +155,7 @@ import {
 } from '@/composables/UsePriceRecords'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import {useI18n} from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/

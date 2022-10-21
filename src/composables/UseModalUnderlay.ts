@@ -1,5 +1,5 @@
 import { useSearchStore } from '@/stores/SearchStore'
-import { useAssetStore } from "@/stores/AssetStore";
+import { useAssetStore } from '@/stores/AssetStore'
 
 /**
  * Show the modal underlay by setting the active modal underlay wrapper flag to true

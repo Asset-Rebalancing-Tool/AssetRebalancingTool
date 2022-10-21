@@ -5,11 +5,13 @@ import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 import type { PublicAsset } from '@/models/PublicAsset'
 import {
   getAuthorizedInstance,
-  handleErrorResponseStatus,
+  showFlashMessage,
 } from '@/services/TokenService'
+import { i18n } from '@/i18n'
 
 export default {
   async fetchPublicHoldings(): Promise<PublicHolding[]> {
+    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/public', {
@@ -19,10 +21,19 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'FetchAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 
   async fetchPrivateHoldings(): Promise<PrivateHolding[]> {
+    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/private', {
@@ -30,10 +41,19 @@ export default {
         })
       })
       .then((response: AxiosResponse) => response.data)
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'FetchAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 
   async fetchHoldingGroups(): Promise<HoldingGroup[]> {
+    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/group')
@@ -41,13 +61,22 @@ export default {
       .then((response: AxiosResponse) => {
         return response.data
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'FetchAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 
   async fetchPublicAssets(
     searchValue: string,
     abortController: AbortController
   ): Promise<PublicAsset[]> {
+    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.post(
@@ -63,6 +92,14 @@ export default {
         }
         return [] as PublicAsset[]
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'FetchAssetService.ts no status case ' + error.response.status
+            )
+            break
+        }
+      })
   },
 }

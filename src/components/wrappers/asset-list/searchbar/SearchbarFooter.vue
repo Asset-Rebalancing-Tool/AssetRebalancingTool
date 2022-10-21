@@ -22,10 +22,7 @@
 <script lang="ts" setup>
 import { useAssetStore } from '@/stores/AssetStore'
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
-import {
-  getAuthorizedInstance,
-  handleErrorResponseStatus,
-} from '@/services/TokenService'
+import { getAuthorizedInstance } from '@/services/TokenService'
 import { AxiosResponse } from 'axios'
 import { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
@@ -36,10 +33,14 @@ import { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 import { addPrivateHoldingToRenderList } from '@/composables/UseAssetRenderList'
 import { addPrivateHoldingToPool } from '@/composables/UseAssetPool'
 import { addHoldingGroup } from '@/composables/UseHoldingGroup'
-import {useI18n} from "vue-i18n";
+import { useI18n } from 'vue-i18n'
+import { useNotificationStore } from '@/stores/NotificationStore'
+import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
+import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 
 const { t } = useI18n()
 const assetStore = useAssetStore()
+const notificationStore = useNotificationStore()
 
 /**
  * Add a new empty private holding to the asset map and list
@@ -68,7 +69,24 @@ async function newPrivateHoldingAction() {
         addPrivateHoldingToPool(assetStore, result.data)
         addPrivateHoldingToRenderList(assetStore, result.data)
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          case 409:
+            // Get the reactive flash message object
+            const flashMessage = notificationStore.flashMessage
+            // Set the flash message properties
+            flashMessage.icon = FlashMessageIconEnum.WARNING
+            flashMessage.color = FlashMessageColorEnum.WARNING
+            flashMessage.text = t('flashMessages.assetList.409')
+            flashMessage.showFlag = true
+            break
+          default:
+            console.log(
+              'SearchbarFooter.vue no status case ' + error.response.status
+            )
+            break
+        }
+      })
   })
 }
 
@@ -90,7 +108,15 @@ async function newHoldingGroup() {
     return instance
       .post<HoldingGroup>('/holding_api/asset_holding/group', request)
       .then((result) => addHoldingGroup(assetStore, result.data))
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        switch (error.response.status) {
+          default:
+            console.log(
+              'SearchbarFooter.vue no status case ' + error.response.status
+            )
+            break
+        }
+      })
   })
 }
 </script>

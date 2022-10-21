@@ -37,10 +37,7 @@ import SearchbarFooter from '@/components/wrappers/asset-list/searchbar/Searchba
 import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import {
-  getAuthorizedInstance,
-  handleErrorResponseStatus,
-} from '@/services/TokenService'
+import { getAuthorizedInstance } from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import { addPublicHoldingToRenderList } from '@/composables/UseAssetRenderList'
 import { addPublicHoldingToPool } from '@/composables/UseAssetPool'
@@ -81,7 +78,17 @@ async function newPublicHoldingAction(uuid: string) {
         addPublicHoldingToPool(assetMapStore, result.data)
         addPublicHoldingToRenderList(assetMapStore, result.data)
       })
-      .catch((error) => handleErrorResponseStatus(error))
+      .catch((error) => {
+        {
+          switch (error.response.status) {
+            default:
+              console.log(
+                'SearchbarContent.vue no status case ' + error.response.status
+              )
+              break
+          }
+        }
+      })
   })
 }
 </script>
