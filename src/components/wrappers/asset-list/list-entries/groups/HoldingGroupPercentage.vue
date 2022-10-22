@@ -6,7 +6,7 @@
   >
     <div class="header" ref="test">
       <span>{{ totalGroupTargetPercentage }}</span>
-      <!--<IconCheck v-show="isOneHundredPercent" />-->
+      <IconCheck v-show="isOneHundredPercent" />
       <GroupPercentageWrapperTooltip
           v-if="groupPercentageWrapperActive"
           :active-class="groupPercentageWrapperActive"
