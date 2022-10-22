@@ -74,6 +74,7 @@
     </ThreeDigitValue>
 
     <GroupTargetPercentageTooltip />
+
   </footer>
 </template>
 

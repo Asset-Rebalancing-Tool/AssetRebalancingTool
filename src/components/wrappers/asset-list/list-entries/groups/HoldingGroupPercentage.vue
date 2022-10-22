@@ -7,14 +7,17 @@
     <div class="header" ref="test">
       <span>{{ totalGroupTargetPercentage }}</span>
       <!--<IconCheck v-show="isOneHundredPercent" />-->
-      <GroupPercentageWrapperTooltip />
+      <GroupPercentageWrapperTooltip
+          v-if="groupPercentageWrapperActive"
+          :active-class="groupPercentageWrapperActive"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted, watch, computed } from 'vue'
-import type { Ref } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { getTotalGroupTargetPercentage } from '@/composables/UseTotalValues'
 import IconCheck from '@/assets/icons/IconCheck.vue'
@@ -59,14 +62,23 @@ watch(
   }
 )
 
+// The un formatted target percentage
+const targetPercentage: ComputedRef<number> = computed((): number => {
+  return getTotalGroupTargetPercentage(
+      props.groupUuid
+  )
+})
+
 // Get the current groups target percentage formatted by german pattern
 const totalGroupTargetPercentage = computed((): string => {
-  const targetPercentage: number = getTotalGroupTargetPercentage(
-    props.groupUuid
-  )
   // Set the flag that indicates if the group equals one hundred percent
-  isOneHundredPercent.value = targetPercentage === 100
+  isOneHundredPercent.value = targetPercentage.value === 100
   // Format the current percentage value after german pattern
-  return new Intl.NumberFormat('de-DE').format(targetPercentage) + '%'
+  return new Intl.NumberFormat('de-DE').format(targetPercentage.value) + '%'
+})
+
+// Flag that indicated if the groups target percentage wrapper should be active
+const groupPercentageWrapperActive: Ref<boolean> = computed((): boolean => {
+  return targetPercentage.value < 100
 })
 </script>

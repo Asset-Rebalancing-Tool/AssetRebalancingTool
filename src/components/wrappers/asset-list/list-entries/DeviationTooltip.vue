@@ -1,12 +1,13 @@
 <template>
   <div
     class="tooltip-event-wrapper deviation"
+    :class="{ active : deviation !== 0 }"
     @mouseover="hoverDeviation = true"
     @mouseleave="hoverDeviation = false"
   >
     <div class="tooltip" v-show="hoverDeviation && deviation !== 0">
-      <span class="text">{{ deviation }}% {{ deviationText }}</span>
-      <span class="corner"></span>
+      <div class="text">{{ deviation }}% {{ deviationText }}</div>
+      <div class="corner"></div>
     </div>
   </div>
 </template>

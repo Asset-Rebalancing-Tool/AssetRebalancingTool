@@ -11,13 +11,16 @@
     border-radius: $primary-border-radius;
     background-color: $primary-infill-color;
     color: $primary-text-color;
-    font-size: 12px;
     white-space: nowrap;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 18;
 
     .text {
-      z-index: 10;
+      position: relative;
+      font-size: 14px;
+      line-height: 22px;
       background-color: $primary-infill-color;
+      z-index: 25;
     }
 
     .corner {
@@ -27,22 +30,27 @@
       border-radius: $primary-border-radius;
       background-color: $primary-infill-color;
       transform: rotate(45deg);
-      z-index: 5;
+      z-index: 20;
     }
   }
+}
+
+.tooltip-event-wrapper.active {
+  cursor: pointer;
 }
 
 .tooltip-event-wrapper.deviation {
   position: absolute;
   grid-column: 6 / 6;
   grid-row: 1 / 1;
+  top: 0;
 
   .tooltip {
     right: 0;
     top: -30px;
 
     .corner {
-      bottom: -5px;
+      bottom: -8px;
       right: 25px;
     }
   }
@@ -57,7 +65,8 @@
     left: calc(50% - 25px);
     transform: translateX(-50%);
     bottom: -27px;
-    z-index: 5;
+    padding: 3px 8px;
+    font-size: 12px;
 
     .corner-wrapper {
       position: absolute;
@@ -67,7 +76,6 @@
 
       .corner {
         transform: rotate(45deg);
-        z-index: 8;
       }
     }
   }
@@ -78,12 +86,15 @@
   width: 100%;
   height: 16px;
   top: 0;
+  pointer-events: auto;
 
   .tooltip {
     position: absolute;
     top: 20px;
     left: calc(50% - 12px);
     transform: translateX(-50%);
+    padding: 3px 8px;
+    font-size: 12px;
 
     .corner-wrapper {
       position: absolute;
@@ -91,9 +102,13 @@
       left: 50%;
       transform: translateX(-50%);
 
+      .text {
+        font-size: 14px;
+        line-height: 22px;
+      }
+
       .corner {
         transform: rotate(45deg);
-        z-index: 8;
         border-radius: $primary-border-radius;
       }
     }

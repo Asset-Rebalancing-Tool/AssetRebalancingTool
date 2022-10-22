@@ -32,6 +32,6 @@ const props = defineProps({
 })
 // Bind the transform property in order to arrange the arrow
 const transform = computed(() => {
-  return !props.arrowUp ? 'translate(7.836 13.21) rotate(180)' : ''
+  return props.arrowUp ? 'translate(7.836 13.21) rotate(180)' : ''
 })
 </script>
