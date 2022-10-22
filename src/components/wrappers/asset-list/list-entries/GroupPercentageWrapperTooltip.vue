@@ -1,14 +1,18 @@
 <template>
   <div
     class="tooltip-event-wrapper group-percentage-wrapper"
-    :class="{ active : activeClass }"
+    :class="{ active: activeClass }"
     @mouseover="hoverGroupPercentage = true"
     @mouseleave="hoverGroupPercentage = false"
   >
     <div class="tooltip" v-show="hoverGroupPercentage">
-      <div class="text">{{
-        $t('assetList.listEntries.holdingGroup.tooltips.groupPercentageWrapper')
-      }}</div>
+      <div class="text">
+        {{
+          $t(
+            'assetList.listEntries.holdingGroup.tooltips.groupPercentageWrapper'
+          )
+        }}
+      </div>
       <div class="corner-wrapper">
         <div class="corner"></div>
       </div>
@@ -26,7 +30,7 @@ const props = defineProps({
   activeClass: {
     type: Boolean,
     required: true,
-  }
+  },
 })
 
 const hoverGroupPercentage: Ref<boolean> = ref(false)

@@ -5,9 +5,13 @@
     @mouseleave="hoverGroupTargetPercentage = false"
   >
     <div class="tooltip" v-show="hoverGroupTargetPercentage">
-      <div class="text">{{
-        $t('assetList.listEntries.holdingGroup.tooltips.groupTargetPercentage')
-      }}</div>
+      <div class="text">
+        {{
+          $t(
+            'assetList.listEntries.holdingGroup.tooltips.groupTargetPercentage'
+          )
+        }}
+      </div>
       <div class="corner-wrapper">
         <div class="corner"></div>
       </div>

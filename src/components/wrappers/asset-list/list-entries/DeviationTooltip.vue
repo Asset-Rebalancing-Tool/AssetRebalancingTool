@@ -1,7 +1,7 @@
 <template>
   <div
     class="tooltip-event-wrapper deviation"
-    :class="{ active : deviation !== 0 }"
+    :class="{ active: deviation !== 0 }"
     @mouseover="hoverDeviation = true"
     @mouseleave="hoverDeviation = false"
   >

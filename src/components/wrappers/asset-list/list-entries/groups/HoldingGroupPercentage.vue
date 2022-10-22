@@ -8,8 +8,8 @@
       <span>{{ totalGroupTargetPercentage }}</span>
       <IconCheck v-show="isOneHundredPercent" />
       <GroupPercentageWrapperTooltip
-          v-if="groupPercentageWrapperActive"
-          :active-class="groupPercentageWrapperActive"
+        v-if="groupPercentageWrapperActive"
+        :active-class="groupPercentageWrapperActive"
       />
     </div>
   </div>
@@ -64,9 +64,7 @@ watch(
 
 // The un formatted target percentage
 const targetPercentage: ComputedRef<number> = computed((): number => {
-  return getTotalGroupTargetPercentage(
-      props.groupUuid
-  )
+  return getTotalGroupTargetPercentage(props.groupUuid)
 })
 
 // Get the current groups target percentage formatted by german pattern
