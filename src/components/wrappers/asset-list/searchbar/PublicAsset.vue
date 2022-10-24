@@ -22,6 +22,8 @@
           :data-labels="getDataLabels(priceRecords)"
           :border-width="'0.8'"
           :is-positive="isPositiveChart(priceRecords)"
+          :display-title="false"
+          :display-legend="false"
         />
       </template>
     </ThreeDigitValue>
