@@ -2,7 +2,7 @@ import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
 import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
 import type { PublicHolding } from "@/models/holdings/PublicHolding";
 import type { PrivateHolding } from "@/models/holdings/PrivateHolding";
-import { calcCurrentPercentage } from "@/composables/assets/UseCurrentPercentage";
+import { calcCurrentPercentage } from "@/composables/assets/UseCurrentValues";
 import { formatValueArray } from "@/composables/UsePriceRecords";
 import { getTargetPercentage } from "@/composables/assets/UseTargetPercentage";
 
@@ -54,6 +54,25 @@ export function getRawDeviation(
 ): number {
     const deviation: number = calcDeviation(poolEntry, entryType)
     return +Number(deviation).toFixed(2)
+}
+
+/**
+ * Get the formatted deviation
+ *
+ * @param poolEntry AssetPoolEntry
+ * @param entryType EntryTypeEnum
+ *
+ * @return number
+ */
+export function getFormattedDeviation(
+    poolEntry: AssetPoolEntry,
+    entryType: EntryTypeEnum
+): string {
+    const deviation: number = calcDeviation(poolEntry, entryType)
+    // Format the current percentage value after german pattern
+    return deviation
+        ? new Intl.NumberFormat('de-DE').format(deviation) + ' %'
+        : '0,00 %'
 }
 
 /**

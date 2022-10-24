@@ -103,21 +103,20 @@ import {mapCurrency} from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
 import {getDataLabels, getDataValues, isPositiveChart, showGraph,} from '@/composables/UsePreviewChart'
 import {useAssetStore} from '@/stores/AssetStore'
-import type {PublicHoldingRequest} from '@/requests/PublicHoldingRequest'
-import type {PriceRecord} from '@/models/nested/PriceRecord'
-import type {PublicHolding} from '@/models/holdings/PublicHolding'
+import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
+import type { PriceRecord } from '@/models/nested/PriceRecord'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
-import { getCurrentDeviation } from '@/composables/assets/UseCurrentPercentage'
+import { getCurrentPercentage, getCurrentValue } from '@/composables/assets/UseCurrentValues'
 import {
+  getRawDeviation,
   getDeviationArray,
   getDeviationArrowDirection,
-  getRawDeviation,
   checkIfDeviationExists
 } from '@/composables/assets/UseDeviation'
 import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
 import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
-import { getCurrentValue } from "@/composables/assets/UseCurrentValue";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -247,7 +246,7 @@ const currentValue = computed(
 
 // Get the current value percentage formatted by german pattern
 const currentPercentage = computed(
-  (): string => getCurrentDeviation(poolEntry, entryType)
+  (): string => getCurrentPercentage(poolEntry, entryType)
 )
 
 // The un formatted deviation

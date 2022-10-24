@@ -159,15 +159,14 @@ import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useI18n } from 'vue-i18n'
 import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
 import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
-import {getCurrentDeviation} from "@/composables/assets/UseCurrentPercentage";
+import { getCurrentPercentage, getCurrentValue } from "@/composables/assets/UseCurrentValues";
 import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
 import {
+  getRawDeviation,
   checkIfDeviationExists,
   getDeviationArray,
-  getDeviationArrowDirection,
-  getRawDeviation
+  getDeviationArrowDirection
 } from "@/composables/assets/UseDeviation";
-import {getCurrentValue} from "@/composables/assets/UseCurrentValue";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -365,7 +364,7 @@ const currentValue = computed(
 
 // Get the current value percentage formatted by german pattern
 const currentPercentage = computed(
-    (): string => getCurrentDeviation(poolEntry, entryType)
+    (): string => getCurrentPercentage(poolEntry, entryType)
 )
 
 // The un formatted deviation
