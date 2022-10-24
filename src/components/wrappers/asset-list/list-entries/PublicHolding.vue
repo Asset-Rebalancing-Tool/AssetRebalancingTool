@@ -130,11 +130,15 @@ const props = defineProps({
   },
 })
 
-const holding: ComputedRef<PublicHolding> = computed(() => {
-  return assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
-})
+const holding: ComputedRef<PublicHolding> = computed(
+    () => assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
+)
 
-const poolEntry: AssetPoolEntry = holding.value as AssetPoolEntry
+// The public holding casted as pool entry
+const poolEntry: ComputedRef<AssetPoolEntry> = computed(
+    () => holding.value as AssetPoolEntry
+)
+
 const entryType: EntryTypeEnum = EntryTypeEnum.PUBLIC_HOLDING
 
 /**-***************************************************-**/
@@ -241,31 +245,31 @@ const formattedPriceDigits = computed(
 
 // Get the current value formatted by german pattern
 const currentValue = computed(
-  (): string => getCurrentValue(poolEntry, entryType)
+  (): string => getCurrentValue(poolEntry.value, entryType)
 )
 
 // Get the current value percentage formatted by german pattern
 const currentPercentage = computed(
-  (): string => getCurrentPercentage(poolEntry, entryType)
+  (): string => getCurrentPercentage(poolEntry.value, entryType)
 )
 
 // The un formatted deviation
 const rawDeviation = computed(
-  (): number => getRawDeviation(poolEntry, entryType)
+  (): number => getRawDeviation(poolEntry.value, entryType)
 )
 
 // The un formatted deviation
 const deviation = computed(
-  (): string[] => getDeviationArray(poolEntry, entryType)
+  (): string[] => getDeviationArray(poolEntry.value, entryType)
 )
 
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(
-    () => getDeviationArrowDirection(poolEntry, entryType)
+    () => getDeviationArrowDirection(poolEntry.value, entryType)
 )
 
 // Flag that indicates if there is a deviation
 const deviationExists = computed(
-    () => checkIfDeviationExists(poolEntry, entryType)
+    () => checkIfDeviationExists(poolEntry.value, entryType)
 )
 </script>
