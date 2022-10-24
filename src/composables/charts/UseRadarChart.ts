@@ -3,8 +3,7 @@ import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
 import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
 import type { PublicHolding } from "@/models/holdings/PublicHolding";
 import type { PrivateHolding } from "@/models/holdings/PrivateHolding";
-import type { HoldingGroup } from "@/models/holdings/HoldingGroup";
-import { calcCurrentPercentage } from "@/composables/assets/UseCurrentPercentage";
+import { calcCurrentPercentage } from "@/composables/assets/UseCurrentValues";
 
 interface RadioChartDataObject {
     labels: string[],

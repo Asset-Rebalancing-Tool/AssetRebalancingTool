@@ -58,5 +58,10 @@ const options = ref({
       text: 'Radar Chart',
     },
   },
+  elements: {
+    line: {
+      tension: 0.1
+    }
+  }
 })
 </script>
