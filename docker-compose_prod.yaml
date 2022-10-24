@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  vite_server:
+    restart: always
+    build:
+      dockerfile: Dockerfile
+    networks:
+      - th_net
+
+networks:
+  th_net:
+    external: true

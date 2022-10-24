@@ -1,6 +1,33 @@
 kind: pipeline
 type: ssh
-name: default
+name: deploy_prod
+
+server:
+  host:
+    from_secret: ssh_host_prod
+  user: root
+  password:
+    from_secret: ssh_password_prod
+
+steps:
+  - name: deploy
+    environment:
+      COMPOSE_PROJECT_NAME: webservices
+    commands:
+      - docker network create th_net
+      - docker compose -f docker-compose_prod.yaml build
+      - docker compose -f docker-compose_prod.yaml up -d
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+---
+kind: pipeline
+type: ssh
+name: deploy_local_dev
 
 server:
   host:
