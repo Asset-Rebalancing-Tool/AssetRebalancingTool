@@ -54,6 +54,14 @@
     "settings": "Settings",
     "signOut": "Logout"
   },
+  "overview": {
+    "radarChart": {
+      "labels": {
+        "currentValueLabel": "current distribution",
+        "targetValueLabel": "target distribution"
+      }
+    }
+  },
   "assetList": {
     "searchbar": {
       "placeholder": "Search for stocks, ETFs & more (Term, WKN or ISIN)",
