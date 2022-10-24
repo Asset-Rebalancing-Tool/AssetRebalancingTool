@@ -10,7 +10,7 @@
   height: $inner-holding-row-height + 12px;
   padding: 6px;
   background-color: #292e33;
-  border-radius: $primary-border-radius;
+  border-radius: $secondary-border-radius;
   margin-bottom: 15px;
 }
 

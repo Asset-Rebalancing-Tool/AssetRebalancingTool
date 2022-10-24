@@ -63,7 +63,7 @@ const showConstructionFlag: Ref<boolean> = ref(true)
   button {
     background-color: $main-color;
     border: none;
-    border-radius: $primary-border-radius;
+    border-radius: $secondary-border-radius;
     color: $primary-text-color;
     padding: 10px 18px;
     cursor: pointer;

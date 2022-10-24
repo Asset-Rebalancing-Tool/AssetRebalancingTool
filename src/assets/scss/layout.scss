@@ -144,7 +144,7 @@ section.content {
 @mixin base-wrapper {
   position: relative;
   width: 100%;
-  border-radius: $primary-border-radius;
+  border-radius: $secondary-border-radius;
   border: 1px solid $passive-border-color;
   background-color: $secondary-background-color;
 }

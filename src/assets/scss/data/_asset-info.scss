@@ -6,7 +6,7 @@
     @include background-image-contain;
     height: $inner-holding-row-height;
     width: $inner-holding-row-height;
-    border-radius: $secondary-border-radius;
+    border-radius: $tertiary-border-radius;
     background-color: #f2f2f2;
   }
 
@@ -94,7 +94,7 @@
   .save-asset {
     width: auto;
     background-color: $main-color;
-    border-radius: $secondary-border-radius;
+    border-radius: $tertiary-border-radius;
     color: $primary-text-color;
     font-size: $secondary-font-size;
     font-weight: $bold-font-weight;
@@ -132,7 +132,7 @@
     .isin {
       color: $tertiary-text-color;
       padding: 0 5px;
-      border-radius: $secondary-border-radius;
+      border-radius: $tertiary-border-radius;
       cursor: pointer;
     }
 
