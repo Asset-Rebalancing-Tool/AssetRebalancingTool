@@ -1,17 +1,39 @@
 <template>
   <div class="construction-container">
-    <div class="construction-text-wrapper">
+
+    <div class="construction-text-wrapper" v-if="showConstructionFlag">
       <h1 class>{{ $t('underConstruction.heading') }}</h1>
       <p>{{ $t('underConstruction.description') }}</p>
       <button>{{ $t('underConstruction.moreInfo') }}</button>
     </div>
     <img
+      v-if="showConstructionFlag"
       class="construction-image"
       src="@/assets/images/under-construction.png"
       :alt="$t('underConstruction.imageAltTag')"
     />
+
+    <div class="construction-info-wrapper" v-if="!showConstructionFlag">
+      <div class="close-info"></div>
+      <p>Lorem ipsum dolor</p>
+    </div>
   </div>
 </template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import type { Ref } from "vue";
+
+const props = defineProps({
+  constructionText: {
+    type: String,
+    default: true,
+  },
+})
+
+const showConstructionFlag: Ref<boolean> = ref(true)
+
+</script>
 
 <style lang="scss" scoped>
 .construction-container {
