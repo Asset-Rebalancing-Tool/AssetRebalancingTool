@@ -57,8 +57,8 @@
   "overview": {
     "radarChart": {
       "labels": {
-        "currentPercentageLabel": "current distribution",
-        "targetPercentageLabel": "target distribution"
+        "currentDistribution": "current distribution",
+        "targetDistribution": "target distribution"
       }
     }
   },

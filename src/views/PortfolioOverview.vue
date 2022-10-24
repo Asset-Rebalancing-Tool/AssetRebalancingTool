@@ -8,6 +8,7 @@
 
 <script lang="ts" setup>
 import RadarChart from '@/components/charts/RadarChart.vue';
+
 </script>
 
 <style lang="scss">

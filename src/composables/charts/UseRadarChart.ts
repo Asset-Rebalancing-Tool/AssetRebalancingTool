@@ -3,18 +3,12 @@ import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
 import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
 import type { PublicHolding } from "@/models/holdings/PublicHolding";
 import type { PrivateHolding } from "@/models/holdings/PrivateHolding";
-import { calcCurrentPercentage } from "@/composables/assets/UseCurrentValues";
+import { calcDeviation } from "@/composables/assets/UseDeviation";
 
 interface RadioChartDataObject {
     labels: string[],
-    currentPercentages: number[],
-    targetPercentages: number[]
-}
-
-interface RadioChartDataSet {
-    label: string,
-    currentPercentage: number,
-    targetPercentage: number
+    currentDistribution: number[],
+    targetDistribution: number[]
 }
 
 /**
@@ -26,8 +20,8 @@ export function buildChartDataArrays(): RadioChartDataObject {
     const assetStore = useAssetStore()
 
     const labels: string[] = []
-    const currentPercentages: number[] = []
-    const targetPercentages: number[] = []
+    const currentDistribution: number[] = []
+    const targetDistribution: number[] = []
 
     assetStore.assetPool.forEach((poolEntry: AssetPoolEntry) => {
         switch (poolEntry.entryType) {
@@ -37,17 +31,17 @@ export function buildChartDataArrays(): RadioChartDataObject {
             case EntryTypeEnum.PUBLIC_HOLDING:
                 const publicHolding = poolEntry as PublicHolding
                 if (publicHolding) {
-                    labels.push(publicHolding.publicAsset.assetName,)
-                    currentPercentages.push(calcCurrentPercentage(poolEntry, poolEntry.entryType))
-                    targetPercentages.push(publicHolding.targetPercentage)
+                    labels.push(publicHolding.publicAsset.assetName)
+                    currentDistribution.push(100 - calcDeviation(poolEntry, poolEntry.entryType))
+                    targetDistribution.push(100)
                 }
                 break;
             case EntryTypeEnum.PRIVATE_HOLDING:
                 const privateHolding = poolEntry as PrivateHolding
                 if (privateHolding) {
                     labels.push(privateHolding.title)
-                    currentPercentages.push(calcCurrentPercentage(poolEntry, poolEntry.entryType))
-                    targetPercentages.push(privateHolding.targetPercentage)
+                    currentDistribution.push(100 - calcDeviation(poolEntry, poolEntry.entryType))
+                    targetDistribution.push(100)
                 }
                 break;
         }
@@ -55,7 +49,7 @@ export function buildChartDataArrays(): RadioChartDataObject {
 
     return {
         labels: labels,
-        currentPercentages: currentPercentages,
-        targetPercentages: targetPercentages
+        currentDistribution: currentDistribution,
+        targetDistribution: targetDistribution
     }
 }

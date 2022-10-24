@@ -2,6 +2,7 @@
   <RadarChart
     :chart-data="data"
     :options="options"
+    css-classes="radar-chart-container"
   />
 </template>
 
@@ -34,21 +35,21 @@ Chart.register(
 const data = computed(() => ({
     labels: chartDataArrays.labels,
     datasets: [{
-      label: t('overview.radarChart.labels.currentPercentageLabel'),
-      data: chartDataArrays.currentPercentages,
+      label: t('overview.radarChart.labels.targetDistribution'),
+      data: chartDataArrays.targetDistribution,
+      fill: true,
+      backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_10,
+      borderColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
+      pointBorderColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
+      pointBackgroundColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30
+    }, {
+      label: t('overview.radarChart.labels.currentDistribution'),
+      data: chartDataArrays.currentDistribution,
       fill: true,
       backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
       borderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
       pointBorderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
       pointBackgroundColor: ChartColumnEnum.BORDER_COLOR_POSITIVE
-    }, {
-      label: t('overview.radarChart.labels.targetPercentageLabel'),
-      data: chartDataArrays.targetPercentages,
-      fill: true,
-      backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_30,
-      borderColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE,
-      pointBorderColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE,
-      pointBackgroundColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE
     }]
 }))
 
@@ -60,8 +61,14 @@ const options = ref({
   },
   elements: {
     line: {
-      tension: 0.1
+      tension: 0
     }
-  }
+  },
 })
 </script>
+
+<style lang="scss" scoped>
+.radar-chart-container {
+  width: 500px;
+}
+</style>
