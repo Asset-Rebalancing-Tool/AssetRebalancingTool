@@ -16,6 +16,8 @@ import {
   LineElement
 } from 'chart.js'
 import { useI18n } from 'vue-i18n'
+import { ChartColumnEnum } from "@/models/enums/ChartColumnEnum";
+
 const { t } = useI18n()
 
 Chart.register(
@@ -39,22 +41,18 @@ const data = computed(() => ({
       label: t('overview.radarChart.labels.currentValueLabel'),
       data: [65, 59, 90, 81, 56, 55, 40],
       fill: true,
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
-      borderColor: 'rgb(255, 99, 132)',
-      pointBackgroundColor: 'rgb(255, 99, 132)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(255, 99, 132)'
+      backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
+      borderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
+      pointBorderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
+      pointBackgroundColor: ChartColumnEnum.BORDER_COLOR_POSITIVE
     }, {
       label: t('overview.radarChart.labels.targetValueLabel'),
       data: [28, 48, 40, 19, 96, 27, 100],
       fill: true,
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgb(54, 162, 235)',
-      pointBackgroundColor: 'rgb(54, 162, 235)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgb(54, 162, 235)'
+      backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_30,
+      borderColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE,
+      pointBorderColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE,
+      pointBackgroundColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE
     }]
 }))
 
