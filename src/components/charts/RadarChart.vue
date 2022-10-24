@@ -16,7 +16,8 @@ import {
   LineElement
 } from 'chart.js'
 import { useI18n } from 'vue-i18n'
-import { ChartColumnEnum } from "@/models/enums/ChartColumnEnum";
+import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum';
+import { buildChartDataArrays } from '@/composables/charts/UseRadarChart';
 
 const { t } = useI18n()
 
