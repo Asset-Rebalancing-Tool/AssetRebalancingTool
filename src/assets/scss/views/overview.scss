@@ -1,0 +1,12 @@
+#overview {
+  width: 100%;
+  height: 100vh;
+  padding: 25px;
+
+  .card {
+    @include flex-center-xy;
+    background-color: $secondary-background-color;
+    border-radius: $primary-border-radius;
+    padding: 15px;
+  }
+}
