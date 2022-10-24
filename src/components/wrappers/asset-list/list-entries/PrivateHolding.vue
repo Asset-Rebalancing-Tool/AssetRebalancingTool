@@ -154,11 +154,20 @@ import { createUnitTypeObject } from '@/composables/UseUnitType'
 import { createCurrencyObject } from '@/composables/UseCurrency'
 import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { useAssetStore } from '@/stores/AssetStore'
-import { formatValueArray } from '@/composables/UsePriceRecords'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useI18n } from 'vue-i18n'
 import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
+import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
+import {getCurrentDeviation} from "@/composables/assets/UseCurrentPercentage";
+import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
+import {
+  checkIfDeviationExists,
+  getDeviationArray,
+  getDeviationArrowDirection,
+  getRawDeviation
+} from "@/composables/assets/UseDeviation";
+import {getCurrentValue} from "@/composables/assets/UseCurrentValue";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -177,6 +186,9 @@ const props = defineProps({
 const holding: ComputedRef<PrivateHolding> = computed(() => {
   return assetStore.getAssetPoolEntryByUuid(props.uuid) as PrivateHolding
 })
+
+const poolEntry: AssetPoolEntry = holding.value as AssetPoolEntry
+const entryType: EntryTypeEnum = EntryTypeEnum.PRIVATE_HOLDING
 
 /**-***************************************************-**/
 /** --------------- Input Model Values ---------------- **/
@@ -221,7 +233,7 @@ function executeAnimation(field: Ref<boolean>) {
 /** -------------- Input Patch Methods ---------------- **/
 /**-***************************************************-**/
 
-// Patch the public holdings price per unit
+// Patch the public assets price per unit
 function patchPricePerUnit(inputValue: string, holdingUuid: string) {
   pricePerUnit.value = +inputValue
   const request = patchPricePerUnitRequest(inputValue)
@@ -231,7 +243,7 @@ function patchPricePerUnit(inputValue: string, holdingUuid: string) {
   }
 }
 
-// Patch the public holdings owned quantity
+// Patch the public assets owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
   ownedQuantity.value = +inputValue
   const request = patchOwnedQuantityRequest(inputValue)
@@ -241,7 +253,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string) {
   }
 }
 
-// Patch the public holdings target percentage
+// Patch the public assets target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   targetPercentage.value = +inputValue
   const request = patchTargetPercentageRequest(inputValue)
@@ -251,7 +263,7 @@ function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   }
 }
 
-// Patch the public holdings unit type
+// Patch the public assets unit type
 function patchUnitType(inputValue: UnitTypeEnum, holdingUuid: string) {
   unitType.value = inputValue
   const request = patchUnitTypeRequest(inputValue)
@@ -347,67 +359,32 @@ const isEdited: Ref<boolean> = ref(false)
 const editAsset = () => (isEdited.value = true)
 
 // Get the current value formatted by german pattern
-const currentValue = computed((): string => {
-  // Format the current value after german pattern
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(holding.value.ownedQuantity * holding.value.pricePerUnit)
-})
-
-// Get the current value percentage
-function calcCurrentPercentage(): number {
-  const currentValue: number =
-    holding.value.ownedQuantity * holding.value.pricePerUnit
-  return (currentValue / assetStore.sumState.totalValue) * 100
-}
+const currentValue = computed(
+    (): string => getCurrentValue(poolEntry, entryType)
+)
 
 // Get the current value percentage formatted by german pattern
-const currentPercentage = computed((): string => {
-  const currentPercentage: number = calcCurrentPercentage()
-  // Format the current percentage value after german pattern
-  return currentPercentage
-    ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
-    : '0,00 %'
-})
-
-// Get the current deviation
-function calcDeviation(): number {
-  const currentPercentage: number = calcCurrentPercentage()
-  return Math.abs(currentPercentage - holding.value.targetPercentage)
-}
+const currentPercentage = computed(
+    (): string => getCurrentDeviation(poolEntry, entryType)
+)
 
 // The un formatted deviation
-const rawDeviation = computed((): number => {
-  return +Number(calcDeviation()).toFixed(2)
-})
+const rawDeviation = computed(
+    (): number => getRawDeviation(poolEntry, entryType)
+)
 
-// Get the current deviation formatted by german pattern
-const deviation = computed((): string[] => {
-  const deviation: number = calcDeviation()
-  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
-})
-
-/**-***************************************************-**/
-/** ---------- Deviation Computed Properties ---------- **/
-/**-***************************************************-**/
+// The un formatted deviation
+const deviation = computed(
+    (): string[] => getDeviationArray(poolEntry, entryType)
+)
 
 // Get the deviation of the desired target percentage
-const deviationArrowDirection = computed(() => {
-  const currentValue: number =
-    holding.value.ownedQuantity * holding.value.pricePerUnit
-  const currentPercentage: number =
-    (currentValue / assetStore.sumState.totalValue) * 100
-  const targetPercentage: number = holding.value.targetPercentage
-  return currentPercentage > targetPercentage
-})
+const deviationArrowDirection = computed(
+    () => getDeviationArrowDirection(poolEntry, entryType)
+)
 
-const deviationExists = computed(() => {
-  const currentValue: number =
-    holding.value.ownedQuantity * holding.value.pricePerUnit
-  const currentPercentage: number =
-    (currentValue / assetStore.sumState.totalValue) * 100
-  const targetPercentage: number = holding.value.targetPercentage
-  return currentPercentage !== targetPercentage
-})
+// Flag that indicates if there is a deviation
+const deviationExists = computed(
+    () => checkIfDeviationExists(poolEntry, entryType)
+)
 </script>

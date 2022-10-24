@@ -14,12 +14,12 @@ import {
 import {
   addHoldingGroup,
   buildGroupEntryArray,
-} from '@/composables/UseHoldingGroup'
+} from '@/composables/assets/UseHoldingGroup'
 
 import {
   addPublicHoldingToPool,
   addPrivateHoldingToPool,
-} from '@/composables/UseAssetPool'
+} from '@/composables/assets/UseAssetPool'
 
 /**
  * Generate the initial asset map that is getting fetched after the asset list has been mounted

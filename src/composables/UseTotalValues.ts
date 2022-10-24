@@ -140,7 +140,7 @@ export function getTotalGroupDeviation(groupUuid: string): number {
 }
 
 /**
- * Set the initial total asset list value by iterating over the fetched asset map holdings
+ * Set the initial total asset list value by iterating over the fetched asset map assets
  */
 export function setAssetListTotalValue(): void {
   const assetStore = useAssetStore()
@@ -169,7 +169,7 @@ export function setAssetListTotalValue(): void {
 }
 
 /**
- * Set the initial total asset list target percentage by iterating over the fetched asset map holdings
+ * Set the initial total asset list target percentage by iterating over the fetched asset map assets
  * NOTE: Holding groups are not needed in this incrementation, since the asset map contains all assets
  */
 export function setAssetListTotalTargetPercentage(): void {
@@ -206,7 +206,7 @@ export function setAssetListTotalTargetPercentage(): void {
 }
 
 /**
- * Set the initial total asset list target percentage by iterating over the fetched asset map holdings
+ * Set the initial total asset list target percentage by iterating over the fetched asset map assets
  * NOTE: Holding groups are not needed in this incrementation, since the asset map contains all assets
  */
 export function setAssetListTotalDeviation(): void {

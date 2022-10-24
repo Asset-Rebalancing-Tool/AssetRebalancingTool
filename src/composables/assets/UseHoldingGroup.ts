@@ -9,7 +9,7 @@ import {
   addHoldingGroupToRenderList,
   addPublicHoldingToRenderList,
   addPrivateHoldingToRenderList,
-} from '@/composables/UseAssetRenderList'
+} from '@/composables/assets/UseAssetRenderList'
 import { useAssetStore } from '@/stores/AssetStore'
 import PatchAssetService from '@/services/PatchAssetService'
 
@@ -137,7 +137,7 @@ function _splicePoolGroupEntry(
 }
 
 /**
- * Iterate over the holdings of a group and push all holding uuids from a specified entry type into an array
+ * Iterate over the assets of a group and push all holding uuids from a specified entry type into an array
  *
  * @param holdingGroup HoldingGroup
  * @param entryType EntryTypeEnum
@@ -165,7 +165,7 @@ export function buildGroupPatchUuidArray(
 }
 
 /**
- * Iterate over the holdings of a group and build the group entry array,
+ * Iterate over the assets of a group and build the group entry array,
  * needed for asset list entry, which renders the template
  *
  * @param holdingGroup HoldingGroup

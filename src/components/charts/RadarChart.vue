@@ -20,6 +20,8 @@ import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum';
 import { buildChartDataArrays } from '@/composables/charts/UseRadarChart';
 
 const { t } = useI18n()
+const chartDataArrays = buildChartDataArrays()
+
 
 Chart.register(
     RadarController,
@@ -29,26 +31,18 @@ Chart.register(
 )
 
 const data = computed(() => ({
-    labels: [
-      'Eating',
-      'Drinking',
-      'Sleeping',
-      'Designing',
-      'Coding',
-      'Cycling',
-      'Running'
-    ],
+    labels: chartDataArrays.labels,
     datasets: [{
-      label: t('overview.radarChart.labels.currentValueLabel'),
-      data: [65, 59, 90, 81, 56, 55, 40],
+      label: t('overview.radarChart.labels.currentPercentageLabel'),
+      data: chartDataArrays.currentPercentage,
       fill: true,
       backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
       borderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
       pointBorderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
       pointBackgroundColor: ChartColumnEnum.BORDER_COLOR_POSITIVE
     }, {
-      label: t('overview.radarChart.labels.targetValueLabel'),
-      data: [28, 48, 40, 19, 96, 27, 100],
+      label: t('overview.radarChart.labels.targetPercentageLabel'),
+      data: chartDataArrays.targetPercentage,
       fill: true,
       backgroundColor: ChartColumnEnum.BACKGROUND_COLOR_NEGATIVE_30,
       borderColor: ChartColumnEnum.BORDER_COLOR_NEGATIVE,

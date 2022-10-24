@@ -10,7 +10,7 @@ import {
   patchHoldingGroupRequest,
   pushHoldingToGroup,
   removeHoldingFromGroup,
-} from '@/composables/UseHoldingGroup'
+} from '@/composables/assets/UseHoldingGroup'
 
 /**-*******************************************************************************-**/
 /** ------------------------- Holding Actions Handling ---------------------------- **/
@@ -111,7 +111,7 @@ async function addHoldingToGroup(holdingUuid: string): Promise<void> {
 }
 
 /**
- * Fire the delete action, based on the holdings type
+ * Fire the delete action, based on the assets type
  *
  * @param holdingUuid string
  *
