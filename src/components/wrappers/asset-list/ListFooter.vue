@@ -18,7 +18,14 @@
           @mouseleave="hoverTotalTargetPercentage = false"
       >
         {{ $t('assetList.listFooter.totalTargetPercentage') }}
-        <IconCheck v-show="showPercentageCheckIcon" />
+        <IconCheck
+            v-show="showPercentageCheckIcon"
+            style="margin-bottom: -1px; margin-left: 1px;"
+        />
+        <IconWarning
+            v-show="!showPercentageCheckIcon"
+            style="margin-bottom: -3px; margin-left: 1px; width: 15px;"
+        />
       </header>
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
       <TotalTargetPercentageTooltip
@@ -50,6 +57,7 @@ import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
+import IconWarning from "@/assets/icons/flash-message/IconWarning.vue";
 import TotalTargetPercentageTooltip from "@/components/wrappers/asset-list/tooltips/TotalTargetPercentageTooltip.vue";
 import TotalDeviationTooltip from "@/components/wrappers/asset-list/tooltips/TotalDeviationTooltip.vue";
 

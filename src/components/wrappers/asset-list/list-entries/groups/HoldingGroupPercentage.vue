@@ -7,6 +7,10 @@
     <div class="header" ref="test">
       <span>{{ totalGroupTargetPercentage }}</span>
       <IconCheck v-show="isOneHundredPercent" />
+      <IconWarning
+          v-show="!isOneHundredPercent"
+          style="width: 14px"
+      />
       <GroupPercentageWrapperTooltip
         v-if="groupPercentageWrapperActive"
         :active-class="groupPercentageWrapperActive"
@@ -22,6 +26,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import { getTotalGroupTargetPercentage } from '@/composables/UseTotalValues'
 import IconCheck from '@/assets/icons/IconCheck.vue'
 import GroupPercentageWrapperTooltip from '@/components/wrappers/asset-list/tooltips/GroupPercentageWrapperTooltip.vue'
+import IconWarning from "@/assets/icons/flash-message/IconWarning.vue";
 
 const assetStore = useAssetStore()
 
