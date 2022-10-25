@@ -5,6 +5,7 @@
 
   .card {
     @include flex-center-xy;
+    width: 600px;
     background-color: $secondary-background-color;
     border-radius: $primary-border-radius;
     padding: 15px;
