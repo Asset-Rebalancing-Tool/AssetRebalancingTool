@@ -3,15 +3,11 @@ import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import PortfolioOverview from '../views/PortfolioOverview.vue'
 import AssetList from '../views/AssetList.vue'
-import EditAsset from '../views/EditAsset.vue'
-import EditAssetGroup from '../views/EditAssetGroup.vue'
 import ConnectBroker from '../views/ConnectBroker.vue'
 import TransactionHistory from '../views/TransactionHistory.vue'
 import ScheduleInvestments from '../views/ScheduleInvestments.vue'
 import AppSettings from '../views/AppSettings.vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
-import { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import { useNotificationStore } from '@/stores/NotificationStore'
 
 const router = createRouter({
@@ -39,24 +35,6 @@ const router = createRouter({
       path: '/asset-list',
       name: 'AssetList',
       component: AssetList,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: '/edit-asset/:uuid',
-      name: 'EditAsset',
-      props: true,
-      component: EditAsset,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
-      path: '/edit-holding-group/:groupId',
-      name: 'EditAssetGroup',
-      props: true,
-      component: EditAssetGroup,
       meta: {
         requiresAuth: true,
       },
