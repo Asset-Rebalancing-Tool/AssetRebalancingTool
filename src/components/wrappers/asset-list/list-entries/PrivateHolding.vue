@@ -326,37 +326,41 @@ function patchPrivateHoldingNameRequest() {
 /**-***************************************************-**/
 
 // Get the mapped asset types of this holding
-const assetType = computed((): string => {
-  return mapAssetType(holding.value.assetType)
-})
+const assetType: ComputedRef<string> = computed(
+    () => mapAssetType(holding.value.assetType)
+)
 
 // Get the default unit type
-const defaultUnitType = computed(() => {
-  return UnitTypeEnum.PIECE
-})
+const defaultUnitType: ComputedRef<UnitTypeEnum> = computed(
+    () => UnitTypeEnum.PIECE
+)
 
 // Get the unit type select options
-const unitTypeOptions = computed(() => {
-  return createUnitTypeObject(Object.values(UnitTypeEnum))
-})
+const unitTypeOptions = computed(
+    () => createUnitTypeObject(Object.values(UnitTypeEnum))
+)
 
 // Get the default currency
-const defaultCurrency = computed(() => {
-  return CurrencyEnum.EUR
-})
+const defaultCurrency: ComputedRef<CurrencyEnum> = computed(
+    () => CurrencyEnum.EUR
+)
 
 // Get the currency select options
-const currencyOptions = computed(() => {
-  return createCurrencyObject(Object.values(CurrencyEnum))
-})
+const currencyOptions = computed(
+    () => createCurrencyObject(Object.values(CurrencyEnum))
+)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
 
-const editGroupFlag = computed(() => assetStore.editFlag)
+const editGroupFlag: ComputedRef<boolean> = computed(
+    () => assetStore.editFlag
+)
 
-const deleteHoldingFlag = computed(() => assetStore.deleteFlag)
+const deleteHoldingFlag: ComputedRef<boolean> = computed(
+    () => assetStore.deleteFlag
+)
 
 const isEdited: Ref<boolean> = ref(false)
 const editAsset = () => (isEdited.value = true)
