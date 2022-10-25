@@ -1,57 +1,83 @@
 <template>
   <div class="table-filter">
     <span class="column info">
-      <span @click="sort(SortColumn.ENTRY_NAME, direction())"
-        >{{ $t('assetList.tableFilters.assetName') }}<IconFilterArrow
-      /></span>
+      <span @click="sort(SortColumn.ASSET_NAME)">
+        {{ $t('assetList.tableFilters.assetName') }}
+        <IconFilterArrow
+          :is-selected="selectedColumn === SortColumn.ASSET_NAME"
+          :is-asc="isAsc"
+        />
+      </span>
     </span>
     <span class="column">
-      <span @click="sort(SortColumn.PRICE, direction())"
-        >{{ $t('assetList.tableFilters.price') }}<IconFilterArrow
-      /></span>
+      <span @click="sort(SortColumn.PRICE)">
+        {{ $t('assetList.tableFilters.price') }}
+        <IconFilterArrow
+            :is-selected="selectedColumn === SortColumn.PRICE"
+            :is-asc="isAsc"
+        />
+      </span>
     </span>
     <span class="column">
-      <span @click="sort(SortColumn.OWNED_QUANTITY, direction())"
-        >{{ $t('assetList.tableFilters.ownedQuantity') }}<IconFilterArrow
-      /></span>
+      <span @click="sort(SortColumn.OWNED_QUANTITY)">
+        {{ $t('assetList.tableFilters.ownedQuantity') }}
+        <IconFilterArrow
+            :is-selected="selectedColumn === SortColumn.OWNED_QUANTITY"
+            :is-asc="isAsc"
+        />
+      </span>
     </span>
     <span class="column">
-      <span @click="sort(SortColumn.CURRENT_VALUE, direction())"
-        >{{ $t('assetList.tableFilters.currentValue') }}<IconFilterArrow
-      /></span>
+      <span @click="sort(SortColumn.CURRENT_VALUE)">
+        {{ $t('assetList.tableFilters.currentValue') }}
+        <IconFilterArrow
+            :is-selected="selectedColumn === SortColumn.CURRENT_VALUE"
+            :is-asc="isAsc"
+        />
+      </span>
     </span>
     <span class="column">
-      <span
-        @click="sort(SortColumn.TARGET_PERCENTAGE, direction())"
-        style="margin-left: -14px"
-        >{{ $t('assetList.tableFilters.targetPercentage') }}<IconFilterArrow
-      /></span>
+      <span @click="sort(SortColumn.TARGET_PERCENTAGE)" style="margin-left: -14px">
+        {{ $t('assetList.tableFilters.targetPercentage') }}
+        <IconFilterArrow
+            :is-selected="selectedColumn === SortColumn.TARGET_PERCENTAGE"
+            :is-asc="isAsc"
+        />
+      </span>
     </span>
     <span class="column">
-      <span @click="sort(SortColumn.DEVIATION, direction())"
-        >{{ $t('assetList.tableFilters.deviation') }}<IconFilterArrow
-      /></span>
+      <span @click="sort(SortColumn.DEVIATION)"
+        >{{ $t('assetList.tableFilters.deviation') }}
+        <IconFilterArrow
+            :is-selected="selectedColumn === SortColumn.DEVIATION"
+            :is-asc="isAsc"
+        />
+      </span>
     </span>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { Ref } from "vue";
+import { ref } from "vue";
 import IconFilterArrow from '@/assets/icons/IconFilterArrow.vue'
-import { SortColumn, SortDirection } from '@/models/enums/SortEnum'
-import { useAssetStore } from '@/stores/AssetStore'
+import { SortColumn } from '@/models/enums/SortEnum'
+import { sortAssetList } from '@/composables/UseTableFilters'
 
-const assetStore = useAssetStore()
+const selectedColumn: Ref<SortColumn> = ref(SortColumn.PRICE)
+const isAsc: Ref<boolean> = ref(true)
 
-function direction() {
-  const testDirection = SortDirection.ASC
-  return testDirection === SortDirection.ASC
-    ? SortDirection.DESC
-    : SortDirection.ASC
+function sort(column: SortColumn) {
+  // Change the sort direction if selected column is clicked again
+  if (selectedColumn.value === column) {
+    isAsc.value = !isAsc.value
+  }
+  // Set the selected column
+  selectedColumn.value = column
+
+  sortAssetList(column, isAsc.value)
 }
 
-/*function sort(property: SortColumn, direction: SortDirection) {
-  store.sortListEntries(property, direction)
-}*/
 </script>
 
 <style lang="scss">
