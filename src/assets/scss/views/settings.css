@@ -1,9 +1,9 @@
-/* Error: Undefined variable.
- *    ,
- * 10 |     height: $secondary-input-height;
- *    |             ^^^^^^^^^^^^^^^^^^^^^^^
- *    '
- *   settings.scss 10:13  root stylesheet */
+/* Error: Undefined mixin.
+ *   ,
+ * 2 |   @include flex-center-xy;
+ *   |   ^^^^^^^^^^^^^^^^^^^^^^^
+ *   '
+ *   settings.scss 2:3  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a    \2577 \a 10 \2502      height: $secondary-input-height;\d\a    \2502              ^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   settings.scss 10:13  root stylesheet";
+  content: "Error: Undefined mixin.\a   \2577 \a 2 \2502    @include flex-center-xy;\d\a   \2502    ^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   settings.scss 2:3  root stylesheet";
 }

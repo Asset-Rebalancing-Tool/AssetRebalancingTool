@@ -1,13 +1,169 @@
 #settings {
+  @include flex-center-xy;
   width: 100%;
   height: 100vh;
-  padding: 25px;
 
-  .app-locale,
-  .default-currency {
-    display: block;
-    width: 250px;
-    height: $secondary-input-height;
-    margin-bottom: 40px;
+  .settings-container {
+    width: 100%;
+    max-width: 991px;
+    margin: 0 auto;
+    padding-top: 45px;
+
+    h2 {
+      font-size: 28px;
+      color: $main-color;
+      margin-bottom: 40px;
+    }
+
+    h3 {
+      font-size: 19px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .email-wrapper {
+      width: 100%;
+      height: 45px;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid $passive-border-color;
+      margin: 0 auto 30px;
+
+      p {
+        display: flex;
+        column-gap: 5px;
+        color: $secondary-text-color;
+      }
+
+      p span {
+        white-space: nowrap;
+        font-weight: bold;
+      }
+
+      p.link {
+        color: $main-color;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+
+    .password-wrapper {
+      width: 100%;
+      border-bottom: 1px solid $passive-border-color;
+      margin-bottom: 30px;
+
+      .input-wrapper {
+        display: flex;
+        column-gap: 25px;
+      }
+
+      label {
+        display: block;
+
+        span {
+          margin-left: 2px;
+          margin-bottom: 2px;
+          color: $secondary-text-color;
+        }
+
+        .input-container {
+          height: auto;
+
+          input {
+            height: 42px;
+            text-align: left;
+            padding-left: 15px;
+          }
+        }
+      }
+
+      .reset-password {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        color: $secondary-text-color;
+
+        span {
+          color: $main-color;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+
+      .save-password {
+        background-color: $main-color;
+        border: none;
+        border-radius: $secondary-border-radius;
+        color: $primary-text-color;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-bottom: 40px;
+      }
+    }
+
+    .app-settings-wrapper {
+      display: flex;
+      column-gap: 25px;
+      width: 100%;
+      border-bottom: 1px solid $passive-border-color;
+      margin-bottom: 30px;
+
+      .app-locale,
+      .default-currency {
+        display: block;
+        margin-bottom: 40px;
+
+        span {
+          color: $secondary-text-color;
+        }
+
+        select {
+          height: 42px;
+        }
+
+        .select-container svg {
+          right: 10px;
+        }
+      }
+    }
+
+
+    .app-theme-wrapper {
+      display: flex;
+      column-gap: 25px;
+      width: 100%;
+      margin-bottom: 30px;
+      padding-bottom: 25px;
+
+      .theme-color {
+        width: 100%;
+        max-width: 180px;
+        height: 50px;
+        border-radius: $primary-border-radius;
+        cursor: pointer;
+      }
+
+      .theme-color.green {
+        background-color: $main-color;
+        border: 3px solid #2a5454;
+      }
+
+      .theme-color.blue {
+        background-color: #3498db;
+        border: 3px solid #1d73ac;
+      }
+
+      .theme-color.orange {
+        background-color: #EE9625;
+        border: 3px solid #B76700;
+      }
+
+      .theme-color.violette {
+        background-color: #e056fd;
+        border: 3px solid #be2edd;
+      }
+    }
   }
 }

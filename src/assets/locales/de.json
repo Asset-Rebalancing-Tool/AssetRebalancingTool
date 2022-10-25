@@ -150,8 +150,29 @@
     }
   },
   "settings": {
+    "tabHeading": "Account Einstellungen",
+    "email": {
+      "heading": "E-Mail-Adresse",
+      "changeText": "Ihre E-Mail-Adresse lautet",
+      "changeLink": "Ändern"
+    },
+    "password": {
+      "heading": "Passwort",
+      "new": "Neues Passwort",
+      "current": "Aktuelles Passwort",
+      "resetText": "Sie haben Ihr Passwort vergessen?",
+      "resetLink": "Passwort zurücksetzen",
+      "save": "Passwort speichern"
+    },
+    "delete": {
+      "heading": "Account löschen",
+      "text": "Möchten Sie Ihren Account löschen?",
+      "deleteLink": "Ich möchte mein Passwort löschen"
+    },
     "localeLable": "Sprache wählen",
-    "defaultCurrency": "Standard Währung"
+    "defaultCurrency": "Standard Währung",
+    "appSettings": "App Anpassungen",
+    "appThemeColor": "App Theme-Farbe"
   },
   "underConstruction": {
     "heading": "In Entwicklung",

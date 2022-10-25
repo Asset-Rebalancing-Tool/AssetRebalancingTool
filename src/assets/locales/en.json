@@ -150,8 +150,29 @@
     }
   },
   "settings": {
+    "tabHeading": "Account settings",
+    "email": {
+      "heading": "Email adresse",
+      "changeText": "Your email adress is",
+      "changeLink": "Change"
+    },
+    "password": {
+      "heading": "Password",
+      "new": "New password",
+      "current": "Current password",
+      "resetText": "Can't remember your current password?",
+      "resetLink": "Reset your Password",
+      "save": "Save password"
+    },
+    "delete": {
+      "heading": "Delete account",
+      "text": "Would you like to delete your account?",
+      "deleteLink": "I want to delete my account"
+    },
     "localeLable": "Choose locale",
-    "defaultCurrency": "Default currency"
+    "defaultCurrency": "Default currency",
+    "appSettings": "App settings",
+    "appThemeColor": "App theme color"
   },
   "underConstruction": {
     "heading": "Under Construction",
