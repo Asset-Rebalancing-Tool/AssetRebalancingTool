@@ -4,7 +4,19 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
-// https://vitejs.dev/config/
+const isLocalHost = true
+
+enum Host {
+  LOCALHOST = 'http://localhost:',
+  NETWORK = 'http://192.168.1.52:'
+}
+
+// check what proxy to target
+function getProxyTarget(port: number): string {
+  return (isLocalHost)
+    ? Host.LOCALHOST + port
+    : Host.NETWORK + port
+}
 
 export default defineConfig({
   plugins: [
@@ -26,18 +38,17 @@ export default defineConfig({
   server: {
     proxy: {
       '/asset_api': {
-        //target: 'http://localhost:8080',
-        target: 'http://192.168.1.52:8080',
+        target: getProxyTarget(8080),
         changeOrigin: true,
         secure: false,
       },
       '/auth_api': {
-        target: 'http://192.168.1.52:8081',
+        target: getProxyTarget(8081),
         changeOrigin: true,
         secure: false,
       },
       '/holding_api': {
-        target: 'http://192.168.1.52:8081',
+        target: getProxyTarget(8081),
         changeOrigin: true,
         secure: false,
       },
