@@ -3,6 +3,8 @@ import de from '@/assets/locales/de.json'
 // @ts-ignore
 import { createI18n } from 'vue-i18n'
 import type { Locales } from '@/models/enums/Locales'
+import {CurrencyEnum as CurrencyEnumType} from "@/models/enums/CurrencyEnum";
+import {getCurrencyValue} from "@/composables/UseCurrency";
 
 export const allLocales: string[] = ['de', 'en']
 
@@ -52,4 +54,20 @@ function loadLocale(locale: Locales) {
           break
       }
     })
+}
+
+/**
+ * Create an object based on all locales, in order to use it in the BaseSelect.vue component
+ *
+ * @param localeArray string[]
+ */
+export function createLocaleObject(localeArray: string[]) {
+  const tempArray: any = []
+  for (const localeValue of localeArray) {
+    tempArray.push({
+      value: localeValue,
+      text: localeValue,
+    })
+  }
+  return tempArray
 }

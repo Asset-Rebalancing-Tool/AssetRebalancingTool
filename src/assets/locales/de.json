@@ -149,6 +149,10 @@
       "text3": "Mit dieser Grundlage kannst du alle unsere Rebalancing-Funktionen zu nutzen."
     }
   },
+  "settings": {
+    "localeLable": "Sprache wählen",
+    "defaultCurrency": "Standard Währung"
+  },
   "underConstruction": {
     "heading": "In Entwicklung",
     "description": "Dieser Bereich befindet sich noch in der Entwicklung. Wir freuen uns darauf Ihnen bald mehr präsentieren zu können.",
