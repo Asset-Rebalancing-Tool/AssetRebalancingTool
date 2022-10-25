@@ -66,11 +66,21 @@
       </template>
     </BaseInput>
 
-    <ThreeDigitValue :value-array="totalGroupDeviation" :unit="'%'">
+    <ThreeDigitValue
+        :value-array="totalGroupDeviation"
+        :unit="'%'"
+        @mouseover="hoverGroupDeviation = true"
+        @mouseleave="hoverGroupDeviation = false"
+    >
       <template #arrow>
         <IconAssetRowArrow
           v-show="deviationExists"
           :arrow-up="deviationArrowDirection"
+        />
+        <GroupDeviationTooltip
+            :hover="hoverGroupDeviation"
+            :deviation="rawGroupDeviation"
+            :deviation-direction="deviationDirection"
         />
       </template>
     </ThreeDigitValue>
@@ -85,7 +95,7 @@ import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
 import PatchAssetService from '@/services/PatchAssetService'
@@ -100,6 +110,7 @@ import {
 } from '@/composables/UseTotalValues'
 import { useI18n } from 'vue-i18n'
 import GroupTargetPercentageTooltip from '@/components/wrappers/asset-list/tooltips/GroupTargetPercentageTooltip.vue'
+import GroupDeviationTooltip from "@/components/wrappers/asset-list/tooltips/GroupDeviationTooltip.vue";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -127,6 +138,7 @@ const group: ComputedRef<HoldingGroup> = computed(() => {
 const groupName: Ref<string> = ref(group.value.groupName)
 const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
 const hoverGroupTargetPercentage: Ref<boolean> = ref(false)
+const hoverGroupDeviation: Ref<boolean> = ref(false)
 
 // bool that indicates if the group is currently editable or not
 const editGroupFlagFlag = computed(() => assetStore.editFlag)
@@ -228,21 +240,31 @@ const totalGroupValue = computed(() => {
   }).format(totalGroupValue)
 })
 
+const rawGroupPercentage = computed(
+    () => getTotalGroupPercentage(group.value.uuid)
+)
+
 // Get the total asset list percentage
 const totalGroupPercentage = computed(() => {
-  const totalGroupPercentage = getTotalGroupPercentage(group.value.uuid)
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-      totalGroupPercentage
+        rawGroupPercentage.value
     ) + ' %'
   )
 })
 
+const rawGroupDeviation = computed(
+    () => getTotalGroupDeviation(group.value.uuid)
+)
+
+const deviationDirection = computed(
+    () => rawGroupPercentage > targetPercentage
+)
+
 // Get the total asset list deviation
 const totalGroupDeviation = computed(() => {
-  const totalGroupDeviation = getTotalGroupDeviation(group.value.uuid)
-  return totalGroupDeviation
-    ? formatValueArray(totalGroupDeviation)
+  return rawGroupDeviation.value
+    ? formatValueArray(rawGroupDeviation.value)
     : ['00', '00', '0']
 })
 

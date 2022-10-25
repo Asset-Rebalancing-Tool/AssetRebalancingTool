@@ -1,4 +1,5 @@
 .three-digit-wrapper {
+  position: relative;
   @include flex-center-y;
   height: 100%;
 

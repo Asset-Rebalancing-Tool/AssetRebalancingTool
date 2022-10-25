@@ -1,5 +1,5 @@
 <template>
-  <div class="tooltip-event-wrapper total-deviation-percentage">
+  <div class="tooltip-event-wrapper total-deviation">
     <div class="tooltip" v-show="hover">
       <div class="text">{{ deviation }} {{
           $t(

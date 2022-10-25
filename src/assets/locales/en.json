@@ -123,7 +123,11 @@
         "defaultName": "My group 1",
         "tooltips": {
           "groupTargetPercentage": "The target distribution in percent",
-          "groupPercentageWrapper": "The target distributions inside a group has to be 100%"
+          "groupPercentageWrapper": "The target distributions inside a group has to be 100%",
+          "deviation": {
+            "higher": "more than target percentage",
+            "less": "less than target percentage"
+          }
         }
       }
     },

@@ -119,12 +119,15 @@
 .tooltip-event-wrapper.total-target-percentage {
   position: absolute;
   width: 100%;
-  height: 16px;
+  height: calc(100% + 28px);
+  margin-top: -28px;
   top: 0;
+  cursor: pointer;
+  z-index: 20;
 
   .tooltip {
     position: absolute;
-    top: -60px;
+    top: -32px;
     left: calc(50% - 14px);
     transform: translateX(-50%);
 
@@ -137,21 +140,45 @@
   }
 }
 
-.tooltip-event-wrapper.total-deviation-percentage {
+.tooltip-event-wrapper.total-deviation {
   position: absolute;
   width: 100%;
-  height: 16px;
+  height: calc(100% + 28px);
+  margin-top: -28px;
   top: 0;
+  cursor: pointer;
+  z-index: 20;
 
   .tooltip {
     position: absolute;
-    top: -60px;
+    top: -32px;
     right: 0;
 
     .corner-wrapper {
       position: absolute;
       bottom: 10px;
       right: 65px;
+    }
+  }
+}
+
+.tooltip-event-wrapper.group-deviation {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+
+  .tooltip {
+    position: absolute;
+    top: -32px;
+    right: 0;
+
+    .corner {
+      position: absolute;
+      bottom: -10px;
+      right: 25px;
     }
   }
 }

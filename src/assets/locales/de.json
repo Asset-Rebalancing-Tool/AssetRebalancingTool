@@ -123,7 +123,11 @@
         "defaultName": "Meine Gruppe 1",
         "tooltips": {
           "groupTargetPercentage": "Der prozentuale Soll-Wert, der Gruppe",
-          "groupPercentageWrapper": "Innerhalb einer Gruppe muss die Soll-Verteilung 100% ergeben"
+          "groupPercentageWrapper": "Innerhalb einer Gruppe muss die Soll-Verteilung 100% ergeben",
+          "deviation": {
+            "higher": "mehr als Soll-Wert",
+            "less": "weniger als Soll-Wert"
+          }
         }
       }
     },
