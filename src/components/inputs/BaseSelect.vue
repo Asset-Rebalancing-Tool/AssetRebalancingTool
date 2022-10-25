@@ -35,7 +35,7 @@ import IconSelectArrow from '@/assets/icons/inputs/IconSelectArrow.vue'
 const props = defineProps({
   modelValue: {
     type: String,
-    default: true,
+    required: true,
   },
   defaultSelection: {
     type: String,
