@@ -96,8 +96,8 @@ import FlashMessage from '@/components/wrappers/FlashMessage.vue'
 import CopyAnimation from '@/components/CopyAnimation.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
-import { generateAssetRenderList } from '@/composables/UseAssetRenderList'
-import { executeAction } from '@/composables/UseHoldings'
+import { generateAssetRenderList } from '@/composables/assets/UseAssetRenderList'
+import { executeAction } from '@/composables/assets/UseHoldings'
 
 /**-***************************************************-**/
 /** ----------- Store And List Declarations ----------- **/
@@ -144,7 +144,7 @@ const showEmptyAssetListBc = computed(() => {
 /**-***************************************************-**/
 
 /**
- * Get the count of holdings, that are nested in a specific group
+ * Get the count of assets, that are nested in a specific group
  *
  * @param groupUuid string
  *

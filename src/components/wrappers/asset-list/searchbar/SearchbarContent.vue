@@ -39,8 +39,8 @@ import type { PublicAsset } from '@/models/PublicAsset'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import { getAuthorizedInstance } from '@/services/TokenService'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import { addPublicHoldingToRenderList } from '@/composables/UseAssetRenderList'
-import { addPublicHoldingToPool } from '@/composables/UseAssetPool'
+import { addPublicHoldingToRenderList } from '@/composables/assets/UseAssetRenderList'
+import { addPublicHoldingToPool } from '@/composables/assets/UseAssetPool'
 
 // Initialize stores
 const searchbarStore = useSearchStore()

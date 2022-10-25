@@ -45,6 +45,14 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  displayTitle: {
+    type: Boolean,
+    default: true,
+  },
+  displayLegend: {
+    type: Boolean,
+    default: true,
+  }
 })
 
 const data = computed(() => ({
@@ -68,7 +76,10 @@ const options = ref({
   events: [],
   plugins: {
     title: {
-      text: 'Line',
+      display: props.displayTitle
+    },
+    legend: {
+      display: props.displayLegend
     },
   },
   elements: {

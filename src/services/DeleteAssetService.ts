@@ -1,6 +1,6 @@
 import { getAuthorizedInstance } from '@/services/TokenService'
-import { deleteAssetPoolEntry } from '@/composables/UseAssetPool'
-import { deleteRenderListEntry } from '@/composables/UseAssetRenderList'
+import { deleteAssetPoolEntry } from '@/composables/assets/UseAssetPool'
+import { deleteRenderListEntry } from '@/composables/assets/UseAssetRenderList'
 import type { AxiosInstance } from 'axios'
 
 export default {

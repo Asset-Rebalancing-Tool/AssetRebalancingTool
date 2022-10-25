@@ -1,7 +1,7 @@
 /* Error: Undefined variable.
  *    ,
- * 11 |     border-radius: $primary-border-radius;
- *    |                    ^^^^^^^^^^^^^^^^^^^^^^
+ * 11 |     border-radius: $secondary-border-radius;
+ *    |                    ^^^^^^^^^^^^^^^^^^^^^^^^
  *    '
  *   holding-tooltips.scss 11:20  root stylesheet */
 
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a    \2577 \a 11 \2502      border-radius: $primary-border-radius;\d\a    \2502                     ^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   holding-tooltips.scss 11:20  root stylesheet";
+  content: "Error: Undefined variable.\a    \2577 \a 11 \2502      border-radius: $secondary-border-radius;\d\a    \2502                     ^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   holding-tooltips.scss 11:20  root stylesheet";
 }

@@ -148,8 +148,9 @@ $regular-font-weight: 400;
 /*******************************************************/
 
 // All border radius's
-$primary-border-radius: 5px;
-$secondary-border-radius: 3px;
+$primary-border-radius: 8px;
+$secondary-border-radius: 5px;
+$tertiary-border-radius: 3px;
 
 // All box shadow's
 $box-shadow-main-color:
@@ -181,13 +182,13 @@ $base-margin: $base-padding;
     border: none;
     background-color: $main-color;
     color: $primary-text-color;
-    border-radius: $primary-border-radius;
+    border-radius: $secondary-border-radius;
 }
 
 @mixin secondary-base-button {
     border: 1px solid $passive-border-color;
     background-color: $primary-infill-color;
-    border-radius: $primary-border-radius;
+    border-radius: $secondary-border-radius;
     color: #FFFFFF;
     cursor: pointer;
 }
@@ -223,7 +224,7 @@ input {
     background-color: $primary-infill-color;
     color: $primary-text-color;
     outline: $passive-border-color;
-    border-radius: $primary-border-radius;
+    border-radius: $secondary-border-radius;
     border: 1px solid $passive-border-color;
     text-align: center;
     cursor: pointer;
@@ -326,7 +327,7 @@ select {
     background-color: $primary-infill-color;
     color: $primary-text-color;
     outline: $passive-border-color;
-    border-radius: $primary-border-radius;
+    border-radius: $secondary-border-radius;
     border: 1px solid $passive-border-color;
     cursor: pointer;
     text-align: left;

@@ -20,7 +20,7 @@
       height: 52px;
       background-color: $primary-infill-color;
       border: 1px solid $tertiary-background-color;
-      border-radius: $primary-border-radius;
+      border-radius: $secondary-border-radius;
       cursor: pointer;
     }
 
@@ -62,7 +62,7 @@
       width: 100%;
       height: 100%;
       border: 4px solid $main-color;
-      border-radius: $primary-border-radius;
+      border-radius: $secondary-border-radius;
 
       header {
         @include full-reset;
@@ -72,7 +72,7 @@
         width: calc(100% + 7px);
         height: 28px;
         background-color: $main-color;
-        border-radius: $primary-border-radius $primary-border-radius 0 0;
+        border-radius: $secondary-border-radius $secondary-border-radius 0 0;
         text-align: center;
         line-height: 28px;
         font-size: 15px;
@@ -137,7 +137,7 @@
     input {
       max-width: 80px;
       height: $secondary-input-height;
-      border-radius: $primary-border-radius;
+      border-radius: $secondary-border-radius;
     }
     input.group-name-input,
     input.asset-name-input {
@@ -196,7 +196,7 @@
         width: 100%;
         height: $inner-holding-row-height;
         background-color: $tertiary-background-color;
-        border-radius: 0 0 $primary-border-radius $primary-border-radius;
+        border-radius: 0 0 $secondary-border-radius $secondary-border-radius;
 
         .footer-header {
           @include flex-center-y;

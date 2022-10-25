@@ -54,6 +54,14 @@
     "settings": "Einstellungen",
     "signOut": "Abmelden"
   },
+  "overview": {
+    "radarChart": {
+      "labels": {
+        "currentDistribution": "Zu X Prozent ausgeglichen",
+        "targetDistribution": "Ausgeglichenes Portfolio"
+      }
+    }
+  },
   "assetList": {
     "searchbar": {
       "placeholder": "Nach Aktien, ETFs & mehr suchen (Bezeichnung, WKN oder ISIN)",

@@ -8,7 +8,7 @@
     position: absolute;
     width: auto;
     padding: 3px 8px;
-    border-radius: $primary-border-radius;
+    border-radius: $secondary-border-radius;
     background-color: $primary-infill-color;
     color: $primary-text-color;
     white-space: nowrap;
@@ -27,7 +27,7 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      border-radius: $primary-border-radius;
+      border-radius: $secondary-border-radius;
       background-color: $primary-infill-color;
       transform: rotate(45deg);
       z-index: 20;
@@ -109,7 +109,7 @@
 
       .corner {
         transform: rotate(45deg);
-        border-radius: $primary-border-radius;
+        border-radius: $secondary-border-radius;
       }
     }
   }

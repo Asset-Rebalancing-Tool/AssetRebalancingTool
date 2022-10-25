@@ -168,7 +168,7 @@ function editGroup(): void {
 /** -------------- Input Patch Methods ---------------- **/
 /**-***************************************************-**/
 
-// Patch the public holdings target percentage
+// Patch the public assets target percentage
 function patchGroupTargetPercentage(inputValue: string, groupUuid: string) {
   targetPercentage.value = +inputValue
   const request = patchGroupTargetPercentageRequest(inputValue)

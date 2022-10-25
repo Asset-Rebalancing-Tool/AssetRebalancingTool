@@ -80,7 +80,7 @@ function selectLanguage(locale: string) {
       top: 30px;
       right: 0;
       width: 50px;
-      border-radius: $primary-border-radius;
+      border-radius: $secondary-border-radius;
       border: 1px solid $passive-border-color;
       background-color: $secondary-background-color;
 
@@ -95,11 +95,11 @@ function selectLanguage(locale: string) {
 
       .language:first-child {
         border: none;
-        border-radius: $primary-border-radius $primary-border-radius 0 0;
+        border-radius: $secondary-border-radius $secondary-border-radius 0 0;
       }
 
       .language:last-child {
-        border-radius: 0 0 $primary-border-radius $primary-border-radius;
+        border-radius: 0 0 $secondary-border-radius $secondary-border-radius;
       }
 
       .language.selected {

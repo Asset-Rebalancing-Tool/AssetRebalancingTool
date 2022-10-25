@@ -22,6 +22,8 @@
           :data-labels="getDataLabels(priceRecords)"
           :border-width="'0.8'"
           :is-positive="isPositiveChart(holding.publicAsset.assetPriceRecords)"
+          :display-title="false"
+          :display-legend="false"
         />
       </template>
     </ThreeDigitValue>
@@ -87,35 +89,34 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { ComputedRef } from 'vue'
+import type {ComputedRef, Ref} from 'vue'
+import {computed, ref} from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
-import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
-import { computed, ref } from 'vue'
-import type { Ref } from 'vue'
-import { mapAssetType } from '@/composables/UseAssetType'
-import {
-  formatValueArray,
-  getNewestPriceRecord,
-  getNewestPriceRecordFormatted,
-} from '@/composables/UsePriceRecords'
-import { mapCurrency } from '@/composables/UseCurrency'
+import {AnimationWrapperEnum} from '@/models/enums/AnimationWrapperEnum'
+import {mapAssetType} from '@/composables/UseAssetType'
+import {formatValueArray, getNewestPriceRecord, getNewestPriceRecordFormatted,} from '@/composables/UsePriceRecords'
+import {mapCurrency} from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
-import {
-  showGraph,
-  getDataValues,
-  getDataLabels,
-  isPositiveChart,
-} from '@/composables/UsePreviewChart'
-import { useAssetStore } from '@/stores/AssetStore'
+import {getDataLabels, getDataValues, isPositiveChart, showGraph,} from '@/composables/UsePreviewChart'
+import {useAssetStore} from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
+import { getCurrentPercentage, getCurrentValue } from '@/composables/assets/UseCurrentValues'
+import {
+  getRawDeviation,
+  getDeviationArray,
+  getDeviationArrowDirection,
+  checkIfDeviationExists
+} from '@/composables/assets/UseDeviation'
+import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
+import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -129,9 +130,16 @@ const props = defineProps({
   },
 })
 
-const holding: ComputedRef<PublicHolding> = computed(() => {
-  return assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
-})
+const holding: ComputedRef<PublicHolding> = computed(
+    () => assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
+)
+
+// The public holding casted as pool entry
+const poolEntry: ComputedRef<AssetPoolEntry> = computed(
+    () => holding.value as AssetPoolEntry
+)
+
+const entryType: EntryTypeEnum = EntryTypeEnum.PUBLIC_HOLDING
 
 /**-***************************************************-**/
 /** --------------- Input Model Values ---------------- **/
@@ -171,7 +179,7 @@ function executeAnimation(field: Ref<boolean>) {
 /** -------------- Input Patch Methods ---------------- **/
 /**-***************************************************-**/
 
-// Patch the public holdings owned quantity
+// Patch the public assets owned quantity
 function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
   ownedQuantity.value = +inputValue
   const request = patchOwnedQuantityRequest(inputValue)
@@ -181,7 +189,7 @@ function patchOwnedQuantity(inputValue: string, holdingUuid: string): void {
   }
 }
 
-// Patch the public holdings target percentage
+// Patch the public assets target percentage
 function patchTargetPercentage(inputValue: string, holdingUuid: string) {
   targetPercentage.value = +inputValue
   const request = patchTargetPercentageRequest(inputValue)
@@ -212,94 +220,56 @@ function patchTargetPercentageRequest(percentage: string) {
 /**-***************************************************-**/
 
 // Get the mapped asset types of this holding
-const assetType = computed((): string => {
-  return mapAssetType(holding.value.publicAsset.assetType)
-})
+const assetType = computed(
+    (): string => mapAssetType(holding.value.publicAsset.assetType)
+)
 
 // Get the mapped currencies of the newest price record
-const currency = computed((): string => {
-  return mapCurrency(holding.value.publicAsset.availableCurrencies[0])
-})
+const currency = computed(
+    (): string => mapCurrency(holding.value.publicAsset.availableCurrencies[0])
+)
 
 /**-***************************************************-**/
 /** ---------- Computed Template Properties ----------- **/
 /**-***************************************************-**/
 
 // Get the array that contains all price records
-const priceRecords = computed((): PriceRecord[] => {
-  return holding.value.publicAsset.assetPriceRecords
-})
+const priceRecords = computed(
+    (): PriceRecord[] => holding.value.publicAsset.assetPriceRecords
+)
 
 // Get an array that contains the exploded strings values of the newest price record
-const formattedPriceDigits = computed((): string[] => {
-  return getNewestPriceRecordFormatted(priceRecords.value)
-})
+const formattedPriceDigits = computed(
+  (): string[] => getNewestPriceRecordFormatted(priceRecords.value)
+)
 
 // Get the current value formatted by german pattern
-const currentValue = computed((): string => {
-  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
-  const currentValue: number = holding.value.ownedQuantity * priceRecord
-
-  // Format the current value after german pattern
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(currentValue)
-})
-
-// Get the current value percentage
-function calcCurrentPercentage(): number {
-  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
-  const currentValue: number = holding.value.ownedQuantity * priceRecord
-  return (currentValue / assetStore.sumState.totalValue) * 100
-}
+const currentValue = computed(
+  (): string => getCurrentValue(poolEntry.value, entryType)
+)
 
 // Get the current value percentage formatted by german pattern
-const currentPercentage = computed((): string => {
-  const currentPercentage: number = calcCurrentPercentage()
-  // Format the current percentage value after german pattern
-  return currentPercentage
-    ? new Intl.NumberFormat('de-DE').format(currentPercentage) + ' %'
-    : '0,00 %'
-})
-
-// Get the current deviation
-function calcDeviation(): number {
-  const currentPercentage: number = calcCurrentPercentage()
-  return Math.abs(currentPercentage - holding.value.targetPercentage)
-}
+const currentPercentage = computed(
+  (): string => getCurrentPercentage(poolEntry.value, entryType)
+)
 
 // The un formatted deviation
-const rawDeviation = computed((): number => {
-  return +Number(calcDeviation()).toFixed(2)
-})
+const rawDeviation = computed(
+  (): number => getRawDeviation(poolEntry.value, entryType)
+)
 
-// Get the current deviation formatted by german pattern
-const deviation = computed((): string[] => {
-  const deviation: number = calcDeviation()
-  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
-})
-
-/**-***************************************************-**/
-/** ---------- Deviation Computed Properties ---------- **/
-/**-***************************************************-**/
+// The un formatted deviation
+const deviation = computed(
+  (): string[] => getDeviationArray(poolEntry.value, entryType)
+)
 
 // Get the deviation of the desired target percentage
-const deviationArrowDirection = computed(() => {
-  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
-  const currentValue: number = holding.value.ownedQuantity * priceRecord
-  const currentPercentage: number =
-    (currentValue / assetStore.sumState.totalValue) * 100
-  const targetPercentage: number = holding.value.targetPercentage
-  return currentPercentage > targetPercentage
-})
+const deviationArrowDirection = computed(
+    () => getDeviationArrowDirection(poolEntry.value, entryType)
+)
 
-const deviationExists = computed(() => {
-  const priceRecord: number = getNewestPriceRecord(priceRecords.value)
-  const currentValue: number = holding.value.ownedQuantity * priceRecord
-  const currentPercentage: number =
-    (currentValue / assetStore.sumState.totalValue) * 100
-  const targetPercentage: number = holding.value.targetPercentage
-  return currentPercentage !== targetPercentage
-})
+// Flag that indicates if there is a deviation
+const deviationExists = computed(
+    () => checkIfDeviationExists(poolEntry.value, entryType)
+)
 </script>

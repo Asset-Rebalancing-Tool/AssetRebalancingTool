@@ -3,7 +3,7 @@ import type { PrivateHoldingRequest } from '@/requests/PrivateHoldingRequest'
 import { getAuthorizedInstance } from '@/services/TokenService'
 import type { AxiosResponse } from 'axios'
 import type { HoldingGroupRequest } from '@/requests/HoldingGroupRequest'
-import { patchAssetPoolEntry } from '@/composables/UseAssetPool'
+import { patchAssetPoolEntry } from '@/composables/assets/UseAssetPool'
 import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
 import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 
