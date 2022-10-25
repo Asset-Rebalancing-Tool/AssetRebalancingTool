@@ -107,7 +107,7 @@ import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
-import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
+import DeviationTooltip from '@/components/wrappers/asset-list/tooltips/DeviationTooltip.vue'
 import { getCurrentPercentage, getCurrentValue } from '@/composables/assets/UseCurrentValues'
 import {
   getRawDeviation,

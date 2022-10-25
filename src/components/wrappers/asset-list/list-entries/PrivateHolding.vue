@@ -157,7 +157,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useI18n } from 'vue-i18n'
-import DeviationTooltip from '@/components/wrappers/asset-list/list-entries/DeviationTooltip.vue'
+import DeviationTooltip from '@/components/wrappers/asset-list/tooltips/DeviationTooltip.vue'
 import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
 import { getCurrentPercentage, getCurrentValue } from "@/composables/assets/UseCurrentValues";
 import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";

@@ -99,7 +99,7 @@ import {
   getTotalGroupDeviation,
 } from '@/composables/UseTotalValues'
 import { useI18n } from 'vue-i18n'
-import GroupTargetPercentageTooltip from '@/components/wrappers/asset-list/list-entries/GroupTargetPercentageTooltip.vue'
+import GroupTargetPercentageTooltip from '@/components/wrappers/asset-list/tooltips/GroupTargetPercentageTooltip.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/

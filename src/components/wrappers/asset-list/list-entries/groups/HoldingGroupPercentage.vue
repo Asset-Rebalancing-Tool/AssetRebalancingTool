@@ -21,7 +21,7 @@ import type { Ref, ComputedRef } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { getTotalGroupTargetPercentage } from '@/composables/UseTotalValues'
 import IconCheck from '@/assets/icons/IconCheck.vue'
-import GroupPercentageWrapperTooltip from '@/components/wrappers/asset-list/list-entries/GroupPercentageWrapperTooltip.vue'
+import GroupPercentageWrapperTooltip from '@/components/wrappers/asset-list/tooltips/GroupPercentageWrapperTooltip.vue'
 
 const assetStore = useAssetStore()
 

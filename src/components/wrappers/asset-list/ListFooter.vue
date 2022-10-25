@@ -16,6 +16,7 @@
         <IconCheck v-show="showPercentageCheckIcon" />
       </header>
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
+
     </div>
 
     <div class="total-deviation-wrapper">
