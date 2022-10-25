@@ -51,6 +51,8 @@
       custom-container-class="group-target-percentage-input"
       :select-on-focus="true"
       @input="patchGroupTargetPercentage($event.target.value, group.uuid)"
+      @mouseover="hoverGroupTargetPercentage = true"
+      @mouseleave="hoverGroupTargetPercentage = false"
     >
       <template #unit>
         <InputAnimation
@@ -73,7 +75,7 @@
       </template>
     </ThreeDigitValue>
 
-    <GroupTargetPercentageTooltip />
+    <GroupTargetPercentageTooltip :hover="hoverGroupTargetPercentage" />
   </footer>
 </template>
 
@@ -124,6 +126,7 @@ const group: ComputedRef<HoldingGroup> = computed(() => {
 // The input model values itself
 const groupName: Ref<string> = ref(group.value.groupName)
 const targetPercentage: Ref<number> = ref(group.value.targetPercentage)
+const hoverGroupTargetPercentage: Ref<boolean> = ref(false)
 
 // bool that indicates if the group is currently editable or not
 const editGroupFlagFlag = computed(() => assetStore.editFlag)
