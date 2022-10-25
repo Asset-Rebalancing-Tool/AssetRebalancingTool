@@ -10,18 +10,37 @@
     <div
       class="total-target-percentage-wrapper"
       :class="{ valid: targetPercentageIsOneHundredPercent }"
+      @mouseover="hoverTotalTargetPercentage = true"
+      @mouseleave="hoverTotalTargetPercentage = false"
     >
-      <header>
+      <header
+          @mouseover="hoverTotalTargetPercentage = true"
+          @mouseleave="hoverTotalTargetPercentage = false"
+      >
         {{ $t('assetList.listFooter.totalTargetPercentage') }}
         <IconCheck v-show="showPercentageCheckIcon" />
       </header>
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
-
+      <TotalTargetPercentageTooltip
+          v-show="!showPercentageCheckIcon"
+          :hover="hoverTotalTargetPercentage"
+      />
     </div>
 
-    <div class="total-deviation-wrapper">
-      <header>{{ $t('assetList.listFooter.deviation') }}</header>
+    <div class="total-deviation-wrapper"
+         @mouseover="hoverTotalDeviation = true"
+         @mouseleave="hoverTotalDeviation = false"
+    >
+      <header
+          @mouseover="hoverTotalDeviation = true"
+          @mouseleave="hoverTotalDeviation = false"
+      >{{ $t('assetList.listFooter.deviation') }}</header>
       <span class="total-value">{{ totalDeviation }}</span>
+      <TotalDeviationTooltip
+          v-show="showDeviationTooltip"
+          :hover="hoverTotalDeviation"
+          :deviation="totalDeviation"
+      />
     </div>
   </footer>
 </template>
@@ -29,13 +48,18 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
-import { formatValueArray } from '@/composables/UsePriceRecords'
 import { useAssetStore } from '@/stores/AssetStore'
-import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
-import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import IconCheck from '@/assets/icons/IconCheck.vue'
+import TotalTargetPercentageTooltip from "@/components/wrappers/asset-list/tooltips/TotalTargetPercentageTooltip.vue";
+import TotalDeviationTooltip from "@/components/wrappers/asset-list/tooltips/TotalDeviationTooltip.vue";
 
 const assetStore = useAssetStore()
+
+const hoverTotalTargetPercentage: Ref<boolean> = ref(false)
+const hoverTotalDeviation: Ref<boolean> = ref(false)
+const showDeviationTooltip = computed(
+    () => assetStore.sumState.totalDeviation !== 0
+)
 
 const targetPercentageIsOneHundredPercent: Ref<boolean> = ref(false)
 

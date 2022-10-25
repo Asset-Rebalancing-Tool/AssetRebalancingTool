@@ -123,14 +123,18 @@
         "defaultName": "My group 1",
         "tooltips": {
           "groupTargetPercentage": "The target distribution in percent",
-          "groupPercentageWrapper": "The target distributions inside a group need to be 100%"
+          "groupPercentageWrapper": "The target distributions inside a group has to be 100%"
         }
       }
     },
     "listFooter": {
       "totalValue": "Total value",
       "totalTargetPercentage": "Target value",
-      "deviation": "Deviation"
+      "deviation": "Deviation",
+      "tooltips": {
+        "totalTargetPercentage": "The target distributions of all assets has to be 100%",
+        "totalDeviation": "deviation from a fully balanced portfolio"
+      }
     },
     "emptyListBackground": {
       "heading1": "Search for Assets",

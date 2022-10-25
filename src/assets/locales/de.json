@@ -130,7 +130,11 @@
     "listFooter": {
       "totalValue": "Portfoliowert",
       "totalTargetPercentage": "Soll-Wert",
-      "deviation": "Abweichung"
+      "deviation": "Abweichung",
+      "tooltips": {
+        "totalTargetPercentage": "Die Soll-Verteilung aller Assets muss 100% ergeben",
+        "totalDeviation": "Abweichung von einem voll ausgeglichenen Portfolio"
+      }
     },
     "emptyListBackground": {
       "heading1": "Assets suchen",
