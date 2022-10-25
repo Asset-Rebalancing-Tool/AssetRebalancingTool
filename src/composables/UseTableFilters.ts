@@ -110,8 +110,8 @@ function _comparePrice(
     assetB: AssetRenderingEntry,
     isAsc: boolean
 ): number {
-    const priceA: number = _getPrice(assetStore, assetA)
-    const priceB: number = _getPrice(assetStore, assetB)
+    const priceA: number = _getPrice(assetStore, assetA, isAsc)
+    const priceB: number = _getPrice(assetStore, assetB, isAsc)
 
     if (priceA < priceB) return (isAsc) ? -1 : 1;
     if (priceA > priceB) return (isAsc) ? 1 : -1;
@@ -121,22 +121,43 @@ function _comparePrice(
 /**
  * Get the price of an asset rendering entry by its uuid and entry type
  *
- * @param assetStore
- * @param asset
+ * @param assetStore any
+ * @param asset AssetRenderingEntry
+ * @param isAsc boolean
  *
  * @return number
  */
-function _getPrice(assetStore: any, asset: AssetRenderingEntry): number {
+function _getPrice(
+    assetStore: any,
+    asset: AssetRenderingEntry,
+    isAsc: boolean
+): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            return 0
+            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (holdingGroup) {
+                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+                    const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
+                    const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
+                    return _comparePrice(assetStore, assetA, assetB, isAsc)
+                })
+            }
+            break
         case EntryTypeEnum.PUBLIC_HOLDING:
             const publicHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid) as PublicHolding
-            return getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
+            if (publicHolding) {
+                return getNewestPriceRecord(publicHolding.publicAsset.assetPriceRecords)
+            }
+            break
         case EntryTypeEnum.PRIVATE_HOLDING:
             const privateHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid) as PrivateHolding
-            return privateHolding.pricePerUnit
+            if (privateHolding) {
+                return privateHolding.pricePerUnit
+            }
+            break
+
     }
+    return 0
 }
 
 /**
@@ -155,8 +176,8 @@ function _compareQuantity(
     assetB: AssetRenderingEntry,
     isAsc: boolean
 ): number {
-    const quantityA: number = _getQuantity(assetStore, assetA)
-    const quantityB: number = _getQuantity(assetStore, assetB)
+    const quantityA: number = _getQuantity(assetStore, assetA, isAsc)
+    const quantityB: number = _getQuantity(assetStore, assetB, isAsc)
 
     if (quantityA < quantityB) return (isAsc) ? -1 : 1;
     if (quantityA > quantityB) return (isAsc) ? 1 : -1;
@@ -166,22 +187,42 @@ function _compareQuantity(
 /**
  * Get the owned quantity of an asset rendering entry by its uuid and entry type
  *
- * @param assetStore
- * @param asset
+ * @param assetStore any
+ * @param asset AssetRenderingEntry
+ * @param isAsc boolean
  *
  * @return number
  */
-function _getQuantity(assetStore: any, asset: AssetRenderingEntry): number {
+function _getQuantity(
+    assetStore: any,
+    asset: AssetRenderingEntry,
+    isAsc: boolean
+): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            return 0
+            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (holdingGroup) {
+                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+                    const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
+                    const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
+                    return _compareQuantity(assetStore, assetA, assetB, isAsc)
+                })
+            }
+            break
         case EntryTypeEnum.PUBLIC_HOLDING:
             const publicHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid) as PublicHolding
-            return publicHolding.ownedQuantity
+            if (publicHolding) {
+                return publicHolding.ownedQuantity
+            }
+            break
         case EntryTypeEnum.PRIVATE_HOLDING:
             const privateHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid) as PrivateHolding
-            return privateHolding.ownedQuantity
+            if (privateHolding) {
+                return privateHolding.ownedQuantity
+            }
+            break
     }
+    return 0
 }
 
 /**
@@ -200,8 +241,8 @@ function _compareCurrentValue(
     assetB: AssetRenderingEntry,
     isAsc: boolean
 ): number {
-    const valueA: number = _getCurrentValue(assetStore, assetA)
-    const valueB: number = _getCurrentValue(assetStore, assetB)
+    const valueA: number = _getCurrentValue(assetStore, assetA, isAsc)
+    const valueB: number = _getCurrentValue(assetStore, assetB, isAsc)
 
     if (valueA < valueB) return (isAsc) ? -1 : 1;
     if (valueA > valueB) return (isAsc) ? 1 : -1;
@@ -211,22 +252,42 @@ function _compareCurrentValue(
 /**
  * Get the current value of an asset rendering entry by its uuid and entry type
  *
- * @param assetStore
- * @param asset
+ * @param assetStore any
+ * @param asset AssetRenderingEntry
+ * @param isAsc boolean
  *
  * @return number
  */
-function _getCurrentValue(assetStore: any, asset: AssetRenderingEntry): number {
+function _getCurrentValue(
+    assetStore: any,
+    asset: AssetRenderingEntry,
+    isAsc: boolean
+): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            return 0
+            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (holdingGroup) {
+                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+                    const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
+                    const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
+                    return _compareCurrentValue(assetStore, assetA, assetB, isAsc)
+                })
+            }
+            break
         case EntryTypeEnum.PUBLIC_HOLDING:
             const publicHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid)
-            return calcCurrentValue(publicHolding, EntryTypeEnum.PUBLIC_HOLDING)
+            if (publicHolding) {
+                return calcCurrentValue(publicHolding, EntryTypeEnum.PUBLIC_HOLDING)
+            }
+            break
         case EntryTypeEnum.PRIVATE_HOLDING:
             const privateHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid)
-            return calcCurrentValue(privateHolding, EntryTypeEnum.PRIVATE_HOLDING)
+            if (privateHolding) {
+                return calcCurrentValue(privateHolding, EntryTypeEnum.PRIVATE_HOLDING)
+            }
+            break
     }
+    return 0
 }
 
 /**
@@ -245,8 +306,8 @@ function _compareTargetPercentage(
     assetB: AssetRenderingEntry,
     isAsc: boolean
 ): number {
-    const targetPercentageA: number = _getTargetPercentage(assetStore, assetA)
-    const targetPercentageB: number = _getTargetPercentage(assetStore, assetB)
+    const targetPercentageA: number = _getTargetPercentage(assetStore, assetA, isAsc)
+    const targetPercentageB: number = _getTargetPercentage(assetStore, assetB, isAsc)
 
     if (targetPercentageA < targetPercentageB) return (isAsc) ? -1 : 1;
     if (targetPercentageA > targetPercentageB) return (isAsc) ? 1 : -1;
@@ -256,22 +317,42 @@ function _compareTargetPercentage(
 /**
  * Get the target percentage of an asset rendering entry by its uuid and entry type
  *
- * @param assetStore
- * @param asset
+ * @param assetStore any
+ * @param asset AssetRenderingEntry
+ * @param isAsc boolean
  *
  * @return number
  */
-function _getTargetPercentage(assetStore: any, asset: AssetRenderingEntry): number {
+function _getTargetPercentage(
+    assetStore: any,
+    asset: AssetRenderingEntry,
+    isAsc: boolean
+): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            return 0
+            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (holdingGroup) {
+                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+                    const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
+                    const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
+                    return _compareTargetPercentage(assetStore, assetA, assetB, isAsc)
+                })
+            }
+            break
         case EntryTypeEnum.PUBLIC_HOLDING:
             const publicHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid)
-            return getTargetPercentage(publicHolding, EntryTypeEnum.PUBLIC_HOLDING)
+            if (publicHolding) {
+                return getTargetPercentage(publicHolding, EntryTypeEnum.PUBLIC_HOLDING)
+            }
+            break
         case EntryTypeEnum.PRIVATE_HOLDING:
             const privateHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid)
-            return getTargetPercentage(privateHolding, EntryTypeEnum.PRIVATE_HOLDING)
+            if (privateHolding) {
+                return getTargetPercentage(privateHolding, EntryTypeEnum.PRIVATE_HOLDING)
+            }
+            break
     }
+    return 0
 }
 
 /**
@@ -290,8 +371,8 @@ function _compareDeviation(
     assetB: AssetRenderingEntry,
     isAsc: boolean
 ): number {
-    const deviationA: number = _getDeviation(assetStore, assetA)
-    const deviationB: number = _getDeviation(assetStore, assetB)
+    const deviationA: number = _getDeviation(assetStore, assetA, isAsc)
+    const deviationB: number = _getDeviation(assetStore, assetB, isAsc)
 
     if (deviationA < deviationB) return (isAsc) ? -1 : 1;
     if (deviationA > deviationB) return (isAsc) ? 1 : -1;
@@ -301,20 +382,40 @@ function _compareDeviation(
 /**
  * Get the deviation of an asset rendering entry by its uuid and entry type
  *
- * @param assetStore
- * @param asset
+ * @param assetStore any
+ * @param asset AssetRenderingEntry
+ * @param isAsc boolean
  *
  * @return number
  */
-function _getDeviation(assetStore: any, asset: AssetRenderingEntry): number {
+function _getDeviation(
+    assetStore: any,
+    asset: AssetRenderingEntry,
+    isAsc: boolean
+): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            return 0
+            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (holdingGroup) {
+                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+                    const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
+                    const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
+                    return _compareDeviation(assetStore, assetA, assetB, isAsc)
+                })
+            }
+            break
         case EntryTypeEnum.PUBLIC_HOLDING:
             const publicHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid)
-            return getRawDeviation(publicHolding, EntryTypeEnum.PUBLIC_HOLDING)
+            if (publicHolding) {
+                return getRawDeviation(publicHolding, EntryTypeEnum.PUBLIC_HOLDING)
+            }
+            break
         case EntryTypeEnum.PRIVATE_HOLDING:
             const privateHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid)
-            return getRawDeviation(privateHolding, EntryTypeEnum.PRIVATE_HOLDING)
+            if (privateHolding) {
+                return getRawDeviation(privateHolding, EntryTypeEnum.PRIVATE_HOLDING)
+            }
+            break
     }
+    return 0
 }
