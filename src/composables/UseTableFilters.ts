@@ -5,10 +5,11 @@ import type {AssetRenderingEntry} from "@/models/holdings/AssetRenderingEntry";
 import type {PublicHolding} from "@/models/holdings/PublicHolding";
 import type {PrivateHolding} from "@/models/holdings/PrivateHolding";
 import {getNewestPriceRecord} from "@/composables/UsePriceRecords";
-import {calcCurrentValue, getCurrentValue} from "@/composables/assets/UseCurrentValues";
+import {calcCurrentValue} from "@/composables/assets/UseCurrentValues";
 import {getTargetPercentage} from "@/composables/assets/UseTargetPercentage";
 import {getRawDeviation} from "@/composables/assets/UseDeviation";
 import type {HoldingGroup} from "@/models/holdings/HoldingGroup";
+import {getTotalGroupDeviation, getTotalGroupValue} from "@/composables/UseTotalValues";
 
 /**
  * Sort the asset list based on the column and isAsc parameters
@@ -65,8 +66,8 @@ function _compareName(
     assetB: AssetRenderingEntry,
     isAsc: boolean
 ): number {
-    const nameA: string = _getName(assetStore, assetA)
-    const nameB: string = _getName(assetStore, assetB)
+    const nameA: string = _getName(assetStore, assetA, isAsc)
+    const nameB: string = _getName(assetStore, assetB, isAsc)
     return (isAsc)
         ? nameA.localeCompare(nameB)
         : nameB.localeCompare(nameA)
@@ -75,23 +76,48 @@ function _compareName(
 /**
  * Get the name of an asset rendering entry by its uuid and entry type
  *
- * @param assetStore
- * @param asset
+ * @param assetStore any
+ * @param asset AssetRenderingEntry
+ * @param isAsc boolean
  *
  * @return string
  */
-function _getName(assetStore: any, asset: AssetRenderingEntry): string {
+function _getName(
+    assetStore: any,
+    asset: AssetRenderingEntry,
+    isAsc: boolean
+): string {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            const holdingGroup = assetStore.getAssetPoolEntryByUuid(asset.uuid) as HoldingGroup
-            return holdingGroup.groupName
+            // Compare inner group values
+            const renderGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (renderGroup) {
+                renderGroup.groupEntries = renderGroup.groupEntries.sort((a, b) => {
+                    const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
+                    const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
+                    return _compareName(assetStore, assetA, assetB, isAsc)
+                })
+            }
+            // Compare group itself
+            const poolGroup = assetStore.getAssetPoolEntryByUuid(asset.uuid) as HoldingGroup
+            if (poolGroup) {
+                return poolGroup.groupName
+            }
+            break
         case EntryTypeEnum.PUBLIC_HOLDING:
             const publicHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid) as PublicHolding
-            return publicHolding.publicAsset.assetName
+            if (publicHolding) {
+                return publicHolding.publicAsset.assetName
+            }
+            break
         case EntryTypeEnum.PRIVATE_HOLDING:
             const privateHolding = assetStore.getAssetPoolEntryByUuid(asset.uuid) as PrivateHolding
-            return privateHolding.title
+            if (privateHolding) {
+                return privateHolding.title
+            }
+            break
     }
+    return ''
 }
 
 /**
@@ -134,9 +160,10 @@ function _getPrice(
 ): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
-            if (holdingGroup) {
-                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+            // Compare inner group values
+            const renderGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (renderGroup) {
+                renderGroup.groupEntries = renderGroup.groupEntries.sort((a, b) => {
                     const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
                     const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
                     return _comparePrice(assetStore, assetA, assetB, isAsc)
@@ -200,9 +227,10 @@ function _getQuantity(
 ): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
-            if (holdingGroup) {
-                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+            // Compare inner group values
+            const renderGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (renderGroup) {
+                renderGroup.groupEntries = renderGroup.groupEntries.sort((a, b) => {
                     const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
                     const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
                     return _compareQuantity(assetStore, assetA, assetB, isAsc)
@@ -265,13 +293,18 @@ function _getCurrentValue(
 ): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
-            if (holdingGroup) {
-                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+            // Compare inner group values
+            const renderGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (renderGroup) {
+                renderGroup.groupEntries = renderGroup.groupEntries.sort((a, b) => {
                     const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
                     const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
                     return _compareCurrentValue(assetStore, assetA, assetB, isAsc)
                 })
+            }
+            const poolGroup = assetStore.getAssetPoolEntryByUuid(asset.uuid) as HoldingGroup
+            if (poolGroup) {
+                return getTotalGroupValue(poolGroup.uuid)
             }
             break
         case EntryTypeEnum.PUBLIC_HOLDING:
@@ -330,13 +363,19 @@ function _getTargetPercentage(
 ): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
-            if (holdingGroup) {
-                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+            // Compare inner group values
+            const renderGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (renderGroup) {
+                renderGroup.groupEntries = renderGroup.groupEntries.sort((a, b) => {
                     const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
                     const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
                     return _compareTargetPercentage(assetStore, assetA, assetB, isAsc)
                 })
+            }
+            // Compare group itself
+            const poolGroup = assetStore.getAssetPoolEntryByUuid(asset.uuid) as HoldingGroup
+            if (poolGroup) {
+                return poolGroup.targetPercentage
             }
             break
         case EntryTypeEnum.PUBLIC_HOLDING:
@@ -395,13 +434,19 @@ function _getDeviation(
 ): number {
     switch (asset.entryType) {
         case EntryTypeEnum.HOLDING_GROUP:
-            const holdingGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
-            if (holdingGroup) {
-                holdingGroup.groupEntries = holdingGroup.groupEntries.sort((a, b) => {
+            // Compare inner group values
+            const renderGroup = assetStore.renderState.assetList.get(asset.uuid) as AssetRenderingEntry
+            if (renderGroup) {
+                renderGroup.groupEntries = renderGroup.groupEntries.sort((a, b) => {
                     const assetA = { uuid: a.uuid, entryType: a.entryType } as AssetRenderingEntry
                     const assetB = { uuid: b.uuid, entryType: b.entryType } as AssetRenderingEntry
                     return _compareDeviation(assetStore, assetA, assetB, isAsc)
                 })
+            }
+            // Compare group itself
+            const poolGroup = assetStore.getAssetPoolEntryByUuid(asset.uuid) as HoldingGroup
+            if (poolGroup) {
+                return getTotalGroupDeviation(poolGroup.uuid)
             }
             break
         case EntryTypeEnum.PUBLIC_HOLDING:
