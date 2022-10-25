@@ -49,7 +49,7 @@
     "overview": "Übersicht",
     "broker": "Broker Anbindung",
     "assets": "Assets Verwalten",
-    "schedule": "Investitionen planen",
+    "schedule": "Investitionen Planen",
     "transactions": "Transaktionshistorie",
     "settings": "Einstellungen",
     "signOut": "Abmelden"
@@ -153,7 +153,19 @@
     "heading": "In Entwicklung",
     "description": "Dieser Bereich befindet sich noch in der Entwicklung. Wir freuen uns darauf Ihnen bald mehr präsentieren zu können.",
     "moreInfo": "Mehr Informationen",
-    "imageAltTag": "Bild Anwendung in Entwicklung"
+    "imageAltTag": "Bild Anwendung in Entwicklung",
+    "brokerTab": {
+      "title": "Broker anbinden",
+      "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    },
+    "scheduleTab": {
+      "title": "Investitionen planen",
+      "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    },
+    "transactionTab": {
+      "title": "Transaktionshistorie",
+      "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+    }
   },
   "flashMessages": {
     "authorization": {
