@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
-const isLocalHost = true
+const isLocalHost = false
 
 enum Host {
   LOCALHOST = 'http://localhost:',

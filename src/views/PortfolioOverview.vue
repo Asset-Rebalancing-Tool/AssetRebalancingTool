@@ -1,18 +1,26 @@
 <template>
   <section id="overview">
-<!--<div class="card">
+    <div class="card">
       <div class="card-header">
-        <div class="card-label-wrapper">
-          <IconPercent style="width: 12px; height: 12px" />
-          <p>Abweichung pro Asset</p>
+
+        <div class="tab-wrapper">
+          <div class="card-label-wrapper active">
+            <IconPercent style="width: 12px; height: 12px" />
+            <p>Aktuelle Aufteilung</p>
+          </div>
+          <div class="card-label-wrapper">
+            <IconPercent style="width: 12px; height: 12px" />
+            <p>Ziel-Verteilung</p>
+          </div>
         </div>
+
         <IconInfo style="width: 22px; height: 22px" />
       </div>
       <RadarChart />
-    </div>-->
+    </div>
     <div class="card">
       <div class="card-header">
-        <div class="card-label-wrapper">
+        <div class="card-label-wrapper active">
           <IconPercent style="width: 12px; height: 12px" />
           <p>Abweichung von Soll-Verteilung</p>
         </div>
