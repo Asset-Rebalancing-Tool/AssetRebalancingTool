@@ -17,6 +17,7 @@ export default {
         return instance.delete(`/holding_api/asset_holding/group/${groupUuid}`)
       })
       .then(() => {
+        // TODO: other handling that won't delete the public and private holdings
         deleteAssetPoolEntry(groupUuid)
         deleteRenderListEntry(groupUuid)
       })

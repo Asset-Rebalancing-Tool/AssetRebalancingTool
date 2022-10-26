@@ -181,7 +181,7 @@
     "imageAltTag": "Bild Anwendung in Entwicklung",
     "brokerTab": {
       "title": "Broker anbinden",
-      "text": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."
+      "text": "Broker mit dem Account verknüpfen zu können, soll eine der Kern Funktionalitäten unserer App werden. Durch das Verknüpfen können wir ihre Aktien & Fonds in Echtzeit auslesen und Investitionen, die sie über unsere App vormerken ausführen.\nWir planen zusätzlich eine automatisierte Sparplan Anpassung anzubieten.\nDa das Anpassen der Sparplan-Raten ihrer Fonds & ETF‘s keine Transaktionskosten verursacht, sind wir in der Lage Ihnen ein kostenloses monatliches Asset-Rebalancing anzubieten.\nDie Funktionen werden als erstes für Scalable Capital Nutzer bereitstehen. Wir bemühen uns aber zeitnah die Anbindung zu weiteren Brokern zu integrieren."
     },
     "scheduleTab": {
       "title": "Investitionen planen",
