@@ -76,9 +76,9 @@
       header {
         @include full-reset;
         position: absolute;
-        left: -3px;
+        left: -4px;
         top: -24px;
-        width: calc(100% + 7px);
+        width: calc(100% + 8px);
         height: 28px;
         background-color: $main-color;
         border-radius: $secondary-border-radius $secondary-border-radius 0 0;
