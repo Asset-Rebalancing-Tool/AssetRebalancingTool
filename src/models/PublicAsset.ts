@@ -5,14 +5,14 @@ import type { AssetTypeEnum } from '@/models/enums/AssetTypeEnum'
 import type { UnitTypeEnum } from '@/models/enums/UnitTypeEnum'
 
 export interface PublicAsset {
-  uuid: string
-  assetPriceRecords: PriceRecord[]
-  assetInformations: AssetInformation[]
-  assetName: string
-  assetType: AssetTypeEnum
-  symbol: string | null
-  isin: string | null
-  availableCurrencies: CurrencyEnum[]
-  availableUnitTypes: UnitTypeEnum[]
-  iconBase64: string | null
+  readonly uuid: string
+  readonly assetPriceRecords: PriceRecord[]
+  readonly assetInformations: AssetInformation[]
+  readonly assetName: string
+  readonly assetType: AssetTypeEnum
+  readonly symbol: string | null
+  readonly isin: string | null
+  readonly availableCurrencies: CurrencyEnum[]
+  readonly availableUnitTypes: UnitTypeEnum[]
+  readonly iconBase64: string | null
 }

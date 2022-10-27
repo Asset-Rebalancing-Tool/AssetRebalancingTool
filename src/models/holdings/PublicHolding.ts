@@ -8,11 +8,11 @@ import type { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 export interface PublicHolding extends BaseEntity {
   customName: string
   displayCustomName: boolean
-  holdingOrigin: HoldingOriginEnum
+  readonly holdingOrigin: HoldingOriginEnum
   ownedQuantity: number
   publicAsset: PublicAsset
   targetPercentage: number
-  currency: CurrencyEnum
-  unitType: UnitTypeEnum
+  readonly currency: CurrencyEnum
+  readonly unitType: UnitTypeEnum
   entryType: EntryTypeEnum
 }
