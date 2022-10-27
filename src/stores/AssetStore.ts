@@ -126,6 +126,8 @@ export const useAssetStore = defineStore('assetStore', () => {
 
   /**
    * Clear the store maps and state variables, in order to prevent bugs when re logging
+   *
+   * @return void
    */
   function resetStoreState(): void {
     // Clear both the asset pool and the asset render list map

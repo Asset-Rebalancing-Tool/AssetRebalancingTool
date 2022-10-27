@@ -3,7 +3,6 @@ import { reactive, ref, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import type { PublicAsset } from '@/models/PublicAsset'
 import type { SearchbarState } from '@/models/SearchbarState'
-import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
 
 export const useSearchStore = defineStore('searchStore', () => {
   /**-******************************************************************-**/
@@ -14,7 +13,7 @@ export const useSearchStore = defineStore('searchStore', () => {
   const showSidebar: Ref<boolean> = ref(localStorage.getItem('token') !== null)
 
   // The reactive searchbar state
-  const searchbarState: SearchbarState = reactive({
+  let searchbarState: SearchbarState = reactive({
     searchString: '',
     searchbarAssets: [],
     searchbarResultCount: 0,
@@ -46,6 +45,21 @@ export const useSearchStore = defineStore('searchStore', () => {
     return {} as PublicAsset
   }
 
+  /**
+   * Clear the store state variables, in order to prevent bugs when re logging
+   *
+   * @return void
+   */
+  function resetStoreState(): void {
+    searchbarState = {
+      searchString: '',
+      searchbarAssets: [],
+      searchbarResultCount: 0,
+      searchbarLoadingFlag: false,
+      activeModalUnderlay: false
+    }as SearchbarState
+  }
+
   /**-******************************************************************-**/
   /**------------- Return All State Variables And Actions ---------------**/
   /**-******************************************************************-**/
@@ -54,5 +68,6 @@ export const useSearchStore = defineStore('searchStore', () => {
     showSidebar,
     searchbarState,
     getSearchbarAsset,
+    resetStoreState
   }
 })

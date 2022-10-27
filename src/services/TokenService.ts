@@ -96,6 +96,8 @@ export function loginUser(request: AuthRequest): Promise<number> {
  */
 export const logoutUser = (): void => {
   useAssetStore().resetStoreState()
+  useSearchStore().resetStoreState()
+  useNotificationStore().resetFlashMessage()
   redirectToLogin()
 }
 
