@@ -1,36 +1,76 @@
-.table-filter {
-  @include base-grid;
+.filter-container {
+  position: relative;
+  width: 100%;
   height: 35px;
-  grid-template-columns: $holding-row-template-columns;
-  grid-column-gap: $holding-row-column-gap;
-  width: calc(100% - ($base-padding * 2));
-  padding-left: 10px; /* 10px Left padding .holding-row */
-  padding-right: 22px; /* 10px Left padding .holding-row */
-  border-bottom: 1px solid $tertiary-background-color;
-  margin: 0 25px;
 
-  .column {
-    position: relative;
+  .filter-background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-
-    span {
-      @include absolute-center-xy;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-
-    svg {
-      height: 20px;
-      width: 11px;
-      margin-left: 6px;
-      margin-bottom: -5px;
-    }
+    height: 35px;
+    background-color: $primary-background-color;
+    z-index: 5;
   }
 
-  .column.info span {
-    left: 0;
-    transform: translateY(-50%);
+  .filter-shadow {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    height: 35px;
+    width: calc(100% - ($base-padding * 2));
+    box-shadow:
+            0 1.6px 1.2px rgba(0, 0, 0, 0.018),
+            0 3.4px 2.7px rgba(0, 0, 0, 0.025),
+            0 5.8px 4.6px rgba(0, 0, 0, 0.03),
+            0 8.7px 6.9px rgba(0, 0, 0, 0.034),
+            0 12.5px 10px rgba(0, 0, 0, 0.038),
+            0 17.7px 14.2px rgba(0, 0, 0, 0.042),
+            0 25.1px 20.1px rgba(0, 0, 0, 0.046),
+            0 36.5px 29.2px rgba(0, 0, 0, 0.051),
+            0 56.3px 45px rgba(0, 0, 0, 0.058),
+            0 100px 80px rgba(0, 0, 0, 0.073)
+  ;
+    z-index: 2;
+  }
+
+
+  .table-filter {
+    position: relative;
+    @include base-grid;
+    height: 35px;
+    grid-template-columns: $holding-row-template-columns;
+    grid-column-gap: $holding-row-column-gap;
+    width: calc(100% - ($base-padding * 2));
+    padding-left: 10px; /* 10px Left padding .holding-row */
+    padding-right: 22px; /* 10px Left padding .holding-row */
+    border-bottom: 1px solid $tertiary-background-color;
+    margin: 0 25px;
+    z-index: 10;
+
+    .column {
+      position: relative;
+      width: 100%;
+      height: 100%;
+
+      span {
+        @include absolute-center-xy;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      svg {
+        height: 20px;
+        width: 11px;
+        margin-left: 6px;
+        margin-bottom: -5px;
+      }
+    }
+
+    .column.info span {
+      left: 0;
+      transform: translateY(-50%);
+    }
   }
 }
 

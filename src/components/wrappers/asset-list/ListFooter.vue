@@ -1,5 +1,5 @@
 <template>
-  <footer>
+  <footer :class="{shadow: showShadow}">
     <h4>{{ $t('assetList.listFooter.totalValue') }}</h4>
 
     <div class="total-value-wrapper">
@@ -60,6 +60,13 @@ import IconCheck from '@/assets/icons/IconCheck.vue'
 import IconWarning from "@/assets/icons/flash-message/IconWarning.vue";
 import TotalTargetPercentageTooltip from "@/components/wrappers/asset-list/tooltips/TotalTargetPercentageTooltip.vue";
 import TotalDeviationTooltip from "@/components/wrappers/asset-list/tooltips/TotalDeviationTooltip.vue";
+
+const props = defineProps({
+  showShadow: {
+    type: Boolean,
+    default: false,
+  },
+})
 
 const assetStore = useAssetStore()
 

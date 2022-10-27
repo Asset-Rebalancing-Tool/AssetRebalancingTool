@@ -5,7 +5,7 @@
       <SearchbarContent />
     </header>
 
-    <TableFilters v-if="!showEmptyAssetListBc" />
+    <TableFilters v-if="!showEmptyAssetListBc" :show-shadow="showContainerShadow" />
 
     <div class="holding-container">
       <div
@@ -72,14 +72,14 @@
       <EmptyAssetList v-if="showEmptyAssetListBc" />
     </div>
 
-    <ListFooter v-if="!showEmptyAssetListBc" />
+    <ListFooter v-if="!showEmptyAssetListBc" :show-shadow="showContainerShadow" />
 
     <FlashMessage v-if="showFlashMessage" />
   </section>
 </template>
 
 <script lang="ts" setup>
-import type { Ref } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 import { computed, onMounted } from 'vue'
 import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 import type { AssetRenderingEntry } from '@/models/holdings/AssetRenderingEntry'
@@ -93,11 +93,11 @@ import PrivateHolding from '@/components/wrappers/asset-list/list-entries/Privat
 import ListFooter from '@/components/wrappers/asset-list/ListFooter.vue'
 import EmptyAssetList from '@/components/wrappers/EmptyAssetList.vue'
 import FlashMessage from '@/components/wrappers/FlashMessage.vue'
-import CopyAnimation from '@/components/CopyAnimation.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
 import { generateAssetRenderList } from '@/composables/assets/UseAssetRenderList'
 import { executeAction } from '@/composables/assets/UseHoldings'
+import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
 
 /**-***************************************************-**/
 /** ----------- Store And List Declarations ----------- **/
@@ -159,6 +159,25 @@ function getNestedHoldingCount(groupUuid: string) {
   }
   return 0
 }
+
+
+
+const showContainerShadow: ComputedRef<boolean> = computed(() => {
+  let containerHeight = 0
+  assetStore.assetPool.forEach((entry: AssetPoolEntry) => {
+    switch (entry.entryType) {
+      case EntryTypeEnum.PUBLIC_HOLDING:
+      case EntryTypeEnum.PRIVATE_HOLDING:
+        containerHeight = containerHeight + 80
+        break
+      case EntryTypeEnum.HOLDING_GROUP:
+        containerHeight = containerHeight + 114
+        break
+    }
+  })
+  return containerHeight > document.documentElement.clientHeight - 202 && !assetStore.renderState.loadingFlag
+})
+
 </script>
 
 <style lang="scss">

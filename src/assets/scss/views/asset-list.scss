@@ -62,7 +62,7 @@
     height: $outer-holding-row-height;
     background-color: $tertiary-background-color;
     padding: $holding-row-padding 25px $holding-row-padding 33px;
-    box-shadow: 0 -3px 8px rgba(0,0,0,0.2);
+    z-index: 5;
 
     .total-value-wrapper,
     .total-target-percentage-wrapper,
@@ -138,6 +138,21 @@
         font-weight: $bold-font-weight;
       }
     }
+  }
+
+  footer.shadow:not(.holding-container footer) {
+    box-shadow:
+            0 -1.6px 1.2px rgba(0, 0, 0, 0.018),
+            0 -3.4px 2.7px rgba(0, 0, 0, 0.025),
+            0 -5.8px 4.6px rgba(0, 0, 0, 0.03),
+            0 -8.7px 6.9px rgba(0, 0, 0, 0.034),
+            0 -12.5px 10px rgba(0, 0, 0, 0.038),
+            0 -17.7px 14.2px rgba(0, 0, 0, 0.042),
+            0 -25.1px 20.1px rgba(0, 0, 0, 0.046),
+            0 -36.5px 29.2px rgba(0, 0, 0, 0.051),
+            0 -56.3px 45px rgba(0, 0, 0, 0.058),
+            0 -100px 80px rgba(0, 0, 0, 0.073)
+  ;
   }
 
   .holding-container {
