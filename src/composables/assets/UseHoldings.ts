@@ -1,7 +1,7 @@
 import { useAssetStore } from '@/stores/AssetStore'
 import PatchAssetService from '@/services/PatchAssetService'
 import DeleteAssetService from '@/services/DeleteAssetService'
-import { HoldingActionEnum } from '@/models/actions/HoldingActionEnum'
+import { HoldingActionEnum } from '@/models/enums/HoldingActionEnum'
 import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
 import type { HoldingGroup } from '@/models/holdings/HoldingGroup'
