@@ -33,7 +33,7 @@ export function addHoldingGroup(
 }
 
 /**
- * Push the whole holding to the selected group
+ * Push the whole holding to the selected group (group that is used in patch request)
  *
  * @param clickedEntry
  * @param group
@@ -57,7 +57,7 @@ export function pushHoldingToGroup(
 }
 
 /**
- * Remove a public or private holding from the selected holding group
+ * Remove a single public or private holding from the selected holding group
  *
  * @param holdingUuid string
  * @param groupUuid string
@@ -112,6 +112,42 @@ export async function removeHoldingFromGroup(
 }
 
 /**
+ * Dissolve a holding group and add all public and private holdings to the asset render list
+ *
+ * @param groupUuid string
+ *
+ * @return Promise<void>
+ */
+export async function dissolveHoldingGroup(groupUuid: string): Promise<void> {
+  const assetStore = useAssetStore()
+  if (!assetStore.deleteFlag) return
+
+  const renderGroup = assetStore.renderState.assetList.get(groupUuid)
+  if (renderGroup && renderGroup.groupEntries) {
+    renderGroup.groupEntries.forEach((holding: GroupEntry) => {
+        const poolEntry = assetStore.assetPool.get(holding.uuid)
+        if (poolEntry) {
+          _splicePoolGroupEntry(assetStore, groupUuid, poolEntry)
+          switch (poolEntry.entryType) {
+            case EntryTypeEnum.PUBLIC_HOLDING:
+              addPublicHoldingToRenderList(
+                  assetStore,
+                  poolEntry as PublicHolding
+              )
+              break
+            case EntryTypeEnum.PRIVATE_HOLDING:
+              addPrivateHoldingToRenderList(
+                  assetStore,
+                  poolEntry as PrivateHolding
+              )
+              break
+          }
+        }
+    })
+  }
+}
+
+/**
  * Splice a group entry from the selected asset pool group
  *
  * @param assetStore any
@@ -124,16 +160,18 @@ function _splicePoolGroupEntry(
   poolEntry: AssetPoolEntry
 ) {
   const poolGroup = assetStore.assetPool.get(groupUuid) as HoldingGroup
-  poolGroup.publicHoldings.forEach((holding, index) => {
-    if (holding.uuid === poolEntry.uuid) {
-      poolGroup.publicHoldings.splice(index, 1)
-    }
-  })
-  poolGroup.privateHoldings.forEach((holding, index) => {
-    if (holding.uuid === poolEntry.uuid) {
-      poolGroup.privateHoldings.splice(index, 1)
-    }
-  })
+  if (poolGroup) {
+    poolGroup.publicHoldings.forEach((holding, index) => {
+      if (holding.uuid === poolEntry.uuid) {
+        poolGroup.publicHoldings.splice(index, 1)
+      }
+    })
+    poolGroup.privateHoldings.forEach((holding, index) => {
+      if (holding.uuid === poolEntry.uuid) {
+        poolGroup.privateHoldings.splice(index, 1)
+      }
+    })
+  }
 }
 
 /**

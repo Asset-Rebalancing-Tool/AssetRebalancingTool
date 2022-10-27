@@ -2,6 +2,7 @@ import { getAuthorizedInstance } from '@/services/TokenService'
 import { deleteAssetPoolEntry } from '@/composables/assets/UseAssetPool'
 import { deleteRenderListEntry } from '@/composables/assets/UseAssetRenderList'
 import type { AxiosInstance } from 'axios'
+import { dissolveHoldingGroup } from "@/composables/assets/UseHoldingGroup";
 
 export default {
   /**
@@ -16,9 +17,12 @@ export default {
       .then((instance) => {
         return instance.delete(`/holding_api/asset_holding/group/${groupUuid}`)
       })
-      .then(() => {
-        // TODO: other handling that won't delete the public and private holdings
+      .then(async () => {
+        // Remove all holdings from the group and add them to the render list
+        await dissolveHoldingGroup(groupUuid)
+        // Delete the group pool entry
         deleteAssetPoolEntry(groupUuid)
+        // Delete the groups render list entry
         deleteRenderListEntry(groupUuid)
       })
       .catch((error) => {
