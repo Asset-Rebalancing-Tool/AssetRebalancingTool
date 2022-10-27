@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@intlify/unplugin-vue-i18n": "^0.7.0",
-    "@smartweb/vue-flash-message": "^1.0.0-alpha.12",
     "@vitest/ui": "^0.23.4",
     "@vue/test-utils": "^2.0.2",
     "axios": "^0.27.2",
@@ -25,8 +24,7 @@
     "vue-chart-3": "^3.1.8",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.2",
-    "vue3-lottie": "^2.3.0",
-    "yup": "^0.32.11"
+    "vue3-lottie": "^2.3.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
