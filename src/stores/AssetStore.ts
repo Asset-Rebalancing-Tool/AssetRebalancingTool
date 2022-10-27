@@ -14,25 +14,25 @@ export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
 
   // Pool that contains the whole asset data objects
-  const assetPool: Map<string, AssetPoolEntry> = reactive(
+  let assetPool: Map<string, AssetPoolEntry> = reactive(
     new Map<string, AssetPoolEntry>()
   )
 
   // State that contains template rendering related variables
-  const renderState: RenderState = reactive({
+  let renderState: RenderState = reactive({
     assetList: new Map<string, AssetRenderingEntry>(),
     loadingFlag: true,
   })
 
   // State that contains all total values
-  const sumState: SumState = reactive({
+  let sumState: SumState = reactive({
     totalValue: 0,
     totalPercentage: 0,
     totalTargetPercentage: 0,
     totalDeviation: 0,
   })
 
-  const listActionState: ListActionState = reactive({
+  let listActionState: ListActionState = reactive({
     editFlag: false,
     deleteFlag: false,
     selectedGroup: null,
@@ -124,6 +124,29 @@ export const useAssetStore = defineStore('assetStore', () => {
     }
   }
 
+  /**
+   * Clear the store maps and state variables, in order to prevent bugs when re logging
+   */
+  function resetStoreState(): void {
+    // Clear both the asset pool and the asset render list map
+    // NOTE: it is important to use clear. simply overwriting the maps with default values won't work
+    assetPool.clear()
+    renderState.assetList.clear()
+
+    sumState = {
+      totalValue: 0,
+      totalPercentage: 0,
+      totalTargetPercentage: 0,
+      totalDeviation: 0
+    } as SumState
+
+    listActionState = {
+      editFlag: false,
+      deleteFlag: false,
+      selectedGroup: null,
+    } as ListActionState
+  }
+
   /**-******************************************************************-**/
   /**--------------- Return States, Getters And Actions -----------------**/
   /**-******************************************************************-**/
@@ -142,5 +165,6 @@ export const useAssetStore = defineStore('assetStore', () => {
 
     // Asset List Render Actions
     getAssetPoolEntryByUuid,
+    resetStoreState
   }
 })

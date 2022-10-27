@@ -7,6 +7,7 @@ import { useNotificationStore } from '@/stores/NotificationStore'
 import type { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import type { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
 import { i18n } from '@/i18n'
+import {useAssetStore} from "@/stores/AssetStore";
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -93,7 +94,10 @@ export function loginUser(request: AuthRequest): Promise<number> {
  *
  * @return void
  */
-export const logoutUser = (): void => redirectToLogin()
+export const logoutUser = (): void => {
+  useAssetStore().resetStoreState()
+  redirectToLogin()
+}
 
 /**-******************************************************************-**/
 /**--------------------- Router Redirect Functions --------------------**/
