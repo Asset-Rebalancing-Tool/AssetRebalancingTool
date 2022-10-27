@@ -30,9 +30,19 @@
   }
 
   .holding-container {
+    //height: calc(100vh - 217px);
+    height: calc(100vh - 202px);
     width: calc(100% - (2 * $base-padding));
     margin: 0 $base-padding;
     column-gap: $base-column-gap;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    padding-top: 15px;
+  }
+
+  .holding-container::-webkit-scrollbar {
+    display: none;
   }
 
   header {

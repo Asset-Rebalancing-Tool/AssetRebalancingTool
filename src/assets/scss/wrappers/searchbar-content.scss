@@ -10,6 +10,10 @@
   pointer-events: none;
   transition: 50ms ease-out;
 
+  .public-asset-container::-webkit-scrollbar {
+    display: none;
+  }
+
   .public-asset-container {
     width: 100%;
     max-height: 425px;
