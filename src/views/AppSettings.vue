@@ -54,17 +54,17 @@
 
       <h3>{{ $t('settings.appThemeColor') }}</h3>
       <div class="app-theme-wrapper">
-        <div class="theme-color green"></div>
-        <div class="theme-color blue"></div>
-        <div class="theme-color orange"></div>
-        <div class="theme-color violette"></div>
+        <div @click="mainStore.changeThemeColor(ThemeColorEnum.GREEN)" class="theme-color green"></div>
+        <div @click="mainStore.changeThemeColor(ThemeColorEnum.BLUE)" class="theme-color blue"></div>
+        <div @click="mainStore.changeThemeColor(ThemeColorEnum.ORANGE)" class="theme-color orange"></div>
+        <div @click="mainStore.changeThemeColor(ThemeColorEnum.VIOLETTE)" class="theme-color violette"></div>
       </div>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import {allLocales, createLocaleObject, setLocale} from '@/i18n'
+import { allLocales, createLocaleObject, setLocale } from '@/i18n'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 import { CurrencyEnum } from "@/models/enums/CurrencyEnum"
@@ -73,6 +73,10 @@ import {computed, ref } from "vue";
 import type { Ref } from "vue";
 import {createCurrencyObject} from "@/composables/UseCurrency"
 import BaseInput from '@/components/inputs/BaseInput.vue'
+import { ThemeColorEnum } from "@/models/enums/ThemeColorEnum";
+import { useMainStore } from "@/stores/MainStore";
+
+const mainStore = useMainStore()
 
 // The default account currency that is
 const defaultCurrency: Ref<CurrencyEnum> = ref(CurrencyEnum.EUR)
@@ -87,7 +91,6 @@ const localeOptions = computed(
 const currencyOptions = computed(
     () => createCurrencyObject(Object.values(CurrencyEnum))
 )
-
 </script>
 
 <style lang="scss">

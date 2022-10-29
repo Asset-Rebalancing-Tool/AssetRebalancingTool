@@ -8,6 +8,7 @@ import type { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum
 import type { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
 import { i18n } from '@/i18n'
 import {useAssetStore} from "@/stores/AssetStore";
+import {useMainStore} from "@/stores/MainStore";
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -113,11 +114,11 @@ export const logoutUser = (): void => {
  * @return void
  */
 function redirectToLogin(): void {
-  const searchbarStore = useSearchStore()
+  const mainStore = useMainStore()
   lastFetched = new Date('0000-00-00')
   localStorage.removeItem('token')
   router.push('/sign-in')
-  searchbarStore.showSidebar = false
+  mainStore.showSidebar = false
 }
 
 /**
@@ -128,11 +129,11 @@ function redirectToLogin(): void {
  * @return void
  */
 function redirectToDashboard(token: string): void {
-  const searchbarStore = useSearchStore()
+  const mainStore = useMainStore()
   lastFetched = new Date()
   localStorage.setItem('token', token)
   router.push('/asset-list')
-  searchbarStore.showSidebar = true
+  mainStore.showSidebar = true
 }
 
 /**

@@ -9,9 +9,6 @@ export const useSearchStore = defineStore('searchStore', () => {
   /**-------------------- Asset List State Variables --------------------**/
   /**-******************************************************************-**/
 
-  // bool that indicates if the sidebar should be rendered
-  const showSidebar: Ref<boolean> = ref(localStorage.getItem('token') !== null)
-
   // The reactive searchbar state
   let searchbarState: SearchbarState = reactive({
     searchString: '',
@@ -65,7 +62,6 @@ export const useSearchStore = defineStore('searchStore', () => {
   /**-******************************************************************-**/
 
   return {
-    showSidebar,
     searchbarState,
     getSearchbarAsset,
     resetStoreState

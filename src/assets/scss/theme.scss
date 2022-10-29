@@ -2,7 +2,6 @@
 /* -------------- Theme Color Variables -------------- */
 /*******************************************************/
 
-// Main color
 $main-color: #19B399;
 $main-error: #ee5253;
 
@@ -415,7 +414,8 @@ body {
     box-sizing: border-box;
 }
 
-#app {
+#app,
+.app-container {
     width: 100%;
     height: 100vh;
     display: flex;
