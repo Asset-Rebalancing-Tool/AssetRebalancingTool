@@ -2,7 +2,7 @@
   <div class="empty-asset-list-container">
     <img
       class="empty-asset-list"
-      src="src/assets/images/how-to-use-asset-list-view.png"
+      src="@/assets/images/how-to-use-asset-list-view.png"
       alt="How to use asset list"
     />
     <div class="empty-list-grid">
