@@ -21,6 +21,7 @@
       background-color: #2a5454;
       color: $primary-text-color;
       z-index: 25;
+      font-weight: 500;
     }
 
     .corner {
@@ -96,6 +97,13 @@
     transform: translateX(-50%);
     padding: 3px 8px;
     font-size: 12px;
+    background-color: #8e3636;
+
+    .text {
+      font-size: 14px;
+      line-height: 22px;
+      background-color: #8e3636;
+    }
 
     .corner-wrapper {
       position: absolute;
@@ -103,14 +111,10 @@
       left: 50%;
       transform: translateX(-50%);
 
-      .text {
-        font-size: 14px;
-        line-height: 22px;
-      }
-
       .corner {
         transform: rotate(45deg);
         border-radius: $secondary-border-radius;
+        background-color: #8e3636;
       }
     }
   }
@@ -130,12 +134,21 @@
     top: -32px;
     left: calc(50% - 14px);
     transform: translateX(-50%);
+    background-color: #8e3636;
+
+    .text {
+      background-color: #8e3636;
+    }
 
     .corner-wrapper {
       position: absolute;
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
+
+      .corner {
+        background-color: #8e3636;
+      }
     }
   }
 }
