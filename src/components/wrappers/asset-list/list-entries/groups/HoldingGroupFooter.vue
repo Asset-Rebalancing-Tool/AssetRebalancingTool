@@ -254,7 +254,7 @@ const totalGroupPercentage = computed(() => {
 })
 
 const rawGroupDeviation = computed(
-    () => getTotalGroupDeviation(group.value.uuid)
+    () => +Number(getTotalGroupDeviation(group.value.uuid)).toFixed(2)
 )
 
 const deviationDirection = computed(
