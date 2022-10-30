@@ -1,46 +1,62 @@
 # Asset-Rebalancing-Tool
 
-This template should help get you started developing with Vue 3 in Vite.
+The best Asset-Rebalancing Tool you will find. 
 
-## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Type Support for `.vue` Imports in TS
+___
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Live [Demo Portfolio](https://portfolio-rebalancer.com/)
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+If you just wan't a playground to try our App out, you can visit the [Demo Portfolio](https://portfolio-rebalancer.com/).\
+On this demo you will have access to all major functionalities, that won't require an up front registration.\
+This Demo is sufficient enough to use it for an actual asset rebalancing.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+However, we still recommend [creating your own account](https://portfolio-rebalancer.com/sign-up/), in order to get the most out of our app.\
+If you wan't to try the App before creating an account, you will have the opportunity to convert all changes made during the demo browser session to into a new account.
 
-## Customize configuration
+### Advantages creating a personal account
+Features | Demo Account | personal Account
+----- |--------------| -----
+Live stock & ETF prices | check        | check
+Create your own custom assets  | check        | check
+Determine your investment strategy | check        | check
+Automatic rebalancing calculation | check        | check
+All monitoring fetaures | check | check
+save your assets  | x            | check
+autmatically import your assets  | x            | check
+Schedule your Investments  | x            | check
+Set your own account preferences  | x            | check
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+<br>
 
-## Project Setup
+However, if you're interested in playing around with the code base,
+or even extending it with your own functionalities,\
+feel free to check out the following documentation.\
+We are expecting a basic understanding of the following vuejs principles 
 
+## Manual Project Setup
+
+If you're interested in setting up your own environment
+
+<br>
+
+Start of by installing the project dependencies
 ```sh
 npm install
 ```
-
-### Compile and Hot-Reload for Development
-
+Compile and Hot-Reload for Development
 ```sh
 npm run dev
 ```
-
-### Type-Check, Compile and Minify for Production
-
+Type-Check, Compile and Minify for production
 ```sh
 npm run build
 ```
-
-### Lint with [ESLint](https://eslint.org/)
-
+Use [ESLint](https://eslint.org/) to analyse the code and find problems
 ```sh
 npm run lint
 ```
+
+
+:white_check_mark:
