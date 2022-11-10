@@ -19,4 +19,4 @@ COPY . .
 RUN vite build
 
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+CMD [ "http-server", "--proxy", "http://192.168.1.52:3500", "dist" ]
