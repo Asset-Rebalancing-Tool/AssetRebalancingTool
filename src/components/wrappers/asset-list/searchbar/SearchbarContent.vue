@@ -28,19 +28,23 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useSearchStore } from '@/stores/SearchStore'
-import { useAssetStore } from '@/stores/AssetStore'
+import {computed} from 'vue'
+import {useSearchStore} from '@/stores/SearchStore'
+import {useAssetStore} from '@/stores/AssetStore'
 import SearchbarAsset from '@/components/wrappers/asset-list/searchbar/PublicAsset.vue'
 import SearchbarSkeleton from '@/components/wrappers/asset-list/searchbar/SearchbarSkeleton.vue'
 import SearchbarFooter from '@/components/wrappers/asset-list/searchbar/SearchbarFooter.vue'
-import { hideModalUnderlay } from '@/composables/UseModalUnderlay'
-import type { PublicAsset } from '@/models/PublicAsset'
-import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
-import { getAuthorizedInstance } from '@/services/TokenService'
-import type { PublicHolding } from '@/models/holdings/PublicHolding'
-import { addPublicHoldingToRenderList } from '@/composables/assets/UseAssetRenderList'
-import { addPublicHoldingToPool } from '@/composables/assets/UseAssetPool'
+import {hideModalUnderlay} from '@/composables/UseModalUnderlay'
+import type {PublicAsset} from '@/models/PublicAsset'
+import type {PublicHoldingRequest} from '@/requests/PublicHoldingRequest'
+import {getAuthorizedInstance} from '@/services/TokenService'
+import type {PublicHolding} from '@/models/holdings/PublicHolding'
+import {addPublicHoldingToRenderList} from '@/composables/assets/UseAssetRenderList'
+import {addPublicHoldingToPool} from '@/composables/assets/UseAssetPool'
+import {useNotificationStore} from "@/stores/NotificationStore";
+import {FlashMessageIconEnum} from "@/models/enums/FlashMessageIconEnum";
+import {i18n} from "@/i18n";
+import {FlashMessageColorEnum} from "@/models/enums/FlashMessageColorEnum";
 
 // Initialize stores
 const searchbarStore = useSearchStore()
@@ -67,6 +71,10 @@ const showPriceLabel = computed(() => {
 })
 
 async function newPublicHoldingAction(uuid: string) {
+
+  const notificationStore = useNotificationStore()
+  const { t } = i18n.global
+
   // Hide the modal underlay, no matter what creation will be fired
   hideModalUnderlay()
   const asset: PublicAsset = searchbarStore.getSearchbarAsset(uuid)
@@ -85,6 +93,12 @@ async function newPublicHoldingAction(uuid: string) {
               console.log(
                 'SearchbarContent.vue no status case ' + error.response.status
               )
+              break
+            case 409:
+              notificationStore.flashMessage.icon = FlashMessageIconEnum.WARNING
+              notificationStore.flashMessage.text = t('flashMessages.assetList.409')
+              notificationStore.flashMessage.color = FlashMessageColorEnum.WARNING
+              notificationStore.flashMessage.showFlag = true
               break
           }
         }
