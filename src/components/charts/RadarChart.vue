@@ -1,6 +1,5 @@
 <template>
   <RadarChart
-    style="height:370px"
     :chart-data="data"
     :options="options"
     css-classes="radar-chart-container"
@@ -124,9 +123,6 @@ const options = ref({
 
 <style lang="scss" scoped>
 .radar-chart-container {
-  height: 460px;
-  width: 640px;
-  margin-left: -70px;
-  margin-top: -8px;
+
 }
 </style>
