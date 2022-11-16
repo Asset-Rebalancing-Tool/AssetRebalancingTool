@@ -38,7 +38,7 @@ server:
 steps:
   - name: deploy
     environment:
-      COMPOSE_PROJECT_NAME: rape_runner
+      COMPOSE_PROJECT_NAME: ar_tool
     commands:
       - docker compose build
       - docker compose up -d
