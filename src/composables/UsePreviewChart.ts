@@ -7,8 +7,10 @@ import { getFirstCurrencyPriceRecords } from '@/composables/UsePriceRecords'
  * @param allPriceRecords string
  */
 export function getDataValues(allPriceRecords: PriceRecord[]): number[] {
-  const priceRecords: PriceRecord[] =
-    getFirstCurrencyPriceRecords(allPriceRecords).reverse()
+  let priceRecords: PriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
+  if (priceRecords) {
+    priceRecords = priceRecords.reverse()
+  }
   const dataValues: number[] = []
   if (priceRecords) {
     for (const item of priceRecords) {
