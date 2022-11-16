@@ -1,6 +1,6 @@
 <template>
   <section id="overview">
-    <div class="card">
+<!--    <div class="card">
       <div class="card-header">
 
         <div class="tab-wrapper">
@@ -17,7 +17,7 @@
         <IconInfo style="width: 22px; height: 22px" />
       </div>
       <RadarChart />
-    </div>
+    </div>-->
     <div class="card">
       <div class="card-header">
         <div class="card-label-wrapper active">

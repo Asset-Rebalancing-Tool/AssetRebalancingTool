@@ -31,7 +31,10 @@ export function buildChartDataArrays(): RadioChartDataObject {
             case EntryTypeEnum.PUBLIC_HOLDING:
                 const publicHolding = poolEntry as PublicHolding
                 if (publicHolding) {
-                    labels.push(publicHolding.publicAsset.assetName)
+                    //labels.push(publicHolding.publicAsset.assetName)
+                    if (publicHolding.publicAsset.symbol != null) {
+                        labels.push(publicHolding.publicAsset.symbol)
+                    }
                     currentDistribution.push(100 - calcDeviation(poolEntry, poolEntry.entryType))
                     targetDistribution.push(100)
                 }
