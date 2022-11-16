@@ -26,8 +26,6 @@ import { buildChartDataArrays } from '@/composables/charts/UseRadarChart';
 const { t } = useI18n()
 const chartDataArrays = buildChartDataArrays()
 
-console.log(chartDataArrays)
-
 Chart.register(
     RadarController,
     RadialLinearScale,
@@ -126,6 +124,9 @@ const options = ref({
 
 <style lang="scss" scoped>
 .radar-chart-container {
-  width: 500px;
+  height: 460px;
+  width: 640px;
+  margin-left: -70px;
+  margin-top: -8px;
 }
 </style>

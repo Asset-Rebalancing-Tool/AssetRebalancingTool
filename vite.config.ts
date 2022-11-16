@@ -38,7 +38,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/asset_api': {
-        target: getProxyTarget(8080),
+        target: getProxyTarget(8081),
         changeOrigin: true,
         secure: false,
       },
