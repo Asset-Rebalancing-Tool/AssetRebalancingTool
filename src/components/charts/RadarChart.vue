@@ -122,7 +122,5 @@ const options = ref({
 </script>
 
 <style lang="scss" scoped>
-.radar-chart-container {
-
-}
+@import "@/assets/scss/views/overview.scss";
 </style>
