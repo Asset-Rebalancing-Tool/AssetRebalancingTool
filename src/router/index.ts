@@ -14,7 +14,7 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/sign-in',
+      path: '/',
       name: 'SignIn',
       component: SignIn,
     },
@@ -24,7 +24,7 @@ const router = createRouter({
       component: SignUp,
     },
     {
-      path: '/',
+      path: '/portfolio-overview',
       name: 'PortfolioOverview',
       component: PortfolioOverview,
       meta: {
@@ -78,14 +78,14 @@ router.beforeEach(async (toRout) => {
   resetStoreVariables()
 
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/sign-in', '/sign-up']
+  const publicPages = ['/', '/sign-up']
 
   // Bool that indicates if target rout require a token
   const tokenRequired = !publicPages.includes(toRout.path)
 
   // Redirect if route require token, but there is no token in local storage
   if (tokenRequired && localStorage.getItem('token') === null) {
-    return '/sign-in'
+    return '/'
   }
 
   // Redirect if route that does not require token, but token is set

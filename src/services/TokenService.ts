@@ -117,7 +117,7 @@ function redirectToLogin(): void {
   const mainStore = useMainStore()
   lastFetched = new Date('0000-00-00')
   localStorage.removeItem('token')
-  router.push('/sign-in')
+  router.push('/')
   mainStore.showSidebar = false
 }
 
