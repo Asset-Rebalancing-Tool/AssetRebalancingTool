@@ -39,6 +39,7 @@ import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 import IconDelete from '@/assets/icons/inputs/IconDelete.vue'
 import { useAssetStore } from '@/stores/AssetStore'
+import {AxiosResponse} from "axios";
 
 const searchbarStore = useSearchStore()
 const assetStore = useAssetStore()
@@ -119,9 +120,10 @@ function searchAsset(searchValue: string): void {
     abortController.value = new AbortController()
     await AssetService.fetchPublicAssets(searchValue, abortController.value)
       .then((results) => {
+        const publicAssets: PublicAsset[] = _removeIncompleteAssets(results)
         searchbarStore.searchbarState.searchbarLoadingFlag = false
         searchbarStore.searchbarState.searchbarResultCount = results.length
-        searchbarStore.searchbarState.searchbarAssets = results
+        searchbarStore.searchbarState.searchbarAssets = publicAssets
       })
       .catch((error) => {
         switch (error.response.status) {
@@ -133,6 +135,22 @@ function searchAsset(searchValue: string): void {
         }
       })
   }, 500)
+}
+
+/**
+ * Make sure to only display complete assets
+ *
+ * @param publicAssets[]
+ *
+ * @return PublicAsset[]
+ */
+function _removeIncompleteAssets(publicAssets: PublicAsset[]): PublicAsset[] {
+  publicAssets.forEach((asset: PublicAsset, index: number) => {
+    if (!asset.iconBase64) {
+      publicAssets.splice(index, 1)
+    }
+  })
+  return publicAssets
 }
 
 /**
