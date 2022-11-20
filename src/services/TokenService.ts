@@ -51,15 +51,11 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
   const instance = axios.create()
   instance.interceptors.response.use((response) => response, (error) => {
     switch(error.response.status) {
-      default:
-        console.log(
-            'FetchAssetService.ts no status case ' + error.response.status
-        )
-        break
       case 401:
         logoutUser()
         break;
     }
+    throw error;
   });
   instance.defaults.headers.common['Authorization'] =
     'Bearer ' + localStorage.getItem('token')
