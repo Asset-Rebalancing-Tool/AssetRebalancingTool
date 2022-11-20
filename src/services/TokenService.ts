@@ -49,6 +49,14 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
 
   // Create the axios instance and set the token as header
   const instance = axios.create()
+  instance.interceptors.response.use((response) => response, (error) => {
+    switch(error.response.status) {
+      case 401:
+        logoutUser()
+        break;
+    }
+    throw error;
+  });
   instance.defaults.headers.common['Authorization'] =
     'Bearer ' + localStorage.getItem('token')
 
@@ -83,7 +91,6 @@ export function registerUser(request: AuthRequest): Promise<number> {
  * @return Promise<number> Response Status
  */
 export function loginUser(request: AuthRequest): Promise<number> {
-  const { t } = i18n.global
   return axios
     .post<AuthRequest, AxiosResponse<string>>('/auth_api/login', request)
     .then((response: AxiosResponse) => redirectToDashboard(response.data))
