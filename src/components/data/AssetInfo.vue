@@ -4,8 +4,8 @@
       <div
         class="asset-logo"
         :class="{
-          shake: editGroupFlag,
-          delete: deleteHoldingFlag,
+          add: addEventFlag,
+          delete: deleteEventFlag,
         }"
         v-bind:style="{
           'background-image': 'url(data:image/png;base64,' + logo + ')',
@@ -29,13 +29,17 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type { Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import IconCopy from '@/assets/icons/IconCopy.vue'
 
-const assetMapStore = useAssetStore()
+const assetStore = useAssetStore()
 
 const props = defineProps({
+  groupUuid: {
+    type: String,
+    default: null
+  },
   type: {
     type: String,
     required: false,
@@ -50,11 +54,20 @@ const props = defineProps({
   },
 })
 
-const editGroupFlag = computed(() => assetMapStore.listActionState.editFlag)
+const addEventFlag: ComputedRef<boolean> = computed(() => {
+  return assetStore.listActionState.editFlagUngrouped && !props.groupUuid
+})
 
-const deleteHoldingFlag = computed(
-  () => assetMapStore.listActionState.deleteFlag
-)
+const deleteEventFlag: ComputedRef<boolean> = computed(() => {
+  if (!assetStore.listActionState.selectedGroup) {
+    return false
+  }
+
+  if (assetStore.listActionState.editFlagUngrouped && props.groupUuid === assetStore.listActionState.selectedGroup.uuid) {
+    return assetStore.listActionState.editFlagUngrouped
+  }
+  return false
+})
 
 // Copy the isin of an asset into the clipboard
 const copyISIN = (event: Event) => {

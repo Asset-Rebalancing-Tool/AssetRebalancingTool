@@ -88,7 +88,7 @@ async function addHoldingToGroup(holdingUuid: string): Promise<void> {
   const assetStore = useAssetStore()
 
   // Always return if no group is selected
-  if (!assetStore.editFlag) return
+  if (!assetStore.listActionState.editFlagUngrouped) return
 
   // Get the currently edited group and the holding that has been clicked
   const group: HoldingGroup | null = assetStore.selectedGroup

@@ -48,7 +48,7 @@ import {FlashMessageColorEnum} from "@/models/enums/FlashMessageColorEnum";
 
 // Initialize stores
 const searchbarStore = useSearchStore()
-const assetMapStore = useAssetStore()
+const assetStore = useAssetStore()
 
 const showContentWrapper = computed(
   () => searchbarStore.searchbarState.activeModalUnderlay
@@ -83,8 +83,8 @@ async function newPublicHoldingAction(uuid: string) {
     instance
       .post<PublicHolding>('/holding_api/asset_holding/public', request)
       .then((result) => {
-        addPublicHoldingToPool(assetMapStore, result.data)
-        addPublicHoldingToRenderList(assetMapStore, result.data)
+        addPublicHoldingToPool(assetStore, result.data)
+        addPublicHoldingToRenderList(assetStore, result.data)
       })
       .catch((error) => {
         {

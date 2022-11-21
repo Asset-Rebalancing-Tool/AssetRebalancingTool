@@ -1,6 +1,8 @@
 <template>
   <div class="holding-row">
     <AssetInfo
+      :group-uuid="groupUuid"
+      :uuid="holding.uuid"
       :type="assetType"
       :isin="holding.publicAsset.isin"
       :logo="holding.publicAsset.iconBase64"
@@ -124,6 +126,10 @@ import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
 
 const assetStore = useAssetStore()
 const props = defineProps({
+  groupUuid: {
+    type: String,
+    default: null
+  },
   uuid: {
     type: String,
     required: true,

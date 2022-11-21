@@ -8,7 +8,7 @@ export function showModalUnderlay(): void {
   const searchbarStore = useSearchStore()
   const assetStore = useAssetStore()
   searchbarStore.searchbarState.activeModalUnderlay = true
-  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.editFlagUngrouped = false
   assetStore.listActionState.deleteFlag = false
 }
 

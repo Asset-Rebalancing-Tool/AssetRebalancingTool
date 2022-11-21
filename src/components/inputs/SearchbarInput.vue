@@ -68,7 +68,7 @@ const deleteHoldingFlag = computed(() => {
 })
 
 function toggleDeleteHoldingFlag() {
-  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.editFlagUngrouped = false
   assetStore.listActionState.deleteFlag = !assetStore.listActionState.deleteFlag
 }
 

@@ -73,7 +73,7 @@ export async function removeHoldingFromGroup(
   const assetStore = useAssetStore()
 
   // Always return if the user is not in edit mode or no group is selected
-  if (!assetStore.editFlag || !assetStore.selectedGroup) return
+  if (!assetStore.listActionState.editFlagUngrouped || !assetStore.selectedGroup) return
 
   const renderGroup = assetStore.renderState.assetList.get(groupUuid)
   if (renderGroup && renderGroup.groupEntries) {

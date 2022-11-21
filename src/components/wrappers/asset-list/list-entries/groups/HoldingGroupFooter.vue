@@ -2,14 +2,14 @@
   <footer>
     <div class="footer-header">
       <button
-        v-show="!editGroupFlagFlag && !deleteHoldingGroupFlag"
+        v-show="!editGroupFlag && !deleteHoldingGroupFlag"
         @click.prevent="editGroup"
       >
         {{ $t('assetList.listEntries.holdingGroup.edit') }}
       </button>
       <button
         class="save"
-        v-show="editGroupFlagFlag && !deleteHoldingGroupFlag"
+        v-show="editGroupFlag && !deleteHoldingGroupFlag"
         @click="
           PatchAssetService.patchHoldingGroup(
             patchHoldingGroupRequest(),
@@ -26,10 +26,10 @@
       >
         {{ $t('assetList.listEntries.holdingGroup.delete') }}
       </button>
-      <h4 v-show="!editGroupFlagFlag">{{ groupName }}</h4>
+      <h4 v-show="!editGroupFlag">{{ groupName }}</h4>
       <input
         class="group-name-input"
-        v-show="editGroupFlagFlag"
+        v-show="editGroupFlag"
         type="text"
         v-model="groupName"
       />
@@ -141,7 +141,16 @@ const hoverGroupTargetPercentage: Ref<boolean> = ref(false)
 const hoverGroupDeviation: Ref<boolean> = ref(false)
 
 // bool that indicates if the group is currently editable or not
-const editGroupFlagFlag = computed(() => assetStore.editFlag)
+const editGroupFlag: ComputedRef<boolean> = computed(() => {
+  if (!assetStore.listActionState.selectedGroup) {
+    return false
+  }
+
+  if (assetStore.listActionState.editFlagUngrouped && props.uuid === assetStore.listActionState.selectedGroup.uuid) {
+    return assetStore.listActionState.editFlagUngrouped
+  }
+  return false
+})
 const deleteHoldingGroupFlag = computed(() => assetStore.deleteFlag)
 
 /**-***************************************************-**/
@@ -175,7 +184,7 @@ function executeAnimation(field: Ref<boolean>) {
 // Start editing a group
 function editGroup(): void {
   assetStore.listActionState.deleteFlag = false
-  assetStore.listActionState.editFlag = true
+  assetStore.listActionState.editFlagUngrouped = true
   assetStore.listActionState.selectedGroup = group.value
 }
 
@@ -223,7 +232,7 @@ function patchGroupTargetPercentageRequest(
 
 // Reset the store's selection state in order to deactivate group editing
 function resetSelectionState() {
-  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.editFlagUngrouped = false
   assetStore.listActionState.selectedGroup = null
 }
 

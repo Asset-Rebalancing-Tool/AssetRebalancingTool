@@ -33,7 +33,7 @@ export const useAssetStore = defineStore('assetStore', () => {
   })
 
   let listActionState: ListActionState = reactive({
-    editFlag: false,
+    editFlagUngrouped: false,
     deleteFlag: false,
     selectedGroup: null,
   })
@@ -46,8 +46,8 @@ export const useAssetStore = defineStore('assetStore', () => {
     () => listActionState.deleteFlag
   )
 
-  const editFlag: ComputedRef<boolean> = computed(
-    () => listActionState.editFlag
+  const editFlagUngrouped: ComputedRef<boolean> = computed(
+    () => listActionState.editFlagUngrouped
   )
 
   const selectedGroup: ComputedRef<HoldingGroup | null> = computed(
@@ -143,7 +143,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     } as SumState
 
     listActionState = {
-      editFlag: false,
+      editFlagUngrouped: false,
       deleteFlag: false,
       selectedGroup: null,
     } as ListActionState
@@ -161,7 +161,7 @@ export const useAssetStore = defineStore('assetStore', () => {
     listActionState,
 
     // Computed template properties
-    editFlag,
+    editFlagUngrouped,
     deleteFlag,
     selectedGroup,
 

@@ -1,6 +1,6 @@
 <template>
   <div class="holding-row">
-    <AssetInfo :type="assetType" :edit-asset="isEdited">
+    <AssetInfo :groupuuid="groupUuid" :uuid="holding.uuid" :type="assetType" :edit-asset="isEdited">
       <template #asset-logo>
         <div
           class="asset-logo private-holding"
@@ -176,6 +176,10 @@ const { t } = useI18n()
 const assetStore = useAssetStore()
 
 const props = defineProps({
+  groupUuid: {
+    type: String,
+    default: null
+  },
   uuid: {
     type: String,
     required: true,
@@ -355,7 +359,7 @@ const currencyOptions = computed(
 /**-***************************************************-**/
 
 const editGroupFlag: ComputedRef<boolean> = computed(
-    () => assetStore.editFlag
+    () => assetStore.listActionState.editFlagUngrouped
 )
 
 const deleteHoldingFlag: ComputedRef<boolean> = computed(

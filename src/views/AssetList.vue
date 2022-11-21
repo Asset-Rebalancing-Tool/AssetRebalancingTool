@@ -24,6 +24,7 @@
               :key="groupEntry.uuid"
             >
               <PublicHolding
+                :group-uuid="uuid"
                 :uuid="groupEntry.uuid"
                 v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
                 @click="
@@ -36,6 +37,7 @@
                 "
               />
               <PrivateHolding
+                :group-uuid="uuid"
                 :uuid="groupEntry.uuid"
                 v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
                 @click="

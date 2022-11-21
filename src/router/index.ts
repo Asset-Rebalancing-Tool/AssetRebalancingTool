@@ -104,7 +104,7 @@ export default router
 function resetStoreVariables(): void {
   const assetStore = useAssetStore()
   const notificationStore = useNotificationStore()
-  assetStore.listActionState.editFlag = false
+  assetStore.listActionState.editFlagUngrouped = false
   assetStore.listActionState.deleteFlag = false
   notificationStore.flashMessage.showFlag = false
 }
