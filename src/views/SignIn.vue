@@ -17,6 +17,7 @@
           type="email"
           v-model="email"
           :error="emailError"
+          data-cypress="email-input"
           required
         >
           <template #label>
@@ -31,6 +32,7 @@
           @input="checkPasswordLength($event.target.value)"
           v-model="password"
           :error="passwordError"
+          data-cypress="password-input"
           required
         >
           <template #label>
@@ -52,12 +54,12 @@
             $t('authorization.links.forgotPassword')
           }}</RouterLink>
         </div>
-        <button type="submit" :class="{ show: activeSubmitButton }">
+        <button type="submit" :class="{ show: activeSubmitButton }" data-cypress="submit">
           {{ $t('authorization.buttons.signIn') }}
         </button>
         <span class="change-entry-view"
           >{{ $t('authorization.texts.notAMember') }}
-          <RouterLink class="link" :to="{ name: 'SignUp' }">{{
+          <RouterLink class="link" :to="{ name: 'SignUp' }" data-cypress="sign-up-link">{{
             $t('authorization.links.signUp')
           }}</RouterLink>
         </span>

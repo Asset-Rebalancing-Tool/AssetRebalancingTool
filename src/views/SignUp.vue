@@ -21,6 +21,7 @@
           type="email"
           v-model="email"
           :error="emailError"
+          data-cypress="email-input"
           required
         >
           <template #label>
@@ -35,6 +36,7 @@
           @input="checkPasswordStrength($event.target.value)"
           v-model="password"
           :error="passwordError"
+          data-cypress="password-input"
           required
         >
           <template #label>
@@ -58,7 +60,7 @@
             <span :class="{ strong: passwordStrength >= 5 }"></span>
           </div>
         </div>
-        <button type="submit" :class="{ show: activeSubmitButton }">
+        <button type="submit" :class="{ show: activeSubmitButton }" data-cypress="submit">
           {{ $t('authorization.buttons.signUp') }}
         </button>
         <span class="change-entry-view"
