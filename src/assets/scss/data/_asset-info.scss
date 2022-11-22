@@ -17,6 +17,8 @@
 
   .asset-logo.add,
   .asset-logo.private-holding.add,
+  .asset-logo.remove,
+  .asset-logo.private-holding.remove,
   .asset-logo.delete,
   .asset-logo.private-holding.delete {
     animation: shake 0.35s;
@@ -25,20 +27,30 @@
   }
 
   .asset-logo.delete:before,
+  .asset-logo.remove:before,
   .asset-logo.add:before {
     position: absolute;
     left: -6px;
     bottom: -6px;
-    content: '+';
+    content: '';
     font-size: 20px;
     color: #FFFFFF;
     text-align: center;
     line-height: 19px;
     width: 24px;
     height: 24px;
-    background-color: $main-color;
     border-radius: 50%;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .asset-logo.add:before {
+    content: '+';
+    background-color: $main-color;
+  }
+
+  .asset-logo.remove:before {
+    content: '-';
+    background-color: $main-error;
   }
 
   .asset-logo.delete:before {

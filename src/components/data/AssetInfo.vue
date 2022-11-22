@@ -5,6 +5,7 @@
         class="asset-logo"
         :class="{
           add: addEventFlag,
+          remove: removeEventFlag,
           delete: deleteEventFlag,
         }"
         v-bind:style="{
@@ -54,19 +55,26 @@ const props = defineProps({
   },
 })
 
+// Flag that indicates if the holding icon should refer to the add animation, color and symbol
 const addEventFlag: ComputedRef<boolean> = computed(() => {
   return assetStore.listActionState.editFlagUngrouped && !props.groupUuid
 })
 
-const deleteEventFlag: ComputedRef<boolean> = computed(() => {
+// Flag that indicates if the holding icon should refer to the remove animation, color and symbol
+const removeEventFlag: ComputedRef<boolean> = computed(() => {
   if (!assetStore.listActionState.selectedGroup) {
     return false
   }
-
+  // Ensure that only nested holdings of the selected group can be removed from the group
   if (assetStore.listActionState.editFlagUngrouped && props.groupUuid === assetStore.listActionState.selectedGroup.uuid) {
     return assetStore.listActionState.editFlagUngrouped
   }
   return false
+})
+
+// Flag that indicates if the holding icon should refer to the delete animation, color and symbol
+const deleteEventFlag: ComputedRef<boolean> = computed(() => {
+  return assetStore.listActionState.deleteFlag
 })
 
 // Copy the isin of an asset into the clipboard
