@@ -32,13 +32,13 @@ const props = defineProps({
   isAsc: {
     type: Boolean,
     default: true,
-  }
+  },
 })
 
 // Check what color the arrow up should have
 const arrowUpColor: ComputedRef<string> = computed(() => {
   if (props.isSelected) {
-    return (props.isAsc) ? '#19b399' : '#787878'
+    return props.isAsc ? '#19b399' : '#787878'
   }
   return '#787878'
 })
@@ -46,7 +46,7 @@ const arrowUpColor: ComputedRef<string> = computed(() => {
 // Check what color the arrow down should have
 const arrowDownColor: ComputedRef<string> = computed(() => {
   if (props.isSelected) {
-    return (!props.isAsc) ? '#19b399' : '#787878'
+    return !props.isAsc ? '#19b399' : '#787878'
   }
   return '#787878'
 })

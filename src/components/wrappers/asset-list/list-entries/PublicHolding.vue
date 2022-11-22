@@ -91,34 +91,46 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type {ComputedRef, Ref} from 'vue'
-import {computed, ref} from 'vue'
+import type { ComputedRef, Ref } from 'vue'
+import { computed, ref } from 'vue'
 import PatchAssetService from '@/services/PatchAssetService'
 import AssetInfo from '@/components/data/AssetInfo.vue'
 import ThreeDigitValue from '@/components/data/ThreeDigitValue.vue'
 import BaseInput from '@/components/inputs/BaseInput.vue'
 import InputAnimation from '@/components/inputs/InputAnimation.vue'
-import {AnimationWrapperEnum} from '@/models/enums/AnimationWrapperEnum'
-import {mapAssetType} from '@/composables/UseAssetType'
-import {formatValueArray, getNewestPriceRecord, getNewestPriceRecordFormatted,} from '@/composables/UsePriceRecords'
-import {mapCurrency} from '@/composables/UseCurrency'
+import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
+import { mapAssetType } from '@/composables/UseAssetType'
+import {
+  formatValueArray,
+  getNewestPriceRecord,
+  getNewestPriceRecordFormatted,
+} from '@/composables/UsePriceRecords'
+import { mapCurrency } from '@/composables/UseCurrency'
 import LineChart from '@/components/charts/LineChart.vue'
-import {getDataLabels, getDataValues, isPositiveChart, showGraph,} from '@/composables/UsePreviewChart'
-import {useAssetStore} from '@/stores/AssetStore'
+import {
+  getDataLabels,
+  getDataValues,
+  isPositiveChart,
+  showGraph,
+} from '@/composables/UsePreviewChart'
+import { useAssetStore } from '@/stores/AssetStore'
 import type { PublicHoldingRequest } from '@/requests/PublicHoldingRequest'
 import type { PriceRecord } from '@/models/nested/PriceRecord'
 import type { PublicHolding } from '@/models/holdings/PublicHolding'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import DeviationTooltip from '@/components/wrappers/asset-list/tooltips/DeviationTooltip.vue'
-import { getCurrentPercentage, getCurrentValue } from '@/composables/assets/UseCurrentValues'
+import {
+  getCurrentPercentage,
+  getCurrentValue,
+} from '@/composables/assets/UseCurrentValues'
 import {
   getRawDeviation,
   getDeviationArray,
   getDeviationArrowDirection,
-  checkIfDeviationExists
+  checkIfDeviationExists,
 } from '@/composables/assets/UseDeviation'
-import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
-import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
+import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
+import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -128,7 +140,7 @@ const assetStore = useAssetStore()
 const props = defineProps({
   groupUuid: {
     type: String,
-    default: null
+    default: null,
   },
   uuid: {
     type: String,
@@ -137,12 +149,12 @@ const props = defineProps({
 })
 
 const holding: ComputedRef<PublicHolding> = computed(
-    () => assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
+  () => assetStore.getAssetPoolEntryByUuid(props.uuid) as PublicHolding
 )
 
 // The public holding casted as pool entry
 const poolEntry: ComputedRef<AssetPoolEntry> = computed(
-    () => holding.value as AssetPoolEntry
+  () => holding.value as AssetPoolEntry
 )
 
 const entryType: EntryTypeEnum = EntryTypeEnum.PUBLIC_HOLDING
@@ -226,13 +238,13 @@ function patchTargetPercentageRequest(percentage: string) {
 /**-***************************************************-**/
 
 // Get the mapped asset types of this holding
-const assetType = computed(
-    (): string => mapAssetType(holding.value.publicAsset.assetType)
+const assetType = computed((): string =>
+  mapAssetType(holding.value.publicAsset.assetType)
 )
 
 // Get the mapped currencies of the newest price record
-const currency = computed(
-    (): string => mapCurrency(holding.value.publicAsset.availableCurrencies[0])
+const currency = computed((): string =>
+  mapCurrency(holding.value.publicAsset.availableCurrencies[0])
 )
 
 /**-***************************************************-**/
@@ -241,41 +253,41 @@ const currency = computed(
 
 // Get the array that contains all price records
 const priceRecords = computed(
-    (): PriceRecord[] => holding.value.publicAsset.assetPriceRecords
+  (): PriceRecord[] => holding.value.publicAsset.assetPriceRecords
 )
 
 // Get an array that contains the exploded strings values of the newest price record
-const formattedPriceDigits = computed(
-  (): string[] => getNewestPriceRecordFormatted(priceRecords.value)
+const formattedPriceDigits = computed((): string[] =>
+  getNewestPriceRecordFormatted(priceRecords.value)
 )
 
 // Get the current value formatted by german pattern
-const currentValue = computed(
-  (): string => getCurrentValue(poolEntry.value, entryType)
+const currentValue = computed((): string =>
+  getCurrentValue(poolEntry.value, entryType)
 )
 
 // Get the current value percentage formatted by german pattern
-const currentPercentage = computed(
-  (): string => getCurrentPercentage(poolEntry.value, entryType)
+const currentPercentage = computed((): string =>
+  getCurrentPercentage(poolEntry.value, entryType)
 )
 
 // The un formatted deviation
-const rawDeviation = computed(
-  (): number => getRawDeviation(poolEntry.value, entryType)
+const rawDeviation = computed((): number =>
+  getRawDeviation(poolEntry.value, entryType)
 )
 
 // The un formatted deviation
-const deviation = computed(
-  (): string[] => getDeviationArray(poolEntry.value, entryType)
+const deviation = computed((): string[] =>
+  getDeviationArray(poolEntry.value, entryType)
 )
 
 // Get the deviation of the desired target percentage
-const deviationArrowDirection = computed(
-    () => getDeviationArrowDirection(poolEntry.value, entryType)
+const deviationArrowDirection = computed(() =>
+  getDeviationArrowDirection(poolEntry.value, entryType)
 )
 
 // Flag that indicates if there is a deviation
-const deviationExists = computed(
-    () => checkIfDeviationExists(poolEntry.value, entryType)
+const deviationExists = computed(() =>
+  checkIfDeviationExists(poolEntry.value, entryType)
 )
 </script>

@@ -5,7 +5,10 @@
       <SearchbarContent />
     </header>
 
-    <TableFilters v-if="!showEmptyAssetListBc" :show-shadow="showContainerShadow" />
+    <TableFilters
+      v-if="!showEmptyAssetListBc"
+      :show-shadow="showContainerShadow"
+    />
 
     <div class="holding-container">
       <div
@@ -74,7 +77,10 @@
       <EmptyAssetList v-if="showEmptyAssetListBc" />
     </div>
 
-    <ListFooter v-if="!showEmptyAssetListBc" :show-shadow="showContainerShadow" />
+    <ListFooter
+      v-if="!showEmptyAssetListBc"
+      :show-shadow="showContainerShadow"
+    />
 
     <FlashMessage v-if="showFlashMessage" />
   </section>
@@ -99,7 +105,7 @@ import { useAssetStore } from '@/stores/AssetStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
 import { generateAssetRenderList } from '@/composables/assets/UseAssetRenderList'
 import { executeAction } from '@/composables/assets/UseHoldings'
-import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
+import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
 
 /**-***************************************************-**/
 /** ----------- Store And List Declarations ----------- **/
@@ -162,8 +168,6 @@ function getNestedHoldingCount(groupUuid: string) {
   return 0
 }
 
-
-
 const showContainerShadow: ComputedRef<boolean> = computed(() => {
   let containerHeight = 0
   assetStore.assetPool.forEach((entry: AssetPoolEntry) => {
@@ -177,9 +181,11 @@ const showContainerShadow: ComputedRef<boolean> = computed(() => {
         break
     }
   })
-  return containerHeight > document.documentElement.clientHeight - 202 && !assetStore.renderState.loadingFlag
+  return (
+    containerHeight > document.documentElement.clientHeight - 202 &&
+    !assetStore.renderState.loadingFlag
+  )
 })
-
 </script>
 
 <style lang="scss">

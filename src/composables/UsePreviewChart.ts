@@ -7,7 +7,8 @@ import { getFirstCurrencyPriceRecords } from '@/composables/UsePriceRecords'
  * @param allPriceRecords string
  */
 export function getDataValues(allPriceRecords: PriceRecord[]): number[] {
-  let priceRecords: PriceRecord[] = getFirstCurrencyPriceRecords(allPriceRecords)
+  let priceRecords: PriceRecord[] =
+    getFirstCurrencyPriceRecords(allPriceRecords)
   if (priceRecords) {
     priceRecords = priceRecords.reverse()
   }

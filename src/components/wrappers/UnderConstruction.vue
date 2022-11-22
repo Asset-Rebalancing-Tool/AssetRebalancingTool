@@ -1,10 +1,11 @@
 <template>
   <div class="construction-container">
-
     <div class="construction-text-wrapper" v-if="!showConstructionInfo">
       <h1 class>{{ $t('underConstruction.heading') }}</h1>
       <p>{{ $t('underConstruction.description') }}</p>
-      <button @click="showConstructionInfo = true">{{ $t('underConstruction.moreInfo') }}</button>
+      <button @click="showConstructionInfo = true">
+        {{ $t('underConstruction.moreInfo') }}
+      </button>
     </div>
     <img
       v-if="!showConstructionInfo"
@@ -22,9 +23,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import type { Ref } from "vue";
-import IconCloseConstructionText from "@/assets/icons/IconCloseConstructionText.vue";
+import { ref } from 'vue'
+import type { Ref } from 'vue'
+import IconCloseConstructionText from '@/assets/icons/IconCloseConstructionText.vue'
 
 const props = defineProps({
   constructionTitle: {
@@ -34,11 +35,10 @@ const props = defineProps({
   constructionText: {
     type: String,
     required: true,
-  }
+  },
 })
 
 const showConstructionInfo: Ref<boolean> = ref(false)
-
 </script>
 
 <style lang="scss" scoped>

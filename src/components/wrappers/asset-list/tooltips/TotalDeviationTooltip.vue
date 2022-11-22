@@ -1,11 +1,9 @@
 <template>
   <div class="tooltip-event-wrapper total-deviation">
     <div class="tooltip" v-show="hover">
-      <div class="text">{{ deviation }} {{
-          $t(
-              'assetList.listFooter.tooltips.totalDeviation'
-          )
-        }}</div>
+      <div class="text">
+        {{ deviation }} {{ $t('assetList.listFooter.tooltips.totalDeviation') }}
+      </div>
       <div class="corner-wrapper">
         <div class="corner"></div>
       </div>
@@ -25,7 +23,7 @@ const props = defineProps({
   deviation: {
     type: String,
     required: true,
-  }
+  },
 })
 </script>
 

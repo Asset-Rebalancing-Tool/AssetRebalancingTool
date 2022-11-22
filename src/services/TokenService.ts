@@ -7,8 +7,8 @@ import { useNotificationStore } from '@/stores/NotificationStore'
 import type { FlashMessageColorEnum } from '@/models/enums/FlashMessageColorEnum'
 import type { FlashMessageIconEnum } from '@/models/enums/FlashMessageIconEnum'
 import { i18n } from '@/i18n'
-import {useAssetStore} from "@/stores/AssetStore";
-import {useMainStore} from "@/stores/MainStore";
+import { useAssetStore } from '@/stores/AssetStore'
+import { useMainStore } from '@/stores/MainStore'
 
 /**-******************************************************************-**/
 /**---------------------- Authorize Axios Instance --------------------**/
@@ -49,14 +49,17 @@ export function getAuthorizedInstance(): Promise<AxiosInstance> {
 
   // Create the axios instance and set the token as header
   const instance = axios.create()
-  instance.interceptors.response.use((response) => response, (error) => {
-    switch(error.response.status) {
-      case 401:
-        logoutUser()
-        break;
+  instance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      switch (error.response.status) {
+        case 401:
+          logoutUser()
+          break
+      }
+      throw error
     }
-    throw error;
-  });
+  )
   instance.defaults.headers.common['Authorization'] =
     'Bearer ' + localStorage.getItem('token')
 

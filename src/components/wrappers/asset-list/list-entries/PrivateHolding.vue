@@ -1,6 +1,11 @@
 <template>
   <div class="holding-row">
-    <AssetInfo :groupuuid="groupUuid" :uuid="holding.uuid" :type="assetType" :edit-asset="isEdited">
+    <AssetInfo
+      :groupuuid="groupUuid"
+      :uuid="holding.uuid"
+      :type="assetType"
+      :edit-asset="isEdited"
+    >
       <template #asset-logo>
         <div
           class="asset-logo private-holding"
@@ -158,15 +163,18 @@ import { AnimationWrapperEnum } from '@/models/enums/AnimationWrapperEnum'
 import IconAssetRowArrow from '@/assets/icons/IconAssetRowArrow.vue'
 import { useI18n } from 'vue-i18n'
 import DeviationTooltip from '@/components/wrappers/asset-list/tooltips/DeviationTooltip.vue'
-import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
-import { getCurrentPercentage, getCurrentValue } from "@/composables/assets/UseCurrentValues";
-import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
+import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
+import {
+  getCurrentPercentage,
+  getCurrentValue,
+} from '@/composables/assets/UseCurrentValues'
+import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
 import {
   getRawDeviation,
   checkIfDeviationExists,
   getDeviationArray,
-  getDeviationArrowDirection
-} from "@/composables/assets/UseDeviation";
+  getDeviationArrowDirection,
+} from '@/composables/assets/UseDeviation'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -178,7 +186,7 @@ const assetStore = useAssetStore()
 const props = defineProps({
   groupUuid: {
     type: String,
-    default: null
+    default: null,
   },
   uuid: {
     type: String,
@@ -187,12 +195,12 @@ const props = defineProps({
 })
 
 const holding: ComputedRef<PrivateHolding> = computed(
-    () => assetStore.getAssetPoolEntryByUuid(props.uuid) as PrivateHolding
+  () => assetStore.getAssetPoolEntryByUuid(props.uuid) as PrivateHolding
 )
 
 // The public holding casted as pool entry
 const poolEntry: ComputedRef<AssetPoolEntry> = computed(
-    () => holding.value as AssetPoolEntry
+  () => holding.value as AssetPoolEntry
 )
 
 const entryType: EntryTypeEnum = EntryTypeEnum.PRIVATE_HOLDING
@@ -330,28 +338,28 @@ function patchPrivateHoldingNameRequest() {
 /**-***************************************************-**/
 
 // Get the mapped asset types of this holding
-const assetType: ComputedRef<string> = computed(
-    () => mapAssetType(holding.value.assetType)
+const assetType: ComputedRef<string> = computed(() =>
+  mapAssetType(holding.value.assetType)
 )
 
 // Get the default unit type
 const defaultUnitType: ComputedRef<UnitTypeEnum> = computed(
-    () => UnitTypeEnum.PIECE
+  () => UnitTypeEnum.PIECE
 )
 
 // Get the unit type select options
-const unitTypeOptions = computed(
-    () => createUnitTypeObject(Object.values(UnitTypeEnum))
+const unitTypeOptions = computed(() =>
+  createUnitTypeObject(Object.values(UnitTypeEnum))
 )
 
 // Get the default currency
 const defaultCurrency: ComputedRef<CurrencyEnum> = computed(
-    () => CurrencyEnum.EUR
+  () => CurrencyEnum.EUR
 )
 
 // Get the currency select options
-const currencyOptions = computed(
-    () => createCurrencyObject(Object.values(CurrencyEnum))
+const currencyOptions = computed(() =>
+  createCurrencyObject(Object.values(CurrencyEnum))
 )
 
 /**-***************************************************-**/
@@ -359,43 +367,43 @@ const currencyOptions = computed(
 /**-***************************************************-**/
 
 const editGroupFlag: ComputedRef<boolean> = computed(
-    () => assetStore.listActionState.editFlagUngrouped
+  () => assetStore.listActionState.editFlagUngrouped
 )
 
 const deleteHoldingFlag: ComputedRef<boolean> = computed(
-    () => assetStore.deleteFlag
+  () => assetStore.deleteFlag
 )
 
 const isEdited: Ref<boolean> = ref(false)
 const editAsset = () => (isEdited.value = true)
 
 // Get the current value formatted by german pattern
-const currentValue = computed(
-    (): string => getCurrentValue(poolEntry.value, entryType)
+const currentValue = computed((): string =>
+  getCurrentValue(poolEntry.value, entryType)
 )
 
 // Get the current value percentage formatted by german pattern
-const currentPercentage = computed(
-    (): string => getCurrentPercentage(poolEntry.value, entryType)
+const currentPercentage = computed((): string =>
+  getCurrentPercentage(poolEntry.value, entryType)
 )
 
 // The un formatted deviation
-const rawDeviation = computed(
-    (): number => getRawDeviation(poolEntry.value, entryType)
+const rawDeviation = computed((): number =>
+  getRawDeviation(poolEntry.value, entryType)
 )
 
 // The un formatted deviation
-const deviation = computed(
-    (): string[] => getDeviationArray(poolEntry.value, entryType)
+const deviation = computed((): string[] =>
+  getDeviationArray(poolEntry.value, entryType)
 )
 
 // Get the deviation of the desired target percentage
-const deviationArrowDirection = computed(
-    () => getDeviationArrowDirection(poolEntry.value, entryType)
+const deviationArrowDirection = computed(() =>
+  getDeviationArrowDirection(poolEntry.value, entryType)
 )
 
 // Flag that indicates if there is a deviation
-const deviationExists = computed(
-    () => checkIfDeviationExists(poolEntry.value, entryType)
+const deviationExists = computed(() =>
+  checkIfDeviationExists(poolEntry.value, entryType)
 )
 </script>

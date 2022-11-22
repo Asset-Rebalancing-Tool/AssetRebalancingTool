@@ -3,8 +3,8 @@ import de from '@/assets/locales/de.json'
 // @ts-ignore
 import { createI18n } from 'vue-i18n'
 import type { Locales } from '@/models/enums/Locales'
-import {CurrencyEnum as CurrencyEnumType} from "@/models/enums/CurrencyEnum";
-import {getCurrencyValue} from "@/composables/UseCurrency";
+import { CurrencyEnum as CurrencyEnumType } from '@/models/enums/CurrencyEnum'
+import { getCurrencyValue } from '@/composables/UseCurrency'
 
 export const allLocales: string[] = ['de', 'en']
 

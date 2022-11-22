@@ -1,8 +1,8 @@
 <template>
   <section class="content">
     <UnderConstruction
-        :construction-title="$t('underConstruction.scheduleTab.title')"
-        :construction-text="$t('underConstruction.scheduleTab.text')"
+      :construction-title="$t('underConstruction.scheduleTab.title')"
+      :construction-text="$t('underConstruction.scheduleTab.text')"
     />
   </section>
 </template>

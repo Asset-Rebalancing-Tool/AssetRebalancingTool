@@ -4,12 +4,11 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 
-
 enum BackendHost {
   LOCALHOST_DOCKER = 'http://localhost:8081',
   LOCALHOST_JVM = 'http://localhost:8080',
   NETWORK_DB = 'http://192.168.1.52:8081',
-  NETWORK_FETCH = 'http://192.168.1.52:8080'
+  NETWORK_FETCH = 'http://192.168.1.52:8080',
 }
 
 const selectedHost = BackendHost.NETWORK_DB

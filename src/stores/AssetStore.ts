@@ -14,12 +14,12 @@ export const useAssetStore = defineStore('assetStore', () => {
   /**-******************************************************************-**/
 
   // Pool that contains the whole asset data objects
-  let assetPool: Map<string, AssetPoolEntry> = reactive(
+  const assetPool: Map<string, AssetPoolEntry> = reactive(
     new Map<string, AssetPoolEntry>()
   )
 
   // State that contains template rendering related variables
-  let renderState: RenderState = reactive({
+  const renderState: RenderState = reactive({
     assetList: new Map<string, AssetRenderingEntry>(),
     loadingFlag: true,
   })
@@ -139,7 +139,7 @@ export const useAssetStore = defineStore('assetStore', () => {
       totalValue: 0,
       totalPercentage: 0,
       totalTargetPercentage: 0,
-      totalDeviation: 0
+      totalDeviation: 0,
     } as SumState
 
     listActionState = {
@@ -167,6 +167,6 @@ export const useAssetStore = defineStore('assetStore', () => {
 
     // Asset List Render Actions
     getAssetPoolEntryByUuid,
-    resetStoreState
+    resetStoreState,
   }
 })

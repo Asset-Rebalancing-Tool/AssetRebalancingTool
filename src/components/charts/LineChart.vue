@@ -52,7 +52,7 @@ const props = defineProps({
   displayLegend: {
     type: Boolean,
     default: true,
-  }
+  },
 })
 
 const data = computed(() => ({
@@ -76,10 +76,10 @@ const options = ref({
   events: [],
   plugins: {
     title: {
-      display: props.displayTitle
+      display: props.displayTitle,
     },
     legend: {
-      display: props.displayLegend
+      display: props.displayLegend,
     },
   },
   elements: {

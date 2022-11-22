@@ -19,24 +19,25 @@ import {
   LineElement,
 } from 'chart.js'
 import { useI18n } from 'vue-i18n'
-import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum';
-import { buildChartDataArrays } from '@/composables/charts/UseRadarChart';
+import { ChartColumnEnum } from '@/models/enums/ChartColumnEnum'
+import { buildChartDataArrays } from '@/composables/charts/UseRadarChart'
 
 const { t } = useI18n()
 const chartDataArrays = buildChartDataArrays()
 
 Chart.register(
-    RadarController,
-    RadialLinearScale,
-    PointElement,
-    LineElement,
-    CategoryScale,
-    LinearScale,
+  RadarController,
+  RadialLinearScale,
+  PointElement,
+  LineElement,
+  CategoryScale,
+  LinearScale
 )
 
 const data = computed(() => ({
-    labels: chartDataArrays.labels,
-    datasets: [{
+  labels: chartDataArrays.labels,
+  datasets: [
+    {
       label: t('overview.radarChart.labels.targetDistribution'),
       data: chartDataArrays.targetDistribution,
       fill: true,
@@ -44,7 +45,8 @@ const data = computed(() => ({
       borderColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
       pointBorderColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
       pointBackgroundColor: ChartColumnEnum.BACKGROUND_COLOR_POSITIVE_30,
-    }, {
+    },
+    {
       label: t('overview.radarChart.labels.currentDistribution'),
       data: chartDataArrays.currentDistribution,
       fill: true,
@@ -52,14 +54,15 @@ const data = computed(() => ({
       borderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
       pointBorderColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
       pointBackgroundColor: ChartColumnEnum.BORDER_COLOR_POSITIVE,
-    }]
+    },
+  ],
 }))
 
 const options = ref({
   events: [],
   plugins: {
     title: {
-      display: false
+      display: false,
     },
     legend: {
       display: false,
@@ -67,7 +70,7 @@ const options = ref({
       labels: {
         color: '#FFFFFF',
         borderWidth: 0,
-      }
+      },
     },
   },
   elements: {
@@ -77,11 +80,11 @@ const options = ref({
     line: {
       fill: true,
       borderWidth: 3.5,
-      tension: 0.02
+      tension: 0.02,
     },
   },
   layout: {
-    padding: 18
+    padding: 18,
   },
   scales: {
     display: false,
@@ -90,15 +93,15 @@ const options = ref({
         color: 'rgba(60,68,77,0.6)',
       },
       angleLines: {
-        color: 'rgba(60,68,77,0.6)' // only start lines
+        color: 'rgba(60,68,77,0.6)', // only start lines
       },
-      pointLabels:{
+      pointLabels: {
         font: {
           size: 10,
-          weight: 500
+          weight: 500,
         },
         background: '#000000',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
       },
       ticks: {
         display: true,
@@ -112,15 +115,15 @@ const options = ref({
         showLabelBackdrop: true,*/
         font: {
           size: 10,
-          weight: 500
+          weight: 500,
         },
-        backdropPadding: 1
+        backdropPadding: 1,
       },
     },
-  }
+  },
 })
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/views/overview.scss";
+@import '@/assets/scss/views/overview.scss';
 </style>

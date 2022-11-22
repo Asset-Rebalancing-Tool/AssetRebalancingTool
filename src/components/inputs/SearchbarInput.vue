@@ -39,7 +39,7 @@ import IconRemoveValue from '@/assets/icons/inputs/IconRemoveValue.vue'
 import type { InputIconEnum } from '@/models/enums/InputIconEnum'
 import IconDelete from '@/assets/icons/inputs/IconDelete.vue'
 import { useAssetStore } from '@/stores/AssetStore'
-import {AxiosResponse} from "axios";
+import { AxiosResponse } from 'axios'
 
 const searchbarStore = useSearchStore()
 const assetStore = useAssetStore()

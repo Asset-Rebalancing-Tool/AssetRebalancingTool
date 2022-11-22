@@ -73,7 +73,11 @@ export async function removeHoldingFromGroup(
   const assetStore = useAssetStore()
 
   // Always return if the user is not in edit mode or no group is selected
-  if (!assetStore.listActionState.editFlagUngrouped || !assetStore.selectedGroup) return
+  if (
+    !assetStore.listActionState.editFlagUngrouped ||
+    !assetStore.selectedGroup
+  )
+    return
 
   const renderGroup = assetStore.renderState.assetList.get(groupUuid)
   if (renderGroup && renderGroup.groupEntries) {
@@ -125,24 +129,21 @@ export async function dissolveHoldingGroup(groupUuid: string): Promise<void> {
   const renderGroup = assetStore.renderState.assetList.get(groupUuid)
   if (renderGroup && renderGroup.groupEntries) {
     renderGroup.groupEntries.forEach((holding: GroupEntry) => {
-        const poolEntry = assetStore.assetPool.get(holding.uuid)
-        if (poolEntry) {
-          _splicePoolGroupEntry(assetStore, groupUuid, poolEntry)
-          switch (poolEntry.entryType) {
-            case EntryTypeEnum.PUBLIC_HOLDING:
-              addPublicHoldingToRenderList(
-                  assetStore,
-                  poolEntry as PublicHolding
-              )
-              break
-            case EntryTypeEnum.PRIVATE_HOLDING:
-              addPrivateHoldingToRenderList(
-                  assetStore,
-                  poolEntry as PrivateHolding
-              )
-              break
-          }
+      const poolEntry = assetStore.assetPool.get(holding.uuid)
+      if (poolEntry) {
+        _splicePoolGroupEntry(assetStore, groupUuid, poolEntry)
+        switch (poolEntry.entryType) {
+          case EntryTypeEnum.PUBLIC_HOLDING:
+            addPublicHoldingToRenderList(assetStore, poolEntry as PublicHolding)
+            break
+          case EntryTypeEnum.PRIVATE_HOLDING:
+            addPrivateHoldingToRenderList(
+              assetStore,
+              poolEntry as PrivateHolding
+            )
+            break
         }
+      }
     })
   }
 }

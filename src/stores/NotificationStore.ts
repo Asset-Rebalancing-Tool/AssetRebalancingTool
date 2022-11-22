@@ -23,7 +23,7 @@ export const useNotificationStore = defineStore('notificationStore', () => {
       showFlag: false,
       text: '',
       color: FlashMessageColorEnum.WARNING,
-      icon: FlashMessageIconEnum.WARNING
+      icon: FlashMessageIconEnum.WARNING,
     } as FlashMessage
   }
 

@@ -21,9 +21,8 @@ const props = defineProps({
   displayLegend: {
     type: Boolean,
     default: true,
-  }
+  },
 })
-
 
 const dataValues = ref([87, 13])
 
@@ -39,7 +38,7 @@ const data = computed(() => ({
       circumference: 230,
       //borderRadius: {topLeft: 15, topRight: 15, bottomLeft: 15, bottomRight: 15},
       //borderRadius: [15, 15],
-      cutoutPercentage: 10
+      cutoutPercentage: 10,
     },
   ],
 }))
@@ -47,12 +46,12 @@ const data = computed(() => ({
 const options = ref({
   plugins: {
     title: {
-      display: props.displayTitle
+      display: props.displayTitle,
     },
     legend: {
-      display: props.displayLegend
-    }
+      display: props.displayLegend,
+    },
   },
-  cutoutPercentage: 90
+  cutoutPercentage: 90,
 })
 </script>

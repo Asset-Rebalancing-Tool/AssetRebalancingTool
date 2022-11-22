@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="tooltip-event-wrapper target-percentage"
-  >
+  <div class="tooltip-event-wrapper target-percentage">
     <div class="tooltip" v-show="hover">
       <div class="text">
         {{
@@ -25,7 +23,7 @@ const props = defineProps({
   hover: {
     type: Boolean,
     default: true,
-  }
+  },
 })
 </script>
 

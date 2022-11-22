@@ -39,7 +39,7 @@ const assetStore = useAssetStore()
 const props = defineProps({
   groupUuid: {
     type: String,
-    default: null
+    default: null,
   },
   type: {
     type: String,
@@ -66,7 +66,10 @@ const removeEventFlag: ComputedRef<boolean> = computed(() => {
     return false
   }
   // Ensure that only nested holdings of the selected group can be removed from the group
-  if (assetStore.listActionState.editFlagUngrouped && props.groupUuid === assetStore.listActionState.selectedGroup.uuid) {
+  if (
+    assetStore.listActionState.editFlagUngrouped &&
+    props.groupUuid === assetStore.listActionState.selectedGroup.uuid
+  ) {
     return assetStore.listActionState.editFlagUngrouped
   }
   return false

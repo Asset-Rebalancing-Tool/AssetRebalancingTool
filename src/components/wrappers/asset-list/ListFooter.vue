@@ -1,5 +1,5 @@
 <template>
-  <footer :class="{shadow: showShadow}">
+  <footer :class="{ shadow: showShadow }">
     <h4>{{ $t('assetList.listFooter.totalValue') }}</h4>
 
     <div class="total-value-wrapper">
@@ -14,39 +14,42 @@
       @mouseleave="hoverTotalTargetPercentage = false"
     >
       <header
-          @mouseover="hoverTotalTargetPercentage = true"
-          @mouseleave="hoverTotalTargetPercentage = false"
+        @mouseover="hoverTotalTargetPercentage = true"
+        @mouseleave="hoverTotalTargetPercentage = false"
       >
         {{ $t('assetList.listFooter.totalTargetPercentage') }}
         <IconCheck
-            v-show="showPercentageCheckIcon"
-            style="margin-bottom: -1px; margin-left: 1px;"
+          v-show="showPercentageCheckIcon"
+          style="margin-bottom: -1px; margin-left: 1px"
         />
         <IconWarning
-            v-show="!showPercentageCheckIcon"
-            style="margin-bottom: -3px; margin-left: 1px; width: 15px;"
+          v-show="!showPercentageCheckIcon"
+          style="margin-bottom: -3px; margin-left: 1px; width: 15px"
         />
       </header>
       <span class="total-percentage">{{ totalTargetPercentage }}</span>
       <TotalTargetPercentageTooltip
-          v-show="!showPercentageCheckIcon"
-          :hover="hoverTotalTargetPercentage"
+        v-show="!showPercentageCheckIcon"
+        :hover="hoverTotalTargetPercentage"
       />
     </div>
 
-    <div class="total-deviation-wrapper"
-         @mouseover="hoverTotalDeviation = true"
-         @mouseleave="hoverTotalDeviation = false"
+    <div
+      class="total-deviation-wrapper"
+      @mouseover="hoverTotalDeviation = true"
+      @mouseleave="hoverTotalDeviation = false"
     >
       <header
-          @mouseover="hoverTotalDeviation = true"
-          @mouseleave="hoverTotalDeviation = false"
-      >{{ $t('assetList.listFooter.deviation') }}</header>
+        @mouseover="hoverTotalDeviation = true"
+        @mouseleave="hoverTotalDeviation = false"
+      >
+        {{ $t('assetList.listFooter.deviation') }}
+      </header>
       <span class="total-value">{{ totalDeviation }}</span>
       <TotalDeviationTooltip
-          v-show="showDeviationTooltip"
-          :hover="hoverTotalDeviation"
-          :deviation="totalDeviation"
+        v-show="showDeviationTooltip"
+        :hover="hoverTotalDeviation"
+        :deviation="totalDeviation"
       />
     </div>
   </footer>
@@ -57,9 +60,9 @@ import { computed, ref } from 'vue'
 import type { Ref } from 'vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import IconCheck from '@/assets/icons/IconCheck.vue'
-import IconWarning from "@/assets/icons/flash-message/IconWarning.vue";
-import TotalTargetPercentageTooltip from "@/components/wrappers/asset-list/tooltips/TotalTargetPercentageTooltip.vue";
-import TotalDeviationTooltip from "@/components/wrappers/asset-list/tooltips/TotalDeviationTooltip.vue";
+import IconWarning from '@/assets/icons/flash-message/IconWarning.vue'
+import TotalTargetPercentageTooltip from '@/components/wrappers/asset-list/tooltips/TotalTargetPercentageTooltip.vue'
+import TotalDeviationTooltip from '@/components/wrappers/asset-list/tooltips/TotalDeviationTooltip.vue'
 
 const props = defineProps({
   showShadow: {
@@ -73,7 +76,7 @@ const assetStore = useAssetStore()
 const hoverTotalTargetPercentage: Ref<boolean> = ref(false)
 const hoverTotalDeviation: Ref<boolean> = ref(false)
 const showDeviationTooltip = computed(
-    () => assetStore.sumState.totalDeviation !== 0
+  () => assetStore.sumState.totalDeviation !== 0
 )
 
 const targetPercentageIsOneHundredPercent: Ref<boolean> = ref(false)

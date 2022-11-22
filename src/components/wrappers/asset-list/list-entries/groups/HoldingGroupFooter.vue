@@ -67,10 +67,10 @@
     </BaseInput>
 
     <ThreeDigitValue
-        :value-array="totalGroupDeviation"
-        :unit="'%'"
-        @mouseover="hoverGroupDeviation = true"
-        @mouseleave="hoverGroupDeviation = false"
+      :value-array="totalGroupDeviation"
+      :unit="'%'"
+      @mouseover="hoverGroupDeviation = true"
+      @mouseleave="hoverGroupDeviation = false"
     >
       <template #arrow>
         <IconAssetRowArrow
@@ -78,9 +78,9 @@
           :arrow-up="deviationArrowDirection"
         />
         <GroupDeviationTooltip
-            :hover="hoverGroupDeviation"
-            :deviation="rawGroupDeviation"
-            :deviation-direction="deviationDirection"
+          :hover="hoverGroupDeviation"
+          :deviation="rawGroupDeviation"
+          :deviation-direction="deviationDirection"
         />
       </template>
     </ThreeDigitValue>
@@ -110,7 +110,7 @@ import {
 } from '@/composables/UseTotalValues'
 import { useI18n } from 'vue-i18n'
 import GroupTargetPercentageTooltip from '@/components/wrappers/asset-list/tooltips/GroupTargetPercentageTooltip.vue'
-import GroupDeviationTooltip from "@/components/wrappers/asset-list/tooltips/GroupDeviationTooltip.vue";
+import GroupDeviationTooltip from '@/components/wrappers/asset-list/tooltips/GroupDeviationTooltip.vue'
 
 /**-***************************************************-**/
 /** ----------- Props And Store Declaration ----------- **/
@@ -146,7 +146,10 @@ const editGroupFlag: ComputedRef<boolean> = computed(() => {
     return false
   }
 
-  if (assetStore.listActionState.editFlagUngrouped && props.uuid === assetStore.listActionState.selectedGroup.uuid) {
+  if (
+    assetStore.listActionState.editFlagUngrouped &&
+    props.uuid === assetStore.listActionState.selectedGroup.uuid
+  ) {
     return assetStore.listActionState.editFlagUngrouped
   }
   return false
@@ -249,25 +252,25 @@ const totalGroupValue = computed(() => {
   }).format(totalGroupValue)
 })
 
-const rawGroupPercentage = computed(
-    () => getTotalGroupPercentage(group.value.uuid)
+const rawGroupPercentage = computed(() =>
+  getTotalGroupPercentage(group.value.uuid)
 )
 
 // Get the total asset list percentage
 const totalGroupPercentage = computed(() => {
   return (
     new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2 }).format(
-        rawGroupPercentage.value
+      rawGroupPercentage.value
     ) + ' %'
   )
 })
 
 const rawGroupDeviation = computed(
-    () => +Number(getTotalGroupDeviation(group.value.uuid)).toFixed(2)
+  () => +Number(getTotalGroupDeviation(group.value.uuid)).toFixed(2)
 )
 
 const deviationDirection = computed(
-    () => rawGroupPercentage > targetPercentage
+  () => rawGroupPercentage.value > targetPercentage.value
 )
 
 // Get the total asset list deviation

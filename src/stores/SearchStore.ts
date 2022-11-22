@@ -53,8 +53,8 @@ export const useSearchStore = defineStore('searchStore', () => {
       searchbarAssets: [],
       searchbarResultCount: 0,
       searchbarLoadingFlag: false,
-      activeModalUnderlay: false
-    }as SearchbarState
+      activeModalUnderlay: false,
+    } as SearchbarState
   }
 
   /**-******************************************************************-**/
@@ -64,6 +64,6 @@ export const useSearchStore = defineStore('searchStore', () => {
   return {
     searchbarState,
     getSearchbarAsset,
-    resetStoreState
+    resetStoreState,
   }
 })

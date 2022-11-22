@@ -1,6 +1,6 @@
 export enum ThemeColorEnum {
-    GREEN = 'greenColor',
-    BLUE = 'blueColor',
-    ORANGE = 'orangeColor',
-    VIOLETTE = 'violetteColor',
+  GREEN = 'greenColor',
+  BLUE = 'blueColor',
+  ORANGE = 'orangeColor',
+  VIOLETTE = 'violetteColor',
 }

@@ -1,10 +1,10 @@
-import type { AssetPoolEntry } from "@/models/AssetPoolEntry";
-import { EntryTypeEnum } from "@/models/holdings/EntryTypeEnum";
-import type { PublicHolding } from "@/models/holdings/PublicHolding";
-import type { PrivateHolding } from "@/models/holdings/PrivateHolding";
-import { calcCurrentPercentage } from "@/composables/assets/UseCurrentValues";
-import { formatValueArray } from "@/composables/UsePriceRecords";
-import { getTargetPercentage } from "@/composables/assets/UseTargetPercentage";
+import type { AssetPoolEntry } from '@/models/AssetPoolEntry'
+import { EntryTypeEnum } from '@/models/holdings/EntryTypeEnum'
+import type { PublicHolding } from '@/models/holdings/PublicHolding'
+import type { PrivateHolding } from '@/models/holdings/PrivateHolding'
+import { calcCurrentPercentage } from '@/composables/assets/UseCurrentValues'
+import { formatValueArray } from '@/composables/UsePriceRecords'
+import { getTargetPercentage } from '@/composables/assets/UseTargetPercentage'
 
 /**
  * Calculate the deviation of an asset pool entry
@@ -13,31 +13,30 @@ import { getTargetPercentage } from "@/composables/assets/UseTargetPercentage";
  * @param entryType EntryTypeEnum
  */
 export function calcDeviation(
-    poolEntry: AssetPoolEntry,
-    entryType: EntryTypeEnum
+  poolEntry: AssetPoolEntry,
+  entryType: EntryTypeEnum
 ): number {
+  let targetPercentage = 0
+  switch (entryType) {
+    default:
+    case EntryTypeEnum.HOLDING_GROUP:
+      return 0
+    case EntryTypeEnum.PUBLIC_HOLDING:
+      const publicHolding: PublicHolding = poolEntry as PublicHolding
+      if (publicHolding) {
+        targetPercentage = publicHolding.targetPercentage
+      }
+      break
+    case EntryTypeEnum.PRIVATE_HOLDING:
+      const privateHolding: PrivateHolding = poolEntry as PrivateHolding
+      if (privateHolding) {
+        targetPercentage = privateHolding.targetPercentage
+      }
+      break
+  }
 
-    let targetPercentage: number = 0
-    switch (entryType) {
-        default:
-        case EntryTypeEnum.HOLDING_GROUP:
-            return 0
-        case EntryTypeEnum.PUBLIC_HOLDING:
-            const publicHolding: PublicHolding = poolEntry as PublicHolding
-            if (publicHolding) {
-                targetPercentage = publicHolding.targetPercentage
-            }
-            break;
-        case EntryTypeEnum.PRIVATE_HOLDING:
-            const privateHolding: PrivateHolding = poolEntry as PrivateHolding
-            if (privateHolding) {
-                targetPercentage = privateHolding.targetPercentage
-            }
-            break;
-    }
-
-    let currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
-    return Math.abs(currentPercentage - targetPercentage)
+  const currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
+  return Math.abs(currentPercentage - targetPercentage)
 }
 
 /**
@@ -49,11 +48,11 @@ export function calcDeviation(
  * @return number
  */
 export function getRawDeviation(
-    poolEntry: AssetPoolEntry,
-    entryType: EntryTypeEnum
+  poolEntry: AssetPoolEntry,
+  entryType: EntryTypeEnum
 ): number {
-    const deviation: number = calcDeviation(poolEntry, entryType)
-    return +Number(deviation).toFixed(2)
+  const deviation: number = calcDeviation(poolEntry, entryType)
+  return +Number(deviation).toFixed(2)
 }
 
 /**
@@ -65,14 +64,14 @@ export function getRawDeviation(
  * @return number
  */
 export function getFormattedDeviation(
-    poolEntry: AssetPoolEntry,
-    entryType: EntryTypeEnum
+  poolEntry: AssetPoolEntry,
+  entryType: EntryTypeEnum
 ): string {
-    const deviation: number = calcDeviation(poolEntry, entryType)
-    // Format the current percentage value after german pattern
-    return deviation
-        ? new Intl.NumberFormat('de-DE').format(deviation) + ' %'
-        : '0,00 %'
+  const deviation: number = calcDeviation(poolEntry, entryType)
+  // Format the current percentage value after german pattern
+  return deviation
+    ? new Intl.NumberFormat('de-DE').format(deviation) + ' %'
+    : '0,00 %'
 }
 
 /**
@@ -84,11 +83,11 @@ export function getFormattedDeviation(
  * @return string[]
  */
 export function getDeviationArray(
-    poolEntry: AssetPoolEntry,
-    entryType: EntryTypeEnum
+  poolEntry: AssetPoolEntry,
+  entryType: EntryTypeEnum
 ): string[] {
-    const deviation: number = calcDeviation(poolEntry, entryType)
-    return deviation ? formatValueArray(deviation) : ['00', '00', '0']
+  const deviation: number = calcDeviation(poolEntry, entryType)
+  return deviation ? formatValueArray(deviation) : ['00', '00', '0']
 }
 
 /**
@@ -100,12 +99,12 @@ export function getDeviationArray(
  * @return boolean
  */
 export function getDeviationArrowDirection(
-    poolEntry: AssetPoolEntry,
-    entryType: EntryTypeEnum
+  poolEntry: AssetPoolEntry,
+  entryType: EntryTypeEnum
 ): boolean {
-    const currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
-    const targetPercentage: number = getTargetPercentage(poolEntry, entryType)
-    return currentPercentage > targetPercentage
+  const currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
+  const targetPercentage: number = getTargetPercentage(poolEntry, entryType)
+  return currentPercentage > targetPercentage
 }
 
 /**
@@ -117,10 +116,10 @@ export function getDeviationArrowDirection(
  * @return boolean
  */
 export function checkIfDeviationExists(
-    poolEntry: AssetPoolEntry,
-    entryType: EntryTypeEnum
+  poolEntry: AssetPoolEntry,
+  entryType: EntryTypeEnum
 ): boolean {
-    const currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
-    const targetPercentage: number = getTargetPercentage(poolEntry, entryType)
-    return currentPercentage !== targetPercentage
+  const currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
+  const targetPercentage: number = getTargetPercentage(poolEntry, entryType)
+  return currentPercentage !== targetPercentage
 }

@@ -1,11 +1,9 @@
 <template>
   <div class="tooltip-event-wrapper total-target-percentage">
     <div class="tooltip" v-show="hover">
-      <div class="text">{{
-          $t(
-              'assetList.listFooter.tooltips.totalTargetPercentage'
-          )
-        }}</div>
+      <div class="text">
+        {{ $t('assetList.listFooter.tooltips.totalTargetPercentage') }}
+      </div>
       <div class="corner-wrapper">
         <div class="corner"></div>
       </div>
@@ -21,7 +19,7 @@ const props = defineProps({
   hover: {
     type: Boolean,
     required: true,
-  }
+  },
 })
 </script>
 

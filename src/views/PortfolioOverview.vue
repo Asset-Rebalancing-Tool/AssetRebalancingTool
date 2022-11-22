@@ -1,6 +1,6 @@
 <template>
   <section id="overview">
-<!--    <div class="card">
+    <!--    <div class="card">
       <div class="card-header">
 
         <div class="tab-wrapper">
@@ -32,10 +32,9 @@
 </template>
 
 <script lang="ts" setup>
-import RadarChart from '@/components/charts/RadarChart.vue';
-import IconPercent from "@/assets/icons/charts/IconPercent.vue";
-import IconInfo from "@/assets/icons/charts/IconInfo.vue";
-
+import RadarChart from '@/components/charts/RadarChart.vue'
+import IconPercent from '@/assets/icons/charts/IconPercent.vue'
+import IconInfo from '@/assets/icons/charts/IconInfo.vue'
 </script>
 
 <style lang="scss">
