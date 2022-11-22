@@ -6,7 +6,7 @@
         :class="{
           add: addEventFlag,
           remove: removeEventFlag,
-          delete: deleteEventFlag,
+          delete: deleteEventFlag
         }"
         v-bind:style="{
           'background-image': 'url(data:image/png;base64,' + logo + ')',

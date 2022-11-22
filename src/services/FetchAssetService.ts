@@ -11,7 +11,6 @@ import { i18n } from '@/i18n'
 
 export default {
   async fetchPublicHoldings(): Promise<PublicHolding[]> {
-    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/public', {
@@ -33,7 +32,6 @@ export default {
   },
 
   async fetchPrivateHoldings(): Promise<PrivateHolding[]> {
-    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/private', {
@@ -53,7 +51,6 @@ export default {
   },
 
   async fetchHoldingGroups(): Promise<HoldingGroup[]> {
-    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.get('/holding_api/asset_holding/group')
@@ -76,7 +73,6 @@ export default {
     searchValue: string,
     abortController: AbortController
   ): Promise<PublicAsset[]> {
-    const { t } = i18n.global
     return getAuthorizedInstance()
       .then((instance) => {
         return instance.post(

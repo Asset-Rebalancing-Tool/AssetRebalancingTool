@@ -18,7 +18,7 @@ const activeModalUnderlay = computed(() => {
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .modal-underlay {
   position: absolute;
   top: 0;
