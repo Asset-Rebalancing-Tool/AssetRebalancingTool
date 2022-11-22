@@ -33,16 +33,22 @@ export async function executeAction(
   entryType: EntryTypeEnum | null = null,
   groupUuid: string | null = null
 ): Promise<void> {
+
+  const assetStore = useAssetStore()
+
   // Check what action should be fired
   const action: HoldingActionEnum = getActionType(holdingIsNested)
 
   // Execute the holding action
   switch (action) {
     case HoldingActionEnum.ADD_TO_GROUP:
+      if (!assetStore.listActionState.selectedGroup) return
       await addHoldingToGroup(holdingUuid)
       break
     case HoldingActionEnum.REMOVE_FROM_GROUP:
-      if (groupUuid !== null && entryType !== null) {
+      if (!assetStore.listActionState.selectedGroup) return
+      // Only execute the action if the holding belongs to the selected group
+      if (assetStore.listActionState.selectedGroup.uuid === groupUuid && entryType !== null) {
         await removeHoldingFromGroup(holdingUuid, groupUuid, entryType)
       }
       break
