@@ -79,7 +79,7 @@ const props = defineProps({
 })
 
 const selectedColumn: Ref<SortColumn> = ref(SortColumn.PRICE)
-const isAsc: Ref<boolean> = ref(true)
+const isAsc: Ref<boolean> = ref(false)
 
 function sort(column: SortColumn) {
   // Change the sort direction if selected column is clicked again
