@@ -287,7 +287,7 @@ const totalGroupDeviation = computed(() => {
 // Get the deviation of the desired target percentage
 const deviationArrowDirection = computed(() => {
   const totalGroupPercentage = getTotalGroupPercentage(group.value.uuid)
-  return totalGroupPercentage < targetPercentage.value
+  return totalGroupPercentage > targetPercentage.value
 })
 
 const deviationExists = computed(() => {

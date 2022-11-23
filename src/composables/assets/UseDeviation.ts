@@ -104,6 +104,8 @@ export function getDeviationArrowDirection(
 ): boolean {
   const currentPercentage: number = calcCurrentPercentage(poolEntry, entryType)
   const targetPercentage: number = getTargetPercentage(poolEntry, entryType)
+  // 15 current % < 10 target % = false -> 5 less
+  // 10 current % < 15 target % = true -> 5 more
   return currentPercentage > targetPercentage
 }
 

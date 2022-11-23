@@ -90,8 +90,9 @@
         "save": "Done",
         "tooltips": {
           "deviation": {
-            "higher": "more than target percentage",
-            "less": "less than target percentage"
+            "prefix": "The current Percentage is",
+            "higher": "% higher than the target percentage",
+            "less": "% less than the target percentage"
           }
         }
       },
@@ -125,8 +126,9 @@
           "groupTargetPercentage": "The target distribution in percent",
           "groupPercentageWrapper": "The target distributions inside a group has to be 100%",
           "deviation": {
-            "higher": "more than target percentage",
-            "less": "less than target percentage"
+            "prefix": "The current Percentage is",
+            "higher": "% higher than the target percentage",
+            "less": "% less than the target percentage"
           }
         }
       }
