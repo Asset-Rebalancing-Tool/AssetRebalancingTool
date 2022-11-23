@@ -31,7 +31,6 @@ const props = defineProps({
   },
 })
 
-const hoverDeviation: Ref<boolean> = ref(false)
 const deviationText: ComputedRef<string> = computed((): string => {
   return props.deviationDirection
     ? t('assetList.listEntries.holdingGroup.tooltips.deviation.higher')
