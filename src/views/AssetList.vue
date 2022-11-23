@@ -16,21 +16,34 @@
         v-for="[uuid, entry] in assetList"
         :key="uuid"
       >
-        <HoldingGroup
+
+        <PublicHolding
           :uuid="uuid"
-          v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
-          :nested-holding-count="getNestedHoldingCount(uuid)"
+          v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+          @click="executeAction(false, uuid)"
+        />
+
+        <PrivateHolding
+          :uuid="uuid"
+          v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+          @click="executeAction(false, uuid)"
+        />
+
+        <HoldingGroup
+            :uuid="uuid"
+            v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
+            :nested-holding-count="getNestedHoldingCount(uuid)"
         >
           <template #holdings>
             <div
-              v-for="groupEntry in entry.groupEntries"
-              :key="groupEntry.uuid"
+                v-for="groupEntry in entry.groupEntries"
+                :key="groupEntry.uuid"
             >
               <PublicHolding
-                :group-uuid="uuid"
-                :uuid="groupEntry.uuid"
-                v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
-                @click="
+                  :group-uuid="uuid"
+                  :uuid="groupEntry.uuid"
+                  v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+                  @click="
                   executeAction(
                     true,
                     groupEntry.uuid,
@@ -40,10 +53,10 @@
                 "
               />
               <PrivateHolding
-                :group-uuid="uuid"
-                :uuid="groupEntry.uuid"
-                v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
-                @click="
+                  :group-uuid="uuid"
+                  :uuid="groupEntry.uuid"
+                  v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+                  @click="
                   executeAction(
                     true,
                     groupEntry.uuid,
@@ -55,17 +68,6 @@
             </div>
           </template>
         </HoldingGroup>
-
-        <PublicHolding
-          :uuid="uuid"
-          v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
-          @click="executeAction(false, uuid)"
-        />
-        <PrivateHolding
-          :uuid="uuid"
-          v-if="entry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
-          @click="executeAction(false, uuid)"
-        />
       </div>
 
       <ListEntrySkeleton
