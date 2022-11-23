@@ -74,3 +74,10 @@
   }
 }
 
+@media only screen and (min-width: 1700px) {
+  .filter-container .table-filter {
+    grid-template-columns: auto 140px 112px 215px 110px 76px;
+    grid-column-gap: 85px;
+    padding-right: 26px;
+  }
+}
