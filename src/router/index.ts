@@ -1,12 +1,12 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import SignIn from '../views/SignIn.vue'
-import SignUp from '../views/SignUp.vue'
-import PortfolioOverview from '../views/PortfolioOverview.vue'
-import AssetList from '../views/AssetList.vue'
-import ConnectBroker from '../views/ConnectBroker.vue'
-import TransactionHistory from '../views/TransactionHistory.vue'
-import ScheduleInvestments from '../views/ScheduleInvestments.vue'
-import AppSettings from '../views/AppSettings.vue'
+import SignIn from '@/views/SignIn.vue'
+import SignUp from '@/views/SignUp.vue'
+import PortfolioOverview from '@/views/PortfolioOverview.vue'
+import AssetList from '@/views/AssetList.vue'
+import ConnectBroker from '@/views/ConnectBroker.vue'
+import TransactionHistory from '@/views/TransactionHistory.vue'
+import PrepareInvestments from '@/views/PrepareInvestments.vue'
+import AppSettings from '@/views/AppSettings.vue'
 import { useAssetStore } from '@/stores/AssetStore'
 import { useNotificationStore } from '@/stores/NotificationStore'
 
@@ -57,8 +57,8 @@ const router = createRouter({
     },
     {
       path: '/investitionen-planen',
-      name: 'ScheduleInvestments',
-      component: ScheduleInvestments,
+      name: 'PrepareInvestments',
+      component: PrepareInvestments,
       meta: {
         requiresAuth: true,
       },
