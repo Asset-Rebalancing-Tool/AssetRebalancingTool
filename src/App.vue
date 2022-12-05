@@ -14,7 +14,6 @@ import ModalUnderlay from '@/components/modals/ModalUnderlay.vue'
 
 const mainStore = useMainStore()
 const showSidebar = computed(() => mainStore.showSidebar)
-
 </script>
 
 <style></style>

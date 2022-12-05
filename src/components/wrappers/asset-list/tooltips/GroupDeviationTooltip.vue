@@ -4,7 +4,9 @@
     :class="{ active: deviation !== 0 }"
   >
     <div class="tooltip" v-show="hover && deviation !== 0">
-      <div class="text">{{ deviationPrefix }} {{ deviation }} {{ deviationText }}</div>
+      <div class="text">
+        {{ deviationPrefix }} {{ deviation }} {{ deviationText }}
+      </div>
       <div class="corner"></div>
     </div>
   </div>
@@ -39,7 +41,6 @@ const deviationText: ComputedRef<string> = computed((): string => {
 const deviationPrefix: ComputedRef<string> = computed(() => {
   return t('assetList.listEntries.publicHolding.tooltips.deviation.prefix')
 })
-
 </script>
 
 <style lang="scss" scoped>

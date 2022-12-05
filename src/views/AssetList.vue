@@ -16,7 +16,6 @@
         v-for="[uuid, entry] in assetList"
         :key="uuid"
       >
-
         <PublicHolding
           :uuid="uuid"
           v-if="entry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
@@ -30,20 +29,20 @@
         />
 
         <HoldingGroup
-            :uuid="uuid"
-            v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
-            :nested-holding-count="getNestedHoldingCount(uuid)"
+          :uuid="uuid"
+          v-if="entry.entryType === EntryTypeEnum.HOLDING_GROUP"
+          :nested-holding-count="getNestedHoldingCount(uuid)"
         >
           <template #holdings>
             <div
-                v-for="groupEntry in entry.groupEntries"
-                :key="groupEntry.uuid"
+              v-for="groupEntry in entry.groupEntries"
+              :key="groupEntry.uuid"
             >
               <PublicHolding
-                  :group-uuid="uuid"
-                  :uuid="groupEntry.uuid"
-                  v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
-                  @click="
+                :group-uuid="uuid"
+                :uuid="groupEntry.uuid"
+                v-if="groupEntry.entryType === EntryTypeEnum.PUBLIC_HOLDING"
+                @click="
                   executeAction(
                     true,
                     groupEntry.uuid,
@@ -53,10 +52,10 @@
                 "
               />
               <PrivateHolding
-                  :group-uuid="uuid"
-                  :uuid="groupEntry.uuid"
-                  v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
-                  @click="
+                :group-uuid="uuid"
+                :uuid="groupEntry.uuid"
+                v-if="groupEntry.entryType === EntryTypeEnum.PRIVATE_HOLDING"
+                @click="
                   executeAction(
                     true,
                     groupEntry.uuid,
