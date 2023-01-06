@@ -6,8 +6,8 @@ services:
     build:
       dockerfile: Dockerfile
     networks:
-      - th_net
+      - jitcom_net
 
 networks:
-  th_net:
+  jitcom_net:
     external: true

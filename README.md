@@ -60,3 +60,14 @@ npm run lint
 
 
 :white_check_mark:
+
+
+
+## Manual deployment
+
+```
+docker compose -f docker-compose_prod.yaml build
+docker compose -f docker-compose_prod.yaml -p webservicesjitcom up -d
+```
+
+
