@@ -12,7 +12,7 @@ server:
 steps:
   - name: deploy
     environment:
-      COMPOSE_PROJECT_NAME: webservices
+      COMPOSE_PROJECT_NAME: webservicesjitcom
     commands:
       - docker compose -f docker-compose_prod.yaml build
       - docker compose -f docker-compose_prod.yaml up -d
