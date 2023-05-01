@@ -66,7 +66,7 @@
           <span>{{ $t('authorization.texts.or') }}</span>
           <span></span>
         </div>
-        <button class="third-party-button">
+        <button class="third-party-button" v-if="false">
           <IconGoogle />
           <span>{{ $t('authorization.buttons.signInWithGoogle') }}</span>
         </button>
